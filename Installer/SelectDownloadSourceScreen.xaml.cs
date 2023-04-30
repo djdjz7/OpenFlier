@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OpenFlier.Views
+namespace Installer
 {
     /// <summary>
-    /// StatusView.xaml 的交互逻辑
+    /// SelectDownloadSourceScreen.xaml 的交互逻辑
     /// </summary>
-    public partial class StatusView : Page
+    public partial class SelectDownloadSourceScreen : Page
     {
-        public StatusView()
+        public SelectDownloadSourceScreen()
         {
             InitializeComponent();
         }

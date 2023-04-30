@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OpenFlier"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="450" Width="800" TextElement.FontSize="14">
+    <StackPanel>
+        <Button Margin="20" Content="嘿嘿" Style="{StaticResource AccentButton}" IsEnabled="False"/>
+
+        <ToggleButton Margin="20" Content="嘿嘿" Style="{StaticResource StandardToggleButton}" IsChecked="True"/>
+        <TextBox Margin="50" ToolTip="nihao" AcceptsReturn="True"/>
+        <DatePicker/>
+        <StackPanel.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="sf"/>
+                <MenuItem Header="sf"/>
+                <MenuItem Header="sf"/>
+                <MenuItem Header="sfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfkkshdf" InputGestureText="asd">
+                    <MenuItem Header="123"/>
+                    <MenuItem Header="345"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="你好"/>
+            </ContextMenu>
+        </StackPanel.ContextMenu>
+    </StackPanel>
 </Window>

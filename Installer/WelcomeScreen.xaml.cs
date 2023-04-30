@@ -13,16 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OpenFlier.Views
+namespace Installer
 {
     /// <summary>
-    /// ConfigurationView.xaml 的交互逻辑
+    /// WelcomeScreen.xaml 的交互逻辑
     /// </summary>
-    public partial class ConfigurationView : Page
+    public partial class WelcomeScreen : Page
     {
-        public ConfigurationView()
+        public WelcomeScreen()
         {
             InitializeComponent();
+        }
+
+        private void ContinueButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new SelectDownloadSourceScreen());
         }
     }
 }
