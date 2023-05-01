@@ -10,6 +10,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Name="IPAddress"/>
             <TextBlock Name="ConnectCode"/>
+            <TextBlock Name="MachineIdentifier"/>
         </StackPanel>
     </Grid>
 </Window>

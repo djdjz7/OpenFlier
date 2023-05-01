@@ -14,5 +14,6 @@ namespace OpenFlier
         public static string MachineIdentifier = "";
         public static string MacAddress = "";
         public static string IPAddress = "";
+        public static string ConnectCode = "";
     }
 }

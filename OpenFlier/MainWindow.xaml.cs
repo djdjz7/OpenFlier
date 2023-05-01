@@ -28,8 +28,10 @@ namespace OpenFlier
             }
             VerificationService.InitializeVerificationService();
             HardwareService.InitializeHardwareService();
+            UdpService.InitializeUdpService();
             IPAddress.Text = LocalStorage.IPAddress;
-            
+            ConnectCode.Text = LocalStorage.ConnectCode;
+            MachineIdentifier.Text = LocalStorage.MachineIdentifier;
 
         }
 

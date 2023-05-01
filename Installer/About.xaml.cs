@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static OpenFlier.Controls.PInvoke.Methods;
 using static OpenFlier.Controls.PInvoke.ParameterTypes;
@@ -19,15 +18,14 @@ using static OpenFlier.Controls.PInvoke.ParameterTypes;
 namespace Installer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// About.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class About : Window
     {
-        public MainWindow()
+        public About()
         {
             InitializeComponent();
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             RefreshFrame();
@@ -62,9 +60,14 @@ namespace Installer
                 0);
         }
 
-        private void OpenAboutButton_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            new About().ShowDialog();
+            DragMove();
+        }
+
+        private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

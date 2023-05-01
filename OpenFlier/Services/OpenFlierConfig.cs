@@ -55,9 +55,10 @@ namespace OpenFlier.Services
     {
         public string? DefaultUpdateCheckURL { get; set; }
         public string? UDPBroadcastFormat { get; set; }
-        public string? UDPBroadcastPort { get; set; }
+        public int? UDPBroadcastPort { get; set; }
         public string? MqttServicePort { get; set; }
         public string? SpecifiedMachineIdentifier { get; set; }
+        public string? SpecifiedConnectCode { get; set; }
     }
 
 

@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="installericon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OpenFlier.Controls\OpenFlier.Controls.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="installericon.png" />
   </ItemGroup>
 
   <ItemGroup>

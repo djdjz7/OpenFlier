@@ -14,7 +14,7 @@
     mc:Ignorable="d" Loaded="Window_Loaded">
     <Window.ContextMenu>
         <ContextMenu>
-            <MenuItem Header="About">
+            <MenuItem Header="About" Name="OpenAboutButton" Click="OpenAboutButton_Click">
                 <MenuItem.Icon>
                     <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe946;" />
                 </MenuItem.Icon>
@@ -23,11 +23,14 @@
         </ContextMenu>
 
     </Window.ContextMenu>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Image Source="installericon.png" HorizontalAlignment="Center"/>
+
         <Grid
             Grid.Column="2"
             HorizontalAlignment="Stretch"
