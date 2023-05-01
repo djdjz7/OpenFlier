@@ -21,14 +21,15 @@ namespace OpenFlier
         {
             OpenFlierConfig.OutputDefaultConfig();
             OpenFlierConfig.ReadConfig();
-            VerificationService.InitializeVerificationService();
-            HardwareService.InitializeHardwareService();
-            IPAddress.Text = LocalStorage.IPAddress;
             if (LocalStorage.Config.Appearances.EnableWindowEffects ?? true)
             {
                 RefreshFrame();
                 RefreshDarkMode();
             }
+            VerificationService.InitializeVerificationService();
+            HardwareService.InitializeHardwareService();
+            IPAddress.Text = LocalStorage.IPAddress;
+            
 
         }
 
@@ -58,6 +59,11 @@ namespace OpenFlier
                 new WindowInteropHelper(this).Handle,
                 DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE,
                 0);
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

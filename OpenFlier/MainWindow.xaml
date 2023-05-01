@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OpenFlier"
         mc:Ignorable="d" Loaded="Window_Loaded" Background="Transparent" WindowStyle="None"
-        Title="MainWindow" Height="450" Width="800" TextElement.FontSize="14">
+        Title="MainWindow" Height="450" Width="800" TextElement.FontSize="14" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Name="IPAddress"/>
