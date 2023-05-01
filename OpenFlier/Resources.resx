@@ -117,52 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FontTestAbnormalButton" xml:space="preserve">
-    <value>Improperly Displayed</value>
+  <data name="ContinueText" xml:space="preserve">
+    <value>Continue</value>
   </data>
-  <data name="FontTestDismiss" xml:space="preserve">
-    <value>Dismiss</value>
+  <data name="SelectNetworkInterfaceDescription" xml:space="preserve">
+    <value>This device is connected to multiple networks, thus it has multiple IP Addresses.
+OpenFlier only works with one given address, select one from below:</value>
   </data>
-  <data name="FontTestScreenDescription" xml:space="preserve">
-    <value>OpenFlier takes adavantage of Microsoft's Segoe Fluent Icons to deliver a more consistent look with Windows.
-However, Segoe Fluent Icons is shipped by default only on Windows 11, and according to its EULA, we cannot ship the font together with this application.
-We have detected that Segoe Fluent Icons is not installed on this computer, but this could also be a false alarm, thus, we provided this test.
-The following icon is provided by Segoe Fluent Icons, which describes establishing a connection between a mobile phone and a computer.
-If the icon is not properly displayed, please press following button, it should take you to the download site of Microsoft. Download the font and continue. Otherwise, if the icon is properly displayed, press "Dismiss" to continue the setup.
-Part of the icons in the installer are also provided by Segoe Fluent Icons, so you may see icons improperly displayed int the installer. However, you should be able to complete the install process just fine without the font.</value>
-  </data>
-  <data name="FontTestScreenTitle" xml:space="preserve">
-    <value>Test Your Font Installation</value>
-  </data>
-  <data name="InstallerName" xml:space="preserve">
-    <value>Installer</value>
-  </data>
-  <data name="InstallerWelcomeScreenDescription" xml:space="preserve">
-    <value>The installer will guide you through the installation process of OpenFlier.
-Before we get started, select your installation mode:</value>
-  </data>
-  <data name="InstallerWelcomeScreenTitle" xml:space="preserve">
-    <value>OpenFlier Installer</value>
-  </data>
-  <data name="OfflineInstallDiscription" xml:space="preserve">
-    <value>If you have downloaded an offline package, or you would like to downgrade to a lower version, use this option.
-Please note: The installer will not verify your package.</value>
-  </data>
-  <data name="OfflineInstallString" xml:space="preserve">
-    <value>Install Offline</value>
-  </data>
-  <data name="OnlineInstallDiscription" xml:space="preserve">
-    <value>Download the lastest package and install.
-The installer will verify the downloaded package.</value>
-  </data>
-  <data name="OnlineInstallString" xml:space="preserve">
-    <value>Download &amp; Install</value>
-  </data>
-  <data name="SelectDownloadSourceScreenDescription" xml:space="preserve">
-    <value>OpenFlier has multiple sources to download the package.
-Select one or use your own:</value>
-  </data>
-  <data name="SelectDownloadSourceScreenTitle" xml:space="preserve">
-    <value>Select Download Source</value>
+  <data name="SelectNetworkInterfaceTitle" xml:space="preserve">
+    <value>Select An IP Address</value>
   </data>
 </root>

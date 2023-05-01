@@ -1,29 +1,41 @@
-﻿using System;
+﻿using OpenFlier.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using OpenFlier.Services;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using static OpenFlier.Controls.PInvoke.Methods;
 using static OpenFlier.Controls.PInvoke.ParameterTypes;
 
 namespace OpenFlier
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// SelectNetworkInterface.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SelectNetworkInterface : Window
     {
-        public MainWindow()
+        List<IPAddress> IPAddressList;
+        public SelectNetworkInterface(List<IPAddress> ipAddressList)
         {
             InitializeComponent();
+            IPAddressList = ipAddressList;
+            IPListBox.ItemsSource = IPAddressList;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             OpenFlierConfig.OutputDefaultConfig();
             OpenFlierConfig.ReadConfig();
             VerificationService.InitializeVerificationService();
-            HardwareService.InitializeHardwareService();
-            IPAddress.Text = LocalStorage.IPAddress;
             if (LocalStorage.Config.Appearances.EnableWindowEffects ?? true)
             {
                 RefreshFrame();
@@ -31,7 +43,6 @@ namespace OpenFlier
             }
 
         }
-
         private void RefreshFrame()
         {
             IntPtr mainWindowPtr = new WindowInteropHelper(this).Handle;
@@ -51,13 +62,23 @@ namespace OpenFlier
                 DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE,
                 2);
         }
-
         private void RefreshDarkMode()
         {
             SetWindowAttribute(
                 new WindowInteropHelper(this).Handle,
                 DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE,
                 0);
+        }
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+        public event EventHandler? InterfaceSelected;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InterfaceSelected?.Invoke(this, e);
+            this.Close();
         }
     }
 }

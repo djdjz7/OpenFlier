@@ -38,8 +38,8 @@
                     <DropShadowEffect BlurRadius="64" ShadowDepth="32" Direction="270" Opacity="0.19"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Frame Padding="12" NavigationUIVisibility="Hidden"
-                Source="WelcomeScreen.xaml"/>
+            <Frame Padding="12"
+                Source="FontTestScreen.xaml"/>
             
             
         </Grid>

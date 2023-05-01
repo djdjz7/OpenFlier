@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Styles/ToggleButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/TextBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ContextMenu.xaml" />
-
+                <ResourceDictionary Source="pack://application:,,,/Styles/ListBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ToolTip.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

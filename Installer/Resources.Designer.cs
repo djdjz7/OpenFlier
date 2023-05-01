@@ -61,6 +61,45 @@ namespace Installer {
         }
         
         /// <summary>
+        ///   查找类似 Improperly Displayed 的本地化字符串。
+        /// </summary>
+        public static string FontTestAbnormalButton {
+            get {
+                return ResourceManager.GetString("FontTestAbnormalButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Dismiss 的本地化字符串。
+        /// </summary>
+        public static string FontTestDismiss {
+            get {
+                return ResourceManager.GetString("FontTestDismiss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OpenFlier takes adavantage of Microsoft&apos;s Segoe Fluent Icons to deliver a more consistent look with Windows.
+        ///However, Segoe Fluent Icons is shipped by default only on Windows 11, and according to its EULA, we cannot ship the font together with this application.
+        ///We have detected that Segoe Fluent Icons is not installed on this computer, but this could also be a false alarm, thus, we provided this test.
+        ///The following icon is provided by Segoe Fluent Icons, which describes establishing a connection between  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string FontTestScreenDescription {
+            get {
+                return ResourceManager.GetString("FontTestScreenDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Test Your Font Installation 的本地化字符串。
+        /// </summary>
+        public static string FontTestScreenTitle {
+            get {
+                return ResourceManager.GetString("FontTestScreenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Installer 的本地化字符串。
         /// </summary>
         public static string InstallerName {

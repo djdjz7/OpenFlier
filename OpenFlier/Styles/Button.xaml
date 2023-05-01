@@ -156,4 +156,72 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
     </Style>
 
+    <Style x:Key="SubtleButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid MinHeight="30">
+                        <Grid Name="BackgroundGrid">
+                            <Rectangle
+                                Name="BackgroundRect"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Fill="Black"
+                                Opacity="0" />
+                            <ContentPresenter
+                                Name="ContentPresenter"
+                                Margin="5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                            <Grid.Clip>
+                                <RectangleGeometry RadiusX="3.5" RadiusY="3.5">
+                                    <RectangleGeometry.Rect>
+                                        <MultiBinding Converter="{StaticResource WidthAndHeightToRectConverter}">
+                                            <Binding ElementName="BackgroundGrid" Path="ActualWidth" />
+                                            <Binding ElementName="BackgroundGrid" Path="ActualHeight" />
+                                        </MultiBinding>
+                                    </RectangleGeometry.Rect>
+                                </RectangleGeometry>
+                            </Grid.Clip>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="BackgroundRect"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="0.0373"
+                                            Duration="0:0:0.083" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="BackgroundRect"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="0"
+                                            Duration="0:0:0.083" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsMouseCaptured" Value="True">
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.6220089730807577" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.3425556663343303" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
+    </Style>
+
 </ResourceDictionary>

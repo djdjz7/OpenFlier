@@ -34,6 +34,7 @@
                 <RadioButton Margin="0,4,0,0">
                     <TextBlock Margin="4" Text="123" />
                 </RadioButton>
+                <TextBox Height="30"/>
             </StackPanel>
         </StackPanel>
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom">

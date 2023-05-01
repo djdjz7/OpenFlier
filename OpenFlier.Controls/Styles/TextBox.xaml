@@ -3,6 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:anim="clr-namespace:OpenFlier.Animation"
     xmlns:local="clr-namespace:OpenFlier.Controls">
+    <local:WidthAndHeightToRect x:Key="WidthAndHeightToRectConverter"/>
+    <local:TagAndWidthToActualWidthConverter x:Key="TagAndWidthToActualWidthConverter"/>
     <ContextMenu x:Key="TextBoxContextMenu">
         <MenuItem Command="ApplicationCommands.Copy" InputGestureText="Ctrl+C">
             <MenuItem.Icon>

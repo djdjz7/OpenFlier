@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,18 +17,23 @@ using System.Windows.Shapes;
 namespace Installer
 {
     /// <summary>
-    /// WelcomeScreen.xaml 的交互逻辑
+    /// FontTest.xaml 的交互逻辑
     /// </summary>
-    public partial class WelcomeScreen : Page
+    public partial class FontTestScreen : Page
     {
-        public WelcomeScreen()
+        public FontTestScreen()
         {
             InitializeComponent();
         }
 
-        private void ContinueButton_Click(object sender, RoutedEventArgs e)
+        private void AbnormalButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("SelectDownloadSourceScreen.xaml",UriKind.Relative));
+            Process.Start("explorer.exe", "https://aka.ms/SegoeFluentIcons");
+        }
+
+        private void DismissButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("WelcomeScreen.xaml", UriKind.Relative));
         }
     }
 }
