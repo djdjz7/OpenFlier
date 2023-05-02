@@ -21,10 +21,9 @@
                             VerticalAlignment="Center"
                             Name="SelectionIndicator"
                             Height="0"
-                            Width="3"
-                            RadiusX="1.5"
-                            RadiusY="1.5"
-                            Margin="-1 0 0 0"
+                            Width="4"
+                            RadiusX="2"
+                            RadiusY="2"
                             Fill="{StaticResource PrimaryBrush}"/>
                         <ContentPresenter VerticalAlignment="Center" Margin="12 0 0 0"/>
                     </Grid>

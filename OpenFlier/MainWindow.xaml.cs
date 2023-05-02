@@ -1,9 +1,10 @@
-﻿using System;
+﻿using OpenFlier.Services;
+using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using OpenFlier.Services;
 using static OpenFlier.Controls.PInvoke.Methods;
 using static OpenFlier.Controls.PInvoke.ParameterTypes;
 
@@ -27,15 +28,21 @@ namespace OpenFlier
                 RefreshFrame();
                 RefreshDarkMode();
             }
-            VerificationService.Initialize();
-            HardwareService.Initialize();
-            UdpService.Initialize();
-            FtpService.Initialize();
-            MqttService.Initialize();
-            IPAddress.Text = LocalStorage.IPAddress;
-            ConnectCode.Text = LocalStorage.ConnectCode;
-            MachineIdentifier.Text = LocalStorage.MachineIdentifier;
+            var serviceManager = new ServiceManager();
+            serviceManager.LoadCompleted += ServiceManager_LoadCompleted;
+            serviceManager.BeginLoad();
+        }
 
+        private void ServiceManager_LoadCompleted(object? sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                IPAddress.Text = LocalStorage.IPAddress;
+                ConnectCode.Text = LocalStorage.ConnectCode;
+                MachineIdentifier.Text = LocalStorage.MachineIdentifier;
+                LoadingScreen.Visibility = Visibility.Hidden;
+            });
+           
         }
 
         private void RefreshFrame()
@@ -76,6 +83,29 @@ namespace OpenFlier
             UdpService.StopUdpBroadcast();
             FtpService.StopFtpServer();
             base.OnClosing(e);
+        }
+
+        public class ServiceManager
+        {
+            public event EventHandler? LoadCompleted;
+            private Thread LoadServiceThread { get; set; }
+            public ServiceManager()
+            {
+                LoadServiceThread = new Thread(() =>
+                {
+                    VerificationService.Initialize();
+                    HardwareService.Initialize();
+                    UdpService.Initialize();
+                    FtpService.Initialize();
+                    MqttService.Initialize();
+                    LoadCompleted?.Invoke(this, EventArgs.Empty);
+                });
+                LoadServiceThread.TrySetApartmentState(ApartmentState.STA);
+            }
+            public void BeginLoad()
+            {
+                LoadServiceThread?.Start();
+            }
         }
     }
 }

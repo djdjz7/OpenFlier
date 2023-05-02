@@ -70,6 +70,15 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 Loading Services... 的本地化字符串。
+        /// </summary>
+        public static string LoadingServiceString {
+            get {
+                return ResourceManager.GetString("LoadingServiceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 This device is connected to multiple networks, thus it has multiple IP Addresses.
         ///OpenFlier only works with one given address, select one from below: 的本地化字符串。
         /// </summary>

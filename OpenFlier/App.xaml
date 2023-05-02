@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Styles/ContextMenu.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ListBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ToolTip.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/ProgressBar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

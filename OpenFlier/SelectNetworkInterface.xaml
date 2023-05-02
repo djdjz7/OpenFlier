@@ -11,6 +11,7 @@
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     SizeToContent="WidthAndHeight"
     TextElement.FontSize="14"
+    TextElement.FontFamily="Segoe UI Variable Display"
     Topmost="True"
     WindowStyle="None"
     mc:Ignorable="d">

@@ -120,6 +120,9 @@
   <data name="ContinueText" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="LoadingServiceString" xml:space="preserve">
+    <value>Loading Services...</value>
+  </data>
   <data name="SelectNetworkInterfaceDescription" xml:space="preserve">
     <value>This device is connected to multiple networks, thus it has multiple IP Addresses.
 OpenFlier only works with one given address, select one from below:</value>
