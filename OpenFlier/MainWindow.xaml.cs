@@ -31,6 +31,7 @@ namespace OpenFlier
             HardwareService.Initialize();
             UdpService.Initialize();
             FtpService.Initialize();
+            MqttService.Initialize();
             IPAddress.Text = LocalStorage.IPAddress;
             ConnectCode.Text = LocalStorage.ConnectCode;
             MachineIdentifier.Text = LocalStorage.MachineIdentifier;
