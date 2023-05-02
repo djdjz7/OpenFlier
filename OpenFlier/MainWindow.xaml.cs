@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -26,9 +27,10 @@ namespace OpenFlier
                 RefreshFrame();
                 RefreshDarkMode();
             }
-            VerificationService.InitializeVerificationService();
-            HardwareService.InitializeHardwareService();
-            UdpService.InitializeUdpService();
+            VerificationService.Initialize();
+            HardwareService.Initialize();
+            UdpService.Initialize();
+            FtpService.Initialize();
             IPAddress.Text = LocalStorage.IPAddress;
             ConnectCode.Text = LocalStorage.ConnectCode;
             MachineIdentifier.Text = LocalStorage.MachineIdentifier;
@@ -66,6 +68,13 @@ namespace OpenFlier
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            UdpService.StopUdpBroadcast();
+            FtpService.StopFtpServer();
+            base.OnClosing(e);
         }
     }
 }

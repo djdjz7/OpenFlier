@@ -7,13 +7,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using log4net;
 
 namespace OpenFlier.Services
 {
     public static class UdpService
     {
         private static bool flag = true;
-        public static void InitializeUdpService()
+        public static void Initialize()
         {
             UpdateConnectCode();
             StartUdpBroadcast();
@@ -37,12 +38,15 @@ namespace OpenFlier.Services
             socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
             string udpContent = LocalStorage.IPAddress + "::" + LocalStorage.ConnectCode;
             byte[] udpContentBytes = Encoding.UTF8.GetBytes(udpContent);
+            ILog logger = LogManager.GetLogger(typeof(UdpService));
+            logger.Info($"Begin UDP broadcast with content {udpContent}");
             while (flag)
             {
                 socket.SendTo(udpContentBytes, remoteEP);
                 Thread.Sleep(800);
             }
             socket.Close();
+            logger.Info("UDP broadcast ended.");
         }
         public static void UpdateConnectCode()
         {

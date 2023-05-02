@@ -1,4 +1,6 @@
-﻿using System;
+﻿using log4net;
+using log4net.Core;
+using System;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -9,7 +11,7 @@ namespace OpenFlier.Services
 {
     public static class VerificationService
     {
-        public static void InitializeVerificationService()
+        public static void Initialize()
         {
             string specifiedMI = LocalStorage.Config.General.SpecifiedMachineIdentifier ?? "";
             string localMIFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "29fe3a4f-c75a-560f-5459-2ad69c9187d0");
@@ -29,6 +31,7 @@ namespace OpenFlier.Services
                 File.Delete(localMIFilePath);
             }
             LocalStorage.MachineIdentifier = CreateMachineIdentifier(localMIFilePath);
+            LogManager.GetLogger(typeof(VerificationService)).Info($"Successfully initialized verification service with machine identifier {LocalStorage.MachineIdentifier}");
         }
         public static string CreateMachineIdentifier(string localMIPath)
         {

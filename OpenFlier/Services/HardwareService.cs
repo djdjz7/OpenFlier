@@ -6,12 +6,13 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using log4net;
 
 namespace OpenFlier.Services
 {
     public static class HardwareService
     {
-        public static void InitializeHardwareService()
+        public static void Initialize()
         {
             GetIPAddress();
         }
@@ -23,6 +24,7 @@ namespace OpenFlier.Services
             if(ipAddressList.Count == 1)
             {
                 LocalStorage.IPAddress = ipAddressList[0].ToString();
+                LogManager.GetLogger(typeof(HardwareService)).Info($"IP address specified: {LocalStorage.IPAddress}");
                 return;
             }
             if(ipAddressList.Count>1)
@@ -39,6 +41,7 @@ namespace OpenFlier.Services
             {
                 SelectNetworkInterface window = (SelectNetworkInterface)sender;
                 LocalStorage.IPAddress = window.IPListBox.SelectedItem.ToString() ?? "";
+                LogManager.GetLogger(typeof(HardwareService)).Info($"IP address specified: {LocalStorage.IPAddress}");
             }
         }
     }
