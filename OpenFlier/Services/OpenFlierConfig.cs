@@ -1,5 +1,6 @@
 ﻿using log4net;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Web;
@@ -8,7 +9,6 @@ namespace OpenFlier.Services
 {
     public class OpenFlierConfig
     {
-        public static Config LocalConfig { get; set; } = new Config();
         public static void ReadConfig()
         {
             string localJsonContent = "";
@@ -18,7 +18,7 @@ namespace OpenFlier.Services
             {
                 try
                 {
-                    LocalConfig = JsonSerializer.Deserialize<Config>(localJsonContent) ?? new Config();
+                    LocalStorage.Config = JsonSerializer.Deserialize<Config>(localJsonContent) ?? new Config();
 
                 }
                 catch (Exception e)
@@ -29,7 +29,13 @@ namespace OpenFlier.Services
         }
         public static void OutputDefaultConfig()
         {
-            File.WriteAllText("defconfig.json", JsonSerializer.Serialize(new Config()));
+            var config = new Config();
+            config.MqttServicePlugins.Add(new MqttServicePlugin()
+            {
+                MqttMessageType = 30000L,
+                PluginFilePath = "Plugins/DemoPlugin.dll",
+            });
+            File.WriteAllText("defconfig.json", JsonSerializer.Serialize(config));
         }
     }
     public class Config
@@ -37,8 +43,8 @@ namespace OpenFlier.Services
         public Appearances Appearances { get; set; } = new Appearances();
         public General General { get; set; } = new General();
         public SpecialChannels SpecialChannels { get; set; } = new SpecialChannels();
-        public MqttServicePlugin[] MqttServicePlugins { get; set; } = Array.Empty<MqttServicePlugin>();
-        public CommandInputPlugin[] CommandInputPlugins { get; set; } = Array.Empty<CommandInputPlugin>();
+        public List<MqttServicePlugin> MqttServicePlugins { get; set; } = new();
+        public List<CommandInputPlugin> CommandInputPlugins { get; set; } = new();
     }
     public class Appearances
     {

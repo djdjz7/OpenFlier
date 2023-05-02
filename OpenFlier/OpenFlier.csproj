@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenFlier.Controls\OpenFlier.Controls.csproj" />
+    <ProjectReference Include="..\OpenFlier.Plugin\OpenFlier.Plugin.csproj" />
   </ItemGroup>
 
   <ItemGroup>

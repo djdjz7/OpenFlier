@@ -1,14 +1,19 @@
 ﻿using log4net;
 using MQTTnet;
 using MQTTnet.Server;
+using Newtonsoft.Json;
+using OpenFlier.Plugin;
 using OpenFlier.SpecialChannels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace OpenFlier.Services
 {
@@ -43,7 +48,7 @@ namespace OpenFlier.Services
 
         private static Task OnClientConnectedAsync(MqttServerClientConnectedEventArgs arg)
         {
-            return Task.Run(()=>
+            return Task.Run(() =>
             {
                 //A typical clientId: sxz_00000_XXX_1_XXXXXXXXXXXXXXXXXXXXXXXX
                 string userName = arg.ClientId.Split('_')[2];
@@ -65,9 +70,58 @@ namespace OpenFlier.Services
 
         private static Task OnAppMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
-                MessageBox.Show(arg.ApplicationMessage.Topic);
+                string clientID = arg.ClientId;
+                byte[] payload = arg.ApplicationMessage.Payload;
+                if (payload.Length == 0)
+                    return;
+                MqttMessage<object>? message = JsonConvert.DeserializeObject<MqttMessage<object>>(Encoding.Default.GetString(payload));
+                if (message == null)
+                    return;
+                long messageType = message.Type;
+                switch (messageType)
+                {
+                    case (long)MqttMessageType.ScreenCaptureReq:
+                        break;
+                    case (long)MqttMessageType.DeviceVerificationReq:
+                        break;
+                    default:
+                        foreach (var pluginInfo in LocalStorage.Config.MqttServicePlugins)
+                        {
+                            if (pluginInfo.MqttMessageType != messageType)
+                                continue;
+                            if (!File.Exists(pluginInfo.PluginFilePath))
+                            {
+                                MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed: File not found.");
+                                continue;
+                            }
+                            try
+                            {
+                                Assembly assembly = Assembly.LoadFile(pluginInfo.PluginFilePath);
+                                Type[] types = assembly.GetTypes();
+                                foreach (Type type in types)
+                                {
+                                    Type? pluginMainClass = type.GetInterface("IMqttServicePlugin");
+                                    if (pluginMainClass == null)
+                                    {
+                                        MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed: No interface implementation.");
+                                        continue;
+                                    }
+                                    IMqttServicePlugin plugin = (IMqttServicePlugin)assembly.CreateInstance(pluginMainClass.FullName ?? "");
+                                    MqttApplicationMessage mqttMessage = plugin?.PluginMain() ?? new MqttApplicationMessage();
+                                    await MqttServer.PublishAsync(mqttMessage);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                MqttLogger.Error($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed.", e);
+                                throw;
+                            }
+
+                        }
+                        break;
+                }
             });
         }
         private class UserEqualityComparer : IEqualityComparer<User>
