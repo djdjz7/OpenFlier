@@ -21,9 +21,9 @@ namespace OpenFlier.Services
                         new ClaimsPrincipal(new ClaimsIdentity(
                             new Claim[3]
                             {
-                                new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", username),
-                                new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", username),
-                                new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "user")
+                                new Claim(ClaimTypes.Name, username),
+                                new Claim(ClaimTypes.Role, username),
+                                new Claim(ClaimTypes.Role, "user")
                             }, "custom"
                             ))));
             }
