@@ -137,10 +137,7 @@ namespace OpenFlier.Services
                                 foreach (Type type in types)
                                 {
                                     if (type.GetInterface("IMqttServicePlugin") == null)
-                                    {
-                                        MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed: No interface implementation.");
                                         continue;
-                                    }
                                     if (type.FullName == null)
                                         continue;
                                     IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
