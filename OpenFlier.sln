@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenFlier.Controls", "OpenF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DefaultPlugins", "DefaultPlugins", "{59621935-9F0D-4BFB-BC92-3BFF225C43F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPlugin", "DemoPlugin\DemoPlugin.csproj", "{1C800B68-E054-4264-8C4E-B6791C6C2287}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPlugin", "DemoPlugin\DemoPlugin.csproj", "{1C800B68-E054-4264-8C4E-B6791C6C2287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenFlier.Plugin", "OpenFlier.Plugin\OpenFlier.Plugin.csproj", "{70718383-82C4-4E1B-8522-D543D4BA9453}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenFlier.Plugin", "OpenFlier.Plugin\OpenFlier.Plugin.csproj", "{70718383-82C4-4E1B-8522-D543D4BA9453}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerificationPlugin", "VerificationPlugin\VerificationPlugin.csproj", "{A0754720-8B29-4523-A582-793229A65193}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +43,17 @@ Global
 		{70718383-82C4-4E1B-8522-D543D4BA9453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70718383-82C4-4E1B-8522-D543D4BA9453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70718383-82C4-4E1B-8522-D543D4BA9453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0754720-8B29-4523-A582-793229A65193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0754720-8B29-4523-A582-793229A65193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0754720-8B29-4523-A582-793229A65193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0754720-8B29-4523-A582-793229A65193}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1C800B68-E054-4264-8C4E-B6791C6C2287} = {59621935-9F0D-4BFB-BC92-3BFF225C43F2}
+		{A0754720-8B29-4523-A582-793229A65193} = {59621935-9F0D-4BFB-BC92-3BFF225C43F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7B6471B-BD17-4920-A4EB-02E4D6DCFC79}

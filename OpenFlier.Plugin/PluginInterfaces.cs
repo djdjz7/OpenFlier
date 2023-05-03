@@ -15,7 +15,7 @@ namespace OpenFlier.Plugin
     public interface IMqttServicePlugin
     {
         public MqttServicePluginInfo GetMqttServicePluginInfo();
-        public MqttApplicationMessage PluginMain();
+        public MqttApplicationMessage PluginMain(string clientID);
         public void PluginOpenConfig();
     }
 }

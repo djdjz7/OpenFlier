@@ -22,7 +22,7 @@ namespace DemoPlugin
             };
         }
 
-        public MqttApplicationMessage PluginMain()
+        public MqttApplicationMessage PluginMain(string clientID)
         {
             MessageBox.Show("A message from DemoPlugin");
             string payloadString = "{\"data\":null,\"type\":30001}";

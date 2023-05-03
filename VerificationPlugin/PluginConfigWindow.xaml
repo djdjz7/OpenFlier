@@ -1,0 +1,39 @@
+﻿<Window
+    x:Class="VerificationPlugin.PluginConfigWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VerificationPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{x:Static local:Resources.Title}"
+    SizeToContent="WidthAndHeight"
+    TextElement.FontFamily="Segoe UI Variable Display"
+    TextElement.FontSize="14"
+    mc:Ignorable="d">
+    <StackPanel Margin="12">
+        <TextBlock
+            FontSize="24"
+            FontWeight="Bold"
+            Text="{x:Static local:Resources.Title}" />
+        <TextBlock Text="{x:Static local:Resources.Description}" />
+        <TextBox
+            x:Name="VerificationContentTextBox"
+            Margin="0,4,0,0"
+            Text="{}{&quot;type&quot;:20007,&quot;data&quot;:{&quot;topic&quot;:&quot;Ec1xkK+uFtV/QO/8rduJ2A==&quot;}}" />
+        <StackPanel
+            Margin="0,8,0,0"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                Name="ApplyButton"
+                Click="ApplyButton_Click"
+                Content="{x:Static local:Resources.ApplyButton}" />
+            <Button
+                Name="CancelButton"
+                Margin="8,0,0,0"
+                Click="CancelButton_Click"
+                Content="{x:Static local:Resources.CancelButton}" />
+        </StackPanel>
+
+    </StackPanel>
+</Window>

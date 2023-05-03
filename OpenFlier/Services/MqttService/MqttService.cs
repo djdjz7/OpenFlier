@@ -120,8 +120,6 @@ namespace OpenFlier.Services
                             QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
                         });
                         break;
-                    case MqttMessageType.DeviceVerificationReq:
-                        break;
                     default:
                         foreach (var pluginInfo in LocalStorage.Config.MqttServicePlugins)
                         {
@@ -148,7 +146,7 @@ namespace OpenFlier.Services
                                     IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
                                     if (mqttServicePlugin == null)
                                         continue;
-                                    MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain();
+                                    MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain(arg.ClientId);
                                     await MqttServer.PublishAsync(mqttMessage);
 
                                 }
