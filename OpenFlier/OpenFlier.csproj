@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="cef.redist.x64" Version="108.4.13" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="108.4.130" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
@@ -21,6 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\OpenFlier.Controls\OpenFlier.Controls.csproj" />
     <ProjectReference Include="..\OpenFlier.Plugin\OpenFlier.Plugin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\icon.png" />
   </ItemGroup>
 
   <ItemGroup>

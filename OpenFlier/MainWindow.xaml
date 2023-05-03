@@ -14,6 +14,7 @@
     TextElement.FontFamily="Segoe UI Variable Display"
     TextElement.FontSize="14"
     WindowStyle="None"
+    Icon="Assets/icon.png"
     mc:Ignorable="d">
     <Grid>
         <Grid>

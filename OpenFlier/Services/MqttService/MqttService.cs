@@ -98,25 +98,28 @@ namespace OpenFlier.Services
                             }
                             try
                             {
-                                Assembly assembly = Assembly.LoadFile(pluginInfo.PluginFilePath);
+                                Assembly assembly = Assembly.LoadFrom(pluginInfo.PluginFilePath);
                                 Type[] types = assembly.GetTypes();
                                 foreach (Type type in types)
                                 {
-                                    Type? pluginMainClass = type.GetInterface("IMqttServicePlugin");
-                                    if (pluginMainClass == null)
+                                    if (type.GetInterface("IMqttServicePlugin") == null)
                                     {
                                         MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed: No interface implementation.");
                                         continue;
                                     }
-                                    IMqttServicePlugin plugin = (IMqttServicePlugin)assembly.CreateInstance(pluginMainClass.FullName ?? "");
-                                    MqttApplicationMessage mqttMessage = plugin?.PluginMain() ?? new MqttApplicationMessage();
+                                    if (type.FullName == null)
+                                        continue;
+                                    IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
+                                    if (mqttServicePlugin == null)
+                                        continue;
+                                    MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain();
                                     await MqttServer.PublishAsync(mqttMessage);
+                                    
                                 }
                             }
                             catch (Exception e)
                             {
                                 MqttLogger.Error($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed.", e);
-                                throw;
                             }
 
                         }

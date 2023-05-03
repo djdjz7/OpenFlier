@@ -1,5 +1,7 @@
 ﻿using MQTTnet;
 using OpenFlier.Plugin;
+using System.IO;
+using System.Text;
 using System.Windows;
 
 namespace DemoPlugin
@@ -23,10 +25,13 @@ namespace DemoPlugin
         public MqttApplicationMessage PluginMain()
         {
             MessageBox.Show("A message from DemoPlugin");
-            MqttApplicationMessage mqttApplicationMessage = new MqttApplicationMessage();
-            mqttApplicationMessage.Topic = "test";
-            mqttApplicationMessage.Payload = Array.Empty<byte>();
-            mqttApplicationMessage.QualityOfServiceLevel = MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce;
+            string payloadString = "{\"data\":null,\"type\":30001}";
+            MqttApplicationMessage mqttApplicationMessage = new MqttApplicationMessage
+            {
+                Topic = "test",
+                Payload = Encoding.Default.GetBytes(payloadString),
+                QualityOfServiceLevel = MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce
+            };
             return mqttApplicationMessage;
         }
 
