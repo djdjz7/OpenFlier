@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Web;
+using System.Windows;
 
 namespace OpenFlier.Services
 {
@@ -26,6 +27,7 @@ namespace OpenFlier.Services
                     LogManager.GetLogger(typeof(OpenFlierConfig)).Error("Error while parsing config.", e);
                 }
             }
+            
         }
         public static void OutputDefaultConfig()
         {
@@ -63,6 +65,8 @@ namespace OpenFlier.Services
         public int? MqttServerPort { get; set; }
         public string? SpecifiedMachineIdentifier { get; set; }
         public string? SpecifiedConnectCode { get; set; }
+        public bool UsePng { get; set; } = false;
+        public string SpecifiedEmulatedVersion { get; set; } = "2.0.9";
     }
     public class MqttServicePlugin
     {

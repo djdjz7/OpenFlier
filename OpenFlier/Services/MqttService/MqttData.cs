@@ -28,7 +28,7 @@
 
     public class MqttMessage<T>
     {
-        public long Type { get; set; }
+        public MqttMessageType Type { get; set; }
         public T? Data { get; set; }
     }
 

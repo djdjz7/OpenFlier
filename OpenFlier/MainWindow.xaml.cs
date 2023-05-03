@@ -41,8 +41,13 @@ namespace OpenFlier
                 ConnectCode.Text = LocalStorage.ConnectCode;
                 MachineIdentifier.Text = LocalStorage.MachineIdentifier;
                 LoadingScreen.Visibility = Visibility.Hidden;
+                var presentationSource = PresentationSource.FromVisual(this);
+                double scale = 1.0;
+                if (presentationSource != null)
+                    scale = presentationSource.CompositionTarget.TransformToDevice.M11;
+                LocalStorage.ScreenSize.Width = (int)(SystemParameters.PrimaryScreenWidth * scale);
+                LocalStorage.ScreenSize.Height = (int)(SystemParameters.PrimaryScreenHeight * scale);
             });
-           
         }
 
         private void RefreshFrame()
@@ -98,6 +103,8 @@ namespace OpenFlier
                     UdpService.Initialize();
                     FtpService.Initialize();
                     MqttService.Initialize();
+
+                    
                     LoadCompleted?.Invoke(this, EventArgs.Empty);
                 });
                 LoadServiceThread.TrySetApartmentState(ApartmentState.STA);

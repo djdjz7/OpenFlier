@@ -1,5 +1,7 @@
-﻿using log4net;
+﻿using CefSharp.DevTools.CacheStorage;
+using log4net;
 using MQTTnet;
+using MQTTnet.Protocol;
 using MQTTnet.Server;
 using Newtonsoft.Json;
 using OpenFlier.Plugin;
@@ -7,13 +9,14 @@ using OpenFlier.SpecialChannels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OpenFlier.Services
 {
@@ -70,7 +73,7 @@ namespace OpenFlier.Services
 
         private static Task OnAppMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
         {
-            return Task.Run(async () =>
+            return Task.Factory.StartNew(async () =>
             {
                 string clientID = arg.ClientId;
                 byte[] payload = arg.ApplicationMessage.Payload;
@@ -79,17 +82,50 @@ namespace OpenFlier.Services
                 MqttMessage<object>? message = JsonConvert.DeserializeObject<MqttMessage<object>>(Encoding.Default.GetString(payload));
                 if (message == null)
                     return;
-                long messageType = message.Type;
+                MqttMessageType messageType = message.Type;
                 switch (messageType)
                 {
-                    case (long)MqttMessageType.ScreenCaptureReq:
+                    case MqttMessageType.ScreenCaptureReq:
+                        Rectangle rect = LocalStorage.ScreenSize;
+                        Bitmap src=new Bitmap(rect.Width, rect.Height);
+                        Graphics graphics=Graphics.FromImage(src);
+                        graphics.CopyFromScreen(0, 0, 0, 0, rect.Size);
+                        graphics.Save();
+                        graphics.Dispose();
+                        string filename=Guid.NewGuid().ToString("N");
+                        if(LocalStorage.Config.General.UsePng)
+                        {
+                            filename = $"{filename}.png";
+                            src.Save($"Screenshots\\{filename}", System.Drawing.Imaging.ImageFormat.Png);
+                        }
+                        else
+                        {
+                            filename = $"{filename}.jpeg";
+                            src.Save($"Screenshots\\{filename}", System.Drawing.Imaging.ImageFormat.Jpeg);
+                        }
+                        string payloadString = JsonConvert.SerializeObject(new
+                        {
+                            type = MqttMessageType.ScreenCaptureResp,
+                            data = new
+                            {
+                                name = filename,
+                                deviceCode = LocalStorage.MachineIdentifier,
+                                versionCode = LocalStorage.Version
+                            }
+                        });
+                        await MqttServer.PublishAsync(new MqttApplicationMessage
+                        {
+                            Topic = arg.ClientId + "/REQUEST_SCREEN_CAPTURE",
+                            Payload = Encoding.Default.GetBytes(payloadString),
+                            QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
+                        });
                         break;
-                    case (long)MqttMessageType.DeviceVerificationReq:
+                    case MqttMessageType.DeviceVerificationReq:
                         break;
                     default:
                         foreach (var pluginInfo in LocalStorage.Config.MqttServicePlugins)
                         {
-                            if (pluginInfo.MqttMessageType != messageType)
+                            if (pluginInfo.MqttMessageType != (long)messageType)
                                 continue;
                             if (!File.Exists(pluginInfo.PluginFilePath))
                             {
@@ -114,7 +150,7 @@ namespace OpenFlier.Services
                                         continue;
                                     MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain();
                                     await MqttServer.PublishAsync(mqttMessage);
-                                    
+
                                 }
                             }
                             catch (Exception e)
