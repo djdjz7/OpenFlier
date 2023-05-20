@@ -1,5 +1,4 @@
-﻿using CefSharp.DevTools.CacheStorage;
-using log4net;
+﻿using log4net;
 using MQTTnet;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
@@ -16,7 +15,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace OpenFlier.Services
 {
@@ -25,6 +23,8 @@ namespace OpenFlier.Services
         public static IMqttServer? MqttServer { get; set; }
         public static List<User> Users { get; set; } = new List<User>();
         public static ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(MqttService));
+
+        public static string MainTopic { get; } = Guid.NewGuid().ToString("N");
         public async static void Initialize()
         {
             MqttServerOptionsBuilder optionsBuilder = new MqttServerOptionsBuilder().WithConnectionBacklog(2000).WithDefaultEndpointPort(LocalStorage.Config.General.MqttServerPort ?? 61136);
@@ -83,17 +83,35 @@ namespace OpenFlier.Services
                 if (message == null)
                     return;
                 MqttMessageType messageType = message.Type;
+                MessageBox.Show(Encoding.Default.GetString(payload));
                 switch (messageType)
                 {
+                    case MqttMessageType.StudentTopic:
+                        string s3 = JsonConvert.SerializeObject(new
+                        {
+                            type = MqttMessageType.TeacherScreenCastResp,
+                            data = new
+                            {
+                                topic = MainTopic
+                            }
+                        });
+                        await MqttServer.PublishAsync(new MqttApplicationMessage
+                        {
+                            Topic = arg.ClientId,
+                            Payload = Encoding.Default.GetBytes(s3),
+                            QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
+                        });
+                        break;
+
                     case MqttMessageType.ScreenCaptureReq:
                         Rectangle rect = LocalStorage.ScreenSize;
-                        Bitmap src=new Bitmap(rect.Width, rect.Height);
-                        Graphics graphics=Graphics.FromImage(src);
+                        Bitmap src = new Bitmap(rect.Width, rect.Height);
+                        Graphics graphics = Graphics.FromImage(src);
                         graphics.CopyFromScreen(0, 0, 0, 0, rect.Size);
                         graphics.Save();
                         graphics.Dispose();
-                        string filename=Guid.NewGuid().ToString("N");
-                        if(LocalStorage.Config.General.UsePng)
+                        string filename = Guid.NewGuid().ToString("N");
+                        if (LocalStorage.Config.General.UsePng)
                         {
                             filename = $"{filename}.png";
                             src.Save($"Screenshots\\{filename}", System.Drawing.Imaging.ImageFormat.Png);
@@ -103,7 +121,7 @@ namespace OpenFlier.Services
                             filename = $"{filename}.jpeg";
                             src.Save($"Screenshots\\{filename}", System.Drawing.Imaging.ImageFormat.Jpeg);
                         }
-                        string payloadString = JsonConvert.SerializeObject(new
+                        string s5 = JsonConvert.SerializeObject(new
                         {
                             type = MqttMessageType.ScreenCaptureResp,
                             data = new
@@ -116,7 +134,7 @@ namespace OpenFlier.Services
                         await MqttServer.PublishAsync(new MqttApplicationMessage
                         {
                             Topic = arg.ClientId + "/REQUEST_SCREEN_CAPTURE",
-                            Payload = Encoding.Default.GetBytes(payloadString),
+                            Payload = Encoding.Default.GetBytes(s5),
                             QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
                         });
                         break;
@@ -132,7 +150,8 @@ namespace OpenFlier.Services
                             }
                             try
                             {
-                                Assembly assembly = Assembly.LoadFrom(pluginInfo.PluginFilePath);
+                                FileInfo assemblyFileInfo= new FileInfo(pluginInfo.PluginFilePath);
+                                Assembly assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
                                 Type[] types = assembly.GetTypes();
                                 foreach (Type type in types)
                                 {
