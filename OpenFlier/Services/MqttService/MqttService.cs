@@ -83,7 +83,6 @@ namespace OpenFlier.Services
                 if (message == null)
                     return;
                 MqttMessageType messageType = message.Type;
-                MessageBox.Show(Encoding.Default.GetString(payload));
                 switch (messageType)
                 {
                     case MqttMessageType.StudentTopic:
