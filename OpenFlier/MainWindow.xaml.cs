@@ -15,10 +15,13 @@ namespace OpenFlier
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ServiceManager serviceManager = new ServiceManager();
+
         public MainWindow()
         {
             InitializeComponent();
         }
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             OpenFlierConfig.OutputDefaultConfig();
@@ -28,7 +31,6 @@ namespace OpenFlier
                 RefreshFrame();
                 RefreshDarkMode();
             }
-            var serviceManager = new ServiceManager();
             serviceManager.LoadCompleted += ServiceManager_LoadCompleted;
             serviceManager.BeginLoad();
         }
@@ -41,6 +43,7 @@ namespace OpenFlier
                 ConnectCode.Text = LocalStorage.ConnectCode;
                 MachineIdentifier.Text = LocalStorage.MachineIdentifier;
                 LoadingScreen.Visibility = Visibility.Hidden;
+                MainGrid.Visibility = Visibility.Visible;
                 var presentationSource = PresentationSource.FromVisual(this);
                 double scale = 1.0;
                 if (presentationSource != null)
@@ -85,34 +88,8 @@ namespace OpenFlier
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            UdpService.StopUdpBroadcast();
-            FtpService.StopFtpServer();
+            serviceManager.EndAllServices();
             base.OnClosing(e);
-        }
-
-        public class ServiceManager
-        {
-            public event EventHandler? LoadCompleted;
-            private Thread LoadServiceThread { get; set; }
-            public ServiceManager()
-            {
-                LoadServiceThread = new Thread(() =>
-                {
-                    VerificationService.Initialize();
-                    HardwareService.Initialize();
-                    UdpService.Initialize();
-                    FtpService.Initialize();
-                    MqttService.Initialize();
-
-                    
-                    LoadCompleted?.Invoke(this, EventArgs.Empty);
-                });
-                LoadServiceThread.TrySetApartmentState(ApartmentState.STA);
-            }
-            public void BeginLoad()
-            {
-                LoadServiceThread?.Start();
-            }
         }
     }
 }

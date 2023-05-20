@@ -13,18 +13,98 @@
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     TextElement.FontFamily="Segoe UI Variable Display"
     TextElement.FontSize="14"
-    WindowStyle="None"
     Icon="Assets/icon.png"
-    mc:Ignorable="d">
+    mc:Ignorable="d" WindowStyle="None">
     <Grid>
-        <Grid>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Name="IPAddress" HorizontalAlignment="Center" />
-                <TextBlock Name="ConnectCode" HorizontalAlignment="Center" />
-                <TextBlock Name="MachineIdentifier" HorizontalAlignment="Center" />
-            </StackPanel>
+        <Grid Name="MainGrid">
+            <TabControl TabStripPlacement="Left">
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="&#xe80f;" FontFamily="Segoe Fluent Icons"/>
+                    </TabItem.Header>
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Name="IPAddress" HorizontalAlignment="Center" />
+                            <TextBlock Name="ConnectCode" HorizontalAlignment="Center" />
+                            <TextBlock Name="MachineIdentifier" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="&#xe713;" FontFamily="Segoe Fluent Icons"/>
+                    </TabItem.Header>
+                    <Grid>
+                        
+                        
+                        <TabControl TabStripPlacement="Left">
+                            <TabItem>
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                Margin="0,0,8,0" VerticalAlignment="Center"
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="14"
+                                Text="&#xe7c3;" />
+                                        <TextBlock FontSize="14" Text="文件"  VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </TabItem.Header>
+                            </TabItem>
+                            <TabItem>
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                Margin="0,0,8,0"
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="14"
+                                Text="&#xe790;" VerticalAlignment="Center"/>
+                                        <TextBlock FontSize="14" Text="外观" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </TabItem.Header>
+                            </TabItem>
+                            <TabItem>
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                Margin="0,0,8,0"
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="14"
+                                Text="&#xe713;" VerticalAlignment="Center"/>
+                                        <TextBlock FontSize="14" Text="常规" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </TabItem.Header>
+                            </TabItem>
+                            <TabItem>
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                Margin="0,0,8,0"
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="14"
+                                Text="&#xe8f9;"  VerticalAlignment="Center"/>
+                                        <TextBlock FontSize="14" Text="SpecialChannels"  VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </TabItem.Header>
+                            </TabItem>
+                            <TabItem>
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                Margin="0,0,8,0"
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="14"
+                                Text="&#xe943;"  VerticalAlignment="Center"/>
+                                        <TextBlock FontSize="14" Text="源"  VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </TabItem.Header>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            
         </Grid>
-        <Grid Name="LoadingScreen">
+        <Grid Name="LoadingScreen" Grid.RowSpan="2">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Margin="12,0,12,0" Text="{x:Static local:Resources.LoadingServiceString}" />
                 <ProgressBar

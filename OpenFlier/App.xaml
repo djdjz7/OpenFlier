@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Styles/ConvertersDeclare.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/Focus.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/TabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ToggleButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/TextBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ContextMenu.xaml" />

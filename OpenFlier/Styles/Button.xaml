@@ -224,4 +224,135 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
     </Style>
 
+
+    <Style x:Key="CloseButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid
+                                Name="BackgroundGrid"
+                                Width="45"
+                                Height="29"
+                                Background="Transparent">
+                        <Rectangle x:Name="BackgroundRect" Fill="#c42b1c" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        <Image
+                                    Height="20"
+                                    Margin="0,-3,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,96 V1056 H960 V0 H96 Z">
+                                            <DrawingGroup.Transform>
+                                                <TranslateTransform X="0" Y="-96" />
+                                            </DrawingGroup.Transform>
+                                            <GeometryDrawing Brush="White" Geometry="F1 M960,960z M0,0z M249,849L207,807 438,576 207,345 249,303 480,534 711,303 753,345 522,576 753,807 711,849 480,618 249,849z" />
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="BackgroundRect" Property="Fill" Value="#c83f31" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                                    FillBehavior="HoldEnd"
+                                                    Storyboard.TargetName="BackgroundRect"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1"
+                                                    Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                                    FillBehavior="HoldEnd"
+                                                    Storyboard.TargetName="BackgroundRect"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0"
+                                                    Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MinimizeButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid
+                                Name="BackgroundGrid"
+                                Width="45"
+                                Height="29"
+                                Background="Transparent">
+                        <Image
+                                    Height="20"
+                                    Margin="0,-3,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,96 V1056 H960 V0 H96 Z">
+                                            <DrawingGroup.Transform>
+                                                <TranslateTransform X="0" Y="-96" />
+                                            </DrawingGroup.Transform>
+                                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M960,960z M0,0z M200,606L200,546 760,546 760,606 200,606z" />
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                                    FillBehavior="HoldEnd"
+                                                    Storyboard.TargetName="BackgroundGrid"
+                                                    Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
+                                                    To="#33FFFFFF"
+                                                    Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                                    FillBehavior="HoldEnd"
+                                                    Storyboard.TargetName="BackgroundGrid"
+                                                    Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
+                                                    To="Transparent"
+                                                    Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
