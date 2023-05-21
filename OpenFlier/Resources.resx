@@ -117,11 +117,51 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutDescription" xml:space="preserve">
+    <value>OpenFlier Insider
+For testing purposes only.</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AppearancesTitle" xml:space="preserve">
+    <value>Appearances</value>
+  </data>
+  <data name="CommandInputPluginsTitle" xml:space="preserve">
+    <value>CommandInput Plugins</value>
+  </data>
+  <data name="ConfigureButton" xml:space="preserve">
+    <value>Configure</value>
+  </data>
   <data name="ContinueText" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="CopyrightString" xml:space="preserve">
+    <value>Copyright © 2023, OpenFlier Contributors. All rights reserved.</value>
+  </data>
+  <data name="EnableWindowEffectsCheckBox" xml:space="preserve">
+    <value>Enable Window Effects</value>
+  </data>
+  <data name="EnableWindowEffectsDescription" xml:space="preserve">
+    <value>Enable window effects, which means Mica on Windows 11, and Aero on Windows 7.</value>
+  </data>
+  <data name="EnableWindowEffectsTitle" xml:space="preserve">
+    <value>Window Effects</value>
+  </data>
+  <data name="FileTitle" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="GeneralTitle" xml:space="preserve">
+    <value>General</value>
+  </data>
   <data name="LoadingServiceString" xml:space="preserve">
     <value>Loading Services...</value>
+  </data>
+  <data name="MqttPluginsTitle" xml:space="preserve">
+    <value>MQTT Plugins</value>
+  </data>
+  <data name="PluginsTitle" xml:space="preserve">
+    <value>Plugins</value>
   </data>
   <data name="SelectNetworkInterfaceDescription" xml:space="preserve">
     <value>This device is connected to multiple networks, thus it has multiple IP Addresses.
@@ -129,5 +169,14 @@ OpenFlier only works with one given address, select one from below:</value>
   </data>
   <data name="SelectNetworkInterfaceTitle" xml:space="preserve">
     <value>Select An IP Address</value>
+  </data>
+  <data name="SpecialChannelsTitle" xml:space="preserve">
+    <value>SpecialChannels</value>
+  </data>
+  <data name="UpdatesDescription" xml:space="preserve">
+    <value>Online updates are not supported on this version of OpenFlier.</value>
+  </data>
+  <data name="UpdatesTitle" xml:space="preserve">
+    <value>Updates</value>
   </data>
 </root>

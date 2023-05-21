@@ -61,6 +61,52 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 OpenFlier Insider
+        ///For testing purposes only. 的本地化字符串。
+        /// </summary>
+        public static string AboutDescription {
+            get {
+                return ResourceManager.GetString("AboutDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 About 的本地化字符串。
+        /// </summary>
+        public static string AboutTitle {
+            get {
+                return ResourceManager.GetString("AboutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Appearances 的本地化字符串。
+        /// </summary>
+        public static string AppearancesTitle {
+            get {
+                return ResourceManager.GetString("AppearancesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CommandInput Plugins 的本地化字符串。
+        /// </summary>
+        public static string CommandInputPluginsTitle {
+            get {
+                return ResourceManager.GetString("CommandInputPluginsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Configure 的本地化字符串。
+        /// </summary>
+        public static string ConfigureButton {
+            get {
+                return ResourceManager.GetString("ConfigureButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Continue 的本地化字符串。
         /// </summary>
         public static string ContinueText {
@@ -70,11 +116,83 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 Copyright © 2023, OpenFlier Contributors. All rights reserved. 的本地化字符串。
+        /// </summary>
+        public static string CopyrightString {
+            get {
+                return ResourceManager.GetString("CopyrightString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable Window Effects 的本地化字符串。
+        /// </summary>
+        public static string EnableWindowEffectsCheckBox {
+            get {
+                return ResourceManager.GetString("EnableWindowEffectsCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable window effects, which means Mica on Windows 11, and Aero on Windows 7. 的本地化字符串。
+        /// </summary>
+        public static string EnableWindowEffectsDescription {
+            get {
+                return ResourceManager.GetString("EnableWindowEffectsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Window Effects 的本地化字符串。
+        /// </summary>
+        public static string EnableWindowEffectsTitle {
+            get {
+                return ResourceManager.GetString("EnableWindowEffectsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File 的本地化字符串。
+        /// </summary>
+        public static string FileTitle {
+            get {
+                return ResourceManager.GetString("FileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 General 的本地化字符串。
+        /// </summary>
+        public static string GeneralTitle {
+            get {
+                return ResourceManager.GetString("GeneralTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Loading Services... 的本地化字符串。
         /// </summary>
         public static string LoadingServiceString {
             get {
                 return ResourceManager.GetString("LoadingServiceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 MQTT Plugins 的本地化字符串。
+        /// </summary>
+        public static string MqttPluginsTitle {
+            get {
+                return ResourceManager.GetString("MqttPluginsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Plugins 的本地化字符串。
+        /// </summary>
+        public static string PluginsTitle {
+            get {
+                return ResourceManager.GetString("PluginsTitle", resourceCulture);
             }
         }
         
@@ -94,6 +212,33 @@ namespace OpenFlier {
         public static string SelectNetworkInterfaceTitle {
             get {
                 return ResourceManager.GetString("SelectNetworkInterfaceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SpecialChannels 的本地化字符串。
+        /// </summary>
+        public static string SpecialChannelsTitle {
+            get {
+                return ResourceManager.GetString("SpecialChannelsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Online updates are not supported on this version of OpenFlier. 的本地化字符串。
+        /// </summary>
+        public static string UpdatesDescription {
+            get {
+                return ResourceManager.GetString("UpdatesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Updates 的本地化字符串。
+        /// </summary>
+        public static string UpdatesTitle {
+            get {
+                return ResourceManager.GetString("UpdatesTitle", resourceCulture);
             }
         }
     }

@@ -12,9 +12,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace OpenFlier.Services
 {
@@ -137,7 +137,9 @@ namespace OpenFlier.Services
                             QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
                         });
                         break;
+
                     default:
+                        bool flag = false;
                         foreach (var pluginInfo in LocalStorage.Config.MqttServicePlugins)
                         {
                             if (pluginInfo.MqttMessageType != (long)messageType)
@@ -149,8 +151,10 @@ namespace OpenFlier.Services
                             }
                             try
                             {
-                                FileInfo assemblyFileInfo= new FileInfo(pluginInfo.PluginFilePath);
-                                Assembly assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
+                                FileInfo assemblyFileInfo = new FileInfo(pluginInfo.PluginFilePath);
+                                var alc = new MqttAssemblyLoadContext(assemblyFileInfo.FullName);
+                                var assembly=alc.LoadFromAssemblyPath(assemblyFileInfo.FullName);
+                                //Assembly assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
                                 Type[] types = assembly.GetTypes();
                                 foreach (Type type in types)
                                 {
@@ -163,15 +167,18 @@ namespace OpenFlier.Services
                                         continue;
                                     MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain(arg.ClientId);
                                     await MqttServer.PublishAsync(mqttMessage);
-
+                                    MqttLogger.Info($"Loaded plugin {pluginInfo.PluginFilePath}");
+                                    flag = true;
                                 }
+                                alc.Unload();
                             }
                             catch (Exception e)
                             {
                                 MqttLogger.Error($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed.", e);
                             }
-
                         }
+                        if (!flag)
+                            MqttLogger.Info($"No compatible plugin for message {messageType}");
                         break;
                 }
             });
@@ -208,5 +215,23 @@ namespace OpenFlier.Services
             user.LastUpdateTime = DateTime.Now;
         }
 
+    }
+
+    public class MqttAssemblyLoadContext:AssemblyLoadContext
+    {
+        private AssemblyDependencyResolver _resolver;
+        public MqttAssemblyLoadContext(string mainAssemblyToLoadPath) : base(isCollectible: true)
+        {
+            _resolver = new AssemblyDependencyResolver(mainAssemblyToLoadPath);
+        }
+        protected override Assembly? Load(AssemblyName name)
+        {
+            string? assemblyPath = _resolver.ResolveAssemblyToPath(name);
+            if (assemblyPath != null)
+            {
+                return LoadFromAssemblyPath(assemblyPath);
+            }
+            return null;
+        }
     }
 }

@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{x:Static local:Resources.Title}"
     SizeToContent="WidthAndHeight"
-    TextElement.FontFamily="Segoe UI Variable Display"
     TextElement.FontSize="14"
     mc:Ignorable="d">
     <StackPanel Margin="12">

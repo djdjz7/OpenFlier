@@ -44,8 +44,9 @@
 
                         <ScrollViewer
                             x:Name="PART_ContentHost"
-                            Margin="12 5 12 5"
-                            VerticalAlignment="Center" TextElement.Foreground="White">
+                            Margin="12,5,12,5"
+                            VerticalAlignment="Center"
+                            TextElement.Foreground="White">
                             <ScrollViewer.Clip>
                                 <RectangleGeometry RadiusX="3.5" RadiusY="3.5">
                                     <RectangleGeometry.Rect>
@@ -59,12 +60,12 @@
                         </ScrollViewer>
                         <TextBlock
                             Name="ToolTipTextBlock"
-                            Margin="12 5 12 5"
+                            Margin="12,5,12,5"
                             VerticalAlignment="Center"
-                            Opacity="0.6063"
-                            Text="{TemplateBinding Property=ToolTip}"
                             FontSize="{TemplateBinding Property=FontSize}"
                             FontWeight="{TemplateBinding Property=FontWeight}"
+                            Opacity="0.6063"
+                            Text="{TemplateBinding Property=ToolTip}"
                             Visibility="Hidden" />
 
                         <Grid
@@ -149,8 +150,8 @@
 
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="BackgroundRect" Property="Fill" Value="{DynamicResource ControlsBackgroundDisabled}"/>
-                            <Setter TargetName="BottomLine" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="BackgroundRect" Property="Fill" Value="{DynamicResource ControlsBackgroundDisabled}" />
+                            <Setter TargetName="BottomLine" Property="Visibility" Value="Hidden" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

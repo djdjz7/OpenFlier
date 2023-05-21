@@ -10,9 +10,10 @@
     Loaded="Window_Loaded"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     SizeToContent="WidthAndHeight"
+    TextElement.FontFamily="{StaticResource HarmonyOS Sans}"
     TextElement.FontSize="14"
-    TextElement.FontFamily="Segoe UI Variable Display"
     Topmost="True"
+    WindowStartupLocation="CenterOwner"
     WindowStyle="None"
     mc:Ignorable="d">
     <StackPanel Margin="12">

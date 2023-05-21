@@ -33,8 +33,8 @@ namespace OpenFlier
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            OpenFlierConfig.OutputDefaultConfig();
-            OpenFlierConfig.ReadConfig();
+            ConfigService.OutputDefaultConfig();
+            ConfigService.ReadConfig();
             VerificationService.Initialize();
             if (LocalStorage.Config.Appearances.EnableWindowEffects ?? true)
             {

@@ -5,22 +5,45 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:OpenFlier"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:services="clr-namespace:OpenFlier.Services"
     Title="MainWindow"
     Width="800"
     Height="450"
     Background="Transparent"
+    Icon="Assets/icon.png"
     Loaded="Window_Loaded"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
-    TextElement.FontFamily="Segoe UI Variable Display"
+    TextElement.FontFamily="{StaticResource HarmonyOS Sans}"
     TextElement.FontSize="14"
-    Icon="Assets/icon.png"
-    mc:Ignorable="d" WindowStyle="None">
+    WindowStyle="SingleBorderWindow"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <services:MqttPluginsList x:Key="mqttPluginsList">
+            <services:MqttServicePlugin
+                PluginAuthor="The OpenFlier Authors"
+                PluginDescription="A demo MQTT Plugin."
+                PluginFilePath="Plugin/Demo.dll"
+                PluginName="Demo Plugin"
+                PluginNeedConfigEntry="False"
+                MqttMessageType="30000"
+                PluginVersion="1.0" />
+            <services:MqttServicePlugin
+                PluginAuthor="The OpenFlier Authors"
+                PluginDescription="Emulating ZY ClassHelper's DeviceVerification Method."
+                PluginFilePath="Plugin/VerificationPlugin.dll"
+                PluginName="MQTT Verification"
+                PluginNeedConfigEntry="True"
+                MqttMessageType="10006"
+                PluginVersion="1.0" />
+        </services:MqttPluginsList>
+    </Window.Resources>
     <Grid>
         <Grid Name="MainGrid">
             <TabControl TabStripPlacement="Left">
                 <TabItem>
                     <TabItem.Header>
-                        <TextBlock Text="&#xe80f;" FontFamily="Segoe Fluent Icons"/>
+                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe80f;" />
                     </TabItem.Header>
                     <Grid>
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -32,21 +55,26 @@
                 </TabItem>
                 <TabItem>
                     <TabItem.Header>
-                        <TextBlock Text="&#xe713;" FontFamily="Segoe Fluent Icons"/>
+                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe713;" />
                     </TabItem.Header>
                     <Grid>
-                        
-                        
+
+
                         <TabControl TabStripPlacement="Left">
+
                             <TabItem>
                                 <TabItem.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
-                                Margin="0,0,8,0" VerticalAlignment="Center"
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="14"
-                                Text="&#xe7c3;" />
-                                        <TextBlock FontSize="14" Text="文件"  VerticalAlignment="Center"/>
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="14"
+                                            Text="&#xe790;" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{x:Static local:Resources.AppearancesTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
                             </TabItem>
@@ -54,11 +82,15 @@
                                 <TabItem.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
-                                Margin="0,0,8,0"
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="14"
-                                Text="&#xe790;" VerticalAlignment="Center"/>
-                                        <TextBlock FontSize="14" Text="外观" VerticalAlignment="Center"/>
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="14"
+                                            Text="&#xe713;" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{x:Static local:Resources.GeneralTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
                             </TabItem>
@@ -66,11 +98,15 @@
                                 <TabItem.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
-                                Margin="0,0,8,0"
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="14"
-                                Text="&#xe713;" VerticalAlignment="Center"/>
-                                        <TextBlock FontSize="14" Text="常规" VerticalAlignment="Center"/>
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="14"
+                                            Text="&#xe8f9;" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{x:Static local:Resources.SpecialChannelsTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
                             </TabItem>
@@ -78,31 +114,159 @@
                                 <TabItem.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
-                                Margin="0,0,8,0"
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="14"
-                                Text="&#xe8f9;"  VerticalAlignment="Center"/>
-                                        <TextBlock FontSize="14" Text="SpecialChannels"  VerticalAlignment="Center"/>
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="14"
+                                            Text="&#xea86;" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{x:Static local:Resources.PluginsTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
+                                <ScrollViewer>
+                                    <StackPanel Margin="8">
+                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static local:Resources.PluginsTitle}" />
+                                        <Grid Margin="0,8,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource SubTitle}"
+                                                Text="{x:Static local:Resources.MqttPluginsTitle}" />
+                                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                                <Button
+                                                    Name="AddMqttPlugin"
+                                                    Content="&#xe710;"
+                                                    FontFamily="Segoe Fluent Icons"
+                                                    Style="{StaticResource SubtleButton}" Click="AddMqttPlugin_Click"/>
+                                                <Button
+                                                    Name="RemoveMqttPlugin"
+                                                    Margin="4,0,0,0"
+                                                    Content="&#xe738;"
+                                                    FontFamily="Segoe Fluent Icons"
+                                                    Style="{StaticResource SubtleButton}" Click="RemoveMqttPlugin_Click"/>
+                                            </StackPanel>
+
+                                            <ListBox
+                                                Name="MqttPluginsListBox"
+                                                Grid.Row="2"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                ItemsSource="{Binding Mode=OneWay, Source={StaticResource mqttPluginsList}}">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Margin="0 2 0 2">
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock
+                                                                    VerticalAlignment="Center"
+                                                                    FontSize="16"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding PluginName}" />
+                                                                <TextBlock
+                                                                    Margin="4,0,0,0"
+                                                                    VerticalAlignment="Center"
+                                                                    Foreground="DarkGray"
+                                                                    Text="{Binding MqttMessageType}" />
+                                                                <TextBlock
+                                                                    Margin="4,0,0,0"
+                                                                    VerticalAlignment="Center"
+                                                                    Foreground="DarkGray"
+                                                                    Text="{Binding PluginVersion}" />
+                                                            </StackPanel>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ConfigEntry" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <StackPanel>
+                                                                    <TextBlock Text="{Binding PluginAuthor}" />
+                                                                    <TextBlock Text="{Binding PluginDescription}" />
+                                                                    <TextBlock Foreground="DarkGray" Text="{Binding PluginFilePath}" />
+                                                                </StackPanel>
+                                                                <Button
+                                                                    Name="ConfigurePluginButton"
+                                                                    Grid.Column="1"
+                                                                    Margin="4"
+                                                                    VerticalAlignment="Center"
+                                                                    Click="ConfigurePluginButton_Click"
+                                                                    Content="{x:Static local:Resources.ConfigureButton}"
+                                                                    Style="{StaticResource SubtleButton}"
+                                                                    Visibility="{Binding PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                                            </Grid>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
+
+                                        <TextBlock
+                                            Margin="0,8,0,0"
+                                            Style="{StaticResource SubTitle}"
+                                            Text="{x:Static local:Resources.CommandInputPluginsTitle}" />
+
+                                    </StackPanel>
+                                </ScrollViewer>
+
                             </TabItem>
                             <TabItem>
                                 <TabItem.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
-                                Margin="0,0,8,0"
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="14"
-                                Text="&#xe943;"  VerticalAlignment="Center"/>
-                                        <TextBlock FontSize="14" Text="源"  VerticalAlignment="Center"/>
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="14"
+                                            Text="&#xe7c3;" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{x:Static local:Resources.FileTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
                             </TabItem>
                         </TabControl>
                     </Grid>
                 </TabItem>
+
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe946;" />
+                    </TabItem.Header>
+                    <Grid>
+                        <StackPanel Margin="8">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Height="64"
+                                    VerticalAlignment="Center"
+                                    Source="Assets/icon.png" />
+                                <StackPanel Margin="4,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Style="{StaticResource Title}" Text="OpenFlier Alpha" />
+                                    <TextBlock Text="Stage 3" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SubTitle}" Text="{x:Static local:Resources.UpdatesTitle}" />
+                                <TextBlock Text="{x:Static local:Resources.UpdatesDescription}" />
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    Style="{StaticResource SubTitle}"
+                                    Text="{x:Static local:Resources.AboutTitle}" />
+                                <TextBlock Text="{x:Static local:Resources.AboutDescription}" />
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    FontSize="10"
+                                    Text="{x:Static local:Resources.CopyrightString}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
             </TabControl>
-            
+
         </Grid>
         <Grid Name="LoadingScreen" Grid.RowSpan="2">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

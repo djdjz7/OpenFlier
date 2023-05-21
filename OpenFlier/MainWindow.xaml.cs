@@ -1,12 +1,20 @@
-﻿using OpenFlier.Services;
+﻿using MQTTnet.Server;
+using MQTTnet;
+using OpenFlier.Plugin;
+using OpenFlier.Services;
 using System;
 using System.ComponentModel;
+using System.IO;
+using System.Runtime.Loader;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using static OpenFlier.Controls.PInvoke.Methods;
 using static OpenFlier.Controls.PInvoke.ParameterTypes;
+using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace OpenFlier
 {
@@ -16,16 +24,12 @@ namespace OpenFlier
     public partial class MainWindow : Window
     {
         private ServiceManager serviceManager = new ServiceManager();
-
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        private Config tempConfig=new Config();
         
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            OpenFlierConfig.OutputDefaultConfig();
-            OpenFlierConfig.ReadConfig();
+            ConfigService.OutputDefaultConfig();
+            ConfigService.ReadConfig();
             if (LocalStorage.Config.Appearances.EnableWindowEffects ?? true)
             {
                 RefreshFrame();
@@ -50,6 +54,7 @@ namespace OpenFlier
                     scale = presentationSource.CompositionTarget.TransformToDevice.M11;
                 LocalStorage.ScreenSize.Width = (int)(SystemParameters.PrimaryScreenWidth * scale);
                 LocalStorage.ScreenSize.Height = (int)(SystemParameters.PrimaryScreenHeight * scale);
+                InitializeConfigurator();
             });
         }
 
@@ -90,6 +95,73 @@ namespace OpenFlier
         {
             serviceManager.EndAllServices();
             base.OnClosing(e);
+        }
+
+        private void ConfigurePluginButton_Click(object sender, RoutedEventArgs e)
+        {
+            var pluginInfo = (MqttServicePlugin)((ListBoxItem)MqttPluginsListBox.ContainerFromElement((Button)sender)).Content;
+            if (pluginInfo.PluginFilePath == null)
+                return;
+            try
+            {
+                FileInfo assemblyFileInfo = new FileInfo(pluginInfo.PluginFilePath);
+                var alc = new ConfiguratorAssemblyLoadContext(assemblyFileInfo.FullName);
+                var assembly = alc.LoadFromAssemblyPath(assemblyFileInfo.FullName);
+                
+                Type[] types = assembly.GetTypes();
+                foreach (Type type in types)
+                {
+                    if (type.GetInterface("IMqttServicePlugin") == null)
+                        continue;
+                    if (type.FullName == null)
+                        continue;
+                    IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
+                    if (mqttServicePlugin == null)
+                        continue;
+                    mqttServicePlugin.PluginOpenConfig();
+                }
+                alc.Unload();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message+"\n"+ex.StackTrace);
+            }
+
+        }
+
+        private void InitializeConfigurator()
+        {
+            tempConfig = LocalStorage.Config;
+            MqttPluginsListBox.ItemsSource = tempConfig.MqttServicePlugins;
+        }
+
+        private void AddMqttPlugin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveMqttPlugin_Click(object sender, RoutedEventArgs e)
+        {
+            tempConfig.MqttServicePlugins.Remove((MqttServicePlugin)MqttPluginsListBox.SelectedItem);
+            //MqttPluginsListBox.ItemsSource = tempConfig.MqttServicePlugins;
+        }
+    }
+
+    public class ConfiguratorAssemblyLoadContext : AssemblyLoadContext
+    {
+        private AssemblyDependencyResolver _resolver;
+        public ConfiguratorAssemblyLoadContext(string mainAssemblyToLoadPath) : base(isCollectible: true)
+        {
+            _resolver = new AssemblyDependencyResolver(mainAssemblyToLoadPath);
+        }
+        protected override Assembly? Load(AssemblyName name)
+        {
+            string? assemblyPath = _resolver.ResolveAssemblyToPath(name);
+            if (assemblyPath != null)
+            {
+                return LoadFromAssemblyPath(assemblyPath);
+            }
+            return null;
         }
     }
 }

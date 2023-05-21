@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\HarmonyOS_Sans_SC_Bold.ttf" />
+    <None Remove="Assets\HarmonyOS_Sans_SC_Regular.ttf" />
     <None Remove="Assets\icon.png" />
   </ItemGroup>
 
@@ -29,6 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\HarmonyOS_Sans_SC_Bold.ttf" />
+    <Resource Include="Assets\HarmonyOS_Sans_SC_Regular.ttf" />
     <Resource Include="Assets\icon.png" />
   </ItemGroup>
 

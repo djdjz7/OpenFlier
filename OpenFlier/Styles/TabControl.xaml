@@ -1,16 +1,37 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:anim="clr-namespace:OpenFlier.Animation">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:anim="clr-namespace:OpenFlier.Animation">
     <Style TargetType="TabControl">
-        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TabPanel IsItemsHost="True" />
+                        <Border
+                            Grid.Column="1"
+                            BorderBrush="LightGray"
+                            BorderThickness="1,0,0,0">
+                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     <Style TargetType="TabItem">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
-                    <Grid SnapsToDevicePixels="True"
+                    <Grid
                         Name="BackgroundGrid"
                         MinHeight="34"
-                        Background="Transparent">
+                        Background="Transparent"
+                        SnapsToDevicePixels="True">
                         <Rectangle
                             Name="BackgroundRect"
                             HorizontalAlignment="Stretch"
@@ -20,15 +41,18 @@
                             RadiusX="4"
                             RadiusY="4" />
                         <Rectangle
+                            Name="SelectionIndicator"
+                            Width="4"
+                            Height="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Name="SelectionIndicator"
-                            Height="0"
-                            Width="4"
+                            Fill="{StaticResource PrimaryBrush}"
                             RadiusX="2"
-                            RadiusY="2"
-                            Fill="{StaticResource PrimaryBrush}"/>
-                        <ContentPresenter VerticalAlignment="Center" Margin="12" ContentSource="Header"/>
+                            RadiusY="2" />
+                        <ContentPresenter
+                            Margin="12"
+                            VerticalAlignment="Center"
+                            ContentSource="Header" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

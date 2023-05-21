@@ -7,12 +7,24 @@
                 <ControlTemplate TargetType="{x:Type ProgressBar}">
                     <Grid
                         x:Name="TemplateRoot"
-                        Opacity="1"
                         Height="4"
+                        Opacity="1"
                         RenderTransformOrigin="0,0.5">
-                        <Border
-                            Background="LightGray"/>
-                        <Rectangle x:Name="PART_Track" RadiusX="2" RadiusY="2"/>
+                        <Grid.Clip>
+                            <RectangleGeometry RadiusX="2" RadiusY="2">
+                                <RectangleGeometry.Rect>
+                                    <MultiBinding Converter="{StaticResource WidthAndHeightToRectConverter}">
+                                        <Binding ElementName="TemplateRoot" Path="ActualWidth" />
+                                        <Binding ElementName="TemplateRoot" Path="ActualHeight" />
+                                    </MultiBinding>
+                                </RectangleGeometry.Rect>
+                            </RectangleGeometry>
+                        </Grid.Clip>
+                        <Border Background="LightGray" />
+                        <Rectangle
+                            x:Name="PART_Track"
+                            RadiusX="2"
+                            RadiusY="2" />
                         <Grid
                             x:Name="PART_Indicator"
                             HorizontalAlignment="Left"
@@ -57,18 +69,6 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-
-                        <Grid.Clip>
-                            <RectangleGeometry RadiusX="2" RadiusY="2">
-                                <RectangleGeometry.Rect>
-                                    <MultiBinding Converter="{StaticResource WidthAndHeightToRectConverter}">
-                                        <Binding ElementName="TemplateRoot" Path="ActualWidth" />
-                                        <Binding ElementName="TemplateRoot" Path="ActualHeight" />
-                                    </MultiBinding>
-                                </RectangleGeometry.Rect>
-                            </RectangleGeometry>
-                        </Grid.Clip>
-                        
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Orientation" Value="Vertical">

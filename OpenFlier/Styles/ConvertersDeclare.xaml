@@ -4,5 +4,5 @@
     xmlns:local="clr-namespace:OpenFlier">
 
     <local:WidthAndHeightToRect x:Key="WidthAndHeightToRectConverter" />
-    <local:TagAndWidthToActualWidthConverter x:Key="TagAndWidthToActualWidthConverter"/>
+    <local:TagAndWidthToActualWidthConverter x:Key="TagAndWidthToActualWidthConverter" />
 </ResourceDictionary>

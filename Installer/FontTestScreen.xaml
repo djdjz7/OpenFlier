@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Installer"
       mc:Ignorable="d" 
       d:DesignHeight="200" d:DesignWidth="800"
-      Title="FontTest" TextElement.FontSize="14" TextElement.FontFamily="Segoe UI Variable Display">
+      Title="FontTest" TextElement.FontSize="14" TextElement.FontFamily="HarmonyOS Sans">
 
     <Grid>
         <ScrollViewer>

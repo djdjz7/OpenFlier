@@ -12,7 +12,7 @@
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
-    TextElement.FontFamily="Segoe UI Variable Display"
+    TextElement.FontFamily="HarmonyOS Sans"
     TextElement.FontSize="14"
     WindowStyle="None"
     mc:Ignorable="d">

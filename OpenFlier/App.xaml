@@ -13,15 +13,16 @@
                 <ResourceDictionary Source="pack://application:,,,/Styles/Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/TabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ToggleButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/TextBlock.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/TextBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ContextMenu.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ListBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ToolTip.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Styles/ProgressBar.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Styles/ProgressBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <FontFamily x:Key="HarmonyOS Sans">Assets/#HarmonyOS Sans SC</FontFamily>
+
         </ResourceDictionary>
-
-
-
     </Application.Resources>
 </Application>
