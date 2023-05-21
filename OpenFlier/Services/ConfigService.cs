@@ -36,7 +36,24 @@ namespace OpenFlier.Services
             config.MqttServicePlugins.Add(new MqttServicePlugin()
             {
                 MqttMessageType = 30000L,
+                PluginAuthor = "The OpenFlier Authors",
+                PluginName = "DemoPlugin",
+                PluginNeedConfigEntry = false,
+                PluginVersion = "0.1",
+                RequestedMinimumOpenFlierVersion = "0.1",
+                PluginDescription = "Testing plugin functionality.",
                 PluginFilePath = "Plugins/DemoPlugin.dll",
+            });
+            config.MqttServicePlugins.Add(new MqttServicePlugin()
+            {
+                MqttMessageType = 10006L,
+                PluginAuthor = "The OpenFlier Authors",
+                PluginDescription = "Emulating ZY ClassHelper's DeviceVerification Method.",
+                PluginName = "VerificationPlugin",
+                PluginNeedConfigEntry = true,
+                PluginVersion = "1.0",
+                RequestedMinimumOpenFlierVersion = "0.1",
+                PluginFilePath = "Plugins/VerificationPlugin.dll"
             });
             File.WriteAllText("defconfig.json", JsonSerializer.Serialize(config));
         }
@@ -61,9 +78,8 @@ namespace OpenFlier.Services
     public class General
     {
         public string? DefaultUpdateCheckURL { get; set; }
-        public string? UDPBroadcastFormat { get; set; }
-        public int? UDPBroadcastPort { get; set; }
-        public int? MqttServerPort { get; set; }
+        public int? UDPBroadcastPort { get; set; } = 33338;
+        public int? MqttServerPort { get; set; } = 61136;
         public string? SpecifiedMachineIdentifier { get; set; }
         public string? SpecifiedConnectCode { get; set; }
         public bool UsePng { get; set; } = false;

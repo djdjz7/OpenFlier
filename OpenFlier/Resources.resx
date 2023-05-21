@@ -127,6 +127,9 @@ For testing purposes only.</value>
   <data name="AppearancesTitle" xml:space="preserve">
     <value>Appearances</value>
   </data>
+  <data name="ApplyButtonContent" xml:space="preserve">
+    <value>Apply</value>
+  </data>
   <data name="CommandInputPluginsTitle" xml:space="preserve">
     <value>CommandInput Plugins</value>
   </data>
@@ -139,7 +142,14 @@ For testing purposes only.</value>
   <data name="CopyrightString" xml:space="preserve">
     <value>Copyright © 2023, OpenFlier Contributors. All rights reserved.</value>
   </data>
-  <data name="EnableWindowEffectsCheckBox" xml:space="preserve">
+  <data name="EmulatedVersionDescription" xml:space="preserve">
+    <value>ZY ClassHelper sends its version code to your pad while transmitting image.
+Specified the latest version code here.</value>
+  </data>
+  <data name="EmulatedVersionTitle" xml:space="preserve">
+    <value>Emulated Version</value>
+  </data>
+  <data name="EnableWindowEffectsCheckBoxContent" xml:space="preserve">
     <value>Enable Window Effects</value>
   </data>
   <data name="EnableWindowEffectsDescription" xml:space="preserve">
@@ -160,6 +170,9 @@ For testing purposes only.</value>
   <data name="MqttPluginsTitle" xml:space="preserve">
     <value>MQTT Plugins</value>
   </data>
+  <data name="MqttPortTitle" xml:space="preserve">
+    <value>MQTT Server Port</value>
+  </data>
   <data name="PluginsTitle" xml:space="preserve">
     <value>Plugins</value>
   </data>
@@ -173,10 +186,29 @@ OpenFlier only works with one given address, select one from below:</value>
   <data name="SpecialChannelsTitle" xml:space="preserve">
     <value>SpecialChannels</value>
   </data>
+  <data name="SpecifiedConnectCodeTitle" xml:space="preserve">
+    <value>Specified Connect Code</value>
+  </data>
+  <data name="SpecifiedMachineIdentifierTitle" xml:space="preserve">
+    <value>Specified Machine Identifier</value>
+  </data>
+  <data name="UdpPortTitle" xml:space="preserve">
+    <value>UDP Broadcast Port</value>
+  </data>
   <data name="UpdatesDescription" xml:space="preserve">
     <value>Online updates are not supported on this version of OpenFlier.</value>
   </data>
   <data name="UpdatesTitle" xml:space="preserve">
     <value>Updates</value>
+  </data>
+  <data name="UsePngCheckBoxContent" xml:space="preserve">
+    <value>Use PNG Format</value>
+  </data>
+  <data name="UsePngDescription" xml:space="preserve">
+    <value>OpenFlier uses JPEG format as its default screenshot format.
+Check the following check box to use PNG format as the screenshot format, which can improve image quality, but increase latency.</value>
+  </data>
+  <data name="UsePngTitle" xml:space="preserve">
+    <value>Screenshot Format</value>
   </data>
 </root>

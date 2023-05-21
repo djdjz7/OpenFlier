@@ -15,6 +15,7 @@ using static OpenFlier.Controls.PInvoke.Methods;
 using static OpenFlier.Controls.PInvoke.ParameterTypes;
 using System.Reflection;
 using System.Collections.ObjectModel;
+using Microsoft.Win32;
 
 namespace OpenFlier
 {
@@ -25,7 +26,6 @@ namespace OpenFlier
     {
         private ServiceManager serviceManager = new ServiceManager();
         private Config tempConfig=new Config();
-        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ConfigService.OutputDefaultConfig();
@@ -137,7 +137,51 @@ namespace OpenFlier
 
         private void AddMqttPlugin_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "OpenFlier Mqtt Plugin (*.dll)|*.dll";
+            ofd.Multiselect = true;
+            ofd.CheckFileExists = true;
+            if(ofd.ShowDialog()==true)
+            {
+                foreach(string path in ofd.FileNames)
+                {
+                    try
+                    {
+                        FileInfo assemblyFileInfo = new FileInfo(path);
+                        var alc = new ConfiguratorAssemblyLoadContext(assemblyFileInfo.FullName);
+                        var assembly = alc.LoadFromAssemblyPath(assemblyFileInfo.FullName);
 
+                        Type[] types = assembly.GetTypes();
+                        foreach (Type type in types)
+                        {
+                            if (type.GetInterface("IMqttServicePlugin") == null)
+                                continue;
+                            if (type.FullName == null)
+                                continue;
+                            IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
+                            if (mqttServicePlugin == null)
+                                continue;
+                            var pluginInfo = mqttServicePlugin.GetMqttServicePluginInfo();
+                            tempConfig.MqttServicePlugins.Add(new MqttServicePlugin
+                            {
+                                MqttMessageType = pluginInfo.MqttMessageType,
+                                PluginAuthor = pluginInfo.PluginAuthor,
+                                PluginDescription = pluginInfo.PluginDescription,
+                                PluginFilePath = path,
+                                PluginName = pluginInfo.PluginName,
+                                PluginNeedConfigEntry = pluginInfo.PluginNeedConfigEntry,
+                                PluginVersion = pluginInfo.PluginVersion,
+                                RequestedMinimumOpenFlierVersion = pluginInfo.RequestedMinimumOpenFlierVersion,
+                            });
+                        }
+                        alc.Unload();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+                    }
+                }
+            }
         }
 
         private void RemoveMqttPlugin_Click(object sender, RoutedEventArgs e)

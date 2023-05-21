@@ -21,20 +21,20 @@
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <services:MqttPluginsList x:Key="mqttPluginsList">
             <services:MqttServicePlugin
+                MqttMessageType="30000"
                 PluginAuthor="The OpenFlier Authors"
                 PluginDescription="A demo MQTT Plugin."
                 PluginFilePath="Plugin/Demo.dll"
                 PluginName="Demo Plugin"
                 PluginNeedConfigEntry="False"
-                MqttMessageType="30000"
                 PluginVersion="1.0" />
             <services:MqttServicePlugin
+                MqttMessageType="10006"
                 PluginAuthor="The OpenFlier Authors"
                 PluginDescription="Emulating ZY ClassHelper's DeviceVerification Method."
                 PluginFilePath="Plugin/VerificationPlugin.dll"
                 PluginName="MQTT Verification"
                 PluginNeedConfigEntry="True"
-                MqttMessageType="10006"
                 PluginVersion="1.0" />
         </services:MqttPluginsList>
     </Window.Resources>
@@ -58,8 +58,6 @@
                         <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe713;" />
                     </TabItem.Header>
                     <Grid>
-
-
                         <TabControl TabStripPlacement="Left">
 
                             <TabItem>
@@ -77,6 +75,22 @@
                                             Text="{x:Static local:Resources.AppearancesTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
+                                <ScrollViewer>
+                                    <StackPanel Margin="8">
+                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static local:Resources.AppearancesTitle}" />
+                                        <TextBlock
+                                            Margin="0,8,0,0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource SubTitle}"
+                                            Text="{x:Static local:Resources.EnableWindowEffectsTitle}" />
+                                        <TextBlock Text="{x:Static local:Resources.EnableWindowEffectsDescription}" TextWrapping="Wrap" />
+                                        <CheckBox
+                                            Name="EnableWindowEffectsCheckBox"
+                                            Margin="0,4,0,0"
+                                            Content="{x:Static local:Resources.EnableWindowEffectsCheckBoxContent}" />
+
+                                    </StackPanel>
+                                </ScrollViewer>
                             </TabItem>
                             <TabItem>
                                 <TabItem.Header>
@@ -93,6 +107,68 @@
                                             Text="{x:Static local:Resources.GeneralTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
+
+                                <ScrollViewer>
+                                    <StackPanel Margin="8">
+                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static local:Resources.GeneralTitle}" />
+                                        <TextBlock
+                                            Margin="0,8,0,0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource SubTitle}"
+                                            Text="{x:Static local:Resources.SpecifiedConnectCodeTitle}" />
+                                        <TextBox
+                                            Name="SpecifiedConnectCodeTextBox"
+                                            Width="200"
+                                            Margin="0,4,0,0"
+                                            HorizontalAlignment="Left" />
+                                        <TextBlock
+                                            Margin="0,8,0,0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource SubTitle}"
+                                            Text="{x:Static local:Resources.SpecifiedMachineIdentifierTitle}" />
+                                        <TextBox Name="SpecifiedMachineIdentifierTextBox" Margin="0,4,0,0" />
+                                        <TextBlock
+                                            Margin="0,8,0,0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource SubTitle}"
+                                            Text="{x:Static local:Resources.UsePngTitle}" />
+                                        <TextBlock Text="{x:Static local:Resources.UsePngDescription}" TextWrapping="Wrap" />
+                                        <CheckBox
+                                            Name="UsePngCheckBox"
+                                            Margin="0,4,0,0"
+                                            Content="{x:Static local:Resources.EnableWindowEffectsCheckBoxContent}" />
+
+                                        <TextBlock
+                                            Margin="0,8,0,0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource SubTitle}"
+                                            Text="{x:Static local:Resources.MqttPortTitle}" />
+                                        <TextBox
+                                            Name="MqttPortTextBox"
+                                            Width="200"
+                                            Margin="0,4,0,0"
+                                            HorizontalAlignment="Left" />
+                                        <TextBlock
+                                            Margin="0,8,0,0"
+                                            Style="{StaticResource SubTitle}"
+                                            Text="{x:Static local:Resources.UdpPortTitle}" />
+                                        <TextBox
+                                            Name="UdpPortTextBox"
+                                            Width="200"
+                                            Margin="0,4,0,0"
+                                            HorizontalAlignment="Left" />
+                                        <TextBlock
+                                            Margin="0,8,0,0"
+                                            Style="{StaticResource SubTitle}"
+                                            Text="{x:Static local:Resources.EmulatedVersionTitle}" />
+                                        <TextBlock Text="{x:Static local:Resources.EmulatedVersionDescription}" />
+                                        <TextBox
+                                            Name="EmulatedVersionTextBox"
+                                            Width="200"
+                                            Margin="0,4,0,0"
+                                            HorizontalAlignment="Left" />
+                                    </StackPanel>
+                                </ScrollViewer>
                             </TabItem>
                             <TabItem>
                                 <TabItem.Header>
@@ -140,15 +216,17 @@
                                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                                 <Button
                                                     Name="AddMqttPlugin"
+                                                    Click="AddMqttPlugin_Click"
                                                     Content="&#xe710;"
                                                     FontFamily="Segoe Fluent Icons"
-                                                    Style="{StaticResource SubtleButton}" Click="AddMqttPlugin_Click"/>
+                                                    Style="{StaticResource SubtleButton}" />
                                                 <Button
                                                     Name="RemoveMqttPlugin"
                                                     Margin="4,0,0,0"
+                                                    Click="RemoveMqttPlugin_Click"
                                                     Content="&#xe738;"
                                                     FontFamily="Segoe Fluent Icons"
-                                                    Style="{StaticResource SubtleButton}" Click="RemoveMqttPlugin_Click"/>
+                                                    Style="{StaticResource SubtleButton}" />
                                             </StackPanel>
 
                                             <ListBox
@@ -159,7 +237,7 @@
                                                 ItemsSource="{Binding Mode=OneWay, Source={StaticResource mqttPluginsList}}">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <StackPanel Margin="0 2 0 2">
+                                                        <StackPanel Margin="0,2,0,2">
                                                             <StackPanel Orientation="Horizontal">
                                                                 <TextBlock
                                                                     VerticalAlignment="Center"
@@ -268,7 +346,10 @@
             </TabControl>
 
         </Grid>
-        <Grid Name="LoadingScreen" Grid.RowSpan="2">
+        <Grid
+            Name="LoadingScreen"
+            Grid.RowSpan="2"
+            Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Margin="12,0,12,0" Text="{x:Static local:Resources.LoadingServiceString}" />
                 <ProgressBar

@@ -89,6 +89,15 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 Apply 的本地化字符串。
+        /// </summary>
+        public static string ApplyButtonContent {
+            get {
+                return ResourceManager.GetString("ApplyButtonContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 CommandInput Plugins 的本地化字符串。
         /// </summary>
         public static string CommandInputPluginsTitle {
@@ -125,11 +134,30 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 ZY ClassHelper sends its version code to your pad while transmitting image.
+        ///Specified the latest version code here. 的本地化字符串。
+        /// </summary>
+        public static string EmulatedVersionDescription {
+            get {
+                return ResourceManager.GetString("EmulatedVersionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Emulated Version 的本地化字符串。
+        /// </summary>
+        public static string EmulatedVersionTitle {
+            get {
+                return ResourceManager.GetString("EmulatedVersionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Enable Window Effects 的本地化字符串。
         /// </summary>
-        public static string EnableWindowEffectsCheckBox {
+        public static string EnableWindowEffectsCheckBoxContent {
             get {
-                return ResourceManager.GetString("EnableWindowEffectsCheckBox", resourceCulture);
+                return ResourceManager.GetString("EnableWindowEffectsCheckBoxContent", resourceCulture);
             }
         }
         
@@ -188,6 +216,15 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 MQTT Server Port 的本地化字符串。
+        /// </summary>
+        public static string MqttPortTitle {
+            get {
+                return ResourceManager.GetString("MqttPortTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Plugins 的本地化字符串。
         /// </summary>
         public static string PluginsTitle {
@@ -225,6 +262,33 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 Specified Connect Code 的本地化字符串。
+        /// </summary>
+        public static string SpecifiedConnectCodeTitle {
+            get {
+                return ResourceManager.GetString("SpecifiedConnectCodeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Specified Machine Identifier 的本地化字符串。
+        /// </summary>
+        public static string SpecifiedMachineIdentifierTitle {
+            get {
+                return ResourceManager.GetString("SpecifiedMachineIdentifierTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 UDP Broadcast Port 的本地化字符串。
+        /// </summary>
+        public static string UdpPortTitle {
+            get {
+                return ResourceManager.GetString("UdpPortTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Online updates are not supported on this version of OpenFlier. 的本地化字符串。
         /// </summary>
         public static string UpdatesDescription {
@@ -239,6 +303,34 @@ namespace OpenFlier {
         public static string UpdatesTitle {
             get {
                 return ResourceManager.GetString("UpdatesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Use PNG Format 的本地化字符串。
+        /// </summary>
+        public static string UsePngCheckBoxContent {
+            get {
+                return ResourceManager.GetString("UsePngCheckBoxContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OpenFlier uses JPEG format as its default screenshot format.
+        ///Check the following check box to use PNG format as the screenshot format, which can improve image quality, but increase latency. 的本地化字符串。
+        /// </summary>
+        public static string UsePngDescription {
+            get {
+                return ResourceManager.GetString("UsePngDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Screenshot Format 的本地化字符串。
+        /// </summary>
+        public static string UsePngTitle {
+            get {
+                return ResourceManager.GetString("UsePngTitle", resourceCulture);
             }
         }
     }
