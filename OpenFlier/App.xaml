@@ -7,6 +7,7 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
+                <!--
                 <ResourceDictionary Source="pack://application:,,,/Styles/ColorsLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ConvertersDeclare.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/Focus.xaml" />
@@ -19,6 +20,8 @@
                 <ResourceDictionary Source="pack://application:,,,/Styles/ListBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ToolTip.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ProgressBar.xaml" />
+                -->
+                <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <FontFamily x:Key="HarmonyOS Sans">Assets/#HarmonyOS Sans SC</FontFamily>

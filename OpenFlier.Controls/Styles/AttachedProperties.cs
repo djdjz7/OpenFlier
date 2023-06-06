@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace OpenFlier.Controls
+namespace OpenFlier
 {
     public class AttachedSimpleProperties:DependencyObject
     {

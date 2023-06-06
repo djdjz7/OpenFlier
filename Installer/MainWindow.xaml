@@ -7,14 +7,18 @@
     xmlns:local="clr-namespace:Installer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{x:Static local:Resources.InstallerName}"
-    Background="Transparent"
     Width="800"
     Height="450"
+    Background="Transparent"
+    Loaded="Window_Loaded"
     TextElement.FontSize="14"
-    mc:Ignorable="d" Loaded="Window_Loaded">
+    mc:Ignorable="d">
     <Window.ContextMenu>
         <ContextMenu>
-            <MenuItem Header="About" Name="OpenAboutButton" Click="OpenAboutButton_Click">
+            <MenuItem
+                Name="OpenAboutButton"
+                Click="OpenAboutButton_Click"
+                Header="About">
                 <MenuItem.Icon>
                     <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe946;" />
                 </MenuItem.Icon>
@@ -23,28 +27,36 @@
         </ContextMenu>
 
     </Window.ContextMenu>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Image Source="installericon.png" HorizontalAlignment="Center"/>
 
+        <Image HorizontalAlignment="Center" Source="installericon.png" />
         <Grid
             Grid.Column="2"
+            MaxWidth="600"
+            MaxHeight="450"
+            Margin="12"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch" MaxWidth="600"
-                MaxHeight="450" Margin="12">
-            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="#EEFFFFFF" RadiusX="8" RadiusY="8">
+            VerticalAlignment="Stretch">
+            <Rectangle
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Fill="#EEFFFFFF"
+                RadiusX="8"
+                RadiusY="8">
                 <Rectangle.Effect>
-                    <DropShadowEffect BlurRadius="64" ShadowDepth="32" Direction="270" Opacity="0.19"/>
+                    <DropShadowEffect
+                        BlurRadius="64"
+                        Direction="270"
+                        Opacity="0.19"
+                        ShadowDepth="32" />
                 </Rectangle.Effect>
             </Rectangle>
-            <Frame Padding="12"
-                Source="FontTestScreen.xaml"/>
-            
-            
+            <Frame Padding="12" Source="FontTestScreen.xaml" />
         </Grid>
 
 

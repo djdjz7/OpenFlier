@@ -6,4 +6,43 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Page Update="Styles\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ColorsDark.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ColorsLight.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ContextMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\Focus.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ListBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ProgressBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\TabControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\TextBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\TextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ToggleButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ToolTip.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

@@ -38,6 +38,7 @@
                 PluginVersion="1.0" />
         </services:MqttPluginsList>
     </Window.Resources>
+
     <Grid>
         <Grid Name="MainGrid">
             <TabControl TabStripPlacement="Left">
@@ -356,7 +357,7 @@
                     Height="14"
                     HorizontalAlignment="Stretch"
                     Background="Transparent"
-                    Foreground="{StaticResource PrimaryBrush}"
+                    Foreground="{DynamicResource PrimaryBrush}"
                     IsIndeterminate="True" />
             </StackPanel>
 

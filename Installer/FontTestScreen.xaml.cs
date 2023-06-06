@@ -14,26 +14,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Installer
+namespace Installer;
+
+/// <summary>
+/// FontTest.xaml 的交互逻辑
+/// </summary>
+public partial class FontTestScreen : Page
 {
-    /// <summary>
-    /// FontTest.xaml 的交互逻辑
-    /// </summary>
-    public partial class FontTestScreen : Page
+    public FontTestScreen()
     {
-        public FontTestScreen()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void AbnormalButton_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("explorer.exe", "https://aka.ms/SegoeFluentIcons");
-        }
+    private void AbnormalButton_Click(object sender, RoutedEventArgs e)
+    {
+        Process.Start("explorer.exe", "https://aka.ms/SegoeFluentIcons");
+    }
 
-        private void DismissButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("WelcomeScreen.xaml", UriKind.Relative));
-        }
+    private void DismissButton_Click(object sender, RoutedEventArgs e)
+    {
+        NavigationService.Navigate(new Uri("WelcomeScreen.xaml", UriKind.Relative));
     }
 }

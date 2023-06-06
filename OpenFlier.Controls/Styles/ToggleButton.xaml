@@ -1,5 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ofc="clr-namespace:OpenFlier.Controls">
+    <ofc:WidthAndHeightToRect x:Key="WidthAndHeightToRectConverter" />
+    <ofc:TagAndWidthToActualWidthConverter x:Key="TagAndWidthToActualWidthConverter" />
 
     <Style x:Key="StandardToggleButton" TargetType="ToggleButton">
         <Setter Property="Template">
