@@ -1,8 +1,7 @@
-﻿using MQTTnet;
-using OpenFlier.Plugin;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
+using MQTTnet;
+using OpenFlier.Plugin;
 
 namespace DemoPlugin
 {
@@ -15,6 +14,7 @@ namespace DemoPlugin
                 MqttMessageType = 30000L,
                 PluginAuthor = "The OpenFlier Authors",
                 PluginName = "DemoPlugin",
+                PluginIdentifier = "openflier.dev.demo",
                 PluginNeedConfigEntry = false,
                 PluginVersion = "0.1",
                 RequestedMinimumOpenFlierVersion = "0.1",

@@ -143,7 +143,7 @@
                                             Margin="0,8,0,0"
                                             VerticalAlignment="Center"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.MqttPortTitle}" />
+                                            Text="{x:Static local:Resources.MqttServerPortTitle}" />
                                         <TextBox
                                             Name="MqttPortTextBox"
                                             Width="200"
@@ -213,7 +213,7 @@
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource SubTitle}"
-                                                Text="{x:Static local:Resources.MqttPluginsTitle}" />
+                                                Text="{x:Static local:Resources.MqttServicePluginsTitle}" />
                                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                                 <Button
                                                     Name="AddMqttPlugin"

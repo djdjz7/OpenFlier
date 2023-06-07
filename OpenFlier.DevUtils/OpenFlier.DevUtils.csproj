@@ -7,4 +7,17 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\banner.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenFlier.Controls\OpenFlier.Controls.csproj" />
+    <ProjectReference Include="..\OpenFlier.Plugin\OpenFlier.Plugin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\banner.png" />
+  </ItemGroup>
+
 </Project>

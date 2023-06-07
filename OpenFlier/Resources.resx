@@ -167,11 +167,11 @@ Specified the latest version code here.</value>
   <data name="LoadingServiceString" xml:space="preserve">
     <value>Loading Services...</value>
   </data>
-  <data name="MqttPluginsTitle" xml:space="preserve">
-    <value>MQTT Plugins</value>
-  </data>
-  <data name="MqttPortTitle" xml:space="preserve">
+  <data name="MqttServerPortTitle" xml:space="preserve">
     <value>MQTT Server Port</value>
+  </data>
+  <data name="MqttServicePluginsTitle" xml:space="preserve">
+    <value>MQTT Service Plugins</value>
   </data>
   <data name="PluginsTitle" xml:space="preserve">
     <value>Plugins</value>

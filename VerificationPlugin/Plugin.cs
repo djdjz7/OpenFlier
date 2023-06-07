@@ -1,8 +1,8 @@
-﻿using MQTTnet;
-using OpenFlier.Plugin;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Windows;
+using MQTTnet;
+using OpenFlier.Plugin;
 
 namespace VerificationPlugin
 {
@@ -16,6 +16,7 @@ namespace VerificationPlugin
                 PluginAuthor = "The OpenFlier Authors",
                 PluginDescription = "Emulating ZY ClassHelper's DeviceVerification Method.",
                 PluginName = "VerificationPlugin",
+                PluginIdentifier = "openflier.def.verification",
                 PluginNeedConfigEntry = true,
                 PluginVersion = "1.0",
                 RequestedMinimumOpenFlierVersion = "0.1"
@@ -43,7 +44,7 @@ namespace VerificationPlugin
             {
                 new PluginConfigWindow().ShowDialog();
             });
-           
+
         }
     }
 }

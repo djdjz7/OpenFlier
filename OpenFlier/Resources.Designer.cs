@@ -207,20 +207,20 @@ namespace OpenFlier {
         }
         
         /// <summary>
-        ///   查找类似 MQTT Plugins 的本地化字符串。
+        ///   查找类似 MQTT Server Port 的本地化字符串。
         /// </summary>
-        public static string MqttPluginsTitle {
+        public static string MqttServerPortTitle {
             get {
-                return ResourceManager.GetString("MqttPluginsTitle", resourceCulture);
+                return ResourceManager.GetString("MqttServerPortTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 MQTT Server Port 的本地化字符串。
+        ///   查找类似 MQTT Service Plugins 的本地化字符串。
         /// </summary>
-        public static string MqttPortTitle {
+        public static string MqttServicePluginsTitle {
             get {
-                return ResourceManager.GetString("MqttPortTitle", resourceCulture);
+                return ResourceManager.GetString("MqttServicePluginsTitle", resourceCulture);
             }
         }
         

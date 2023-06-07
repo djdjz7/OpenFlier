@@ -14,12 +14,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TabPanel IsItemsHost="True" />
-                        <Border
-                            Grid.Column="1"
-                            BorderBrush="LightGray"
-                            BorderThickness="1,0,0,0">
-                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" />
-                        </Border>
+                        <ContentPresenter Grid.Column="1" x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
