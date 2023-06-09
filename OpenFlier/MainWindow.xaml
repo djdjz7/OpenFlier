@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:OpenFlier"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:services="clr-namespace:OpenFlier.Services"
-    Title="MainWindow"
+    Title="OpenFlier"
     Width="800"
     Height="450"
     Background="Transparent"
@@ -38,7 +38,6 @@
                 PluginVersion="1.0" />
         </services:MqttPluginsList>
     </Window.Resources>
-
     <Grid>
         <Grid Name="MainGrid">
             <TabControl TabStripPlacement="Left">
@@ -47,14 +46,15 @@
                         <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe80f;" />
                     </TabItem.Header>
                     <Grid>
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Name="IPAddress" HorizontalAlignment="Center" />
-                            <TextBlock Name="ConnectCode" HorizontalAlignment="Center" />
-                            <TextBlock Name="MachineIdentifier" HorizontalAlignment="Center" />
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -12 0 0">
+                            <TextBlock Name="IPAddress" HorizontalAlignment="Center"/>
+                            <TextBlock Name="ConnectCode" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold"/>
                         </StackPanel>
+                        <TextBlock Name="MachineIdentifier" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8" ToolTip="{x:Static local:Resources.MachineIdentifierTitle}"/>
                     </Grid>
                 </TabItem>
                 <TabItem>
+                    
                     <TabItem.Header>
                         <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe713;" />
                     </TabItem.Header>
@@ -216,12 +216,6 @@
                                                 Text="{x:Static local:Resources.MqttServicePluginsTitle}" />
                                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                                 <Button
-                                                    Name="AddMqttPlugin"
-                                                    Click="AddMqttPlugin_Click"
-                                                    Content="&#xe710;"
-                                                    FontFamily="Segoe Fluent Icons"
-                                                    Style="{StaticResource SubtleButton}" />
-                                                <Button
                                                     Name="RemoveMqttPlugin"
                                                     Margin="4,0,0,0"
                                                     Click="RemoveMqttPlugin_Click"
@@ -328,8 +322,9 @@
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel>
-                                <TextBlock Style="{StaticResource SubTitle}" Text="{x:Static local:Resources.UpdatesTitle}" />
-                                <TextBlock Text="{x:Static local:Resources.UpdatesDescription}" />
+                                
+                                <!--<TextBlock Style="{StaticResource SubTitle}" Text="{x:Static local:Resources.UpdatesTitle}" />
+                                <TextBlock Text="{x:Static local:Resources.UpdatesDescription}" />-->
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     Style="{StaticResource SubTitle}"

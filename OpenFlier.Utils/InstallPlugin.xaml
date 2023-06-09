@@ -1,0 +1,185 @@
+﻿<Window
+    x:Class="OpenFlier.Utils.InstallPlugin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OpenFlier.Utils"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ofc="clr-namespace:OpenFlier.Controls;assembly=OpenFlier.Controls"
+    Title="InstallPlugin"
+    Width="800"
+    Height="450"
+    MouseLeftButtonDown="Window_MouseLeftButtonDown"
+    ResizeMode="CanMinimize"
+    TextElement.FontSize="14"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ofc:WidthAndHeightToRect x:Key="WidthAndHeightToRectConverter" />
+    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" GlassFrameThickness="-1" />
+    </WindowChrome.WindowChrome>
+    <Window.Template>
+        <ControlTemplate TargetType="Window">
+            <Border Padding="32,0,32,64" Background="Transparent">
+                <Border
+                    Name="Border"
+                    Background="White"
+                    CornerRadius="12">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="64"
+                            Direction="270"
+                            Opacity="0.28"
+                            ShadowDepth="32" />
+                    </Border.Effect>
+                    <ContentPresenter ClipToBounds="True">
+                        <ContentPresenter.Clip>
+                            <RectangleGeometry RadiusX="12" RadiusY="12">
+                                <RectangleGeometry.Rect>
+                                    <MultiBinding Converter="{StaticResource WidthAndHeightToRectConverter}">
+                                        <Binding ElementName="Border" Path="ActualWidth" />
+                                        <Binding ElementName="Border" Path="ActualHeight" />
+                                    </MultiBinding>
+                                </RectangleGeometry.Rect>
+                            </RectangleGeometry>
+                        </ContentPresenter.Clip>
+                    </ContentPresenter>
+                </Border>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsActive" Value="False">
+                    <Setter TargetName="Border" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect
+                                BlurRadius="32"
+                                Direction="270"
+                                Opacity="0.19"
+                                ShadowDepth="16" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Template>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            VerticalAlignment="Center"
+            Margin="12"
+            Style="{StaticResource Title}"
+            Text="{x:Static local:Resources.InstallPluginTitle}" />
+        <Button
+            Name="CloseButton"
+            Width="26"
+            Height="26"
+            Margin="12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Click="CloseButton_Click"
+            Content="&#xe711;"
+            FontFamily="Segoe Fluent Icons"
+            Style="{StaticResource SubtleButton}" />
+        <ScrollViewer Grid.Row="1" Background="Transparent">
+            <StackPanel Margin="12,0,12,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Name="PluginNameTextBlock"
+                        VerticalAlignment="Bottom"
+                        Style="{StaticResource SubTitle}"
+                        Text="PLUGIN_NAME" />
+                    <TextBlock
+                        Name="PluginVersionTextBlock"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Bottom"
+                        Text="PLUGIN_VERSION" />
+                    <TextBlock
+                        Name="MqttMessageTypeTextBlock"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Bottom"
+                        Text="MQTT_MESSAGE_TYPE" />
+                    <TextBlock
+                        Name="CommandInputCallerNamesTextBlock"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Bottom"
+                        Text="COMMANDINPUT_CALLER_NAMES" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="PluginIdentifierTextBlock" Text="PLUGIN_IDENTIFIER" />
+                    <TextBlock
+                        Name="PluginTypeTextBlock"
+                        Margin="8,0,0,0"
+                        Text="PLUGIN_TYPE" />
+                </StackPanel>
+                <TextBlock Name="PluginAuthorTextBlock" Text="PLUGIN_AUTHOR" />
+                <TextBlock Name="PluginDescriptionTextBlock" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+            </StackPanel>
+        </ScrollViewer>
+        <Rectangle
+            Grid.Row="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Fill="#e5e5e5" />
+        <Grid Grid.Row="3" Background="#f3f3f3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" TextElement.Foreground="Red">
+                <TextBlock
+                    Margin="8,0,0,0"
+                    VerticalAlignment="Center"
+                    FontFamily="Segoe Fluent Icons"
+                    FontSize="14"
+                    Text="&#xe7ba;" />
+                <TextBlock
+                    Margin="4,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Text="{x:Static local:Resources.WarningText}" />
+            </StackPanel>
+            <StackPanel
+                Name="DoneText"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                TextElement.Foreground="Green">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontFamily="Segoe Fluent Icons"
+                    Text="&#xe73e;" />
+                <TextBlock
+                    Margin="4,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static local:Resources.DoneText}" />
+            </StackPanel>
+            <StackPanel
+                Name="Buttons"
+                Grid.Column="1"
+                Orientation="Horizontal">
+                <Button
+                    Name="CancelButton"
+                    Width="100"
+                    Margin="0,8,0,8"
+                    Click="CancelButton_Click"
+                    Content="{x:Static local:Resources.CancelButtonText}" />
+                <Button
+                    Name="InstallButton"
+                    Width="100"
+                    Margin="8"
+                    Click="InstallButton_Click"
+                    Content="{x:Static local:Resources.InstallButtonText}"
+                    Style="{StaticResource AccentButton}" />
+
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>

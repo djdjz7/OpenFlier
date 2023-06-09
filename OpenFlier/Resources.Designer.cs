@@ -207,6 +207,15 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 Machine Identifier 的本地化字符串。
+        /// </summary>
+        public static string MachineIdentifierTitle {
+            get {
+                return ResourceManager.GetString("MachineIdentifierTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 MQTT Server Port 的本地化字符串。
         /// </summary>
         public static string MqttServerPortTitle {

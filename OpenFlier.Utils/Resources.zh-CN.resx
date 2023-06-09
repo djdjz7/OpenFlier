@@ -117,101 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutDescription" xml:space="preserve">
-    <value>OpenFlier Insider
-For testing purposes only.</value>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="AboutTitle" xml:space="preserve">
-    <value>About</value>
+  <data name="DoneText" xml:space="preserve">
+    <value>完成</value>
   </data>
-  <data name="AppearancesTitle" xml:space="preserve">
-    <value>Appearances</value>
+  <data name="InstallButtonText" xml:space="preserve">
+    <value>安装</value>
   </data>
-  <data name="ApplyButtonContent" xml:space="preserve">
-    <value>Apply</value>
+  <data name="InstallPluginTitle" xml:space="preserve">
+    <value>安装插件</value>
   </data>
-  <data name="CommandInputPluginsTitle" xml:space="preserve">
-    <value>CommandInput Plugins</value>
+  <data name="OfsppDescription" xml:space="preserve">
+    <value>OpenFlier 单插件包</value>
   </data>
-  <data name="ConfigureButton" xml:space="preserve">
-    <value>Configure</value>
+  <data name="PluginAuthorTitle" xml:space="preserve">
+    <value />
   </data>
-  <data name="ContinueText" xml:space="preserve">
-    <value>Continue</value>
+  <data name="PluginDescriptionTitle" xml:space="preserve">
+    <value />
   </data>
-  <data name="CopyrightString" xml:space="preserve">
-    <value>Copyright © 2023, OpenFlier Contributors. All rights reserved.</value>
+  <data name="PluginNameTitle" xml:space="preserve">
+    <value />
   </data>
-  <data name="EmulatedVersionDescription" xml:space="preserve">
-    <value>ZY ClassHelper sends its version code to your pad while transmitting image.
-Specified the latest version code here.</value>
-  </data>
-  <data name="EmulatedVersionTitle" xml:space="preserve">
-    <value>Emulated Version</value>
-  </data>
-  <data name="EnableWindowEffectsCheckBoxContent" xml:space="preserve">
-    <value>Enable Window Effects</value>
-  </data>
-  <data name="EnableWindowEffectsDescription" xml:space="preserve">
-    <value>Enable window effects, which means Mica on Windows 11, and Aero on Windows 7.</value>
-  </data>
-  <data name="EnableWindowEffectsTitle" xml:space="preserve">
-    <value>Window Effects</value>
-  </data>
-  <data name="FileTitle" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="GeneralTitle" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="LoadingServiceString" xml:space="preserve">
-    <value>Loading Services...</value>
-  </data>
-  <data name="MachineIdentifierTitle" xml:space="preserve">
-    <value>Machine Identifier</value>
-  </data>
-  <data name="MqttServerPortTitle" xml:space="preserve">
-    <value>MQTT Server Port</value>
-  </data>
-  <data name="MqttServicePluginsTitle" xml:space="preserve">
-    <value>MQTT Service Plugins</value>
-  </data>
-  <data name="PluginsTitle" xml:space="preserve">
-    <value>Plugins</value>
-  </data>
-  <data name="SelectNetworkInterfaceDescription" xml:space="preserve">
-    <value>This device is connected to multiple networks, thus it has multiple IP Addresses.
-OpenFlier only works with one given address, select one from below:</value>
-  </data>
-  <data name="SelectNetworkInterfaceTitle" xml:space="preserve">
-    <value>Select An IP Address</value>
-  </data>
-  <data name="SpecialChannelsTitle" xml:space="preserve">
-    <value>SpecialChannels</value>
-  </data>
-  <data name="SpecifiedConnectCodeTitle" xml:space="preserve">
-    <value>Specified Connect Code</value>
-  </data>
-  <data name="SpecifiedMachineIdentifierTitle" xml:space="preserve">
-    <value>Specified Machine Identifier</value>
-  </data>
-  <data name="UdpPortTitle" xml:space="preserve">
-    <value>UDP Broadcast Port</value>
-  </data>
-  <data name="UpdatesDescription" xml:space="preserve">
-    <value>Online updates are not supported on this version of OpenFlier.</value>
-  </data>
-  <data name="UpdatesTitle" xml:space="preserve">
-    <value>Updates</value>
-  </data>
-  <data name="UsePngCheckBoxContent" xml:space="preserve">
-    <value>Use PNG Format</value>
-  </data>
-  <data name="UsePngDescription" xml:space="preserve">
-    <value>OpenFlier uses JPEG format as its default screenshot format.
-Check the following check box to use PNG format as the screenshot format, which can improve image quality, but increase latency.</value>
-  </data>
-  <data name="UsePngTitle" xml:space="preserve">
-    <value>Screenshot Format</value>
+  <data name="WarningText" xml:space="preserve">
+    <value>警告：安装插件将允许其执行任意代码。
+继续之前，请检查插件来源并三思</value>
   </data>
 </root>

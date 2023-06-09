@@ -1,6 +1,4 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Converters.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/ColorsLight.xaml" />
@@ -14,6 +12,8 @@
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/ToolTip.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/TabControl.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/ListBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/ScrollBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Window.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

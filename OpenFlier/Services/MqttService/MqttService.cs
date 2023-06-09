@@ -144,7 +144,7 @@ namespace OpenFlier.Services
                         {
                             if (pluginInfo.MqttMessageType != (long)messageType)
                                 continue;
-                            if (!File.Exists(pluginInfo.PluginFilePath))
+                            if (!System.IO.File.Exists(pluginInfo.PluginFilePath))
                             {
                                 MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed: File not found.");
                                 continue;
@@ -152,8 +152,8 @@ namespace OpenFlier.Services
                             try
                             {
                                 FileInfo assemblyFileInfo = new FileInfo(pluginInfo.PluginFilePath);
-                                var alc = new MqttAssemblyLoadContext(assemblyFileInfo.FullName);
-                                var assembly=alc.LoadFromAssemblyPath(assemblyFileInfo.FullName);
+                                
+                                var assembly=Assembly.LoadFrom(assemblyFileInfo.FullName);
                                 //Assembly assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
                                 Type[] types = assembly.GetTypes();
                                 foreach (Type type in types)
@@ -170,7 +170,6 @@ namespace OpenFlier.Services
                                     MqttLogger.Info($"Loaded plugin {pluginInfo.PluginFilePath}");
                                     flag = true;
                                 }
-                                alc.Unload();
                             }
                             catch (Exception e)
                             {
@@ -215,23 +214,5 @@ namespace OpenFlier.Services
             user.LastUpdateTime = DateTime.Now;
         }
 
-    }
-
-    public class MqttAssemblyLoadContext:AssemblyLoadContext
-    {
-        private AssemblyDependencyResolver _resolver;
-        public MqttAssemblyLoadContext(string mainAssemblyToLoadPath) : base(isCollectible: true)
-        {
-            _resolver = new AssemblyDependencyResolver(mainAssemblyToLoadPath);
-        }
-        protected override Assembly? Load(AssemblyName name)
-        {
-            string? assemblyPath = _resolver.ResolveAssemblyToPath(name);
-            if (assemblyPath != null)
-            {
-                return LoadFromAssemblyPath(assemblyPath);
-            }
-            return null;
-        }
     }
 }

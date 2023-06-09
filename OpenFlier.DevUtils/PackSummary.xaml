@@ -76,7 +76,7 @@
                 Margin="4,0,0,0"
                 HorizontalAlignment="Right"
                 Click="Next_Click"
-                Content="Next" />
+                Content="Save Package" />
         </StackPanel>
         
     </Grid>

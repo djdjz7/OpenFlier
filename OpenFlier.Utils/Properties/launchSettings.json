@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenFlier.Utils": {
+      "commandName": "Project",
+      "commandLineArgs": ".ofspp \"2.ofspp\""
+    }
+  }
+}

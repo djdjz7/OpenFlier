@@ -142,16 +142,39 @@ public partial class PackSummary : Page
                         FileData = ByteString.CopyFrom(System.IO.File.ReadAllBytes(i.FilePath))
                     });
                 }
-                using (FileStream s = new FileStream("1.ofspp", FileMode.Create))
-                {
-                    singlePluginPackage.WriteTo(s);
-                }
                 break;
             case PluginType.CommandInputPlugin:
-
+                singlePluginPackage.PluginName = commandInputPluginInfo.PluginName;
+                singlePluginPackage.PluginVersion = commandInputPluginInfo.PluginVersion;
+                singlePluginPackage.RequestedMinimumOpenflierVersion = commandInputPluginInfo.RequestedMinimumOpenFlierVersion;
+                singlePluginPackage.PluginAuthor = commandInputPluginInfo.PluginAuthor;
+                singlePluginPackage.PluginType = Plugin.PluginType.MqttServicePlugin;
+                singlePluginPackage.PluginDescription = commandInputPluginInfo.PluginDescription;
+                singlePluginPackage.PluginIdentifier = commandInputPluginInfo.PluginIdentifier;
+                singlePluginPackage.PluginNeedConfigEntry = commandInputPluginInfo.PluginNeedConfigEntry;
+                singlePluginPackage.CommandInputCallerNames.Add(commandInputPluginInfo.CommandInputCallerNames);
+                foreach (var i in PluginFiles)
+                {
+                    singlePluginPackage.Files.Add(new Plugin.File()
+                    {
+                        IsPluginMain = i.IsPluginMain,
+                        Filename = i.FileName,
+                        FileData = ByteString.CopyFrom(System.IO.File.ReadAllBytes(i.FilePath))
+                    });
+                }
                 break;
             default:
                 return;
+        }
+        Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+        dialog.Filter = "OpenFlier Single Plugin Package (.ofspp)|*.ofspp";
+        dialog.AddExtension = true;
+        if (dialog.ShowDialog() == true)
+        {
+            using (FileStream s = new FileStream(dialog.FileName, FileMode.Create))
+            {
+                singlePluginPackage.WriteTo(s);
+            }
         }
     }
 

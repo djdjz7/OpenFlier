@@ -1,11 +1,8 @@
-﻿using log4net;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
-using System.Web;
-using System.Windows;
+using log4net;
 
 namespace OpenFlier.Services;
 
@@ -28,7 +25,7 @@ public class ConfigService
                 LogManager.GetLogger(typeof(ConfigService)).Error("Error while parsing config.", e);
             }
         }
-        
+
     }
     public static void OutputDefaultConfig()
     {
@@ -68,43 +65,127 @@ public class Config
 }
 public class Appearances
 {
-    public string? WindowTitle { get; set; }
-    public string? PrimaryColor { get; set; }
-    public string? SecondaryColor { get; set; }
-    public string? BackgroundImage { get; set; }
-    public bool? EnableWindowEffects { get; set; }
-    public bool? SyncColorWithSystem { get; set; }
+    public string? WindowTitle
+    {
+        get; set;
+    }
+    public string? PrimaryColor
+    {
+        get; set;
+    }
+    public string? SecondaryColor
+    {
+        get; set;
+    }
+    public string? BackgroundImage
+    {
+        get; set;
+    }
+    public bool? EnableWindowEffects
+    {
+        get; set;
+    }
+    public bool? SyncColorWithSystem
+    {
+        get; set;
+    }
 }
 public class General
 {
-    public string? DefaultUpdateCheckURL { get; set; }
+    public string? DefaultUpdateCheckURL
+    {
+        get; set;
+    }
     public int? UDPBroadcastPort { get; set; } = 33338;
     public int? MqttServerPort { get; set; } = 61136;
-    public string? SpecifiedMachineIdentifier { get; set; }
-    public string? SpecifiedConnectCode { get; set; }
+    public string? SpecifiedMachineIdentifier
+    {
+        get; set;
+    }
+    public string? SpecifiedConnectCode
+    {
+        get; set;
+    }
     public bool UsePng { get; set; } = false;
     public string SpecifiedEmulatedVersion { get; set; } = "2.0.9";
 }
 public class MqttServicePlugin
 {
-    public string? PluginFilePath { get; set; }
-    public string? PluginName { get; set; }
-    public string? PluginAuthor { get; set; }
-    public string? PluginVersion { get; set; }
-    public string? RequestedMinimumOpenFlierVersion { get; set; }
-    public long? MqttMessageType { get; set; }
-    public bool? PluginNeedConfigEntry { get; set; }
-    public string? PluginDescription { get; set; }
+    public string? PluginFilePath
+    {
+        get; set;
+    }
+    public string? PluginName
+    {
+        get; set;
+    }
+    public string? PluginAuthor
+    {
+        get; set;
+    }
+    public string? PluginVersion
+    {
+        get; set;
+    }
+    public string? RequestedMinimumOpenFlierVersion
+    {
+        get; set;
+    }
+    public long? MqttMessageType
+    {
+        get; set;
+    }
+    public bool? PluginNeedConfigEntry
+    {
+        get; set;
+    }
+    public string? PluginDescription
+    {
+        get; set;
+    }
+    public string? PluginIdentifier
+    {
+        get; set;
+    }
 }
 public class CommandInputPlugin
 {
-    public string? PluginFilePath { get; set; }
-    public string? PluginName { get; set; }
-    public string? PluginAuthor { get; set; }
-    public string? PluginVersion { get; set; }
-    public string? RequestedMinimumOpenFlierVersion { get; set; }
-    public string[]? PluginCallerNames { get; set; }
-    public bool? PluginNeedConfigEntry { get; set; }
+    public string? PluginFilePath
+    {
+        get; set;
+    }
+    public string? PluginName
+    {
+        get; set;
+    }
+    public string? PluginAuthor
+    {
+        get; set;
+    }
+    public string? PluginVersion
+    {
+        get; set;
+    }
+    public string? RequestedMinimumOpenFlierVersion
+    {
+        get; set;
+    }
+    public string[]? PluginCallerNames
+    {
+        get; set;
+    }
+    public bool? PluginNeedConfigEntry
+    {
+        get; set;
+    }
+    public string? PluginIdentifier
+    {
+        get; set;
+    }
+    public string? PluginDescription
+    {
+        get; set;
+    }
 }
 public class SpecialChannels
 {
@@ -115,4 +196,6 @@ public class SpecialChannels
     public string CommandInputAllowedUsers { get; set; } = "";
 }
 
-public class MqttPluginsList : ObservableCollection<MqttServicePlugin> { }
+public class MqttPluginsList : ObservableCollection<MqttServicePlugin>
+{
+}
