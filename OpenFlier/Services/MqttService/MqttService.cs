@@ -1,31 +1,33 @@
-﻿using log4net;
-using MQTTnet;
-using MQTTnet.Protocol;
-using MQTTnet.Server;
-using Newtonsoft.Json;
-using OpenFlier.Plugin;
-using OpenFlier.SpecialChannels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
+using MQTTnet;
+using MQTTnet.Protocol;
+using MQTTnet.Server;
+using Newtonsoft.Json;
+using OpenFlier.Plugin;
+using OpenFlier.SpecialChannels;
 
 namespace OpenFlier.Services
 {
     public static class MqttService
     {
-        public static IMqttServer? MqttServer { get; set; }
+        public static IMqttServer? MqttServer
+        {
+            get; set;
+        }
         public static List<User> Users { get; set; } = new List<User>();
         public static ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(MqttService));
 
         public static string MainTopic { get; } = Guid.NewGuid().ToString("N");
-        public async static void Initialize()
+        public static async void Initialize()
         {
             MqttServerOptionsBuilder optionsBuilder = new MqttServerOptionsBuilder().WithConnectionBacklog(2000).WithDefaultEndpointPort(LocalStorage.Config.General.MqttServerPort ?? 61136);
             MqttServer = new MqttFactory().CreateMqttServer();
@@ -46,6 +48,7 @@ namespace OpenFlier.Services
                     connectedUser.SwitchChannel();
                     connectedUser.LastUpdateTime = DateTime.Now;
                 }
+                connectedUser.CurrentClientID = "";
             });
         }
 
@@ -65,8 +68,17 @@ namespace OpenFlier.Services
                         AllowLocalRandom = LocalStorage.Config.SpecialChannels.LocalRandomAllowedUsers.Contains(userName),
                         AllowRemoteRandom = LocalStorage.Config.SpecialChannels.RemoteRandomAllowedUsers.Contains(userName),
                         AllowCommandInput = LocalStorage.Config.SpecialChannels.CommandInputAllowedUsers.Contains(userName),
+                        CurrentClientID = arg.ClientId,
                     });
                     MqttLogger.Info($"New user connected: {arg.ClientId}");
+                }
+                else
+                {
+                    var u = Users.FirstOrDefault(x => x.UserName == userName);
+                    if (u is not null)
+                    {
+                        u.CurrentClientID = arg.ClientId;
+                    }
                 }
             });
         }
@@ -152,8 +164,8 @@ namespace OpenFlier.Services
                             try
                             {
                                 FileInfo assemblyFileInfo = new FileInfo(pluginInfo.PluginFilePath);
-                                
-                                var assembly=Assembly.LoadFrom(assemblyFileInfo.FullName);
+
+                                var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
                                 //Assembly assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
                                 Type[] types = assembly.GetTypes();
                                 foreach (Type type in types)

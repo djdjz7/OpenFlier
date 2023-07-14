@@ -1,0 +1,25 @@
+﻿<Window
+    x:Class="OpenFlier.Video"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OpenFlier"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Video"
+    SizeToContent="WidthAndHeight"
+    mc:Ignorable="d">
+    <StackPanel Margin="12">
+        <TextBox x:Name="Interval" ToolTip="Interval in millisecond." Text="50"/>
+        <TextBox x:Name="FlagCount" ToolTip="Frame no." Text="{Binding Flag}" Margin="0 8 0 0"/>
+        <ListBox MaxHeight="200" Name="UserSelector"/>
+
+        <Button Margin="0 8 0 0"
+            x:Name="PlayButton"
+            Click="PlayButton_Click"
+            Content="Play" />
+        <Button Margin="0 8 0 0"
+            x:Name="StopButton"
+            Click="StopButton_Click"
+            Content="Stop" />
+    </StackPanel>
+</Window>

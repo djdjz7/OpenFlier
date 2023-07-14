@@ -1,21 +1,24 @@
-﻿using MQTTnet.Server;
-using MQTTnet;
-using OpenFlier.Plugin;
-using OpenFlier.Services;
-using System;
+﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Loader;
-using System.Threading;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using FFmpeg.AutoGen;
+using Microsoft.Win32;
+using MQTTnet;
+using MQTTnet.Protocol;
+using MQTTnet.Server;
+using Newtonsoft.Json;
+using OpenFlier.Plugin;
+using OpenFlier.Services;
 using static OpenFlier.Controls.PInvoke.Methods;
 using static OpenFlier.Controls.PInvoke.ParameterTypes;
-using System.Reflection;
-using System.Collections.ObjectModel;
-using Microsoft.Win32;
 
 namespace OpenFlier;
 
@@ -25,7 +28,7 @@ namespace OpenFlier;
 public partial class MainWindow : Window
 {
     private readonly ServiceManager serviceManager = new();
-    private Config tempConfig=new();
+    private Config tempConfig = new();
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         ConfigService.OutputDefaultConfig();
@@ -62,7 +65,7 @@ public partial class MainWindow : Window
     {
         var mainWindowPtr = new WindowInteropHelper(this).Handle;
         var mainWindowSrc = HwndSource.FromHwnd(mainWindowPtr);
-        mainWindowSrc.CompositionTarget.BackgroundColor = Color.FromArgb(0, 0, 0, 0);
+        mainWindowSrc.CompositionTarget.BackgroundColor = System.Windows.Media.Color.FromArgb(0, 0, 0, 0);
 
         var margins = new MARGINS();
         margins.cxLeftWidth = -1;
@@ -105,9 +108,8 @@ public partial class MainWindow : Window
         try
         {
             FileInfo assemblyFileInfo = new FileInfo(pluginInfo.PluginFilePath);
-            var alc = new ConfiguratorAssemblyLoadContext(assemblyFileInfo.FullName);
-            var assembly = alc.LoadFromAssemblyPath(assemblyFileInfo.FullName);
-            
+            var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
+
             Type[] types = assembly.GetTypes();
             foreach (Type type in types)
             {
@@ -120,11 +122,10 @@ public partial class MainWindow : Window
                     continue;
                 mqttServicePlugin.PluginOpenConfig();
             }
-            alc.Unload();
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.Message+"\n"+ex.StackTrace);
+            MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
         }
 
     }
@@ -141,15 +142,14 @@ public partial class MainWindow : Window
         ofd.Filter = "OpenFlier Mqtt Plugin (*.dll)|*.dll";
         ofd.Multiselect = true;
         ofd.CheckFileExists = true;
-        if(ofd.ShowDialog()==true)
+        if (ofd.ShowDialog() == true)
         {
-            foreach(var path in ofd.FileNames)
+            foreach (var path in ofd.FileNames)
             {
                 try
                 {
                     FileInfo assemblyFileInfo = new FileInfo(path);
-                    var alc = new ConfiguratorAssemblyLoadContext(assemblyFileInfo.FullName);
-                    var assembly = alc.LoadFromAssemblyPath(assemblyFileInfo.FullName);
+                    var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
 
                     Type[] types = assembly.GetTypes();
                     foreach (Type type in types)
@@ -174,7 +174,6 @@ public partial class MainWindow : Window
                             RequestedMinimumOpenFlierVersion = pluginInfo.RequestedMinimumOpenFlierVersion,
                         });
                     }
-                    alc.Unload();
                 }
                 catch (Exception ex)
                 {
@@ -189,22 +188,9 @@ public partial class MainWindow : Window
         tempConfig.MqttServicePlugins.Remove((MqttServicePlugin)MqttPluginsListBox.SelectedItem);
         //MqttPluginsListBox.ItemsSource = tempConfig.MqttServicePlugins;
     }
-}
 
-public class ConfiguratorAssemblyLoadContext : AssemblyLoadContext
-{
-    private readonly AssemblyDependencyResolver _resolver;
-    public ConfiguratorAssemblyLoadContext(string mainAssemblyToLoadPath) : base(isCollectible: true)
+    private async void TestButton_Click(object sender, RoutedEventArgs e)
     {
-        _resolver = new AssemblyDependencyResolver(mainAssemblyToLoadPath);
-    }
-    protected override Assembly? Load(AssemblyName name)
-    {
-        var assemblyPath = _resolver.ResolveAssemblyToPath(name);
-        if (assemblyPath != null)
-        {
-            return LoadFromAssemblyPath(assemblyPath);
-        }
-        return null;
+        (new Video()).ShowDialog();
     }
 }

@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="cef.redist.x64" Version="108.4.13" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="108.4.130" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="FFmpeg.AutoGen" Version="6.0.0.2" />
     <PackageReference Include="FubarDev.FtpServer" Version="3.1.2" />
     <PackageReference Include="FubarDev.FtpServer.FileSystem.DotNet" Version="3.1.2" />
     <PackageReference Include="log4net" Version="2.0.15" />
@@ -52,6 +52,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ffmpeg\bin\ffmpeg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ffmpeg\bin\ffplay.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ffmpeg\bin\ffprobe.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -11,6 +11,7 @@ namespace OpenFlier.SpecialChannels
         public SpecialChannel CurrentChannel;
         public bool IsTaskFinished = true;
         public DateTime LastUpdateTime;
+        public string CurrentClientID = "";
     }
     public enum SpecialChannel
     {
