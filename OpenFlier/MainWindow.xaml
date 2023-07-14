@@ -46,17 +46,20 @@
                         <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe80f;" />
                     </TabItem.Header>
                     <Grid>
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -12 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="11*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,82,0,0" Grid.Row="1">
                             <TextBlock Name="IPAddress" HorizontalAlignment="Center"/>
                             <TextBlock Name="ConnectCode" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold"/>
-                            <Button Content="Test" Name="TestButton" Click="TestButton_Click" VerticalAlignment="Top"/>
                         </StackPanel>
-                        <TextBlock Name="MachineIdentifier" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8" ToolTip="{x:Static local:Resources.MachineIdentifierTitle}"/>
-                        
+                        <TextBlock Name="MachineIdentifier" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8" ToolTip="{x:Static local:Resources.MachineIdentifierTitle}" Grid.Row="1"/>
+
                     </Grid>
                 </TabItem>
                 <TabItem>
-                    
+
                     <TabItem.Header>
                         <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe713;" />
                     </TabItem.Header>
@@ -324,7 +327,7 @@
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel>
-                                
+
                                 <!--<TextBlock Style="{StaticResource SubTitle}" Text="{x:Static local:Resources.UpdatesTitle}" />
                                 <TextBlock Text="{x:Static local:Resources.UpdatesDescription}" />-->
                                 <TextBlock
@@ -332,6 +335,16 @@
                                     Style="{StaticResource SubTitle}"
                                     Text="{x:Static local:Resources.AboutTitle}" />
                                 <TextBlock Text="{x:Static local:Resources.AboutDescription}" />
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    Style="{StaticResource SubTitle}"
+                                    Text="{x:Static local:Resources.FunZoneTitle}" />
+                                <TextBlock Text="{x:Static local:Resources.FunZoneDescription}" />
+                                <TextBlock
+                                    Style="{StaticResource H3}"
+                                    Text="{x:Static local:Resources.VideoPlayTitle}" />
+                                <TextBlock Text="{x:Static local:Resources.VideoPlayDescription}"/>
+                                <Button Content="{x:Static local:Resources.VideoPlayOpenButton}" Name="TestButton" Click="TestButton_Click" HorizontalAlignment="Left"/>
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     FontSize="10"
@@ -346,8 +359,7 @@
         </Grid>
         <Grid
             Name="LoadingScreen"
-            Grid.RowSpan="2"
-            Visibility="Hidden">
+            Grid.RowSpan="2" Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Margin="12,0,12,0" Text="{x:Static local:Resources.LoadingServiceString}" />
                 <ProgressBar

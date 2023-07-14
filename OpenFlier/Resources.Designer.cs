@@ -189,6 +189,24 @@ namespace OpenFlier {
         }
         
         /// <summary>
+        ///   查找类似 Some experimental features, just for fun! 的本地化字符串。
+        /// </summary>
+        public static string FunZoneDescription {
+            get {
+                return ResourceManager.GetString("FunZoneDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Fun Zone 的本地化字符串。
+        /// </summary>
+        public static string FunZoneTitle {
+            get {
+                return ResourceManager.GetString("FunZoneTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 General 的本地化字符串。
         /// </summary>
         public static string GeneralTitle {
@@ -340,6 +358,33 @@ namespace OpenFlier {
         public static string UsePngTitle {
             get {
                 return ResourceManager.GetString("UsePngTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select all frames of a video, set timing intervals, and play! (10~20 fps recommanded. May use ffmpeg to extract frames manually.) 的本地化字符串。
+        /// </summary>
+        public static string VideoPlayDescription {
+            get {
+                return ResourceManager.GetString("VideoPlayDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select All Frames 的本地化字符串。
+        /// </summary>
+        public static string VideoPlayOpenButton {
+            get {
+                return ResourceManager.GetString("VideoPlayOpenButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Play A Video! 的本地化字符串。
+        /// </summary>
+        public static string VideoPlayTitle {
+            get {
+                return ResourceManager.GetString("VideoPlayTitle", resourceCulture);
             }
         }
     }

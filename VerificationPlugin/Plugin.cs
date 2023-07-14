@@ -3,6 +3,7 @@ using System.Text;
 using System.Windows;
 using MQTTnet;
 using OpenFlier.Plugin;
+using File = System.IO.File;
 
 namespace VerificationPlugin
 {

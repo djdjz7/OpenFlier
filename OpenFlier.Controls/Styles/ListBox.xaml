@@ -26,12 +26,21 @@
                         <Rectangle
                             Name="SelectionIndicator"
                             Width="4"
-                            Height="0"
+                            ofc:AttachedSimpleProperties.Double="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Fill="{DynamicResource PrimaryBrush}"
                             RadiusX="2"
-                            RadiusY="2" />
+                            RadiusY="2">
+                            <Rectangle.Height>
+                                <MultiBinding Converter="{StaticResource TagAndWidthToActualWidthConverter}">
+                                    <MultiBinding.Bindings>
+                                        <Binding Path="(ofc:AttachedSimpleProperties.Double)" ElementName="SelectionIndicator"/>
+                                        <Binding Path="ActualHeight" ElementName="BackgroundRect"/>
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+                            </Rectangle.Height>
+                        </Rectangle>
                         <ContentPresenter Margin="12,0,0,0" VerticalAlignment="Center" />
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -65,8 +74,8 @@
                                     <Storyboard>
                                         <DoubleAnimation
                                             Storyboard.TargetName="SelectionIndicator"
-                                            Storyboard.TargetProperty="Height"
-                                            To="16"
+                                            Storyboard.TargetProperty="(ofc:AttachedSimpleProperties.Double)"
+                                            To="0.6"
                                             Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction>
                                                 <anim:CubicBezier
@@ -84,7 +93,7 @@
                                     <Storyboard>
                                         <DoubleAnimation
                                             Storyboard.TargetName="SelectionIndicator"
-                                            Storyboard.TargetProperty="Height"
+                                            Storyboard.TargetProperty="(ofc:AttachedSimpleProperties.Double)"
                                             To="0"
                                             Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction>

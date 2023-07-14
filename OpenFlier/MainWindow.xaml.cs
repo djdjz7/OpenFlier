@@ -40,6 +40,8 @@ public partial class MainWindow : Window
         }
         serviceManager.LoadCompleted += ServiceManager_LoadCompleted;
         serviceManager.BeginLoad();
+        LoadingScreen.Visibility = Visibility.Visible;
+        MainGrid.Visibility = Visibility.Hidden;
     }
 
     private void ServiceManager_LoadCompleted(object? sender, EventArgs e)
