@@ -74,7 +74,7 @@ public partial class Video : Window, INotifyPropertyChanged
     {
         if (Flag < files.Count)
         {
-            string s5 = JsonConvert.SerializeObject(new
+            var s5 = JsonConvert.SerializeObject(new
             {
                 type = MqttMessageType.ScreenCaptureResp,
                 data = new

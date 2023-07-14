@@ -191,7 +191,7 @@ public partial class MainWindow : Window
         //MqttPluginsListBox.ItemsSource = tempConfig.MqttServicePlugins;
     }
 
-    private async void TestButton_Click(object sender, RoutedEventArgs e)
+    private void TestButton_Click(object sender, RoutedEventArgs e)
     {
         (new Video()).ShowDialog();
     }
