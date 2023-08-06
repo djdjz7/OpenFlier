@@ -1,4 +1,4 @@
-<center><h1>OpenFlier</h1></center>
+<h1 align=center>OpenFlier</h1>
 
 <div align=center>
 <img src="icon.svg"/>
