@@ -1,5 +1,8 @@
-# OpenFlier
-![icon](OpenFlier/Assets/icon.png)
+<center><h1>OpenFlier</h1></center>
+
+<div align=center>
+<img src="icon.svg"/>
+</div>
 
 OpenFlier is an open-source implementation of ZY ClassHelper/ZYFlier which aims to solve historic issues such as multi-IP support etc.
 
