@@ -8,6 +8,7 @@ using System.Windows.Threading;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
 using Newtonsoft.Json;
+using OpenFlier.Core;
 using OpenFlier.Services;
 
 namespace OpenFlier;
@@ -53,9 +54,9 @@ public partial class Video : Window, INotifyPropertyChanged
         DataContext = this;
         foreach (var user in MqttService.Users)
         {
-            if (!string.IsNullOrEmpty(user.CurrentClientID))
+            if (!string.IsNullOrEmpty(user.CurrentClientId))
             {
-                UserSelector.Items.Add(user.CurrentClientID);
+                UserSelector.Items.Add(user.CurrentClientId);
             }
         }
     }
@@ -80,8 +81,8 @@ public partial class Video : Window, INotifyPropertyChanged
                 data = new
                 {
                     name = files[Flag],
-                    deviceCode = LocalStorage.MachineIdentifier,
-                    versionCode = LocalStorage.Version
+                    deviceCode = CoreStorage.MachineIdentifier,
+                    versionCode = CoreStorage.Version
                 }
             });
             await MqttService.MqttServer.PublishAsync(new MQTTnet.MqttApplicationMessage

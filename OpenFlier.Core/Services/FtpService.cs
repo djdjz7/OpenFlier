@@ -6,7 +6,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace OpenFlier.Services;
+namespace OpenFlier.Core.Services;
 
 public class FtpService
 {
@@ -29,16 +29,16 @@ public class FtpService
         }
     }
 
-    public static ServiceProvider? ServiceProvider { get; set; }
-    public static IFtpServerHost? FtpServerHost { get; set; }
-    public static void Initialize()
+    public ServiceProvider? ServiceProvider { get; set; }
+    public IFtpServerHost? FtpServerHost { get; set; }
+    public void Initialize()
     {
         if (Directory.Exists("Screenshots"))
             Directory.Delete("Screenshots", true);
         Directory.CreateDirectory("Screenshots");
         StartFtpServer();
     }
-    public static void StartFtpServer()
+    public void StartFtpServer()
     {
         var services = new ServiceCollection();
         services
@@ -53,7 +53,7 @@ public class FtpService
 
     }
 
-    public static void StopFtpServer()
+    public void StopFtpServer()
     {
         FtpServerHost?.StopAsync();
         ServiceProvider?.Dispose();

@@ -19,24 +19,7 @@
     mc:Ignorable="d">
     <Window.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <services:MqttPluginsList x:Key="mqttPluginsList">
-            <services:MqttServicePlugin
-                MqttMessageType="30000"
-                PluginAuthor="The OpenFlier Authors"
-                PluginDescription="A demo MQTT Plugin."
-                PluginFilePath="Plugin/Demo.dll"
-                PluginName="Demo Plugin"
-                PluginNeedConfigEntry="False"
-                PluginVersion="1.0" />
-            <services:MqttServicePlugin
-                MqttMessageType="10006"
-                PluginAuthor="The OpenFlier Authors"
-                PluginDescription="Emulating ZY ClassHelper's DeviceVerification Method."
-                PluginFilePath="Plugin/VerificationPlugin.dll"
-                PluginName="MQTT Verification"
-                PluginNeedConfigEntry="True"
-                PluginVersion="1.0" />
-        </services:MqttPluginsList>
+        
     </Window.Resources>
     <Grid>
         <Grid Name="MainGrid">
@@ -234,7 +217,7 @@
                                                 Grid.Row="2"
                                                 Background="Transparent"
                                                 BorderBrush="Transparent"
-                                                ItemsSource="{Binding Mode=OneWay, Source={StaticResource mqttPluginsList}}">
+                                                >
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Margin="0,2,0,2">

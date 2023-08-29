@@ -35,7 +35,6 @@ namespace OpenFlier
         {
             ConfigService.OutputDefaultConfig();
             ConfigService.ReadConfig();
-            VerificationService.Initialize();
             if (LocalStorage.Config.Appearances.EnableWindowEffects ?? true)
             {
                 RefreshFrame();

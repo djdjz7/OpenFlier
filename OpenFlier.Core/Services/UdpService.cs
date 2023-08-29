@@ -9,34 +9,34 @@ using System.Threading;
 using System.Threading.Tasks;
 using log4net;
 
-namespace OpenFlier.Services
+namespace OpenFlier.Core.Services
 {
-    public static class UdpService
+    public class UdpService
     {
-        private static bool flag = true;
-        public static void Initialize()
+        private bool flag = true;
+        public void Initialize()
         {
             UpdateConnectCode();
             StartUdpBroadcast();
         }
-        public static void StartUdpBroadcast()
+        public void StartUdpBroadcast()
         {
             flag = true;
             Thread udpBroadcastThread = new Thread(UdpBroadcast);
             udpBroadcastThread.IsBackground = true;
             udpBroadcastThread.Start();
         }
-        public static void StopUdpBroadcast()
+        public void StopUdpBroadcast()
         {
             flag = false;
             Thread.Sleep(800);
         }
-        public static void UdpBroadcast()
+        public void UdpBroadcast()
         {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPEndPoint remoteEP = new IPEndPoint(IPAddress.Broadcast, LocalStorage.Config.General.UDPBroadcastPort ?? 33338);
+            IPEndPoint remoteEP = new IPEndPoint(IPAddress.Broadcast, CoreStorage.CoreConfig.UDPBroadcastPort ?? 33338);
             socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
-            string udpContent = LocalStorage.IPAddress + "::" + LocalStorage.ConnectCode;
+            string udpContent = CoreStorage.IPAddress + "::" + CoreStorage.ConnectCode;
             byte[] udpContentBytes = Encoding.UTF8.GetBytes(udpContent);
             ILog logger = LogManager.GetLogger(typeof(UdpService));
             logger.Info($"Begin UDP broadcast with content {udpContent}");
@@ -48,17 +48,17 @@ namespace OpenFlier.Services
             socket.Close();
             logger.Info("UDP broadcast ended.");
         }
-        public static void UpdateConnectCode()
+        public void UpdateConnectCode()
         {
             Regex regex = new Regex("^\\d{4}$");
-            string specifiedConnectCode = LocalStorage.Config.General.SpecifiedConnectCode ?? "";
+            string specifiedConnectCode = CoreStorage.CoreConfig.SpecifiedConnectCode ?? "";
             if (regex.IsMatch(specifiedConnectCode))
             {
-                LocalStorage.ConnectCode = specifiedConnectCode;
+                CoreStorage.ConnectCode = specifiedConnectCode;
                 return;
             }
             string connectCode = Random.Shared.Next(0, 10000).ToString("D4");
-            LocalStorage.ConnectCode = connectCode;
+            CoreStorage.ConnectCode = connectCode;
         }
     }
 }

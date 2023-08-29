@@ -20,7 +20,6 @@ public class Plugin : IMqttServicePlugin
             PluginIdentifier = "openflier.def.verification",
             PluginNeedConfigEntry = true,
             PluginVersion = "1.0",
-            RequestedMinimumOpenFlierVersion = "0.1"
         };
     }
 

@@ -1,24 +1,21 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using OpenFlier.Plugin;
+using OpenFlier.Core.Services;
+using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Runtime.Loader;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
-using System.Windows.Media;
-using FFmpeg.AutoGen;
-using Microsoft.Win32;
-using MQTTnet;
-using MQTTnet.Protocol;
-using MQTTnet.Server;
-using Newtonsoft.Json;
-using OpenFlier.Plugin;
 using OpenFlier.Services;
 using static OpenFlier.Controls.PInvoke.Methods;
 using static OpenFlier.Controls.PInvoke.ParameterTypes;
+using OpenFlier.Core;
+using System.Collections.Generic;
+using System.Net;
+using System.Linq;
+using System.Security.Cryptography.Xml;
 
 namespace OpenFlier;
 
@@ -27,7 +24,7 @@ namespace OpenFlier;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly ServiceManager serviceManager = new();
+    private ServiceManager serviceManager = LocalStorage.ServiceManager;
     private Config tempConfig = new();
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
@@ -38,19 +35,40 @@ public partial class MainWindow : Window
             RefreshFrame();
             RefreshDarkMode();
         }
-        serviceManager.LoadCompleted += ServiceManager_LoadCompleted;
-        serviceManager.BeginLoad();
-        LoadingScreen.Visibility = Visibility.Visible;
-        MainGrid.Visibility = Visibility.Hidden;
+        
+        List<IPAddress> ipAddresses = Dns.GetHostEntry(Dns.GetHostName())
+                .AddressList
+                .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                .ToList();
+        if(ipAddresses.Count > 1)
+        {
+            var selectNetworkInterface = new SelectNetworkInterface(ipAddresses);
+            selectNetworkInterface.InterfaceSelected += (s, e) =>
+            {
+                serviceManager = new ServiceManager((IPAddress?)((SelectNetworkInterface)s).IPListBox.SelectedItem);
+                serviceManager.OnLoadCompleted += ServiceManager_LoadCompleted;
+                serviceManager.BeginLoad();
+                LoadingScreen.Visibility = Visibility.Visible;
+                MainGrid.Visibility = Visibility.Hidden;
+            };
+            selectNetworkInterface.ShowDialog();
+        }
+        else
+        {
+            serviceManager.OnLoadCompleted += ServiceManager_LoadCompleted;
+            serviceManager.BeginLoad();
+            LoadingScreen.Visibility = Visibility.Visible;
+            MainGrid.Visibility = Visibility.Hidden;
+        }
     }
 
     private void ServiceManager_LoadCompleted(object? sender, EventArgs e)
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
-            IPAddress.Text = LocalStorage.IPAddress;
-            ConnectCode.Text = LocalStorage.ConnectCode;
-            MachineIdentifier.Text = LocalStorage.MachineIdentifier;
+            IPAddress.Text = CoreStorage.IPAddress?.ToString();
+            ConnectCode.Text = CoreStorage.ConnectCode;
+            MachineIdentifier.Text = CoreStorage.MachineIdentifier;
             LoadingScreen.Visibility = Visibility.Hidden;
             MainGrid.Visibility = Visibility.Visible;
             var presentationSource = PresentationSource.FromVisual(this);
@@ -98,13 +116,13 @@ public partial class MainWindow : Window
 
     protected override void OnClosing(CancelEventArgs e)
     {
-        serviceManager.EndAllServices();
+        serviceManager.TerminateAllServices();
         base.OnClosing(e);
     }
 
     private void ConfigurePluginButton_Click(object sender, RoutedEventArgs e)
     {
-        var pluginInfo = (MqttServicePlugin)((ListBoxItem)MqttPluginsListBox.ContainerFromElement((Button)sender)).Content;
+        var pluginInfo = (LocalMqttServicePluginInfo)((ListBoxItem)MqttPluginsListBox.ContainerFromElement((Button)sender)).Content;
         if (pluginInfo.PluginFilePath == null)
             return;
         try
@@ -135,7 +153,6 @@ public partial class MainWindow : Window
     private void InitializeConfigurator()
     {
         tempConfig = LocalStorage.Config;
-        MqttPluginsListBox.ItemsSource = tempConfig.MqttServicePlugins;
     }
 
     private void AddMqttPlugin_Click(object sender, RoutedEventArgs e)
@@ -164,6 +181,7 @@ public partial class MainWindow : Window
                         if (mqttServicePlugin == null)
                             continue;
                         var pluginInfo = mqttServicePlugin.GetMqttServicePluginInfo();
+                        /*
                         tempConfig.MqttServicePlugins.Add(new MqttServicePlugin
                         {
                             MqttMessageType = pluginInfo.MqttMessageType,
@@ -175,6 +193,7 @@ public partial class MainWindow : Window
                             PluginVersion = pluginInfo.PluginVersion,
                             RequestedMinimumOpenFlierVersion = pluginInfo.RequestedMinimumOpenFlierVersion,
                         });
+                        */
                     }
                 }
                 catch (Exception ex)
@@ -187,8 +206,10 @@ public partial class MainWindow : Window
 
     private void RemoveMqttPlugin_Click(object sender, RoutedEventArgs e)
     {
+        /*
         tempConfig.MqttServicePlugins.Remove((MqttServicePlugin)MqttPluginsListBox.SelectedItem);
         //MqttPluginsListBox.ItemsSource = tempConfig.MqttServicePlugins;
+        */
     }
 
     private void TestButton_Click(object sender, RoutedEventArgs e)

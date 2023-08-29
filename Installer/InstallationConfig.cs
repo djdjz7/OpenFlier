@@ -4,22 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Installer
+namespace Installer;
+
+internal static class SharedData
 {
-    public static class InstallationConfig
-    {
-        public static InstallerMode InstallerMode = InstallerMode.OnlineInstall;
-        public static string DownloadSource="";
-        public static bool CreateDesktopShortcut = true;
-        public static bool KeepPreviousConfig = true;
-        public static bool AddToStartup = false;
-        public static bool DownloadCefSharpPack = false;
-    }
-    public enum InstallerMode
-    {
-        OnlineInstall=0,
-        OfflineInstall=1,
-        Update=2,
-        Uninstall=3,
-    }
+    public static InstallerConfig InstallerConfig = new InstallerConfig(); 
 }

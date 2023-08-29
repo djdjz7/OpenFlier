@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenFlier.Controls\OpenFlier.Controls.csproj" />
+    <ProjectReference Include="..\OpenFlier.Core\OpenFlier.Core.csproj" />
     <ProjectReference Include="..\OpenFlier.Plugin\OpenFlier.Plugin.csproj" />
   </ItemGroup>
 
@@ -53,13 +54,28 @@
 
   <ItemGroup>
     <None Update="ffmpeg\bin\ffmpeg.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="ffmpeg\bin\ffplay.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="ffmpeg\bin\ffprobe.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="ffmpeg\presets\libvpx-1080p.ffpreset">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="ffmpeg\presets\libvpx-1080p50_60.ffpreset">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="ffmpeg\presets\libvpx-360p.ffpreset">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="ffmpeg\presets\libvpx-720p.ffpreset">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="ffmpeg\presets\libvpx-720p50_60.ffpreset">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

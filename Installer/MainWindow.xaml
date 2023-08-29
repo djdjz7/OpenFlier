@@ -56,7 +56,10 @@
                         ShadowDepth="32" />
                 </Rectangle.Effect>
             </Rectangle>
-            <Frame Padding="12" Source="FontTestScreen.xaml" />
+            <Frame
+                Padding="12"
+                NavigationUIVisibility="Hidden"
+                Source="FontTestScreen.xaml" />
         </Grid>
 
 
