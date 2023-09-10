@@ -14,6 +14,6 @@ namespace OpenFlier
     {
         public static Config Config { get; set; } = new Config();
         public static Rectangle ScreenSize = new Rectangle(0,0,1920,1080);
-        public static ServiceManager ServiceManager = new ServiceManager();
+        public static ServiceManager ServiceManager;
     }
 }

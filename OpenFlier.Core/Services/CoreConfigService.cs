@@ -6,25 +6,6 @@ namespace OpenFlier.Core.Services;
 
 public class CoreConfigService
 {
-    public void ReadConfig()
-    {
-        var localJsonContent = "";
-        if (File.Exists("core.config.json"))
-            localJsonContent = File.ReadAllText("core.config.json");
-        if (!string.IsNullOrEmpty(localJsonContent))
-        {
-            try
-            {
-                CoreStorage.CoreConfig = JsonSerializer.Deserialize<CoreConfig>(localJsonContent) ?? new CoreConfig();
-
-            }
-            catch (Exception e)
-            {
-                LogManager.GetLogger(typeof(CoreConfigService)).Error("Error while parsing config.", e);
-            }
-        }
-
-    }
     public void OutputDefaultConfig()
     {
         var config = new CoreConfig();
@@ -51,6 +32,7 @@ public class CoreConfig
     public string SpecifiedEmulatedVersion { get; set; } = "2.0.9";
     public List<LocalMqttServicePluginInfo> MqttServicePlugins { get; set; } = new();
     public string VerificationContent { get; set; } = "{\"type\":20007,\"data\":{\"topic\":\"Ec1xkK+uFtV/QO/8rduJ2A==\"}}";
+    public string? FtpDirectory { get; set; }
 }
 public class LocalMqttServicePluginInfo : MqttServicePluginInfo
 {

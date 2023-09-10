@@ -45,7 +45,11 @@ public partial class MainWindow : Window
             var selectNetworkInterface = new SelectNetworkInterface(ipAddresses);
             selectNetworkInterface.InterfaceSelected += (s, e) =>
             {
-                serviceManager = new ServiceManager((IPAddress?)((SelectNetworkInterface)s).IPListBox.SelectedItem);
+                serviceManager = new ServiceManager(new CoreConfig
+                {
+                    SpecifiedConnectCode = "9999",
+                    
+                }, (IPAddress?)((SelectNetworkInterface)s).IPListBox.SelectedItem);
                 serviceManager.OnLoadCompleted += ServiceManager_LoadCompleted;
                 serviceManager.BeginLoad();
                 LoadingScreen.Visibility = Visibility.Visible;

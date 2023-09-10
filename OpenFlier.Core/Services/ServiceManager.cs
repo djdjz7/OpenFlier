@@ -17,20 +17,21 @@ namespace OpenFlier.Core.Services
         public UdpService UdpService { get; } = new UdpService();
         public MqttService MqttService { get; } = new MqttService();
         public FtpService FtpService { get; } = new FtpService();
-        public ServiceManager(IPAddress? ipAddress = null)
+        public ServiceManager(CoreConfig coreConfig, IPAddress? ipAddress = null)
         {
             List<IPAddress> ipAddresses = Dns.GetHostEntry(Dns.GetHostName())
                 .AddressList
                 .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 .ToList();
-
+            /*
             if(ipAddress is not null && !ipAddresses.Contains(ipAddress))
-                throw new ArgumentOutOfRangeException(nameof(ipAddress));
+                throw new ArgumentOutOfRangeException(nameof(ipAddress));*/
 
             if (ipAddress == null)
                 ipAddress = ipAddresses[0];
 
             CoreStorage.IPAddress = ipAddress;
+            CoreStorage.CoreConfig = coreConfig;
 
             _loadServiceThread = new Thread(() =>
             { 

@@ -2,9 +2,7 @@
 using FubarDev.FtpServer.AccountManagement;
 using FubarDev.FtpServer.FileSystem.DotNet;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace OpenFlier.Core.Services;
 
@@ -31,18 +29,22 @@ public class FtpService
 
     public ServiceProvider? ServiceProvider { get; set; }
     public IFtpServerHost? FtpServerHost { get; set; }
+
+    private string? specifiedFtpDirectory;
     public void Initialize()
     {
-        if (Directory.Exists("Screenshots"))
-            Directory.Delete("Screenshots", true);
-        Directory.CreateDirectory("Screenshots");
+        specifiedFtpDirectory = string.IsNullOrEmpty(CoreStorage.CoreConfig.FtpDirectory) ? "Screenshots" : CoreStorage.CoreConfig.FtpDirectory;
+        if (Directory.Exists(specifiedFtpDirectory))
+            Directory.Delete(specifiedFtpDirectory, true);
+        Directory.CreateDirectory(specifiedFtpDirectory);
+
         StartFtpServer();
     }
     public void StartFtpServer()
     {
         var services = new ServiceCollection();
         services
-            .Configure<DotNetFileSystemOptions>(opt => opt.RootPath = "Screenshots");
+            .Configure<DotNetFileSystemOptions>(opt => opt.RootPath = specifiedFtpDirectory);
         services.AddFtpServer(builder => builder
             .UseDotNetFileSystem()
             .EnableAnonymousAuthentication());
