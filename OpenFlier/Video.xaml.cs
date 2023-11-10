@@ -9,9 +9,9 @@ using MQTTnet.Protocol;
 using MQTTnet.Server;
 using Newtonsoft.Json;
 using OpenFlier.Core;
-using OpenFlier.Services;
+using OpenFlier.Core.Services;
 
-namespace OpenFlier;
+namespace OpenFlier.Desktop;
 /// <summary>
 /// Video.xaml 的交互逻辑
 /// </summary>
@@ -52,7 +52,7 @@ public partial class Video : Window, INotifyPropertyChanged
         }
         InitializeComponent();
         DataContext = this;
-        foreach (var user in MqttService.Users)
+        foreach (var user in Services.MqttService.Users)
         {
             if (!string.IsNullOrEmpty(user.CurrentClientId))
             {
@@ -85,7 +85,7 @@ public partial class Video : Window, INotifyPropertyChanged
                     versionCode = CoreStorage.Version
                 }
             });
-            await MqttService.MqttServer.PublishAsync(new MQTTnet.MqttApplicationMessage
+            await Services.MqttService.MqttServer.PublishAsync(new MQTTnet.MqttApplicationMessage
             {
                 Topic = UserSelector.SelectedItem + "/REQUEST_SCREEN_CAPTURE",
                 Payload = Encoding.Default.GetBytes(s5),

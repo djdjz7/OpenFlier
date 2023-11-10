@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using OpenFlier.Services;
 using OpenFlier.Core.Services;
 
-namespace OpenFlier
+namespace OpenFlier.Desktop
 {
     public static class LocalStorage
     {

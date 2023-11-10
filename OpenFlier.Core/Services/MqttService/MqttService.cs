@@ -3,8 +3,9 @@ using MQTTnet;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
 using Newtonsoft.Json;
+using OpenFlier.Core.Services;
 using OpenFlier.Plugin;
-using OpenFlier.Services;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Text;
@@ -60,6 +61,7 @@ namespace OpenFlier.Core.Services
             if (message == null)
                 return;
             MqttMessageType messageType = message.Type;
+
             switch (messageType)
             {
                 case MqttMessageType.StudentTopic:
@@ -119,7 +121,7 @@ namespace OpenFlier.Core.Services
                                 IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
                                 if (mqttServicePlugin == null)
                                     continue;
-                                MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain(arg.ClientId);
+                                MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain(arg.ClientId, MqttServer);
                                 await MqttServer.PublishAsync(mqttMessage);
                                 MqttLogger.Info($"Loaded plugin {pluginInfo.PluginFilePath}");
                                 flag = true;

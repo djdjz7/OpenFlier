@@ -1,11 +1,11 @@
 ﻿<Window
-    x:Class="OpenFlier.MainWindow"
+    x:Class="OpenFlier.Desktop.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:OpenFlier"
+    xmlns:i18="clr-namespace:OpenFlier.Desktop.Localization"
+    xmlns:local="clr-namespace:OpenFlier.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:services="clr-namespace:OpenFlier.Services"
     Title="OpenFlier"
     Width="800"
     Height="450"
@@ -13,13 +13,12 @@
     Icon="Assets/icon.png"
     Loaded="Window_Loaded"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
-    TextElement.FontFamily="{StaticResource HarmonyOS Sans}"
+    TextElement.FontFamily="{StaticResource Inter}"
     TextElement.FontSize="14"
     WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
     <Window.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        
     </Window.Resources>
     <Grid>
         <Grid Name="MainGrid">
@@ -30,14 +29,28 @@
                     </TabItem.Header>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="11*"/>
+                            <RowDefinition Height="3*" />
+                            <RowDefinition Height="11*" />
                         </Grid.RowDefinitions>
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,82,0,0" Grid.Row="1">
-                            <TextBlock Name="IPAddress" HorizontalAlignment="Center"/>
-                            <TextBlock Name="ConnectCode" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold"/>
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="0,82,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top">
+                            <TextBlock Name="IPAddress" HorizontalAlignment="Center" />
+                            <TextBlock
+                                Name="ConnectCode"
+                                HorizontalAlignment="Center"
+                                FontSize="40"
+                                FontWeight="SemiBold" />
                         </StackPanel>
-                        <TextBlock Name="MachineIdentifier" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8" ToolTip="{x:Static local:Resources.MachineIdentifierTitle}" Grid.Row="1"/>
+                        <TextBlock
+                            Name="MachineIdentifier"
+                            Grid.Row="1"
+                            Margin="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            ToolTip="{x:Static i18:Strings.MachineIdentifierTitle}" />
 
                     </Grid>
                 </TabItem>
@@ -61,22 +74,22 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="{x:Static local:Resources.AppearancesTitle}" />
+                                            Text="{x:Static i18:Strings.AppearancesTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
                                 <ScrollViewer>
                                     <StackPanel Margin="8">
-                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static local:Resources.AppearancesTitle}" />
+                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:Strings.AppearancesTitle}" />
                                         <TextBlock
                                             Margin="0,8,0,0"
                                             VerticalAlignment="Center"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.EnableWindowEffectsTitle}" />
-                                        <TextBlock Text="{x:Static local:Resources.EnableWindowEffectsDescription}" TextWrapping="Wrap" />
+                                            Text="{x:Static i18:Strings.EnableWindowEffectsTitle}" />
+                                        <TextBlock Text="{x:Static i18:Strings.EnableWindowEffectsDescription}" TextWrapping="Wrap" />
                                         <CheckBox
                                             Name="EnableWindowEffectsCheckBox"
                                             Margin="0,4,0,0"
-                                            Content="{x:Static local:Resources.EnableWindowEffectsCheckBoxContent}" />
+                                            Content="{x:Static i18:Strings.EnableWindowEffectsCheckBoxContent}" />
 
                                     </StackPanel>
                                 </ScrollViewer>
@@ -93,18 +106,18 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="{x:Static local:Resources.GeneralTitle}" />
+                                            Text="{x:Static i18:Strings.GeneralTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
 
                                 <ScrollViewer>
                                     <StackPanel Margin="8">
-                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static local:Resources.GeneralTitle}" />
+                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:Strings.GeneralTitle}" />
                                         <TextBlock
                                             Margin="0,8,0,0"
                                             VerticalAlignment="Center"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.SpecifiedConnectCodeTitle}" />
+                                            Text="{x:Static i18:Strings.SpecifiedConnectCodeTitle}" />
                                         <TextBox
                                             Name="SpecifiedConnectCodeTextBox"
                                             Width="200"
@@ -114,24 +127,24 @@
                                             Margin="0,8,0,0"
                                             VerticalAlignment="Center"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.SpecifiedMachineIdentifierTitle}" />
+                                            Text="{x:Static i18:Strings.SpecifiedMachineIdentifierTitle}" />
                                         <TextBox Name="SpecifiedMachineIdentifierTextBox" Margin="0,4,0,0" />
                                         <TextBlock
                                             Margin="0,8,0,0"
                                             VerticalAlignment="Center"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.UsePngTitle}" />
-                                        <TextBlock Text="{x:Static local:Resources.UsePngDescription}" TextWrapping="Wrap" />
+                                            Text="{x:Static i18:Strings.UsePngTitle}" />
+                                        <TextBlock Text="{x:Static i18:Strings.UsePngDescription}" TextWrapping="Wrap" />
                                         <CheckBox
                                             Name="UsePngCheckBox"
                                             Margin="0,4,0,0"
-                                            Content="{x:Static local:Resources.EnableWindowEffectsCheckBoxContent}" />
+                                            Content="{x:Static i18:Strings.EnableWindowEffectsCheckBoxContent}" />
 
                                         <TextBlock
                                             Margin="0,8,0,0"
                                             VerticalAlignment="Center"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.MqttServerPortTitle}" />
+                                            Text="{x:Static i18:Strings.MqttServerPortTitle}" />
                                         <TextBox
                                             Name="MqttPortTextBox"
                                             Width="200"
@@ -140,7 +153,7 @@
                                         <TextBlock
                                             Margin="0,8,0,0"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.UdpPortTitle}" />
+                                            Text="{x:Static i18:Strings.UdpPortTitle}" />
                                         <TextBox
                                             Name="UdpPortTextBox"
                                             Width="200"
@@ -149,8 +162,8 @@
                                         <TextBlock
                                             Margin="0,8,0,0"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.EmulatedVersionTitle}" />
-                                        <TextBlock Text="{x:Static local:Resources.EmulatedVersionDescription}" />
+                                            Text="{x:Static i18:Strings.EmulatedVersionTitle}" />
+                                        <TextBlock Text="{x:Static i18:Strings.EmulatedVersionDescription}" />
                                         <TextBox
                                             Name="EmulatedVersionTextBox"
                                             Width="200"
@@ -171,7 +184,7 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="{x:Static local:Resources.SpecialChannelsTitle}" />
+                                            Text="{x:Static i18:Strings.SpecialChannelsTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
                             </TabItem>
@@ -187,12 +200,12 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="{x:Static local:Resources.PluginsTitle}" />
+                                            Text="{x:Static i18:Strings.PluginsTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
                                 <ScrollViewer>
                                     <StackPanel Margin="8">
-                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static local:Resources.PluginsTitle}" />
+                                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:Strings.PluginsTitle}" />
                                         <Grid Margin="0,8,0,0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
@@ -201,7 +214,7 @@
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource SubTitle}"
-                                                Text="{x:Static local:Resources.MqttServicePluginsTitle}" />
+                                                Text="{x:Static i18:Strings.MqttServicePluginsTitle}" />
                                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                                 <Button
                                                     Name="RemoveMqttPlugin"
@@ -216,8 +229,7 @@
                                                 Name="MqttPluginsListBox"
                                                 Grid.Row="2"
                                                 Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                >
+                                                BorderBrush="Transparent">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Margin="0,2,0,2">
@@ -225,7 +237,7 @@
                                                                 <TextBlock
                                                                     VerticalAlignment="Center"
                                                                     FontSize="16"
-                                                                    FontWeight="Bold"
+                                                                    FontWeight="SemiBold"
                                                                     Text="{Binding PluginName}" />
                                                                 <TextBlock
                                                                     Margin="4,0,0,0"
@@ -254,7 +266,7 @@
                                                                     Margin="4"
                                                                     VerticalAlignment="Center"
                                                                     Click="ConfigurePluginButton_Click"
-                                                                    Content="{x:Static local:Resources.ConfigureButton}"
+                                                                    Content="{x:Static i18:Strings.ConfigureButton}"
                                                                     Style="{StaticResource SubtleButton}"
                                                                     Visibility="{Binding PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
                                                             </Grid>
@@ -267,7 +279,7 @@
                                         <TextBlock
                                             Margin="0,8,0,0"
                                             Style="{StaticResource SubTitle}"
-                                            Text="{x:Static local:Resources.CommandInputPluginsTitle}" />
+                                            Text="{x:Static i18:Strings.CommandInputPluginsTitle}" />
 
                                     </StackPanel>
                                 </ScrollViewer>
@@ -285,7 +297,7 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="{x:Static local:Resources.FileTitle}" />
+                                            Text="{x:Static i18:Strings.FileTitle}" />
                                     </StackPanel>
                                 </TabItem.Header>
                             </TabItem>
@@ -311,27 +323,34 @@
                             </StackPanel>
                             <StackPanel>
 
-                                <!--<TextBlock Style="{StaticResource SubTitle}" Text="{x:Static local:Resources.UpdatesTitle}" />
-                                <TextBlock Text="{x:Static local:Resources.UpdatesDescription}" />-->
+                                <!--<TextBlock Style="{StaticResource SubTitle}" Text="{x:Static i18:Strings.UpdatesTitle}" />
+                                <TextBlock Text="{x:Static i18:Strings.UpdatesDescription}" />-->
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     Style="{StaticResource SubTitle}"
-                                    Text="{x:Static local:Resources.AboutTitle}" />
-                                <TextBlock Text="{x:Static local:Resources.AboutDescription}" />
+                                    Text="{x:Static i18:Strings.AboutTitle}" />
+                                <TextBlock Text="{x:Static i18:Strings.AboutDescription}" />
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     Style="{StaticResource SubTitle}"
-                                    Text="{x:Static local:Resources.FunZoneTitle}" />
-                                <TextBlock Text="{x:Static local:Resources.FunZoneDescription}" />
+                                    Text="{x:Static i18:Strings.FunZoneTitle}" />
+                                <TextBlock Text="{x:Static i18:Strings.FunZoneDescription}" />
+                                <TextBlock Style="{StaticResource H3}" Text="{x:Static i18:Strings.VideoPlayTitle}" />
+                                <TextBlock Text="{x:Static i18:Strings.VideoPlayDescription}" />
+                                <Button
+                                    Name="TestButton"
+                                    HorizontalAlignment="Left"
+                                    Click="TestButton_Click"
+                                    Content="{x:Static i18:Strings.VideoPlayOpenButton}" />
+                                <Button
+                                    Margin="0,12,0,0"
+                                    HorizontalAlignment="Left"
+                                    Content="{x:Static i18:Strings.GithubHyperLink}"
+                                    Style="{StaticResource HyperlinkButton}" />
                                 <TextBlock
-                                    Style="{StaticResource H3}"
-                                    Text="{x:Static local:Resources.VideoPlayTitle}" />
-                                <TextBlock Text="{x:Static local:Resources.VideoPlayDescription}"/>
-                                <Button Content="{x:Static local:Resources.VideoPlayOpenButton}" Name="TestButton" Click="TestButton_Click" HorizontalAlignment="Left"/>
-                                <TextBlock
-                                    Margin="0,8,0,0"
+                                    Margin="0,4,0,0"
                                     FontSize="10"
-                                    Text="{x:Static local:Resources.CopyrightString}" />
+                                    Text="{x:Static i18:Strings.CopyrightString}" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -342,9 +361,10 @@
         </Grid>
         <Grid
             Name="LoadingScreen"
-            Grid.RowSpan="2" Visibility="Hidden">
+            Grid.RowSpan="2"
+            Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Margin="12,0,12,0" Text="{x:Static local:Resources.LoadingServiceString}" />
+                <TextBlock Margin="12,0,12,0" Text="{x:Static i18:Strings.LoadingServiceString}" />
                 <ProgressBar
                     Height="14"
                     HorizontalAlignment="Stretch"

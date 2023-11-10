@@ -1,4 +1,4 @@
-﻿namespace OpenFlier.Services
+﻿namespace OpenFlier.Core.Services
 {
     public enum MqttMessageType : long
     {

@@ -17,6 +17,6 @@ namespace OpenFlier.Core
         public static string MacAddress = "";
         public static IPAddress? IPAddress;
         public static string ConnectCode = "";
-        public static string Version = "2.1.0";
+        public static string Version = "2.1.1";
     }
 }

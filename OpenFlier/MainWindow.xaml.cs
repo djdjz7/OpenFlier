@@ -1,23 +1,19 @@
 ﻿using Microsoft.Win32;
-using OpenFlier.Plugin;
+using OpenFlier.Controls;
+using OpenFlier.Core;
 using OpenFlier.Core.Services;
+using OpenFlier.Plugin;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
-using OpenFlier.Services;
-using static OpenFlier.Controls.PInvoke.Methods;
-using static OpenFlier.Controls.PInvoke.ParameterTypes;
-using OpenFlier.Core;
-using System.Collections.Generic;
-using System.Net;
-using System.Linq;
-using System.Security.Cryptography.Xml;
 
-namespace OpenFlier;
+namespace OpenFlier.Desktop;
 
 /// <summary>
 /// MainWindow.xaml 的交互逻辑
@@ -29,27 +25,22 @@ public partial class MainWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         ConfigService.OutputDefaultConfig();
-        ConfigService.ReadConfig();
-        if (LocalStorage.Config.Appearances.EnableWindowEffects ?? true)
+        var config = ConfigService.ReadConfig();
+        if (config.Appearances.EnableWindowEffects ?? true)
         {
-            RefreshFrame();
-            RefreshDarkMode();
+            WindowEffects.EnableWindowEffects(this);
         }
-        
+
         List<IPAddress> ipAddresses = Dns.GetHostEntry(Dns.GetHostName())
                 .AddressList
                 .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 .ToList();
-        if(ipAddresses.Count > 1)
+        if (ipAddresses.Count > 1)
         {
             var selectNetworkInterface = new SelectNetworkInterface(ipAddresses);
             selectNetworkInterface.InterfaceSelected += (s, e) =>
             {
-                serviceManager = new ServiceManager(new CoreConfig
-                {
-                    SpecifiedConnectCode = "9999",
-                    
-                }, (IPAddress?)((SelectNetworkInterface)s).IPListBox.SelectedItem);
+                serviceManager = new ServiceManager(config, (IPAddress?)((SelectNetworkInterface)s).IPListBox.SelectedItem);
                 serviceManager.OnLoadCompleted += ServiceManager_LoadCompleted;
                 serviceManager.BeginLoad();
                 LoadingScreen.Visibility = Visibility.Visible;
@@ -64,6 +55,10 @@ public partial class MainWindow : Window
             LoadingScreen.Visibility = Visibility.Visible;
             MainGrid.Visibility = Visibility.Hidden;
         }
+        Services.MqttService.MqttServer = serviceManager.MqttService.MqttServer;
+        serviceManager.MqttService.OnClientConnected += Services.MqttService.OnClientConnectedAsync;
+        serviceManager.MqttService.OnClientDisconnected += Services.MqttService.OnClientDisConnectedAsync;
+        serviceManager.MqttService.OnScreenshotRequestReceived += Services.MqttService.OnAppMessageReceivedAsync;
     }
 
     private void ServiceManager_LoadCompleted(object? sender, EventArgs e)
@@ -85,33 +80,7 @@ public partial class MainWindow : Window
         });
     }
 
-    private void RefreshFrame()
-    {
-        var mainWindowPtr = new WindowInteropHelper(this).Handle;
-        var mainWindowSrc = HwndSource.FromHwnd(mainWindowPtr);
-        mainWindowSrc.CompositionTarget.BackgroundColor = System.Windows.Media.Color.FromArgb(0, 0, 0, 0);
 
-        var margins = new MARGINS();
-        margins.cxLeftWidth = -1;
-        margins.cxRightWidth = -1;
-        margins.cyTopHeight = -1;
-        margins.cyBottomHeight = -1;
-
-        ExtendFrame(mainWindowSrc.Handle, margins);
-
-        SetWindowAttribute(
-            new WindowInteropHelper(this).Handle,
-            DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE,
-            2);
-    }
-
-    private void RefreshDarkMode()
-    {
-        SetWindowAttribute(
-            new WindowInteropHelper(this).Handle,
-            DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE,
-            0);
-    }
 
     private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
@@ -184,7 +153,7 @@ public partial class MainWindow : Window
                         IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
                         if (mqttServicePlugin == null)
                             continue;
-                        var pluginInfo = mqttServicePlugin.GetMqttServicePluginInfo();
+                        var pluginInfo = mqttServicePlugin.GetPluginInfo();
                         /*
                         tempConfig.MqttServicePlugins.Add(new MqttServicePlugin
                         {

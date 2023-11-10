@@ -1,4 +1,5 @@
 ﻿using MQTTnet;
+using MQTTnet.Server;
 
 namespace OpenFlier.Plugin;
 
@@ -16,21 +17,21 @@ public class MqttServicePluginInfo : PluginInfoBase
     public required long MqttMessageType { get; init; }
 }
 
-public class ImageProviderPluginInfo : PluginInfoBase
-{
-
-}
-
 public interface IMqttServicePlugin
 {
-    public MqttServicePluginInfo GetMqttServicePluginInfo();
-    public MqttApplicationMessage PluginMain(string clientID);
+    public MqttServicePluginInfo GetPluginInfo();
+    public MqttApplicationMessage PluginMain(string clientID, IMqttServer mqttServer);
     public void PluginOpenConfig();
 }
 
-public interface IImageProviderPlugin
+public class CommandInputPluginInfo: PluginInfoBase
 {
-    public ImageProviderPluginInfo GetImageProviderPluginInfo();
-    public object PluginMain(string clientID);
+    public required string[] InvokeCommands { get; init; }
+}
+
+public interface ICommandInputPlugin
+{
+    public CommandInputPluginInfo GetPluginInfo();
+    public MqttApplicationMessage PluginMain(string clientID, string invokeCommand, IMqttServer mqttServer);
     public void PluginOpenConfig();
 }

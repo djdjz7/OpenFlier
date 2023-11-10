@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows;
+using System.Windows.Data;
 
-namespace OpenFlier
+namespace OpenFlier.Desktop
 {
     public class WidthAndHeightToRect : IMultiValueConverter
     {
@@ -43,8 +39,8 @@ namespace OpenFlier
     {
         object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if((bool?)value==null||(bool?)value==false)
-                    return Visibility.Collapsed;
+            if ((bool?)value == null || (bool?)value == false)
+                return Visibility.Collapsed;
             return Visibility.Visible;
         }
 

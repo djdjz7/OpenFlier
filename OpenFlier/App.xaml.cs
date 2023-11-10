@@ -1,7 +1,7 @@
 ﻿using log4net.Config;
 using System.Windows;
 
-namespace OpenFlier
+namespace OpenFlier.Desktop
 {
     /// <summary>
     /// Interaction logic for App.xaml

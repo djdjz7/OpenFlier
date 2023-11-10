@@ -1,16 +1,16 @@
 ﻿<Window
-    x:Class="OpenFlier.SelectNetworkInterface"
+    x:Class="OpenFlier.Desktop.SelectNetworkInterface"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:OpenFlier"
+    xmlns:i18="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="SelectNetworkInterface"
     Background="Transparent"
     Loaded="Window_Loaded"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     SizeToContent="WidthAndHeight"
-    TextElement.FontFamily="{StaticResource HarmonyOS Sans}"
+    TextElement.FontFamily="{StaticResource Inter}"
     TextElement.FontSize="14"
     Topmost="True"
     WindowStartupLocation="CenterOwner"
@@ -19,9 +19,9 @@
     <StackPanel Margin="12">
         <TextBlock
             FontSize="24"
-            FontWeight="Bold"
-            Text="{x:Static local:Resources.SelectNetworkInterfaceTitle}" />
-        <TextBlock Text="{x:Static local:Resources.SelectNetworkInterfaceDescription}" />
+            FontWeight="SemiBold"
+            Text="{x:Static i18:Strings.SelectNetworkInterfaceTitle}" />
+        <TextBlock Text="{x:Static i18:Strings.SelectNetworkInterfaceDescription}" />
         <ListBox
             Name="IPListBox"
             Margin="0,8,0,0"
@@ -35,7 +35,7 @@
             Orientation="Horizontal">
             <Button
                 Click="Button_Click"
-                Content="{x:Static local:Resources.ContinueText}"
+                Content="{x:Static i18:Strings.ContinueText}"
                 Style="{StaticResource SubtleButton}" />
         </StackPanel>
     </StackPanel>
