@@ -46,7 +46,7 @@ public partial class PackSummary : Page
                         IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
                         if (mqttServicePlugin == null)
                             continue;
-                        mqttServicePluginInfo = mqttServicePlugin.GetMqttServicePluginInfo();
+                        mqttServicePluginInfo = mqttServicePlugin.GetPluginInfo();
                         pluginType = PluginType.MqttServicePlugin;
                         break;
                     }
@@ -58,10 +58,10 @@ public partial class PackSummary : Page
                             continue;
                         if (type.FullName == null)
                             continue;
-                        ICommandInputPlugin? mqttServicePlugin = (ICommandInputPlugin?)assembly.CreateInstance(type.FullName);
-                        if (mqttServicePlugin == null)
+                        ICommandInputPlugin? commandInputPlugin = (ICommandInputPlugin?)assembly.CreateInstance(type.FullName);
+                        if (commandInputPlugin == null)
                             continue;
-                        commandInputPluginInfo = mqttServicePlugin.GetCommandInputPluginInfo();
+                        commandInputPluginInfo = commandInputPlugin.GetPluginInfo();
                         pluginType = PluginType.CommandInputPlugin;
                         break;
                     }
@@ -92,7 +92,6 @@ public partial class PackSummary : Page
             CommandInputPluginSummary.Visibility = Visibility.Collapsed;
             PluginNameTextBlock.Text = mqttServicePluginInfo.PluginName;
             PluginVersionTextBlock.Text = mqttServicePluginInfo.PluginVersion;
-            RequestedMinimumOpenFlierVersionTextBlock.Text = mqttServicePluginInfo.RequestedMinimumOpenFlierVersion;
             PluginAuthorTextBlock.Text = mqttServicePluginInfo.PluginAuthor;
             PluginTypeTextBlock.Text = "OpenFlier.Plugin.IMqttServicePlugin";
             PluginDescriptionTextBlock.Text = mqttServicePluginInfo.PluginDescription;
@@ -107,13 +106,12 @@ public partial class PackSummary : Page
             MqttPluginSummary.Visibility = Visibility.Collapsed;
             PluginNameTextBlock.Text = commandInputPluginInfo.PluginName;
             PluginVersionTextBlock.Text = commandInputPluginInfo.PluginVersion;
-            RequestedMinimumOpenFlierVersionTextBlock.Text = commandInputPluginInfo.RequestedMinimumOpenFlierVersion;
             PluginAuthorTextBlock.Text = commandInputPluginInfo.PluginAuthor;
             PluginTypeTextBlock.Text = "OpenFlier.Plugin.ICommandInputPlugin";
             PluginDescriptionTextBlock.Text = commandInputPluginInfo.PluginDescription;
             PluginIdentifierTextBlock.Text = commandInputPluginInfo.PluginIdentifier;
             PluginNeedConfigEntryTextBlock.Text = commandInputPluginInfo.PluginNeedConfigEntry.ToString();
-            CommanInputCallerNamesTextBlock.Text = string.Join(", ", commandInputPluginInfo.CommandInputCallerNames);
+            CommanInputCallerNamesTextBlock.Text = string.Join(", ", commandInputPluginInfo.InvokeCommands);
             return;
         }
     }
@@ -126,7 +124,6 @@ public partial class PackSummary : Page
             case PluginType.MqttServicePlugin:
                 singlePluginPackage.PluginName = mqttServicePluginInfo.PluginName;
                 singlePluginPackage.PluginVersion = mqttServicePluginInfo.PluginVersion;
-                singlePluginPackage.RequestedMinimumOpenflierVersion = mqttServicePluginInfo.RequestedMinimumOpenFlierVersion;
                 singlePluginPackage.PluginAuthor = mqttServicePluginInfo.PluginAuthor;
                 singlePluginPackage.PluginType = Plugin.PluginType.MqttServicePlugin;
                 singlePluginPackage.PluginDescription = mqttServicePluginInfo.PluginDescription;
@@ -135,7 +132,7 @@ public partial class PackSummary : Page
                 singlePluginPackage.MqttMessageType = (int)mqttServicePluginInfo.MqttMessageType;
                 foreach (var i in PluginFiles)
                 {
-                    singlePluginPackage.Files.Add(new Plugin.File()
+                    singlePluginPackage.Files.Add(new Plugin.PluginFile()
                     {
                         IsPluginMain = i.IsPluginMain,
                         Filename = i.FileName,
@@ -146,16 +143,15 @@ public partial class PackSummary : Page
             case PluginType.CommandInputPlugin:
                 singlePluginPackage.PluginName = commandInputPluginInfo.PluginName;
                 singlePluginPackage.PluginVersion = commandInputPluginInfo.PluginVersion;
-                singlePluginPackage.RequestedMinimumOpenflierVersion = commandInputPluginInfo.RequestedMinimumOpenFlierVersion;
                 singlePluginPackage.PluginAuthor = commandInputPluginInfo.PluginAuthor;
-                singlePluginPackage.PluginType = Plugin.PluginType.MqttServicePlugin;
+                singlePluginPackage.PluginType = Plugin.PluginType.CommandInputPlugin;
                 singlePluginPackage.PluginDescription = commandInputPluginInfo.PluginDescription;
                 singlePluginPackage.PluginIdentifier = commandInputPluginInfo.PluginIdentifier;
                 singlePluginPackage.PluginNeedConfigEntry = commandInputPluginInfo.PluginNeedConfigEntry;
-                singlePluginPackage.CommandInputCallerNames.Add(commandInputPluginInfo.CommandInputCallerNames);
+                singlePluginPackage.InvokeCommands.Add(commandInputPluginInfo.InvokeCommands);
                 foreach (var i in PluginFiles)
                 {
-                    singlePluginPackage.Files.Add(new Plugin.File()
+                    singlePluginPackage.Files.Add(new Plugin.PluginFile()
                     {
                         IsPluginMain = i.IsPluginMain,
                         Filename = i.FileName,

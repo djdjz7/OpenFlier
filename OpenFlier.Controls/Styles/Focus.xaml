@@ -8,7 +8,7 @@
                         RadiusX="7"
                         RadiusY="7"
                         SnapsToDevicePixels="True"
-                        Stroke="{DynamicResource Foreground}"
+                        Stroke="{DynamicResource ForegroundBrush}"
                         StrokeThickness="2" />
                 </ControlTemplate>
             </Setter.Value>

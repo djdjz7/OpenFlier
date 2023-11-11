@@ -28,7 +28,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 SnapsToDevicePixels="True"
-                                TextElement.Foreground="{DynamicResource Foreground}" />
+                                TextElement.Foreground="{DynamicResource ForegroundBrush}" />
                             <Grid.Clip>
                                 <RectangleGeometry RadiusX="3" RadiusY="3">
                                     <RectangleGeometry.Rect>
@@ -55,7 +55,7 @@
                             <Setter TargetName="BackgroundGrid" Property="Background" Value="{DynamicResource ControlsBackgroundAccent}" />
                             <Setter TargetName="StrokeRect" Property="Fill" Value="{DynamicResource ControlsStrokeGradientAccent}" />
 
-                            <Setter TargetName="ContentPresenter" Property="TextElement.Foreground" Value="{DynamicResource ForegroundOnAccent}" />
+                            <Setter TargetName="ContentPresenter" Property="TextElement.Foreground" Value="{DynamicResource ForegroundOnAccentBrush}" />
 
                         </Trigger>
                         <MultiTrigger>

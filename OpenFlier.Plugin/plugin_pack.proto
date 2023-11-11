@@ -21,11 +21,10 @@ message SinglePluginPackage {
     string plugin_identifier = 4;
     string plugin_version = 5;
     string plugin_description = 6;
-    string requested_minimum_openflier_version = 7;
-    int32 mqtt_message_type = 8;
-    repeated string command_input_caller_names = 9;
-    bool plugin_need_config_entry = 10;
-    repeated File files = 11;
+    int32 mqtt_message_type = 7;
+    repeated string invoke_commands = 8;
+    bool plugin_need_config_entry = 9;
+    repeated PluginFile files = 10;
 }
 
 message PluginCollection {

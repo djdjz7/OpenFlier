@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DemoPlugin\DemoPlugin.csproj" />
-    <ProjectReference Include="..\OpenFlier.DevUtils\OpenFlier.DevUtils.csproj" />
+    <ProjectReference Include="..\OpenFlier.Desktop\OpenFlier.Desktop.csproj" />
   </ItemGroup>
 
   <ItemGroup>
