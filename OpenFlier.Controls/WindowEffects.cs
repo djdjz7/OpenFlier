@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 using static OpenFlier.Controls.PInvoke.Methods;
 using static OpenFlier.Controls.PInvoke.ParameterTypes;
 
@@ -9,6 +10,7 @@ namespace OpenFlier.Controls
     {
         public static void EnableWindowEffects(Window window)
         {
+            window.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
             RefreshFrame(window);
             RefreshDarkMode(window);
         }

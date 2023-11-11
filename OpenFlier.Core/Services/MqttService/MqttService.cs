@@ -99,16 +99,16 @@ namespace OpenFlier.Core.Services
                     bool flag = false;
                     foreach (var pluginInfo in CoreStorage.CoreConfig.MqttServicePlugins)
                     {
-                        if (pluginInfo.MqttMessageType != (long)messageType)
+                        if (pluginInfo.PluginInfo.MqttMessageType != (long)messageType)
                             continue;
-                        if (!System.IO.File.Exists(pluginInfo.PluginFilePath))
+                        if (!System.IO.File.Exists(pluginInfo.LocalFilePath))
                         {
-                            MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed: File not found.");
+                            MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.LocalFilePath} failed: File not found.");
                             continue;
                         }
                         try
                         {
-                            FileInfo assemblyFileInfo = new FileInfo(pluginInfo.PluginFilePath);
+                            FileInfo assemblyFileInfo = new FileInfo(pluginInfo.LocalFilePath);
 
                             var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
                             Type[] types = assembly.GetTypes();
@@ -123,13 +123,13 @@ namespace OpenFlier.Core.Services
                                     continue;
                                 MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain(arg.ClientId, MqttServer);
                                 await MqttServer.PublishAsync(mqttMessage);
-                                MqttLogger.Info($"Loaded plugin {pluginInfo.PluginFilePath}");
+                                MqttLogger.Info($"Loaded plugin {pluginInfo.LocalFilePath}");
                                 flag = true;
                             }
                         }
                         catch (Exception e)
                         {
-                            MqttLogger.Error($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.PluginFilePath} failed.", e);
+                            MqttLogger.Error($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.LocalFilePath} failed.", e);
                         }
                     }
                     if (!flag)

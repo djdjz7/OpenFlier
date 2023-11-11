@@ -9,7 +9,7 @@
     Title="OpenFlier"
     Width="800"
     Height="450"
-    Background="Transparent"
+    FontFamily="{StaticResource Inter}"
     Icon="Assets/icon.png"
     Loaded="Window_Loaded"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
@@ -42,7 +42,7 @@
                                 Name="ConnectCode"
                                 HorizontalAlignment="Center"
                                 FontSize="40"
-                                FontWeight="SemiBold" />
+                                FontWeight="Bold" />
                         </StackPanel>
                         <TextBlock
                             Name="MachineIdentifier"
@@ -237,7 +237,7 @@
                                                                 <TextBlock
                                                                     VerticalAlignment="Center"
                                                                     FontSize="16"
-                                                                    FontWeight="SemiBold"
+                                                                    FontWeight="Bold"
                                                                     Text="{Binding PluginName}" />
                                                                 <TextBlock
                                                                     Margin="4,0,0,0"
@@ -362,7 +362,7 @@
         <Grid
             Name="LoadingScreen"
             Grid.RowSpan="2"
-            Visibility="Hidden">
+            Visibility="Visible">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Margin="12,0,12,0" Text="{x:Static i18:Strings.LoadingServiceString}" />
                 <ProgressBar

@@ -10,11 +10,13 @@ public class CoreConfig
     public string? SpecifiedMachineIdentifier { get; set; }
     public string? SpecifiedConnectCode { get; set; }
     public string SpecifiedEmulatedVersion { get; set; } = "2.0.9";
-    public List<LocalMqttServicePluginInfo> MqttServicePlugins { get; set; } = new();
+    public List<LocalPluginInfo<MqttServicePluginInfo>> MqttServicePlugins { get; set; } = new();
     public string VerificationContent { get; set; } = "{\"type\":20007,\"data\":{\"topic\":\"Ec1xkK+uFtV/QO/8rduJ2A==\"}}";
     public string? FtpDirectory { get; set; }
 }
-public class LocalMqttServicePluginInfo : MqttServicePluginInfo
+
+public class LocalPluginInfo<T>
 {
-    public string? PluginFilePath { get; set; }
+    public required T PluginInfo { get; set; }
+    public string? LocalFilePath { get; set; }
 }

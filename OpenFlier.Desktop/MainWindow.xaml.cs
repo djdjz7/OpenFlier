@@ -50,6 +50,7 @@ public partial class MainWindow : Window
         }
         else
         {
+            serviceManager = new ServiceManager(config);
             serviceManager.OnLoadCompleted += ServiceManager_LoadCompleted;
             serviceManager.BeginLoad();
             LoadingScreen.Visibility = Visibility.Visible;
@@ -95,12 +96,12 @@ public partial class MainWindow : Window
 
     private void ConfigurePluginButton_Click(object sender, RoutedEventArgs e)
     {
-        var pluginInfo = (LocalMqttServicePluginInfo)((ListBoxItem)MqttPluginsListBox.ContainerFromElement((Button)sender)).Content;
-        if (pluginInfo.PluginFilePath == null)
+        var pluginInfo = (LocalPluginInfo<MqttServicePluginInfo>)((ListBoxItem)MqttPluginsListBox.ContainerFromElement((Button)sender)).Content;
+        if (pluginInfo.LocalFilePath == null)
             return;
         try
         {
-            FileInfo assemblyFileInfo = new FileInfo(pluginInfo.PluginFilePath);
+            FileInfo assemblyFileInfo = new FileInfo(pluginInfo.LocalFilePath);
             var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
 
             Type[] types = assembly.GetTypes();

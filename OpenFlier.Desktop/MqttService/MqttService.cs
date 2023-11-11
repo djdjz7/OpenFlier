@@ -5,6 +5,7 @@ using MQTTnet.Server;
 using Newtonsoft.Json;
 using OpenFlier.Core;
 using OpenFlier.Core.Services;
+using OpenFlier.Desktop.MqttService;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -12,16 +13,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace OpenFlier.Desktop.Services
 {
     public static class MqttService
     {
-        public static IMqttServer? MqttServer
-        {
-            get; set;
-        }
+        public static IMqttServer? MqttServer { get; set; }
         public static List<User> Users { get; set; } = new List<User>();
         public static ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(MqttService));
 
@@ -45,12 +42,14 @@ namespace OpenFlier.Desktop.Services
                 string Username = arg.ClientId.Split('_')[2];
                 if (!Users.Contains(new User { Username = Username }, new UserEqualityComparer()))
                 {
-                    Users.Add(new User
-                    {
-                        Username = Username,
-                        UserId = arg.ClientId.Split('_')[1],
-                        CurrentClientId = arg.ClientId,
-                    });
+                    Users.Add(
+                        new User
+                        {
+                            Username = Username,
+                            UserId = arg.ClientId.Split('_')[1],
+                            CurrentClientId = arg.ClientId,
+                        }
+                    );
                     MqttLogger.Info($"New user connected: {arg.ClientId}");
                 }
                 else
@@ -64,42 +63,41 @@ namespace OpenFlier.Desktop.Services
             });
         }
 
-        public static async Task OnAppMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+        public static async Task OnAppMessageReceivedAsync(
+            MqttApplicationMessageReceivedEventArgs arg
+        )
         {
-            Rectangle rect = LocalStorage.ScreenSize;
-            Bitmap src = new Bitmap(rect.Width, rect.Height);
-            Graphics graphics = Graphics.FromImage(src);
-            graphics.CopyFromScreen(0, 0, 0, 0, rect.Size);
-            graphics.Save();
-            graphics.Dispose();
+            bool usePng = LocalStorage.Config.General.UsePng;
+            string Username = arg.ClientId.Split('_')[2];
+            var u = Users.FirstOrDefault(x => x.Username == Username);
             string filename = Guid.NewGuid().ToString("N");
-            if (LocalStorage.Config.General.UsePng)
+            if (!u!.AllowCommandInput)
             {
-                filename = $"{filename}.png";
-                src.Save($"Screenshots\\{filename}", System.Drawing.Imaging.ImageFormat.Png);
+                ImageHandler.FetchScreenshot(filename, usePng);
             }
-            else
-            {
-                filename = $"{filename}.jpeg";
-                src.Save($"Screenshots\\{filename}", System.Drawing.Imaging.ImageFormat.Jpeg);
-            }
-            string s5 = JsonConvert.SerializeObject(new
-            {
-                type = MqttMessageType.ScreenCaptureResp,
-                data = new
+
+            string s5 = JsonConvert.SerializeObject(
+                new
                 {
-                    name = filename,
-                    deviceCode = CoreStorage.MachineIdentifier,
-                    versionCode = CoreStorage.Version
+                    type = MqttMessageType.ScreenCaptureResp,
+                    data = new
+                    {
+                        name = $"{ filename}.{ (usePng ? "png" : "jpeg")}",
+                        deviceCode = CoreStorage.MachineIdentifier,
+                        versionCode = CoreStorage.Version
+                    }
                 }
-            });
-            await MqttServer.PublishAsync(new MqttApplicationMessage
-            {
-                Topic = arg.ClientId + "/REQUEST_SCREEN_CAPTURE",
-                Payload = Encoding.Default.GetBytes(s5),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
-            });
+            );
+            await MqttServer.PublishAsync(
+                new MqttApplicationMessage
+                {
+                    Topic = arg.ClientId + "/REQUEST_SCREEN_CAPTURE",
+                    Payload = Encoding.Default.GetBytes(s5),
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
+                }
+            );
         }
+
         private class UserEqualityComparer : IEqualityComparer<User>
         {
             public bool Equals(User? x, User? y)
@@ -114,6 +112,5 @@ namespace OpenFlier.Desktop.Services
                 return obj.Username.GetHashCode();
             }
         }
-
     }
 }

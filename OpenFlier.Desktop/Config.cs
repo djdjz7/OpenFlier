@@ -21,7 +21,8 @@ public class ConfigService
         {
             try
             {
-                LocalStorage.Config = JsonSerializer.Deserialize<Config>(localJsonContent) ?? new Config();
+                LocalStorage.Config =
+                    JsonSerializer.Deserialize<Config>(localJsonContent) ?? new Config();
                 return LocalStorage.Config;
             }
             catch (Exception e)
@@ -30,22 +31,23 @@ public class ConfigService
             }
         }
         return new Config();
-
     }
+
     public static void OutputDefaultConfig()
     {
         var config = new Config();
         File.WriteAllText("defconfig.json", JsonSerializer.Serialize(config));
     }
 }
-public class Config: CoreConfig
+
+public class Config : CoreConfig
 {
     public Appearances Appearances { get; set; } = new Appearances();
     public General General { get; set; } = new General();
 
-    public List<LocalPluginInfo<MqttServicePluginInfo>> MqttServicePlugins = new List<LocalPluginInfo<MqttServicePluginInfo>>();
-
+    public List<LocalPluginInfo<CommandInputPluginInfo>> CommandInputPlugins = new();
 }
+
 public class Appearances
 {
     public string? WindowTitle { get; set; }
@@ -55,14 +57,10 @@ public class Appearances
     public bool? EnableWindowEffects { get; set; }
     public bool? SyncColorWithSystem { get; set; }
 }
+
 public class General
 {
     public string? DefaultUpdateCheckURL { get; set; }
     public bool UsePng { get; set; } = false;
 }
 
-public class LocalPluginInfo<T>
-{
-    public T? PluginInfo { get; set; }
-    public string? LocalFilePath { get; set; }
-}

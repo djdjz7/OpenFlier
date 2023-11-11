@@ -6,7 +6,6 @@
     xmlns:i18="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="SelectNetworkInterface"
-    Background="Transparent"
     Loaded="Window_Loaded"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     SizeToContent="WidthAndHeight"
@@ -19,7 +18,7 @@
     <StackPanel Margin="12">
         <TextBlock
             FontSize="24"
-            FontWeight="SemiBold"
+            FontWeight="Bold"
             Text="{x:Static i18:Strings.SelectNetworkInterfaceTitle}" />
         <TextBlock Text="{x:Static i18:Strings.SelectNetworkInterfaceDescription}" />
         <ListBox

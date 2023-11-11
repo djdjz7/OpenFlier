@@ -13,6 +13,6 @@ namespace OpenFlier.Desktop
     {
         public static Config Config { get; set; } = new Config();
         public static Rectangle ScreenSize = new Rectangle(0,0,1920,1080);
-        public static ServiceManager ServiceManager;
+        public static ServiceManager ServiceManager { get; set; }
     }
 }

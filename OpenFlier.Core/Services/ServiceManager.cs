@@ -23,9 +23,9 @@ namespace OpenFlier.Core.Services
                 .AddressList
                 .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 .ToList();
-            /*
+            
             if(ipAddress is not null && !ipAddresses.Contains(ipAddress))
-                throw new ArgumentOutOfRangeException(nameof(ipAddress));*/
+                throw new ArgumentOutOfRangeException(nameof(ipAddress));
 
             if (ipAddress == null)
                 ipAddress = ipAddresses[0];
