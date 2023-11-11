@@ -365,3 +365,4 @@ FodyWeavers.xsd
 
 # Published Files
 dist/
+BuildArchive/build-time
