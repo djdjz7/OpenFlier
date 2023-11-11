@@ -23,7 +23,9 @@
     </main>
 </body>
 <script>
-    fetch("build-time").then((x) => {
+    fetch("build-time", {
+        cache: "no-cache"
+    }).then((x) => {
         var td = new TextDecoder();
         x.text().then(xx => {
         document.getElementById("build-time").textContent = xx;
