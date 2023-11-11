@@ -26,17 +26,17 @@
                         <Rectangle
                             Name="SelectionIndicator"
                             Width="4"
-                            ofc:AttachedSimpleProperties.Double="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
+                            ofc:AttachedSimpleProperties.Double="0"
                             Fill="{DynamicResource PrimaryBrush}"
                             RadiusX="2"
                             RadiusY="2">
                             <Rectangle.Height>
                                 <MultiBinding Converter="{StaticResource TagAndWidthToActualWidthConverter}">
                                     <MultiBinding.Bindings>
-                                        <Binding Path="(ofc:AttachedSimpleProperties.Double)" ElementName="SelectionIndicator"/>
-                                        <Binding Path="ActualHeight" ElementName="BackgroundRect"/>
+                                        <Binding ElementName="SelectionIndicator" Path="(ofc:AttachedSimpleProperties.Double)" />
+                                        <Binding ElementName="BackgroundRect" Path="ActualHeight" />
                                     </MultiBinding.Bindings>
                                 </MultiBinding>
                             </Rectangle.Height>
@@ -114,8 +114,8 @@
         </Setter>
     </Style>
     <Style TargetType="ListBox">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
 </ResourceDictionary>

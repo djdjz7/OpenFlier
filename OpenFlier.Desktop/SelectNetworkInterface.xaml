@@ -19,8 +19,8 @@
         <TextBlock
             FontSize="24"
             FontWeight="Bold"
-            Text="{x:Static i18:Strings.SelectNetworkInterfaceTitle}" />
-        <TextBlock Text="{x:Static i18:Strings.SelectNetworkInterfaceDescription}" />
+            Text="{x:Static i18:UI.SelectNetworkInterfaceTitle}" />
+        <TextBlock Text="{x:Static i18:UI.SelectNetworkInterfaceDescription}" />
         <ListBox
             Name="IPListBox"
             Margin="0,8,0,0"
@@ -34,7 +34,7 @@
             Orientation="Horizontal">
             <Button
                 Click="Button_Click"
-                Content="{x:Static i18:Strings.ContinueText}"
+                Content="{x:Static i18:UI.ContinueText}"
                 Style="{StaticResource SubtleButton}" />
         </StackPanel>
     </StackPanel>

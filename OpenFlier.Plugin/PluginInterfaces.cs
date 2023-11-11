@@ -26,12 +26,12 @@ public interface IMqttServicePlugin
 
 public class CommandInputPluginInfo: PluginInfoBase
 {
-    public required string[] InvokeCommands { get; init; }
+    public required List<string> InvokeCommands { get; init; }
 }
 
 public interface ICommandInputPlugin
 {
     public CommandInputPluginInfo GetPluginInfo();
-    public MqttApplicationMessage PluginMain(string clientID, string invokeCommand, IMqttServer mqttServer);
+    public MqttApplicationMessage PluginMain(string clientID, string invokeCommand, IMqttServer mqttServer, bool usePng);
     public void PluginOpenConfig();
 }

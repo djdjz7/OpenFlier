@@ -13,5 +13,7 @@ namespace OpenFlier.Desktop.Services
         public string? UserId { get; set; }
         public string? CurrentClientId { get; set; }
         public bool AllowCommandInput { get; set; }
+        public string? CommandInputSource { get; set; }
+        public bool IsBusy { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,29 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutDescription" xml:space="preserve">
-    <value>OpenFlier Insider
-仅供测试用途。</value>
+  <data name="CommandEmpty" xml:space="preserve">
+    <value>Command is empty.</value>
   </data>
-  <data name="AboutTitle" xml:space="preserve">
-    <value>关于</value>
+  <data name="CommandInputSourceNotSpecified" xml:space="preserve">
+    <value>CommandInputSource is not specified.</value>
   </data>
-  <data name="AppearancesTitle" xml:space="preserve">
-    <value>外观</value>
+  <data name="UserBuzy" xml:space="preserve">
+    <value>Current user has task waiting to finish.
+Try again later or use the "force" command.</value>
   </data>
-  <data name="ApplyButtonContent" xml:space="preserve">
-    <value>应用</value>
-  </data>
-  <data name="CommandInputPluginsTitle" xml:space="preserve">
-    <value>CommandInput 插件</value>
-  </data>
-  <data name="ConfigureButton" xml:space="preserve">
-    <value>配置</value>
-  </data>
-  <data name="ContinueText" xml:space="preserve">
-    <value>继续</value>
-  </data>
-  <data name="CopyrightString" xml:space="preserve">
-    <value>Copyright © 2023, OpenFlier Contributors. All rights reserved.</value>
+  <data name="UserCommandFailed" xml:space="preserve">
+    <value>Command not executed.</value>
   </data>
 </root>

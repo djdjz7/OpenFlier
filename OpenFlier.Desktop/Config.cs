@@ -45,7 +45,8 @@ public class Config : CoreConfig
     public Appearances Appearances { get; set; } = new Appearances();
     public General General { get; set; } = new General();
 
-    public List<LocalPluginInfo<CommandInputPluginInfo>> CommandInputPlugins = new();
+    public List<LocalPluginInfo<CommandInputPluginInfo>> CommandInputPlugins { get; set; } = new();
+    public List<CommandInputUser> CommandInputUsers { get; set; } = new();
 }
 
 public class Appearances
@@ -64,3 +65,8 @@ public class General
     public bool UsePng { get; set; } = false;
 }
 
+public class CommandInputUser
+{
+    public string? UserIdentifier { get; set; }
+    public string? CommandInputSource { get; set; }
+}

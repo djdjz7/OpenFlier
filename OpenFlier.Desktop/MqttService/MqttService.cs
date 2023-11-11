@@ -21,6 +21,7 @@ namespace OpenFlier.Desktop.Services
         public static IMqttServer? MqttServer { get; set; }
         public static List<User> Users { get; set; } = new List<User>();
         public static ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(MqttService));
+        private static ImageHandler imageHandler = new();
 
         public static string MainTopic { get; } = Guid.NewGuid().ToString("N");
 
@@ -39,15 +40,31 @@ namespace OpenFlier.Desktop.Services
             return Task.Run(() =>
             {
                 //A typical clientId: sxz_00000_XXX_1_XXXXXXXXXXXXXXXXXXXXXXXX
-                string Username = arg.ClientId.Split('_')[2];
+                string clientID = arg.ClientId;
+                string Username = clientID.Split('_')[2];
+                bool allowCommandInput = false;
+                string? commandInputSource = null;
+                foreach (var cmdUser in LocalStorage.Config.CommandInputUsers)
+                    if (
+                        cmdUser.UserIdentifier != null
+                        && cmdUser.UserIdentifier != ""
+                        && clientID.Contains(cmdUser.UserIdentifier)
+                    )
+                    {
+                        allowCommandInput = true;
+                        commandInputSource = cmdUser.CommandInputSource;
+                    }
+
                 if (!Users.Contains(new User { Username = Username }, new UserEqualityComparer()))
                 {
                     Users.Add(
                         new User
                         {
                             Username = Username,
-                            UserId = arg.ClientId.Split('_')[1],
-                            CurrentClientId = arg.ClientId,
+                            UserId = clientID.Split('_')[1],
+                            CurrentClientId = clientID,
+                            AllowCommandInput = allowCommandInput,
+                            CommandInputSource = commandInputSource,
                         }
                     );
                     MqttLogger.Info($"New user connected: {arg.ClientId}");
@@ -69,11 +86,15 @@ namespace OpenFlier.Desktop.Services
         {
             bool usePng = LocalStorage.Config.General.UsePng;
             string Username = arg.ClientId.Split('_')[2];
-            var u = Users.FirstOrDefault(x => x.Username == Username);
+            var user = Users.FirstOrDefault(x => x.Username == Username);
             string filename = Guid.NewGuid().ToString("N");
-            if (!u!.AllowCommandInput)
+            if (!user!.AllowCommandInput)
             {
-                ImageHandler.FetchScreenshot(filename, usePng);
+                imageHandler.FetchScreenshot(filename, usePng);
+            }
+            else
+            {
+                await imageHandler.HandleSpecialChannels(user, filename, usePng, MqttServer!);
             }
 
             string s5 = JsonConvert.SerializeObject(
@@ -82,7 +103,7 @@ namespace OpenFlier.Desktop.Services
                     type = MqttMessageType.ScreenCaptureResp,
                     data = new
                     {
-                        name = $"{ filename}.{ (usePng ? "png" : "jpeg")}",
+                        name = $"{filename}.{(usePng ? "png" : "jpeg")}",
                         deviceCode = CoreStorage.MachineIdentifier,
                         versionCode = CoreStorage.Version
                     }
