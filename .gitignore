@@ -366,3 +366,4 @@ FodyWeavers.xsd
 # Published Files
 dist/
 BuildArchive/build-time
+/OpenFlier.Plugin/protoc.exe
