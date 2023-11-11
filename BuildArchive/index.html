@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Archive - OpenFlier</title>
+</head>
+
+<body>
+    <main>
+        <div class="text-wrapper">
+            <span>Build Archive</span>
+            <h1>OpenFlier</h1>
+            <a href="./OpenFlier.7z">Download Archive</a>
+            <div style="color: #777; font-size: smaller;">
+                <span>Last builded at: </span>
+                <span id="build-time"></span>
+            </div>
+        </div>
+        <img src="icon.svg" alt="OpenFlier Icon" style="margin-left: 64px;">
+
+    </main>
+</body>
+<script>
+    fetch("last-build").then((x) => {
+        var td = new TextDecoder();
+        x.text().then(xx => {
+        document.getElementById("build-time").textContent = xx;
+        })
+    });
+</script>
+<style>
+    @import url(fonts.css);
+
+    :root {
+        font-family: Inter;
+    }
+
+    body {
+        font-family: Inter;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    main {
+        display: flex;
+    }
+
+    .text-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+        background: #000;
+        padding: 8px 12px;
+        margin: 8px 0px;
+        text-align: center;
+        border-radius: 6px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+        align-self: flex-start;
+        transition: all .3s;
+    }
+
+    a:hover {
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+</html>

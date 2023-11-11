@@ -33,11 +33,6 @@ namespace OpenFlier.Desktop.Services
             {
                 string Username = arg.ClientId.Split('_')[2];
                 User connectedUser = Users.First(x => x.Username == Username);
-                if (DateTime.Now - connectedUser.LastUpdateTime >= TimeSpan.FromSeconds(5))
-                {
-                    connectedUser.SwitchImageProvider();
-                    connectedUser.LastUpdateTime = DateTime.Now;
-                }
                 connectedUser.CurrentClientId = "";
             });
         }
@@ -54,7 +49,6 @@ namespace OpenFlier.Desktop.Services
                     {
                         Username = Username,
                         UserId = arg.ClientId.Split('_')[1],
-                        CurrentImageProvider = 0,
                         CurrentClientId = arg.ClientId,
                     });
                     MqttLogger.Info($"New user connected: {arg.ClientId}");
