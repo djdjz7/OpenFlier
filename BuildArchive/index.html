@@ -23,7 +23,7 @@
     </main>
 </body>
 <script>
-    fetch("last-build").then((x) => {
+    fetch("build-time").then((x) => {
         var td = new TextDecoder();
         x.text().then(xx => {
         document.getElementById("build-time").textContent = xx;
