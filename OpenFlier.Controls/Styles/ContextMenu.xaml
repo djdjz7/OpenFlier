@@ -6,6 +6,7 @@
     <ofc:WidthAndHeightToRect x:Key="WidthAndHeightToRectConverter" />
     <ofc:TagAndWidthToActualWidthConverter x:Key="TagAndWidthToActualWidthConverter" />
     <Style TargetType="ContextMenu">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Grid.IsSharedSizeScope" Value="True" />

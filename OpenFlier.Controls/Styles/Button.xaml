@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:OpenFlier"
     xmlns:ofc="clr-namespace:OpenFlier.Controls">
     <ofc:WidthAndHeightToRect x:Key="WidthAndHeightToRectConverter" />
     <ofc:TagAndWidthToActualWidthConverter x:Key="TagAndWidthToActualWidthConverter" />
@@ -125,10 +124,13 @@
                             x:Name="StrokeRect"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Fill="{DynamicResource Foreground}"
                             Opacity="0"
                             RadiusX="4"
-                            RadiusY="4" />
+                            RadiusY="4">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{DynamicResource Foreground}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
                         <ContentPresenter
                             Name="ContentPresenter"
                             Margin="5"

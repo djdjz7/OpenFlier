@@ -89,7 +89,8 @@
                                         <CheckBox
                                             Name="EnableWindowEffectsCheckBox"
                                             Margin="0,4,0,0"
-                                            Content="{x:Static i18:UI.EnableWindowEffectsCheckBoxContent}" />
+                                            Content="{x:Static i18:UI.EnableWindowEffectsCheckBoxContent}"
+                                            IsChecked="True" />
 
                                     </StackPanel>
                                 </ScrollViewer>

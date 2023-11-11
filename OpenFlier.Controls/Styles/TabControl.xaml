@@ -6,6 +6,7 @@
     <ofc:WidthAndHeightToRect x:Key="WidthAndHeightToRectConverter" />
     <ofc:TagAndWidthToActualWidthConverter x:Key="TagAndWidthToActualWidthConverter" />
     <Style TargetType="TabControl">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabControl">
