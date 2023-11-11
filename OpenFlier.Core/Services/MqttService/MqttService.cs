@@ -121,8 +121,7 @@ namespace OpenFlier.Core.Services
                                 IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
                                 if (mqttServicePlugin == null)
                                     continue;
-                                MqttApplicationMessage mqttMessage = mqttServicePlugin.PluginMain(arg.ClientId, MqttServer);
-                                await MqttServer.PublishAsync(mqttMessage);
+                                await mqttServicePlugin.PluginMain(arg.ClientId, MqttServer!);
                                 MqttLogger.Info($"Loaded plugin {pluginInfo.LocalFilePath}");
                                 flag = true;
                             }

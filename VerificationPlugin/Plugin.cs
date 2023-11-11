@@ -2,6 +2,7 @@
 using System.Text;
 using System.Windows;
 using MQTTnet;
+using MQTTnet.Server;
 using OpenFlier.Plugin;
 using File = System.IO.File;
 
@@ -9,7 +10,7 @@ namespace VerificationPlugin;
 
 public class Plugin : IMqttServicePlugin
 {
-    public MqttServicePluginInfo GetMqttServicePluginInfo()
+    public MqttServicePluginInfo GetPluginInfo()
     {
         return new MqttServicePluginInfo
         {
@@ -23,7 +24,7 @@ public class Plugin : IMqttServicePlugin
         };
     }
 
-    public MqttApplicationMessage PluginMain(string clientID)
+    public MqttApplicationMessage PluginMain(string clientID, IMqttServer mqttServer)
     {
         string payloadString;
         if (File.Exists("Plugins\\VerificationContent"))

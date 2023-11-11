@@ -36,6 +36,20 @@ public class ConfigService
     public static void OutputDefaultConfig()
     {
         var config = new Config();
+        config.CommandInputPlugins.Add(new LocalPluginInfo<CommandInputPluginInfo>
+        {
+            PluginInfo = new CommandInputPluginInfo
+            {
+                InvokeCommands = new List<string>(new[] { "rr", "RemoteRandom" }),
+                PluginDescription = "Fetches a random image from a remote source.",
+                PluginVersion = "0.0.1",
+                PluginIdentifier = "openflier.ext.remoterandom",
+                PluginAuthor = "The OpenFlier Contributors",
+                PluginName = "Remote Random",
+                PluginNeedConfigEntry = true,
+            },
+            LocalFilePath = "Plugins/openflier.ext.remoterandom/RemoteRandom.dll"
+        });
         File.WriteAllText("defconfig.json", JsonSerializer.Serialize(config));
     }
 }

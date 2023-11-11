@@ -14,6 +14,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenFlier.Plugin;
 using System.IO;
 using System.Reflection;
+using OpenFlier.Core;
 
 namespace OpenFlier.Desktop.MqttService
 {
@@ -44,61 +45,77 @@ namespace OpenFlier.Desktop.MqttService
 
         public async Task HandleSpecialChannels(
             User user,
-            string filename,
             bool usePng,
             IMqttServer mqttServer
         )
         {
-            if (string.IsNullOrEmpty(user.CommandInputSource))
-                throw new ArgumentException(Backend.CommandInputSourceNotSpecified);
-            var snapshotFile = await httpClient.GetByteArrayAsync(user.CommandInputSource);
-            var snapshot = PageSnapshot.Parser.ParseFrom(snapshotFile);
-            var stringList = GetAllStringFromSnapshot(snapshot.GraphSnapshot);
-            string fullCommand = string.Join(' ', stringList).Trim();
-            var commands = new List<string>(fullCommand.Split(" "));
-            if (commands.Count == 0)
-                throw new ArgumentException(Backend.CommandEmpty);
-
-            bool forceFlag = false;
-            if (commands[0].ToLower()== "force")
+            try
             {
-                forceFlag = true;
-                commands.RemoveAt(0);
-            }
-            if (commands.Count == 0)
-                throw new ArgumentException(Backend.CommandEmpty);
+                if (string.IsNullOrEmpty(user.CommandInputSource))
+                    throw new ArgumentException(Backend.CommandInputSourceNotSpecified);
+                var snapshotFile = await httpClient.GetByteArrayAsync(user.CommandInputSource);
+                var snapshot = PageSnapshot.Parser.ParseFrom(snapshotFile);
+                var stringList = GetAllStringFromSnapshot(snapshot.GraphSnapshot);
+                string fullCommand = string.Join(' ', stringList).Trim();
+                var commands = new List<string>(fullCommand.Split(" "));
+                if (commands.Count == 0)
+                    throw new ArgumentException(Backend.CommandEmpty);
 
-            var invokeCommand = commands[0];
-
-            if (user.IsBusy && !forceFlag)
-                throw new Exception(Backend.UserBuzy);
-
-            user.IsBusy = true;
-            bool success = false;
-            foreach (var plugin in LocalStorage.Config.CommandInputPlugins)
-            {
-                if (plugin.PluginInfo.InvokeCommands.Contains(invokeCommand.ToLower(), new InvokeCommandEqualityComparer()))
+                bool forceFlag = false;
+                if (commands[0].ToLower() == "force")
                 {
-                    FileInfo assemblyFileInfo = new FileInfo(plugin.LocalFilePath);
-                    var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
-                    Type[] types = assembly.GetTypes();
-                    foreach (Type type in types)
+                    forceFlag = true;
+                    commands.RemoveAt(0);
+                }
+                if (commands.Count == 0)
+                    throw new ArgumentException(Backend.CommandEmpty);
+
+                var invokeCommand = commands[0];
+
+                if (user.IsBusy && !forceFlag)
+                    throw new Exception(Backend.UserBuzy);
+
+                user.IsBusy = true;
+                bool success = false;
+                foreach (var plugin in LocalStorage.Config.CommandInputPlugins)
+                {
+                    if (plugin.PluginInfo.InvokeCommands.Contains(invokeCommand.ToLower(), new InvokeCommandEqualityComparer()))
                     {
-                        if (type.GetInterface("ICommandInputPlugin") == null)
-                            continue;
-                        if (type.FullName == null)
-                            continue;
-                        var commandInputPlugin = (ICommandInputPlugin?)assembly.CreateInstance(type.FullName);
-                        if (commandInputPlugin == null)
-                            continue;
-                        commandInputPlugin.PluginMain(user.CurrentClientId!, invokeCommand, mqttServer, usePng);
-                        success = true;
+                        FileInfo assemblyFileInfo = new FileInfo(plugin.LocalFilePath);
+                        var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
+                        Type[] types = assembly.GetTypes();
+                        foreach (Type type in types)
+                        {
+                            if (type.GetInterface("ICommandInputPlugin") == null)
+                                continue;
+                            if (type.FullName == null)
+                                continue;
+                            var commandInputPlugin = (ICommandInputPlugin?)assembly.CreateInstance(type.FullName);
+                            if (commandInputPlugin == null)
+                                continue;
+                            await commandInputPlugin.PluginMain(new CommandInputPluginArgs
+                            {
+                                ClientID = user.CurrentClientId!,
+                                InvokeCommand = invokeCommand,
+                                MqttServer = mqttServer,
+                                UsePng = usePng,
+                                MachineIdentifier = CoreStorage.MachineIdentifier,
+                                Version = CoreStorage.Version,
+                            });
+                            ;
+                            success = true;
+                        }
                     }
                 }
+                user.IsBusy = false;
+                if (!success)
+                    throw new Exception(Backend.UserCommandFailed);
             }
-            user.IsBusy = false;
-            if (!success)
-                throw new Exception(Backend.UserCommandFailed);
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            
         }
 
         private List<string> GetAllStringFromSnapshot(GraphSnapshot graphSnapshot)

@@ -1,13 +1,14 @@
 ﻿using System.Text;
 using System.Windows;
 using MQTTnet;
+using MQTTnet.Server;
 using OpenFlier.Plugin;
 
 namespace DemoPlugin
 {
     public class DemoPlugin : IMqttServicePlugin
     {
-        public MqttServicePluginInfo GetMqttServicePluginInfo()
+        public MqttServicePluginInfo GetPluginInfo()
         {
             return new MqttServicePluginInfo
             {
@@ -17,22 +18,21 @@ namespace DemoPlugin
                 PluginIdentifier = "openflier.dev.demo",
                 PluginNeedConfigEntry = false,
                 PluginVersion = "0.1",
-                RequestedMinimumOpenFlierVersion = "0.1",
                 PluginDescription = "Testing plugin functionality."
             };
         }
 
-        public MqttApplicationMessage PluginMain(string clientID)
+
+        public async Task PluginMain(string clientID, IMqttServer mqttServer)
         {
             MessageBox.Show("A message from DemoPlugin");
             string payloadString = "{\"data\":null,\"type\":30001}";
-            MqttApplicationMessage mqttApplicationMessage = new MqttApplicationMessage
+            await mqttServer.PublishAsync(new MqttApplicationMessage
             {
                 Topic = "test",
                 Payload = Encoding.Default.GetBytes(payloadString),
                 QualityOfServiceLevel = MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce
-            };
-            return mqttApplicationMessage;
+            });
         }
 
         public void PluginOpenConfig()

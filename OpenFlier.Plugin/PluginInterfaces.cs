@@ -20,7 +20,7 @@ public class MqttServicePluginInfo : PluginInfoBase
 public interface IMqttServicePlugin
 {
     public MqttServicePluginInfo GetPluginInfo();
-    public MqttApplicationMessage PluginMain(string clientID, IMqttServer mqttServer);
+    public Task PluginMain(string clientID, IMqttServer mqttServer);
     public void PluginOpenConfig();
 }
 
@@ -29,9 +29,20 @@ public class CommandInputPluginInfo: PluginInfoBase
     public required List<string> InvokeCommands { get; init; }
 }
 
+public class CommandInputPluginArgs
+{
+    public required string ClientID { get; init; }
+    public required string InvokeCommand { get; init; }
+    public required IMqttServer MqttServer { get; init; }
+    public required bool UsePng { get; init; }
+    public required string MachineIdentifier { get; init; }
+    public required string Version { get; init; }
+
+}
+
 public interface ICommandInputPlugin
 {
     public CommandInputPluginInfo GetPluginInfo();
-    public MqttApplicationMessage PluginMain(string clientID, string invokeCommand, IMqttServer mqttServer, bool usePng);
+    public Task PluginMain(CommandInputPluginArgs args);
     public void PluginOpenConfig();
 }

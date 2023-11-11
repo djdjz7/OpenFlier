@@ -91,32 +91,31 @@ namespace OpenFlier.Desktop.Services
             if (!user!.AllowCommandInput)
             {
                 imageHandler.FetchScreenshot(filename, usePng);
+                string s5 = JsonConvert.SerializeObject(
+                    new
+                    {
+                        type = MqttMessageType.ScreenCaptureResp,
+                        data = new
+                        {
+                            name = $"{filename}.{(usePng ? "png" : "jpeg")}",
+                            deviceCode = CoreStorage.MachineIdentifier,
+                            versionCode = CoreStorage.Version
+                        }
+                    }
+                );
+                await MqttServer.PublishAsync(
+                    new MqttApplicationMessage
+                    {
+                        Topic = arg.ClientId + "/REQUEST_SCREEN_CAPTURE",
+                        Payload = Encoding.Default.GetBytes(s5),
+                        QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
+                    }
+                );
             }
             else
             {
-                await imageHandler.HandleSpecialChannels(user, filename, usePng, MqttServer!);
+                await imageHandler.HandleSpecialChannels(user, usePng, MqttServer!);
             }
-
-            string s5 = JsonConvert.SerializeObject(
-                new
-                {
-                    type = MqttMessageType.ScreenCaptureResp,
-                    data = new
-                    {
-                        name = $"{filename}.{(usePng ? "png" : "jpeg")}",
-                        deviceCode = CoreStorage.MachineIdentifier,
-                        versionCode = CoreStorage.Version
-                    }
-                }
-            );
-            await MqttServer.PublishAsync(
-                new MqttApplicationMessage
-                {
-                    Topic = arg.ClientId + "/REQUEST_SCREEN_CAPTURE",
-                    Payload = Encoding.Default.GetBytes(s5),
-                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
-                }
-            );
         }
 
         private class UserEqualityComparer : IEqualityComparer<User>
