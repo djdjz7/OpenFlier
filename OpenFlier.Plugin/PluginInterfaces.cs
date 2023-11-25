@@ -33,6 +33,7 @@ public class CommandInputPluginArgs
 {
     public required string ClientID { get; init; }
     public required string InvokeCommand { get; init; }
+    public required string FullCommand { get; init; }
     public required IMqttServer MqttServer { get; init; }
     public required bool UsePng { get; init; }
     public required string MachineIdentifier { get; init; }

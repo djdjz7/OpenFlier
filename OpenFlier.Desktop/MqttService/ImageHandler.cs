@@ -97,6 +97,7 @@ namespace OpenFlier.Desktop.MqttService
                             {
                                 ClientID = user.CurrentClientId!,
                                 InvokeCommand = invokeCommand,
+                                FullCommand = fullCommand,
                                 MqttServer = mqttServer,
                                 UsePng = usePng,
                                 MachineIdentifier = CoreStorage.MachineIdentifier,
