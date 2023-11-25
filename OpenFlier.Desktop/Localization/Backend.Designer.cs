@@ -79,6 +79,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Multiple IP Addresses 的本地化字符串。
+        /// </summary>
+        public static string MultipleAddresses {
+            get {
+                return ResourceManager.GetString("MultipleAddresses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Current user has task waiting to finish.
         ///Try again later or use the &quot;force&quot; command. 的本地化字符串。
         /// </summary>

@@ -123,6 +123,9 @@
   <data name="CommandInputSourceNotSpecified" xml:space="preserve">
     <value>CommandInputSource is not specified.</value>
   </data>
+  <data name="MultipleAddresses" xml:space="preserve">
+    <value>Multiple IP Addresses</value>
+  </data>
   <data name="UserBuzy" xml:space="preserve">
     <value>Current user has task waiting to finish.
 Try again later or use the "force" command.</value>

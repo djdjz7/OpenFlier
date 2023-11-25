@@ -36,13 +36,16 @@ namespace OpenFlier.Core.Services
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             IPEndPoint remoteEP = new IPEndPoint(IPAddress.Broadcast, CoreStorage.CoreConfig.UDPBroadcastPort ?? 33338);
             socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
-            string udpContent = CoreStorage.IPAddress + "::" + CoreStorage.ConnectCode;
-            byte[] udpContentBytes = Encoding.UTF8.GetBytes(udpContent);
             ILog logger = LogManager.GetLogger(typeof(UdpService));
-            logger.Info($"Begin UDP broadcast with content {udpContent}");
+            logger.Info($"Begin UDP broadcast with following IPs:\n {string.Join('\n', CoreStorage.IPAddresses)}");
             while (flag)
             {
-                socket.SendTo(udpContentBytes, remoteEP);
+                foreach (var ipAddress in CoreStorage.IPAddresses)
+                {
+                    string udpContent = ipAddress + "::" + CoreStorage.ConnectCode;
+                    byte[] udpContentBytes = Encoding.UTF8.GetBytes(udpContent);
+                    socket.SendTo(udpContentBytes, remoteEP);
+                }
                 Thread.Sleep(800);
             }
             socket.Close();

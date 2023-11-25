@@ -140,6 +140,7 @@ namespace OpenFlier.Utils
                         )
                         {
                             currentConfig.CommandInputPlugins.Remove(cmdPlugin);
+                            break;
                         }
                     }
                     currentConfig.CommandInputPlugins.Add(

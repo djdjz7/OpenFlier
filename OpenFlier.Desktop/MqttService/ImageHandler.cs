@@ -97,6 +97,7 @@ namespace OpenFlier.Desktop.MqttService
                             QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
                         }
                     );
+                    return;
                 }
 
                 if (user.IsBusy && !forceFlag)
