@@ -87,9 +87,9 @@ namespace OpenFlier.Desktop.Services
             bool usePng = LocalStorage.Config.General.UsePng;
             string Username = arg.ClientId.Split('_')[2];
             var user = Users.FirstOrDefault(x => x.Username == Username);
-            string filename = Guid.NewGuid().ToString("N");
             if (!user!.AllowCommandInput)
             {
+                string filename = Guid.NewGuid().ToString("N");
                 imageHandler.FetchScreenshot(filename, usePng);
                 string s5 = JsonConvert.SerializeObject(
                     new

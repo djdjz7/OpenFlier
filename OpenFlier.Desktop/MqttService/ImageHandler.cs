@@ -15,6 +15,11 @@ using OpenFlier.Plugin;
 using System.IO;
 using System.Reflection;
 using OpenFlier.Core;
+using MQTTnet.Protocol;
+using MQTTnet;
+using Newtonsoft.Json;
+using OpenFlier.Core.Services;
+using System.Text;
 
 namespace OpenFlier.Desktop.MqttService
 {
@@ -43,11 +48,7 @@ namespace OpenFlier.Desktop.MqttService
             );
         }
 
-        public async Task HandleSpecialChannels(
-            User user,
-            bool usePng,
-            IMqttServer mqttServer
-        )
+        public async Task HandleSpecialChannels(User user, bool usePng, IMqttServer mqttServer)
         {
             try
             {
@@ -72,6 +73,32 @@ namespace OpenFlier.Desktop.MqttService
 
                 var invokeCommand = commands[0];
 
+                if (invokeCommand.ToLower() == "ss" || invokeCommand.ToLower() == "screenshot")
+                {
+                    string filename = Guid.NewGuid().ToString("N");
+                    FetchScreenshot(filename, usePng);
+                    string s5 = JsonConvert.SerializeObject(
+                        new
+                        {
+                            type = MqttMessageType.ScreenCaptureResp,
+                            data = new
+                            {
+                                name = $"{filename}.{(usePng ? "png" : "jpeg")}",
+                                deviceCode = CoreStorage.MachineIdentifier,
+                                versionCode = CoreStorage.Version
+                            }
+                        }
+                    );
+                    await mqttServer.PublishAsync(
+                        new MqttApplicationMessage
+                        {
+                            Topic = user.CurrentClientId + "/REQUEST_SCREEN_CAPTURE",
+                            Payload = Encoding.Default.GetBytes(s5),
+                            QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
+                        }
+                    );
+                }
+
                 if (user.IsBusy && !forceFlag)
                     throw new Exception(Backend.UserBuzy);
 
@@ -79,7 +106,12 @@ namespace OpenFlier.Desktop.MqttService
                 bool success = false;
                 foreach (var plugin in LocalStorage.Config.CommandInputPlugins)
                 {
-                    if (plugin.PluginInfo.InvokeCommands.Contains(invokeCommand.ToLower(), new InvokeCommandEqualityComparer()))
+                    if (
+                        plugin.PluginInfo.InvokeCommands.Contains(
+                            invokeCommand.ToLower(),
+                            new InvokeCommandEqualityComparer()
+                        )
+                    )
                     {
                         FileInfo assemblyFileInfo = new FileInfo(plugin.LocalFilePath);
                         var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
@@ -90,19 +122,22 @@ namespace OpenFlier.Desktop.MqttService
                                 continue;
                             if (type.FullName == null)
                                 continue;
-                            var commandInputPlugin = (ICommandInputPlugin?)assembly.CreateInstance(type.FullName);
+                            var commandInputPlugin = (ICommandInputPlugin?)
+                                assembly.CreateInstance(type.FullName);
                             if (commandInputPlugin == null)
                                 continue;
-                            await commandInputPlugin.PluginMain(new CommandInputPluginArgs
-                            {
-                                ClientID = user.CurrentClientId!,
-                                InvokeCommand = invokeCommand,
-                                FullCommand = fullCommand,
-                                MqttServer = mqttServer,
-                                UsePng = usePng,
-                                MachineIdentifier = CoreStorage.MachineIdentifier,
-                                Version = CoreStorage.Version,
-                            });
+                            await commandInputPlugin.PluginMain(
+                                new CommandInputPluginArgs
+                                {
+                                    ClientID = user.CurrentClientId!,
+                                    InvokeCommand = invokeCommand,
+                                    FullCommand = fullCommand,
+                                    MqttServer = mqttServer,
+                                    UsePng = usePng,
+                                    MachineIdentifier = CoreStorage.MachineIdentifier,
+                                    Version = CoreStorage.Version,
+                                }
+                            );
                             ;
                             success = true;
                         }
@@ -112,11 +147,10 @@ namespace OpenFlier.Desktop.MqttService
                 if (!success)
                     throw new Exception(Backend.UserCommandFailed);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
-            
         }
 
         private List<string> GetAllStringFromSnapshot(GraphSnapshot graphSnapshot)
@@ -136,7 +170,8 @@ namespace OpenFlier.Desktop.MqttService
         {
             public bool Equals(string? x, string? y)
             {
-                if(x == y) return true;
+                if (x == y)
+                    return true;
                 if (x?.ToLower() == y?.ToLower())
                     return true;
                 return false;
