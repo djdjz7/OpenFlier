@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Net;
 
 namespace OpenFlier.Core.Services
 {
@@ -17,19 +10,21 @@ namespace OpenFlier.Core.Services
         public UdpService UdpService { get; } = new UdpService();
         public MqttService MqttService { get; } = new MqttService();
         public FtpService FtpService { get; } = new FtpService();
-        public ServiceManager(CoreConfig coreConfig)
+        public ServiceManager(CoreConfig coreConfig, List<IPAddress>? ipAddresses = null)
         {
-            List<IPAddress> ipAddresses = Dns.GetHostEntry(Dns.GetHostName())
-                .AddressList
-                .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                .ToList();
-            
+            if (ipAddresses == null)
+            {
+                ipAddresses = Dns.GetHostEntry(Dns.GetHostName())
+                                .AddressList
+                                .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                                .ToList();
+            }
 
             CoreStorage.IPAddresses = ipAddresses;
             CoreStorage.CoreConfig = coreConfig;
 
             _loadServiceThread = new Thread(() =>
-            { 
+            {
                 VerificationService.Initialize();
                 UdpService.Initialize();
                 MqttService.Initialize();

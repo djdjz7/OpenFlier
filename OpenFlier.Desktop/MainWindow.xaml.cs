@@ -100,38 +100,6 @@ public partial class MainWindow : Window
         base.OnClosing(e);
     }
 
-    private void ConfigurePluginButton_Click(object sender, RoutedEventArgs e)
-    {
-        var pluginInfo =
-            (LocalPluginInfo<MqttServicePluginInfo>)
-                ((ListBoxItem)MqttPluginsListBox.ContainerFromElement((Button)sender)).Content;
-        if (pluginInfo.LocalFilePath == null)
-            return;
-        try
-        {
-            FileInfo assemblyFileInfo = new FileInfo(pluginInfo.LocalFilePath);
-            var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
-
-            Type[] types = assembly.GetTypes();
-            foreach (Type type in types)
-            {
-                if (type.GetInterface("IMqttServicePlugin") == null)
-                    continue;
-                if (type.FullName == null)
-                    continue;
-                IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)
-                    assembly.CreateInstance(type.FullName);
-                if (mqttServicePlugin == null)
-                    continue;
-                mqttServicePlugin.PluginOpenConfig();
-            }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
-        }
-    }
-
     private void InitializeConfigurator()
     {
         tempConfig = LocalStorage.Config;

@@ -1,12 +1,262 @@
-﻿<UserControl x:Class="OpenFlier.Desktop.ConfigControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:OpenFlier.Desktop"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="OpenFlier.Desktop.ConfigControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i18="clr-namespace:OpenFlier.Desktop.Localization"
+    xmlns:local="clr-namespace:OpenFlier.Desktop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d" d:DataContext="{DynamicResource DesignModel }">
+
+    <UserControl.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <local:ConfigControlModal x:Key="DesignModel"/>
+    </UserControl.Resources>
+    
     <Grid>
-            
+        <TabControl TabStripPlacement="Left">
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="14"
+                            Text="&#xe790;" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="{x:Static i18:UI.AppearancesTitle}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer>
+                    <StackPanel Margin="8">
+                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:UI.AppearancesTitle}" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18:UI.EnableWindowEffectsTitle}" />
+                        <TextBlock Text="{x:Static i18:UI.EnableWindowEffectsDescription}" TextWrapping="Wrap" />
+                        <CheckBox
+                            Name="EnableWindowEffectsCheckBox"
+                            Margin="0,4,0,0"
+                            Content="{x:Static i18:UI.EnableWindowEffectsCheckBoxContent}"
+                            IsChecked="{Binding EnableWindowEffects}" />
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="14"
+                            Text="&#xe713;" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="{x:Static i18:UI.GeneralTitle}" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <ScrollViewer>
+                    <StackPanel Margin="8">
+                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:UI.GeneralTitle}" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18:UI.SpecifiedConnectCodeTitle}" />
+                        <TextBox
+                            Name="SpecifiedConnectCodeTextBox"
+                            Width="200"
+                            Margin="0,4,0,0"
+                            HorizontalAlignment="Left" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18:UI.SpecifiedMachineIdentifierTitle}" />
+                        <TextBox Name="SpecifiedMachineIdentifierTextBox" Margin="0,4,0,0" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18:UI.UsePngTitle}" />
+                        <TextBlock Text="{x:Static i18:UI.UsePngDescription}" TextWrapping="Wrap" />
+                        <CheckBox
+                            Name="UsePngCheckBox"
+                            Margin="0,4,0,0"
+                            Content="{x:Static i18:UI.EnableWindowEffectsCheckBoxContent}" />
+
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18:UI.MqttServerPortTitle}" />
+                        <TextBox
+                            Name="MqttPortTextBox"
+                            Width="200"
+                            Margin="0,4,0,0"
+                            HorizontalAlignment="Left" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18:UI.UdpPortTitle}" />
+                        <TextBox
+                            Name="UdpPortTextBox"
+                            Width="200"
+                            Margin="0,4,0,0"
+                            HorizontalAlignment="Left" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18:UI.EmulatedVersionTitle}" />
+                        <TextBlock Text="{x:Static i18:UI.EmulatedVersionDescription}" />
+                        <TextBox
+                            Name="EmulatedVersionTextBox"
+                            Width="200"
+                            Margin="0,4,0,0"
+                            HorizontalAlignment="Left" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="14"
+                            Text="&#xe8f9;" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="{x:Static i18:UI.SpecialChannelsTitle}" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="14"
+                            Text="&#xea86;" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="{x:Static i18:UI.PluginsTitle}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer>
+                    <StackPanel Margin="8">
+                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:UI.PluginsTitle}" />
+                        <Grid Margin="0,8,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource SubTitle}"
+                                Text="{x:Static i18:UI.MqttServicePluginsTitle}" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button
+                                    Name="RemoveMqttPlugin"
+                                    Margin="4,0,0,0"
+                                    Content="&#xe738;"
+                                    FontFamily="Segoe Fluent Icons"
+                                    Style="{StaticResource SubtleButton}" />
+                            </StackPanel>
+
+                            <ListBox
+                                Name="MqttPluginsListBox"
+                                Grid.Row="2"
+                                Background="Transparent"
+                                BorderBrush="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,2,0,2">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="16"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding PluginName}" />
+                                                <TextBlock
+                                                    Margin="4,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="DarkGray"
+                                                    Text="{Binding MqttMessageType}" />
+                                                <TextBlock
+                                                    Margin="4,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="DarkGray"
+                                                    Text="{Binding PluginVersion}" />
+                                            </StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ConfigEntry" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding PluginAuthor}" />
+                                                    <TextBlock Text="{Binding PluginDescription}" />
+                                                    <TextBlock Foreground="DarkGray" Text="{Binding PluginFilePath}" />
+                                                </StackPanel>
+                                                <Button
+                                                    Name="ConfigurePluginButton"
+                                                    Grid.Column="1"
+                                                    Margin="4"
+                                                    VerticalAlignment="Center"
+                                                    Click="ConfigurePluginButton_Click"
+                                                    Content="{x:Static i18:UI.ConfigureButton}"
+                                                    Style="{StaticResource SubtleButton}"
+                                                    Visibility="{Binding PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18:UI.CommandInputPluginsTitle}" />
+
+                    </StackPanel>
+                </ScrollViewer>
+
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="14"
+                            Text="&#xe7c3;" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="{x:Static i18:UI.FileTitle}" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
