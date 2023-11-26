@@ -1,5 +1,7 @@
 ﻿using OpenFlier.Core;
 using OpenFlier.Core.Services;
+using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -15,7 +17,26 @@ namespace OpenFlier.Mobile
 
         private async void ContentPage_Loaded(object sender, EventArgs e)
         {
-            IPAddress a = new IPAddress(0);
+            /*
+            List<IPAddress> iPAddresses = new List<IPAddress>();
+
+            foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                {
+                    foreach (var ip in ni.GetIPProperties().UnicastAddresses)
+                    {
+                        IP.Text = ip.Address.ToString();
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            IP.Text = ip.Address.ToString();
+                            iPAddresses.Add(ip.Address);
+                        }
+                    }
+                }
+            }*/
+
+
             foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
             {
                 if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
@@ -24,8 +45,7 @@ namespace OpenFlier.Mobile
                     {
                         if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                         {
-                            a = ip.Address;
-                            break;
+                            IP.Text = ip.Address.ToString();
                         }
                     }
                 }
@@ -35,7 +55,7 @@ namespace OpenFlier.Mobile
             {
                 SpecifiedConnectCode = "9999",
                 FtpDirectory = Path.Combine(FileSystem.CacheDirectory, "OpenFlier", "Screenshots")
-            }, a);
+            }, null);
             serviceManager.OnLoadCompleted += ServiceManager_OnLoadCompleted;
             serviceManager.BeginLoad();
             
