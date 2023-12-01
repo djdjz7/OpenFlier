@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenFlier.Core", "OpenFlier
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenFlier.Mobile", "OpenFlier.Mobile\OpenFlier.Mobile.csproj", "{8F84F541-E8FF-4FE6-8294-820B268296DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteRandom", "RemoteRandom\RemoteRandom.csproj", "{338A10ED-82D5-44F1-A1B4-D2F8C2A81863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteRandom", "RemoteRandom\RemoteRandom.csproj", "{338A10ED-82D5-44F1-A1B4-D2F8C2A81863}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -233,6 +233,7 @@ Global
 		{338A10ED-82D5-44F1-A1B4-D2F8C2A81863} = {59621935-9F0D-4BFB-BC92-3BFF225C43F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_PrefixTranslations = False
 		SolutionGuid = {C7B6471B-BD17-4920-A4EB-02E4D6DCFC79}
 	EndGlobalSection
 EndGlobal

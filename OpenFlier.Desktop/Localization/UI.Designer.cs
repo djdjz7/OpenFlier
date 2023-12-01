@@ -62,7 +62,7 @@ namespace OpenFlier.Desktop.Localization {
         
         /// <summary>
         ///   查找类似 OpenFlier Insider
-        ///For testing purposes only. 的本地化字符串。
+        ///Subject to changed. 的本地化字符串。
         /// </summary>
         public static string AboutDescription {
             get {
@@ -266,25 +266,6 @@ namespace OpenFlier.Desktop.Localization {
         public static string PluginsTitle {
             get {
                 return ResourceManager.GetString("PluginsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 This device is connected to multiple networks, thus it has multiple IP Addresses.
-        ///OpenFlier only works with one given address, select one from below: 的本地化字符串。
-        /// </summary>
-        public static string SelectNetworkInterfaceDescription {
-            get {
-                return ResourceManager.GetString("SelectNetworkInterfaceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Select An IP Address 的本地化字符串。
-        /// </summary>
-        public static string SelectNetworkInterfaceTitle {
-            get {
-                return ResourceManager.GetString("SelectNetworkInterfaceTitle", resourceCulture);
             }
         }
         
