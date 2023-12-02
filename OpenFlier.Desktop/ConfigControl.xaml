@@ -13,7 +13,7 @@
 
     <UserControl.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <local:ConfigControlModal x:Key="DesignModel" />
+        <local:ConfigControlModel x:Key="DesignModel" />
     </UserControl.Resources>
 
     <Grid>

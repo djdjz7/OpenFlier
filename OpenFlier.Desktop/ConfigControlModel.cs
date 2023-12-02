@@ -5,9 +5,9 @@ using System.Collections.ObjectModel;
 
 namespace OpenFlier.Desktop
 {
-    public partial class ConfigControlModal : ObservableObject
+    public partial class ConfigControlModel : ObservableObject
     {
-        public ConfigControlModal()
+        public ConfigControlModel()
         {
             this.currentConfig = new Config();
             CommandInputPlugins = new ObservableCollection<LocalPluginInfo<CommandInputPluginInfo>>(
@@ -40,7 +40,7 @@ namespace OpenFlier.Desktop
             FtpDirectory = currentConfig.FtpDirectory ?? "Screenshots";
         }
 
-        public ConfigControlModal(Config currentConfig)
+        public ConfigControlModel(Config currentConfig)
         {
             this.currentConfig = currentConfig;
             CommandInputPlugins = new ObservableCollection<LocalPluginInfo<CommandInputPluginInfo>>(

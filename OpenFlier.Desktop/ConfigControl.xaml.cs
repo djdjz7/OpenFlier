@@ -27,7 +27,7 @@ namespace OpenFlier.Desktop
         public ConfigControl(Config currentConfig)
         {
             InitializeComponent();
-            DataContext = new ConfigControlModal(currentConfig);
+            DataContext = new ConfigControlModel(currentConfig);
         }
 
 
