@@ -228,4 +228,7 @@
   <data name="PluginEnabledCheckBox" xml:space="preserve">
     <value>是否启用</value>
   </data>
+  <data name="CommandInputUserListTitle" xml:space="preserve">
+    <value>CommandInput 用户</value>
+  </data>
 </root>

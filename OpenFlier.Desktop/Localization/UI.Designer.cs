@@ -107,6 +107,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 CommandInput Users 的本地化字符串。
+        /// </summary>
+        public static string CommandInputUserListTitle {
+            get {
+                return ResourceManager.GetString("CommandInputUserListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Configure 的本地化字符串。
         /// </summary>
         public static string ConfigureButton {

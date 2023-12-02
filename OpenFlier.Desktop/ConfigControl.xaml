@@ -9,6 +9,7 @@
     d:DataContext="{DynamicResource DesignModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    TextElement.FontFamily="{StaticResource Inter}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -157,6 +158,23 @@
                             Text="{x:Static i18n:UI.SpecialChannelsTitle}" />
                     </StackPanel>
                 </TabItem.Header>
+                <ScrollViewer>
+                    <StackPanel Margin="8">
+                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.SpecialChannelsTitle}" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            Style="{StaticResource SubTitle}"
+                            Text="{x:Static i18n:UI.CommandInputUserListTitle}" />
+                        <DataGrid
+                            AutoGenerateColumns="True"
+                            CanUserAddRows="True"
+                            CanUserDeleteRows="True"
+                            CanUserReorderColumns="False"
+                            CanUserSortColumns="False"
+                            ColumnWidth="*"
+                            ItemsSource="{Binding CommandInputUsers}" />
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
