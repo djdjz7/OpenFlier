@@ -14,12 +14,13 @@
     <UserControl.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <local:ConfigControlModel x:Key="DesignModel" />
+        <local:StringListToStringConverter x:Key="StringListToStringConverter" />
     </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TabControl TabStripPlacement="Left">
 
@@ -184,20 +185,13 @@
                                 VerticalAlignment="Center"
                                 Style="{StaticResource SubTitle}"
                                 Text="{x:Static i18:UI.MqttServicePluginsTitle}" />
-                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                <Button
-                                    Name="RemoveMqttPlugin"
-                                    Margin="4,0,0,0"
-                                    Content="&#xe738;"
-                                    FontFamily="Segoe Fluent Icons"
-                                    Style="{StaticResource SubtleButton}" />
-                            </StackPanel>
 
                             <ListBox
                                 Name="MqttPluginsListBox"
                                 Grid.Row="2"
                                 Background="Transparent"
-                                BorderBrush="Transparent">
+                                BorderBrush="Transparent"
+                                ItemsSource="{Binding MqttServicePlugins}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="0,2,0,2">
@@ -206,17 +200,17 @@
                                                     VerticalAlignment="Center"
                                                     FontSize="16"
                                                     FontWeight="Bold"
-                                                    Text="{Binding PluginName}" />
+                                                    Text="{Binding PluginInfo.PluginName}" />
                                                 <TextBlock
                                                     Margin="4,0,0,0"
                                                     VerticalAlignment="Center"
                                                     Foreground="DarkGray"
-                                                    Text="{Binding MqttMessageType}" />
+                                                    Text="{Binding PluginInfo.MqttMessageType}" />
                                                 <TextBlock
                                                     Margin="4,0,0,0"
                                                     VerticalAlignment="Center"
                                                     Foreground="DarkGray"
-                                                    Text="{Binding PluginVersion}" />
+                                                    Text="{Binding PluginInfo.PluginVersion}" />
                                             </StackPanel>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -224,8 +218,8 @@
                                                     <ColumnDefinition Width="Auto" SharedSizeGroup="ConfigEntry" />
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel>
-                                                    <TextBlock Text="{Binding PluginAuthor}" />
-                                                    <TextBlock Text="{Binding PluginDescription}" />
+                                                    <TextBlock Text="{Binding PluginInfo.PluginAuthor}" />
+                                                    <TextBlock Text="{Binding PluginInfo.PluginDescription}" />
                                                     <TextBlock Foreground="DarkGray" Text="{Binding PluginFilePath}" />
                                                 </StackPanel>
                                                 <Button
@@ -233,10 +227,10 @@
                                                     Grid.Column="1"
                                                     Margin="4"
                                                     VerticalAlignment="Center"
-                                                    Click="ConfigurePluginButton_Click"
+                                                    Click="ConfigureMqttServicePluginButton_Click"
                                                     Content="{x:Static i18:UI.ConfigureButton}"
                                                     Style="{StaticResource SubtleButton}"
-                                                    Visibility="{Binding PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                                    Visibility="{Binding PluginInfo.PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
                                             </Grid>
                                         </StackPanel>
                                     </DataTemplate>
@@ -248,7 +242,56 @@
                             Margin="0,8,0,0"
                             Style="{StaticResource SubTitle}"
                             Text="{x:Static i18:UI.CommandInputPluginsTitle}" />
-
+                        <ListBox
+                            Name="CommandInputPluginsListBox"
+                            Grid.Row="2"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            ItemsSource="{Binding CommandInputPlugins}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,2,0,2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Text="{Binding PluginInfo.PluginName}" />
+                                            <TextBlock
+                                                Margin="4,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Foreground="DarkGray"
+                                                Text="{Binding PluginInfo.InvokeCommands, Converter={StaticResource StringListToStringConverter}" />
+                                            <TextBlock
+                                                Margin="4,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Foreground="DarkGray"
+                                                Text="{Binding PluginInfo.PluginVersion}" />
+                                        </StackPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" SharedSizeGroup="ConfigEntry" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding PluginInfo.PluginAuthor}" />
+                                                <TextBlock Text="{Binding PluginInfo.PluginDescription}" />
+                                                <TextBlock Foreground="DarkGray" Text="{Binding PluginFilePath}" />
+                                            </StackPanel>
+                                            <Button
+                                                Name="ConfigurePluginButton"
+                                                Grid.Column="1"
+                                                Margin="4"
+                                                VerticalAlignment="Center"
+                                                Click="ConfigureCommandInputPluginButton_Click"
+                                                Content="{x:Static i18:UI.ConfigureButton}"
+                                                Style="{StaticResource SubtleButton}"
+                                                Visibility="{Binding PluginInfo.PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                        </Grid>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </StackPanel>
                 </ScrollViewer>
 
@@ -270,11 +313,15 @@
                 </TabItem.Header>
             </TabItem>
         </TabControl>
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1">
+        <Grid
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom">
             <Button
                 Margin="12"
                 HorizontalAlignment="Right"
-                Content="{x:Static i18:UI.ApplyButtonContent}" Command="{Binding ApplyCommand}"/>
+                Command="{Binding ApplyCommand}"
+                Content="{x:Static i18:UI.ApplyButtonContent}" />
         </Grid>
     </Grid>
 

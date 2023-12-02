@@ -11,6 +11,12 @@ using System.Windows;
 using System.Windows.Input;
 using OpenFlier.Desktop.Localization;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
+using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using System.Drawing.Imaging;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace OpenFlier.Desktop
 {
@@ -47,6 +53,7 @@ namespace OpenFlier.Desktop
             );
             VerificationContent = currentConfig.VerificationContent;
             FtpDirectory = currentConfig.FtpDirectory ?? "Screenshots";
+            ApplyCommand = new RelayCommand(Apply);
         }
 
         public ConfigControlModel(Config currentConfig)

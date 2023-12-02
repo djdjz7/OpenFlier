@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -49,6 +50,17 @@ namespace OpenFlier.Desktop
             if ((Visibility)value == Visibility.Visible)
                 return true;
             return false;
+        }
+    }
+
+    public class StringListToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            => string.Join(',', (IEnumerable)value);
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -23,6 +23,7 @@
         </MenuItem>
     </ContextMenu>
     <Style TargetType="TextBox">
+        <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}"/>
         <Setter Property="ContextMenu" Value="{DynamicResource TextBoxContextMenu}" />
         <Setter Property="Template">
             <Setter.Value>
