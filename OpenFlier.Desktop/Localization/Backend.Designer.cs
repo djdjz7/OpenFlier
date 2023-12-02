@@ -79,11 +79,39 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Specified connect code is not in the correct format. 的本地化字符串。
+        /// </summary>
+        public static string ConnectCodeFormatError {
+            get {
+                return ResourceManager.GetString("ConnectCodeFormatError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Multiple IP Addresses 的本地化字符串。
         /// </summary>
         public static string MultipleAddresses {
             get {
                 return ResourceManager.GetString("MultipleAddresses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Will overwrite existing config file.
+        ///Continue? 的本地化字符串。
+        /// </summary>
+        public static string OverwriteConfigWarning {
+            get {
+                return ResourceManager.GetString("OverwriteConfigWarning", resourceCulture);
             }
         }
         
@@ -103,6 +131,15 @@ namespace OpenFlier.Desktop.Localization {
         public static string UserCommandFailed {
             get {
                 return ResourceManager.GetString("UserCommandFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

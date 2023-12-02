@@ -8,7 +8,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid MinHeight="30">
+                    <Grid MinHeight="30" MinWidth="72">
                         <Rectangle
                             Name="StrokeRect"
                             Margin="-1"

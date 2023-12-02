@@ -1,7 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using OpenFlier.Core;
 using OpenFlier.Plugin;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Windows;
+using System.Windows.Input;
+using OpenFlier.Desktop.Localization;
+using System.Text.RegularExpressions;
 
 namespace OpenFlier.Desktop
 {
@@ -69,8 +78,9 @@ namespace OpenFlier.Desktop
             MqttServicePlugins = new ObservableCollection<LocalPluginInfo<MqttServicePluginInfo>>(
                 currentConfig.MqttServicePlugins
             );
-            VerificationContent = currentConfig.VerificationContent;
+            VerificationContent = string.IsNullOrEmpty(currentConfig.VerificationContent) ? "{\"type\":20007,\"data\":{\"topic\":\"Ec1xkK+uFtV/QO/8rduJ2A==\"}}" : currentConfig.VerificationContent;
             FtpDirectory = currentConfig.FtpDirectory ?? "Screenshots";
+            ApplyCommand = new RelayCommand(Apply);
         }
 
         private Config currentConfig;
@@ -136,5 +146,51 @@ namespace OpenFlier.Desktop
         [ObservableProperty]
         private string ftpDirectory;
         #endregion
+
+        public ICommand ApplyCommand { get; }
+        private void Apply()
+        {
+            Regex regex = new("^\\d{4}$");
+            if (!regex.IsMatch(SpecifiedConnectCode.Trim()) && !string.IsNullOrEmpty(SpecifiedConnectCode.Trim()))
+            {
+                MessageBox.Show(Backend.ConnectCodeFormatError, Backend.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (MessageBox.Show(Backend.OverwriteConfigWarning, Backend.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                return;
+
+            var newConfig = new Config
+            {
+                Appearances = new Appearances
+                {
+                    BackgroundImage = BackgroundImage,
+                    EnableWindowEffects = EnableWindowEffects,
+                    PrimaryColor = PrimaryColor,
+                    SecondaryColor = SecondaryColor,
+                    SyncColorWithSystem = SyncColorWithSystem,
+                    WindowTitle = WindowTitle,
+                },
+                CommandInputPlugins = CommandInputPlugins.ToList(),
+                CommandInputUsers = CommandInputUsers.ToList(),
+                FtpDirectory = FtpDirectory,
+                General = new General
+                {
+                    DefaultUpdateCheckURL = DefaultUpdateCheckURL,
+                    UsePng = UsePng,
+                },
+                MqttServerPort = MqttServerPort,
+                MqttServicePlugins = MqttServicePlugins.ToList(),
+                SpecifiedConnectCode = SpecifiedConnectCode.Trim(),
+                SpecifiedEmulatedVersion = SpecifiedEmulatedVersion,
+                SpecifiedMachineIdentifier = SpecifiedMachineIdentifier,
+                UDPBroadcastPort = UdpBroadcastPort,
+                VerificationContent = VerificationContent,
+            };
+
+            File.WriteAllText("config.json", JsonSerializer.Serialize(newConfig, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+            }));
+        }
     }
 }

@@ -17,6 +17,10 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <TabControl TabStripPlacement="Left">
 
             <TabItem>
@@ -266,5 +270,12 @@
                 </TabItem.Header>
             </TabItem>
         </TabControl>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1">
+            <Button
+                Margin="12"
+                HorizontalAlignment="Right"
+                Content="{x:Static i18:UI.ApplyButtonContent}" Command="{Binding ApplyCommand}"/>
+        </Grid>
     </Grid>
+
 </UserControl>

@@ -133,4 +133,17 @@
     <value>当前用户存在未完成的任务，
 稍后重试，或使用 “force” 关键字。</value>
   </data>
+  <data name="OverwriteConfigWarning" xml:space="preserve">
+    <value>将会覆盖已有配置文件。
+继续？</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="ConnectCodeFormatError" xml:space="preserve">
+    <value>指定的连接密码不符合正确的形式。</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
 </root>
