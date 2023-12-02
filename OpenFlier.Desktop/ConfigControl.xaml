@@ -220,7 +220,7 @@
                                                 <StackPanel>
                                                     <TextBlock Text="{Binding PluginInfo.PluginAuthor}" />
                                                     <TextBlock Text="{Binding PluginInfo.PluginDescription}" />
-                                                    <TextBlock Foreground="DarkGray" Text="{Binding PluginFilePath}" />
+                                                    <TextBlock Foreground="DarkGray" Text="{Binding LocalFilePath}" />
                                                 </StackPanel>
                                                 <Button
                                                     Name="ConfigurePluginButton"
@@ -276,7 +276,7 @@
                                             <StackPanel>
                                                 <TextBlock Text="{Binding PluginInfo.PluginAuthor}" />
                                                 <TextBlock Text="{Binding PluginInfo.PluginDescription}" />
-                                                <TextBlock Foreground="DarkGray" Text="{Binding PluginFilePath}" />
+                                                <TextBlock Foreground="DarkGray" Text="{Binding LocalFilePath}" />
                                             </StackPanel>
                                             <Button
                                                 Name="ConfigurePluginButton"
