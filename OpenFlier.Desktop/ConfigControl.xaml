@@ -6,15 +6,16 @@
     xmlns:i18="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:local="clr-namespace:OpenFlier.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{DynamicResource DesignModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    mc:Ignorable="d" d:DataContext="{DynamicResource DesignModel }">
+    mc:Ignorable="d">
 
     <UserControl.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <local:ConfigControlModal x:Key="DesignModel"/>
+        <local:ConfigControlModal x:Key="DesignModel" />
     </UserControl.Resources>
-    
+
     <Grid>
         <TabControl TabStripPlacement="Left">
 
@@ -47,7 +48,6 @@
                             Margin="0,4,0,0"
                             Content="{x:Static i18:UI.EnableWindowEffectsCheckBoxContent}"
                             IsChecked="{Binding EnableWindowEffects}" />
-
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
@@ -79,13 +79,17 @@
                             Name="SpecifiedConnectCodeTextBox"
                             Width="200"
                             Margin="0,4,0,0"
-                            HorizontalAlignment="Left" />
+                            HorizontalAlignment="Left"
+                            Text="{Binding SpecifiedConnectCode}" />
                         <TextBlock
                             Margin="0,8,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SubTitle}"
                             Text="{x:Static i18:UI.SpecifiedMachineIdentifierTitle}" />
-                        <TextBox Name="SpecifiedMachineIdentifierTextBox" Margin="0,4,0,0" />
+                        <TextBox
+                            Name="SpecifiedMachineIdentifierTextBox"
+                            Margin="0,4,0,0"
+                            Text="{Binding SpecifiedMachineIdentifier}" />
                         <TextBlock
                             Margin="0,8,0,0"
                             VerticalAlignment="Center"
@@ -95,7 +99,8 @@
                         <CheckBox
                             Name="UsePngCheckBox"
                             Margin="0,4,0,0"
-                            Content="{x:Static i18:UI.EnableWindowEffectsCheckBoxContent}" />
+                            Content="{x:Static i18:UI.UsePngCheckBoxContent}"
+                            IsChecked="{Binding UsePng}" />
 
                         <TextBlock
                             Margin="0,8,0,0"
@@ -106,7 +111,8 @@
                             Name="MqttPortTextBox"
                             Width="200"
                             Margin="0,4,0,0"
-                            HorizontalAlignment="Left" />
+                            HorizontalAlignment="Left"
+                            Text="{Binding MqttServerPort}" />
                         <TextBlock
                             Margin="0,8,0,0"
                             Style="{StaticResource SubTitle}"
@@ -115,7 +121,8 @@
                             Name="UdpPortTextBox"
                             Width="200"
                             Margin="0,4,0,0"
-                            HorizontalAlignment="Left" />
+                            HorizontalAlignment="Left"
+                            Text="{Binding UdpBroadcastPort}" />
                         <TextBlock
                             Margin="0,8,0,0"
                             Style="{StaticResource SubTitle}"
@@ -125,7 +132,8 @@
                             Name="EmulatedVersionTextBox"
                             Width="200"
                             Margin="0,4,0,0"
-                            HorizontalAlignment="Left" />
+                            HorizontalAlignment="Left"
+                            Text="{Binding SpecifiedEmulatedVersion}" />
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

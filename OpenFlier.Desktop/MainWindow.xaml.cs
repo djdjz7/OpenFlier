@@ -51,7 +51,8 @@ public partial class MainWindow : Window
         LoadingScreen.Visibility = Visibility.Visible;
         MainGrid.Visibility = Visibility.Hidden;
 
-        
+        ConfigTab.Content = new ConfigControl(config);
+
     }
 
     private void ServiceManager_LoadCompleted(object? sender, EventArgs e)

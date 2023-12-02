@@ -54,12 +54,11 @@
 
                     </Grid>
                 </TabItem>
-                <TabItem>
+                <TabItem x:Name="ConfigTab">
 
                     <TabItem.Header>
                         <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe713;" />
                     </TabItem.Header>
-                    <local:ConfigControl />
                 </TabItem>
 
                 <TabItem>
