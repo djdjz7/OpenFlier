@@ -17,6 +17,6 @@ public class CoreConfig
 
 public class LocalPluginInfo<T>
 {
-    public required T PluginInfo { get; set; }
+    public T PluginInfo { get; set; }
     public string? LocalFilePath { get; set; }
 }

@@ -10,14 +10,14 @@ public class InstallerConfig
 
 public class DownloadSource
 {
-    required public PackageSource MainPackSource { get; set; }
-    required public PackageSource FullPackSource { get; set; }
+    public PackageSource MainPackSource { get; set; }
+    public PackageSource FullPackSource { get; set; }
 }
 public class PackageSource
 {
-    required public string VersionUrl { get; set; }
-    required public string Url { get; set; }
-    required public string ChecksumUrl { get; set; }
+    public string VersionUrl { get; set; }
+    public string Url { get; set; }
+    public string ChecksumUrl { get; set; }
 }
 public enum InstallerMode
 {
