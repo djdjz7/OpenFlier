@@ -186,10 +186,10 @@
     <value>SpecialChannels</value>
   </data>
   <data name="SpecifiedConnectCodeTitle" xml:space="preserve">
-    <value>指定的连接密码</value>
+    <value>连接密码</value>
   </data>
   <data name="SpecifiedMachineIdentifierTitle" xml:space="preserve">
-    <value>指定的系统识别码</value>
+    <value>系统识别码</value>
   </data>
   <data name="UdpPortTitle" xml:space="preserve">
     <value>UDP 广播端口</value>
