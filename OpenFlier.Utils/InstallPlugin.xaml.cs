@@ -127,6 +127,7 @@ namespace OpenFlier.Utils
                             },
                             LocalFilePath =
                                 $"Plugins\\{singlePluginPackage.PluginIdentifier}\\{mainFileName}",
+                            Enabled = true,
                         }
                     );
 
@@ -158,6 +159,7 @@ namespace OpenFlier.Utils
                             },
                             LocalFilePath =
                                 $"Plugins\\{singlePluginPackage.PluginIdentifier}\\{mainFileName}",
+                            Enabled = true,
                         }
                     );
                     break;

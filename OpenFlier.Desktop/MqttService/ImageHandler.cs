@@ -107,6 +107,8 @@ namespace OpenFlier.Desktop.MqttService
                 bool success = false;
                 foreach (var plugin in LocalStorage.Config.CommandInputPlugins)
                 {
+                    if (!plugin.Enabled)
+                        continue;
                     if (
                         plugin.PluginInfo.InvokeCommands.Contains(
                             invokeCommand.ToLower(),
@@ -139,7 +141,6 @@ namespace OpenFlier.Desktop.MqttService
                                     Version = CoreStorage.Version,
                                 }
                             );
-                            ;
                             success = true;
                         }
                     }

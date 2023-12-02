@@ -101,7 +101,9 @@ namespace OpenFlier.Core.Services
                     {
                         if (pluginInfo.PluginInfo.MqttMessageType != (long)messageType)
                             continue;
-                        if (!System.IO.File.Exists(pluginInfo.LocalFilePath))
+                        if (!pluginInfo.Enabled)
+                            continue;
+                        if (!File.Exists(pluginInfo.LocalFilePath))
                         {
                             MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.LocalFilePath} failed: File not found.");
                             continue;
@@ -109,7 +111,6 @@ namespace OpenFlier.Core.Services
                         try
                         {
                             FileInfo assemblyFileInfo = new FileInfo(pluginInfo.LocalFilePath);
-
                             var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
                             Type[] types = assembly.GetTypes();
                             foreach (Type type in types)
