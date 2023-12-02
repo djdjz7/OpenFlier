@@ -225,4 +225,7 @@ Check the following check box to use PNG format as the screenshot format, which 
   <data name="GithubHyperLink" xml:space="preserve">
     <value>Github</value>
   </data>
+  <data name="PluginEnabledCheckBox" xml:space="preserve">
+    <value>Whether to Enable</value>
+  </data>
 </root>

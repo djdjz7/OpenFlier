@@ -1,8 +1,5 @@
 ﻿using log4net;
-using System;
 using System.Data;
-using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -40,8 +37,8 @@ namespace OpenFlier.Core.Services
                 VerificationServiceLogger.Error("Failed to initialize machine identifier.", e);
             }
             Version? SpecifiedVersion;
-            bool success=Version.TryParse(CoreStorage.CoreConfig.SpecifiedEmulatedVersion, out SpecifiedVersion);
-            if (success&&SpecifiedVersion?.CompareTo(Version.Parse("2.0.9")) > 0)
+            bool success = Version.TryParse(CoreStorage.CoreConfig.SpecifiedEmulatedVersion, out SpecifiedVersion);
+            if (success && SpecifiedVersion?.CompareTo(Version.Parse("2.1.1")) > 0)
                 CoreStorage.Version = CoreStorage.CoreConfig.SpecifiedEmulatedVersion;
             VerificationServiceLogger.Info($"Emulating version {CoreStorage.Version}");
         }

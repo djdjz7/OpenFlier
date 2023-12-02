@@ -225,4 +225,7 @@
   <data name="VideoPlayDescription" xml:space="preserve">
     <value>选择视频的所有帧，设置时间间隔，然后播放！ （建议10 ~ 20 fps。可以使用 ffmpeg 手动提取帧。）</value>
   </data>
+  <data name="PluginEnabledCheckBox" xml:space="preserve">
+    <value>是否启用</value>
+  </data>
 </root>

@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i18="clr-namespace:OpenFlier.Desktop.Localization"
+    xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:local="clr-namespace:OpenFlier.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DataContext="{DynamicResource DesignModel}"
@@ -36,22 +36,22 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="14"
-                            Text="{x:Static i18:UI.AppearancesTitle}" />
+                            Text="{x:Static i18n:UI.AppearancesTitle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:UI.AppearancesTitle}" />
+                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.AppearancesTitle}" />
                         <TextBlock
                             Margin="0,8,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18:UI.EnableWindowEffectsTitle}" />
-                        <TextBlock Text="{x:Static i18:UI.EnableWindowEffectsDescription}" TextWrapping="Wrap" />
+                            Text="{x:Static i18n:UI.EnableWindowEffectsTitle}" />
+                        <TextBlock Text="{x:Static i18n:UI.EnableWindowEffectsDescription}" TextWrapping="Wrap" />
                         <CheckBox
                             Name="EnableWindowEffectsCheckBox"
                             Margin="0,4,0,0"
-                            Content="{x:Static i18:UI.EnableWindowEffectsCheckBoxContent}"
+                            Content="{x:Static i18n:UI.EnableWindowEffectsCheckBoxContent}"
                             IsChecked="{Binding EnableWindowEffects}" />
                     </StackPanel>
                 </ScrollViewer>
@@ -68,18 +68,18 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="14"
-                            Text="{x:Static i18:UI.GeneralTitle}" />
+                            Text="{x:Static i18n:UI.GeneralTitle}" />
                     </StackPanel>
                 </TabItem.Header>
 
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:UI.GeneralTitle}" />
+                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.GeneralTitle}" />
                         <TextBlock
                             Margin="0,8,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18:UI.SpecifiedConnectCodeTitle}" />
+                            Text="{x:Static i18n:UI.SpecifiedConnectCodeTitle}" />
                         <TextBox
                             Name="SpecifiedConnectCodeTextBox"
                             Width="200"
@@ -90,7 +90,7 @@
                             Margin="0,8,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18:UI.SpecifiedMachineIdentifierTitle}" />
+                            Text="{x:Static i18n:UI.SpecifiedMachineIdentifierTitle}" />
                         <TextBox
                             Name="SpecifiedMachineIdentifierTextBox"
                             Margin="0,4,0,0"
@@ -99,19 +99,19 @@
                             Margin="0,8,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18:UI.UsePngTitle}" />
-                        <TextBlock Text="{x:Static i18:UI.UsePngDescription}" TextWrapping="Wrap" />
+                            Text="{x:Static i18n:UI.UsePngTitle}" />
+                        <TextBlock Text="{x:Static i18n:UI.UsePngDescription}" TextWrapping="Wrap" />
                         <CheckBox
                             Name="UsePngCheckBox"
                             Margin="0,4,0,0"
-                            Content="{x:Static i18:UI.UsePngCheckBoxContent}"
+                            Content="{x:Static i18n:UI.UsePngCheckBoxContent}"
                             IsChecked="{Binding UsePng}" />
 
                         <TextBlock
                             Margin="0,8,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18:UI.MqttServerPortTitle}" />
+                            Text="{x:Static i18n:UI.MqttServerPortTitle}" />
                         <TextBox
                             Name="MqttPortTextBox"
                             Width="200"
@@ -121,7 +121,7 @@
                         <TextBlock
                             Margin="0,8,0,0"
                             Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18:UI.UdpPortTitle}" />
+                            Text="{x:Static i18n:UI.UdpPortTitle}" />
                         <TextBox
                             Name="UdpPortTextBox"
                             Width="200"
@@ -131,8 +131,8 @@
                         <TextBlock
                             Margin="0,8,0,0"
                             Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18:UI.EmulatedVersionTitle}" />
-                        <TextBlock Text="{x:Static i18:UI.EmulatedVersionDescription}" />
+                            Text="{x:Static i18n:UI.EmulatedVersionTitle}" />
+                        <TextBlock Text="{x:Static i18n:UI.EmulatedVersionDescription}" />
                         <TextBox
                             Name="EmulatedVersionTextBox"
                             Width="200"
@@ -154,7 +154,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="14"
-                            Text="{x:Static i18:UI.SpecialChannelsTitle}" />
+                            Text="{x:Static i18n:UI.SpecialChannelsTitle}" />
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
@@ -170,12 +170,12 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="14"
-                            Text="{x:Static i18:UI.PluginsTitle}" />
+                            Text="{x:Static i18n:UI.PluginsTitle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18:UI.PluginsTitle}" />
+                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.PluginsTitle}" />
                         <Grid Margin="0,8,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -184,8 +184,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource SubTitle}"
-                                Text="{x:Static i18:UI.MqttServicePluginsTitle}" />
-
+                                Text="{x:Static i18n:UI.MqttServicePluginsTitle}" />
                             <ListBox
                                 Name="MqttPluginsListBox"
                                 Grid.Row="2"
@@ -215,6 +214,7 @@
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="EnabledCheckBox" />
                                                     <ColumnDefinition Width="Auto" SharedSizeGroup="ConfigEntry" />
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel>
@@ -222,13 +222,19 @@
                                                     <TextBlock Text="{Binding PluginInfo.PluginDescription}" />
                                                     <TextBlock Foreground="DarkGray" Text="{Binding LocalFilePath}" />
                                                 </StackPanel>
+                                                <CheckBox
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    IsChecked="{Binding Enabled}"
+                                                    ToolTip="{x:Static i18n:UI.PluginEnabledCheckBox}" />
                                                 <Button
                                                     Name="ConfigurePluginButton"
-                                                    Grid.Column="1"
+                                                    Grid.Column="2"
                                                     Margin="4"
                                                     VerticalAlignment="Center"
                                                     Click="ConfigureMqttServicePluginButton_Click"
-                                                    Content="{x:Static i18:UI.ConfigureButton}"
+                                                    Content="{x:Static i18n:UI.ConfigureButton}"
                                                     Style="{StaticResource SubtleButton}"
                                                     Visibility="{Binding PluginInfo.PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
                                             </Grid>
@@ -241,7 +247,7 @@
                         <TextBlock
                             Margin="0,8,0,0"
                             Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18:UI.CommandInputPluginsTitle}" />
+                            Text="{x:Static i18n:UI.CommandInputPluginsTitle}" />
                         <ListBox
                             Name="CommandInputPluginsListBox"
                             Grid.Row="2"
@@ -271,6 +277,7 @@
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" SharedSizeGroup="EnabledCheckBox" />
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="ConfigEntry" />
                                             </Grid.ColumnDefinitions>
                                             <StackPanel>
@@ -278,13 +285,19 @@
                                                 <TextBlock Text="{Binding PluginInfo.PluginDescription}" />
                                                 <TextBlock Foreground="DarkGray" Text="{Binding LocalFilePath}" />
                                             </StackPanel>
+                                            <CheckBox
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                IsChecked="{Binding Enabled}"
+                                                ToolTip="{x:Static i18n:UI.PluginEnabledCheckBox}" />
                                             <Button
                                                 Name="ConfigurePluginButton"
-                                                Grid.Column="1"
+                                                Grid.Column="2"
                                                 Margin="4"
                                                 VerticalAlignment="Center"
                                                 Click="ConfigureCommandInputPluginButton_Click"
-                                                Content="{x:Static i18:UI.ConfigureButton}"
+                                                Content="{x:Static i18n:UI.ConfigureButton}"
                                                 Style="{StaticResource SubtleButton}"
                                                 Visibility="{Binding PluginInfo.PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
                                         </Grid>
@@ -308,7 +321,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="14"
-                            Text="{x:Static i18:UI.FileTitle}" />
+                            Text="{x:Static i18n:UI.FileTitle}" />
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
@@ -321,7 +334,7 @@
                 Margin="12"
                 HorizontalAlignment="Right"
                 Command="{Binding ApplyCommand}"
-                Content="{x:Static i18:UI.ApplyButtonContent}" />
+                Content="{x:Static i18n:UI.ApplyButtonContent}" />
         </Grid>
     </Grid>
 

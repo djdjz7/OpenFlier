@@ -9,7 +9,7 @@ public class CoreConfig
     public int? MqttServerPort { get; set; } = 61136;
     public string? SpecifiedMachineIdentifier { get; set; }
     public string? SpecifiedConnectCode { get; set; }
-    public string SpecifiedEmulatedVersion { get; set; } = "2.0.9";
+    public string SpecifiedEmulatedVersion { get; set; } = "2.1.1";
     public List<LocalPluginInfo<MqttServicePluginInfo>> MqttServicePlugins { get; set; } = new();
     public string VerificationContent { get; set; } = "{\"type\":20007,\"data\":{\"topic\":\"Ec1xkK+uFtV/QO/8rduJ2A==\"}}";
     public string? FtpDirectory { get; set; } = "Screenshots";

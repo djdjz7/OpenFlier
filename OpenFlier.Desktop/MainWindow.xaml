@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i18="clr-namespace:OpenFlier.Desktop.Localization"
+    xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:local="clr-namespace:OpenFlier.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="OpenFlier"
@@ -50,7 +50,7 @@
                             Margin="8"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
-                            ToolTip="{x:Static i18:UI.MachineIdentifierTitle}" />
+                            ToolTip="{x:Static i18n:UI.MachineIdentifierTitle}" />
 
                     </Grid>
                 </TabItem>
@@ -84,29 +84,29 @@
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     Style="{StaticResource SubTitle}"
-                                    Text="{x:Static i18:UI.AboutTitle}" />
-                                <TextBlock Text="{x:Static i18:UI.AboutDescription}" />
+                                    Text="{x:Static i18n:UI.AboutTitle}" />
+                                <TextBlock Text="{x:Static i18n:UI.AboutDescription}" />
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     Style="{StaticResource SubTitle}"
-                                    Text="{x:Static i18:UI.FunZoneTitle}" />
-                                <TextBlock Text="{x:Static i18:UI.FunZoneDescription}" />
-                                <TextBlock Style="{StaticResource H3}" Text="{x:Static i18:UI.VideoPlayTitle}" />
-                                <TextBlock Text="{x:Static i18:UI.VideoPlayDescription}" />
+                                    Text="{x:Static i18n:UI.FunZoneTitle}" />
+                                <TextBlock Text="{x:Static i18n:UI.FunZoneDescription}" />
+                                <TextBlock Style="{StaticResource H3}" Text="{x:Static i18n:UI.VideoPlayTitle}" />
+                                <TextBlock Text="{x:Static i18n:UI.VideoPlayDescription}" />
                                 <Button
                                     Name="TestButton"
                                     HorizontalAlignment="Left"
                                     Click="TestButton_Click"
-                                    Content="{x:Static i18:UI.VideoPlayOpenButton}" />
+                                    Content="{x:Static i18n:UI.VideoPlayOpenButton}" />
                                 <Button
                                     Margin="0,12,0,0"
                                     HorizontalAlignment="Left"
-                                    Content="{x:Static i18:UI.GithubHyperLink}"
+                                    Content="{x:Static i18n:UI.GithubHyperLink}"
                                     Style="{StaticResource HyperlinkButton}" />
                                 <TextBlock
                                     Margin="0,4,0,0"
                                     FontSize="10"
-                                    Text="{x:Static i18:UI.CopyrightString}" />
+                                    Text="{x:Static i18n:UI.CopyrightString}" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -120,7 +120,7 @@
             Grid.RowSpan="2"
             Visibility="Visible">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Margin="12,0,12,0" Text="{x:Static i18:UI.LoadingServiceString}" />
+                <TextBlock Margin="12,0,12,0" Text="{x:Static i18n:UI.LoadingServiceString}" />
                 <ProgressBar
                     Height="14"
                     HorizontalAlignment="Stretch"

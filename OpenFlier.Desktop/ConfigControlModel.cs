@@ -193,7 +193,10 @@ namespace OpenFlier.Desktop
                 UDPBroadcastPort = UdpBroadcastPort,
                 VerificationContent = VerificationContent,
             };
-
+            MessageBox.Show(JsonSerializer.Serialize(newConfig, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+            }));
             File.WriteAllText("config.json", JsonSerializer.Serialize(newConfig, new JsonSerializerOptions
             {
                 WriteIndented = true,

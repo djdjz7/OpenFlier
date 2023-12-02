@@ -261,6 +261,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Whether to Enable 的本地化字符串。
+        /// </summary>
+        public static string PluginEnabledCheckBox {
+            get {
+                return ResourceManager.GetString("PluginEnabledCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Plugins 的本地化字符串。
         /// </summary>
         public static string PluginsTitle {
