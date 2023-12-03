@@ -98,6 +98,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Cancel 的本地化字符串。
+        /// </summary>
+        public static string CancelText {
+            get {
+                return ResourceManager.GetString("CancelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 CommandInput Plugins 的本地化字符串。
         /// </summary>
         public static string CommandInputPluginsTitle {
@@ -266,6 +275,25 @@ namespace OpenFlier.Desktop.Localization {
         public static string MqttServicePluginsTitle {
             get {
                 return ResourceManager.GetString("MqttServicePluginsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OK 的本地化字符串。
+        /// </summary>
+        public static string OKText {
+            get {
+                return ResourceManager.GetString("OKText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Will overwrite existing config file.
+        ///Continue? 的本地化字符串。
+        /// </summary>
+        public static string OverwriteConfigWarning {
+            get {
+                return ResourceManager.GetString("OverwriteConfigWarning", resourceCulture);
             }
         }
         

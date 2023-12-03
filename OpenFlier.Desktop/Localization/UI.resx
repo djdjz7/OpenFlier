@@ -231,4 +231,14 @@ Check the following check box to use PNG format as the screenshot format, which 
   <data name="CommandInputUserListTitle" xml:space="preserve">
     <value>CommandInput Users</value>
   </data>
+  <data name="OverwriteConfigWarning" xml:space="preserve">
+    <value>Will overwrite existing config file.
+Continue?</value>
+  </data>
+  <data name="CancelText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="OKText" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

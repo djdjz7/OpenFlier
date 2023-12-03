@@ -351,8 +351,35 @@
             <Button
                 Margin="12"
                 HorizontalAlignment="Right"
-                Command="{Binding ApplyCommand}"
-                Content="{x:Static i18n:UI.ApplyButtonContent}" />
+                Command="{Binding ApplyCommand}">
+                <StackPanel>
+                    <TextBlock Text="{x:Static i18n:UI.ApplyButtonContent}" />
+                    <Popup StaysOpen="False" AllowsTransparency="True" IsOpen="{Binding ConfirmPopupOpened}">
+                        <Border
+                            Padding="12"
+                            Background="White"
+                            BorderBrush="{StaticResource ControlsStrokeSolid}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{x:Static i18n:UI.OverwriteConfigWarning}" />
+                                <Grid MinWidth="256" Margin="0,8,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Command="{Binding ApplyCancelCommand}" Content="{x:Static i18n:UI.CancelText}" />
+                                    <Button
+                                        Grid.Column="2"
+                                        Command="{Binding ApplyConfirmCommand}"
+                                        Content="{x:Static i18n:UI.OKText}" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 

@@ -87,7 +87,9 @@ namespace OpenFlier.Desktop
             );
             VerificationContent = string.IsNullOrEmpty(currentConfig.VerificationContent) ? "{\"type\":20007,\"data\":{\"topic\":\"Ec1xkK+uFtV/QO/8rduJ2A==\"}}" : currentConfig.VerificationContent;
             FtpDirectory = currentConfig.FtpDirectory ?? "Screenshots";
-            ApplyCommand = new RelayCommand(Apply);
+            ApplyCommand = new RelayCommand(Apply, () => !ConfirmPopupOpened);
+            ApplyCancelCommand = new RelayCommand(ApplyCancel);
+            ApplyConfirmCommand = new RelayCommand(ApplyConfirm);
         }
 
         private Config currentConfig;
@@ -127,7 +129,6 @@ namespace OpenFlier.Desktop
         [ObservableProperty]
         private bool usePng;
         #endregion
-
         #region CoreConfig
         [ObservableProperty]
         private int udpBroadcastPort;
@@ -153,8 +154,14 @@ namespace OpenFlier.Desktop
         [ObservableProperty]
         private string ftpDirectory;
         #endregion
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ApplyCommand))]
+        private bool confirmPopupOpened = false;
 
-        public ICommand ApplyCommand { get; }
+        public IRelayCommand ApplyCommand { get; }
+        public ICommand ApplyConfirmCommand { get; }
+        public ICommand ApplyCancelCommand { get; }
+
         private void Apply()
         {
             Regex regex = new("^\\d{4}$");
@@ -163,9 +170,14 @@ namespace OpenFlier.Desktop
                 MessageBox.Show(Backend.ConnectCodeFormatError, Backend.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (MessageBox.Show(Backend.OverwriteConfigWarning, Backend.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                return;
-
+            ConfirmPopupOpened = true;
+        }
+        private void ApplyCancel()
+        {
+            ConfirmPopupOpened = false;
+        }
+        private void ApplyConfirm()
+        {
             var newConfig = new Config
             {
                 Appearances = new Appearances

@@ -214,7 +214,7 @@
     <value>Github</value>
   </data>
   <data name="EnableWindowEffectsDescription" xml:space="preserve">
-    <value>启用窗口特效，即 Windows 11 下的 Mica 效果，或 Windows 7 下的 Aero 效果。 </value>
+    <value>启用窗口特效，即 Windows 11 下的 Mica 效果，或 Windows 7 下的 Aero 效果。</value>
   </data>
   <data name="VideoPlayOpenButton" xml:space="preserve">
     <value>选择所有帧</value>
@@ -230,5 +230,15 @@
   </data>
   <data name="CommandInputUserListTitle" xml:space="preserve">
     <value>CommandInput 用户</value>
+  </data>
+  <data name="OverwriteConfigWarning" xml:space="preserve">
+    <value>将会覆盖已有配置文件。
+继续？</value>
+  </data>
+  <data name="CancelText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="OKText" xml:space="preserve">
+    <value>好</value>
   </data>
 </root>
