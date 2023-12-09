@@ -247,4 +247,10 @@
   <data name="CommandInputSourceTitle" xml:space="preserve">
     <value>CommandInput 来源</value>
   </data>
+  <data name="RestoreConfigButton" xml:space="preserve">
+    <value>恢复默认设置</value>
+  </data>
+  <data name="ReloadingText" xml:space="preserve">
+    <value>正在重新加载服务...</value>
+  </data>
 </root>

@@ -1,27 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using OpenFlier.Core;
+using OpenFlier.Core.Services;
+using OpenFlier.Desktop.Localization;
 using OpenFlier.Plugin;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using OpenFlier.Desktop.Localization;
-using System.Text.RegularExpressions;
-using System.Windows.Controls;
-using System.Drawing;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
-using System.Drawing.Imaging;
-using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace OpenFlier.Desktop
 {
     public partial class ConfigControlModel : ObservableObject
     {
+        private ServiceManager serviceManager;
+        private Action preReloadAction;
         public ConfigControlModel()
         {
             this.currentConfig = new Config();
@@ -56,9 +53,11 @@ namespace OpenFlier.Desktop
             ApplyCommand = new RelayCommand(Apply);
         }
 
-        public ConfigControlModel(Config currentConfig)
+        public ConfigControlModel(Config currentConfig, ServiceManager serviceManager, Action preReloadAction)
         {
             this.currentConfig = currentConfig;
+            this.serviceManager = serviceManager;
+            this.preReloadAction = preReloadAction;
             CommandInputPlugins = new ObservableCollection<LocalPluginInfo<CommandInputPluginInfo>>(
                 currentConfig.CommandInputPlugins
             );
@@ -186,6 +185,7 @@ namespace OpenFlier.Desktop
         }
         private void ApplyConfirm()
         {
+            ConfirmPopupOpened = false;
             var newConfig = new Config
             {
                 Appearances = new Appearances
@@ -213,14 +213,14 @@ namespace OpenFlier.Desktop
                 UDPBroadcastPort = UdpBroadcastPort,
                 VerificationContent = VerificationContent,
             };
-            MessageBox.Show(JsonSerializer.Serialize(newConfig, new JsonSerializerOptions
-            {
-                WriteIndented = true,
-            }));
             File.WriteAllText("config.json", JsonSerializer.Serialize(newConfig, new JsonSerializerOptions
             {
                 WriteIndented = true,
             }));
+
+            preReloadAction.Invoke();
+            LocalStorage.Config = newConfig;
+            serviceManager.RestartAllServices(newConfig);
         }
 
         private void RemoveCommandInputUser()

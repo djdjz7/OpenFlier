@@ -52,7 +52,7 @@ public partial class Video : Window, INotifyPropertyChanged
         }
         InitializeComponent();
         DataContext = this;
-        foreach (var user in Services.MqttService.Users)
+        foreach (var user in LocalStorage.DesktopMqttService.Users)
         {
             if (!string.IsNullOrEmpty(user.CurrentClientId))
             {
@@ -85,7 +85,7 @@ public partial class Video : Window, INotifyPropertyChanged
                     versionCode = CoreStorage.Version
                 }
             });
-            await Services.MqttService.MqttServer.PublishAsync(new MQTTnet.MqttApplicationMessage
+            await LocalStorage.DesktopMqttService.MqttServer.PublishAsync(new MQTTnet.MqttApplicationMessage
             {
                 Topic = UserSelector.SelectedItem + "/REQUEST_SCREEN_CAPTURE",
                 Payload = Encoding.Default.GetBytes(s5),

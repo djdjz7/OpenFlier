@@ -404,6 +404,14 @@
                             Text="{x:Static i18n:UI.FileTitle}" />
                     </StackPanel>
                 </TabItem.Header>
+
+                <ScrollViewer>
+                    <StackPanel Margin="8">
+                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.FileTitle}" />
+                        <Button Margin="0 8 0 0" Content="{x:Static i18n:UI.RestoreConfigButton}" HorizontalAlignment="Left" />
+                        <Button Margin="0 8 0 0" Content="Output Default Config" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
         <Grid
@@ -434,10 +442,10 @@
                                     </Grid.ColumnDefinitions>
                                     <Button Command="{Binding ApplyCancelCommand}" Content="{x:Static i18n:UI.CancelText}" />
                                     <Button
-                                        Style="{StaticResource AccentButton}"
                                         Grid.Column="2"
                                         Command="{Binding ApplyConfirmCommand}"
-                                        Content="{x:Static i18n:UI.OKText}" />
+                                        Content="{x:Static i18n:UI.OKText}"
+                                        Style="{StaticResource AccentButton}" />
                                 </Grid>
                             </StackPanel>
                             <Border.Effect>

@@ -16,16 +16,16 @@ using System.Threading.Tasks;
 
 namespace OpenFlier.Desktop.Services
 {
-    public static class MqttService
+    public class DesktopMqttService
     {
-        public static IMqttServer? MqttServer { get; set; }
-        public static List<User> Users { get; set; } = new List<User>();
-        public static ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(MqttService));
-        private static ImageHandler imageHandler = new();
+        public IMqttServer? MqttServer { get; set; }
+        public List<User> Users { get; set; } = new List<User>();
+        public ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(DesktopMqttService));
+        private ImageHandler imageHandler = new();
 
-        public static string MainTopic { get; } = Guid.NewGuid().ToString("N");
+        public string MainTopic { get; } = Guid.NewGuid().ToString("N");
 
-        public static Task OnClientDisConnectedAsync(MqttServerClientDisconnectedEventArgs arg)
+        public Task OnClientDisConnectedAsync(MqttServerClientDisconnectedEventArgs arg)
         {
             return Task.Run(() =>
             {
@@ -35,7 +35,7 @@ namespace OpenFlier.Desktop.Services
             });
         }
 
-        public static Task OnClientConnectedAsync(MqttServerClientConnectedEventArgs arg)
+        public Task OnClientConnectedAsync(MqttServerClientConnectedEventArgs arg)
         {
             return Task.Run(() =>
             {
@@ -80,7 +80,7 @@ namespace OpenFlier.Desktop.Services
             });
         }
 
-        public static async Task OnAppMessageReceivedAsync(
+        public async Task OnAppMessageReceivedAsync(
             MqttApplicationMessageReceivedEventArgs arg
         )
         {

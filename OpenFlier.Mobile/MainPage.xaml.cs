@@ -61,7 +61,7 @@ namespace OpenFlier.Mobile
             
         }
 
-        private void ServiceManager_OnLoadCompleted(object sender, EventArgs e)
+        private void ServiceManager_OnLoadCompleted(bool isReloaded)
         {
             Dispatcher.Dispatch(() =>
             {

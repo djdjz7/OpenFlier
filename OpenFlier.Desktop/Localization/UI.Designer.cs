@@ -325,6 +325,24 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Reloading Services... 的本地化字符串。
+        /// </summary>
+        public static string ReloadingText {
+            get {
+                return ResourceManager.GetString("ReloadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Restore Default Config 的本地化字符串。
+        /// </summary>
+        public static string RestoreConfigButton {
+            get {
+                return ResourceManager.GetString("RestoreConfigButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 SpecialChannels 的本地化字符串。
         /// </summary>
         public static string SpecialChannelsTitle {

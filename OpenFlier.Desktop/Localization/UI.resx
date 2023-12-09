@@ -247,4 +247,10 @@ Continue?</value>
   <data name="CommandInputSourceTitle" xml:space="preserve">
     <value>CommandInput Source</value>
   </data>
+  <data name="RestoreConfigButton" xml:space="preserve">
+    <value>Restore Default Config</value>
+  </data>
+  <data name="ReloadingText" xml:space="preserve">
+    <value>Reloading Services...</value>
+  </data>
 </root>

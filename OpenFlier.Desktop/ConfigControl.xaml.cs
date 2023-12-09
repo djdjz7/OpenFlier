@@ -1,4 +1,5 @@
 ﻿using OpenFlier.Core;
+using OpenFlier.Core.Services;
 using OpenFlier.Desktop.Localization;
 using OpenFlier.Plugin;
 using System;
@@ -27,10 +28,10 @@ namespace OpenFlier.Desktop
     /// </summary>
     public partial class ConfigControl : UserControl
     {
-        public ConfigControl(Config currentConfig)
+        public ConfigControl(Config currentConfig, ServiceManager serviceManager, Action preReloadAction)
         {
             InitializeComponent();
-            DataContext = new ConfigControlModel(currentConfig);
+            DataContext = new ConfigControlModel(currentConfig, serviceManager, preReloadAction);
         }
 
 

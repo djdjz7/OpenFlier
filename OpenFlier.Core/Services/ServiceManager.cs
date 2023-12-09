@@ -4,7 +4,8 @@ namespace OpenFlier.Core.Services
 {
     public class ServiceManager
     {
-        public event EventHandler? OnLoadCompleted;
+        public delegate void ServiceLoadedEventHandler(bool isReloaded);
+        public event ServiceLoadedEventHandler? OnLoadCompleted;
         private Thread _loadServiceThread;
         public VerificationService VerificationService { get; } = new VerificationService();
         public UdpService UdpService { get; } = new UdpService();
@@ -30,7 +31,7 @@ namespace OpenFlier.Core.Services
                 MqttService.Initialize();
                 FtpService.Initialize();
 
-                OnLoadCompleted?.Invoke(this, EventArgs.Empty);
+                OnLoadCompleted?.Invoke(false);
             });
             _loadServiceThread.TrySetApartmentState(ApartmentState.STA);
 
@@ -43,6 +44,25 @@ namespace OpenFlier.Core.Services
         {
             UdpService.StopUdpBroadcast();
             FtpService.StopFtpServer();
+        }
+
+        public void RestartAllServices(CoreConfig newConfig)
+        {
+            TerminateAllServices();
+            CoreStorage.CoreConfig = newConfig;
+            _loadServiceThread = new Thread(() =>
+            {
+                VerificationService.Initialize();
+                UdpService.Initialize();
+
+                // These are absolutely unnecessary:
+                // MqttService.Initialize();
+                // FtpService.Initialize();
+
+                OnLoadCompleted?.Invoke(true);
+            });
+            _loadServiceThread.TrySetApartmentState(ApartmentState.STA);
+            _loadServiceThread.Start();
         }
     }
 }
