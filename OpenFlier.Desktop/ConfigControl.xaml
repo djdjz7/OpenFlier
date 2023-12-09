@@ -434,6 +434,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Button Command="{Binding ApplyCancelCommand}" Content="{x:Static i18n:UI.CancelText}" />
                                     <Button
+                                        Style="{StaticResource AccentButton}"
                                         Grid.Column="2"
                                         Command="{Binding ApplyConfirmCommand}"
                                         Content="{x:Static i18n:UI.OKText}" />

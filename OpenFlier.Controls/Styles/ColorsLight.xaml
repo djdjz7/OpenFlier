@@ -2,8 +2,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <Brush x:Key="PrimaryBrush">#38c2fd</Brush>
+    <SolidColorBrush x:Key="PrimaryBrush" Color="#38c2fd" />
     <Color x:Key="PrimaryColor">#38c2fd</Color>
+    <Color x:Key="PrimaryColorText">#38a8ff</Color>
     <SolidColorBrush x:Key="BackgroundDefault" Color="#FCFCFC" />
 
     <sys:Double x:Key="FillColorControlAltTransparent">0</sys:Double>
@@ -23,40 +24,40 @@
         <GradientStop Offset="1" Color="{DynamicResource StrokeGradientButtom}" />
     </LinearGradientBrush>
 
-    <Brush x:Key="ControlsStrokeSolid">#ececec</Brush>
-    <Brush x:Key="ControlsStrokeSolidPressed">#ececec</Brush>
-    <Brush x:Key="ControlsStrokeSolidDisabled">#ececec</Brush>
+    <SolidColorBrush x:Key="ControlsStrokeSolid" Color="#ececec" />
+    <SolidColorBrush x:Key="ControlsStrokeSolidPressed" Color="#ececec" />
+    <SolidColorBrush x:Key="ControlsStrokeSolidDisabled" Color="#ececec" />
 
     <sys:Double x:Key="ControlStrongStrokeDefault">0.6063</sys:Double>
     <sys:Double x:Key="ControlStrongStrokeDisabled">0.2169</sys:Double>
 
 
-    <Brush x:Key="ControlsBackground">#fdfdfd</Brush>
-    <Brush x:Key="ControlsBackgroundHover">#f9f9f9</Brush>
-    <Brush x:Key="ControlsBackgroundPressed">#fafafa</Brush>
-    <Brush x:Key="ControlsBackgroundDisabled">#fafafa</Brush>
+    <SolidColorBrush x:Key="ControlsBackground" Color="#fdfdfd" />
+    <SolidColorBrush x:Key="ControlsBackgroundHover" Color="#f9f9f9" />
+    <SolidColorBrush x:Key="ControlsBackgroundPressed" Color="#fafafa" />
+    <SolidColorBrush x:Key="ControlsBackgroundDisabled" Color="#fafafa" />
 
     <LinearGradientBrush x:Key="ControlsStrokeGradientAccent" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0.9" Color="#146cbe" />
-        <GradientStop Offset="1" Color="#013a70" />
+        <GradientStop Offset="0.9" Color="#FF53CCFF" />
+        <GradientStop Offset="1" Color="#FF3BA8D7" />
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="ControlsStrokeGradientHoverAccent" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0.9" Color="#2b7ac4" />
-        <GradientStop Offset="1" Color="#114677" />
+    <LinearGradientBrush x:Key="ControlsStrokeGradientHoverAccent" StartPoint="0,0" EndPoint="0,1" Opacity="0.9">
+        <GradientStop Offset="0.9" Color="#FF53CCFF" />
+        <GradientStop Offset="1" Color="#FF53CCFF" />
     </LinearGradientBrush>
 
-    <Brush x:Key="ControlsStrokeSolidPressedAccent">#4288ca</Brush>
-    <Brush x:Key="ControlsStrokeSolidDisabledAccent">#c4c4c4</Brush>
+    <SolidColorBrush x:Key="ControlsStrokeSolidPressedAccent" Color="#FF4BC9FF" Opacity="0.8"/>
+    <SolidColorBrush x:Key="ControlsStrokeSolidDisabledAccent" Color="#c4c4c4" />
 
-    <Brush x:Key="ControlsBackgroundAccent">#005fb8</Brush>
-    <Brush x:Key="ControlsBackgroundHoverAccent">#196ebf</Brush>
-    <Brush x:Key="ControlsBackgroundPressedAccent">#327ec5</Brush>
-    <Brush x:Key="ControlsBackgroundDisabledAccent">#c4c4c4</Brush>
+    <SolidColorBrush x:Key="ControlsBackgroundAccent" Color="{DynamicResource PrimaryColor}" />
+    <SolidColorBrush x:Key="ControlsBackgroundHoverAccent" Color="{DynamicResource PrimaryColor}" Opacity="0.9"/>
+    <SolidColorBrush x:Key="ControlsBackgroundPressedAccent" Color="{DynamicResource PrimaryColor}" Opacity="0.8" />
+    <SolidColorBrush x:Key="ControlsBackgroundDisabledAccent" Color="#c4c4c4" />
 
-    <Brush x:Key="HyperLinkButtonForeground">#003e92</Brush>
-    <Brush x:Key="HyperLinkButtonForegroundHover">#001A68</Brush>
-    <Brush x:Key="HyperLinkButtonForegroundPressed">#005FB8</Brush>
-    <Brush x:Key="HyperLinkButtonForegroundDisabled">#000000</Brush>
+    <SolidColorBrush x:Key="HyperLinkButtonForeground" Color="{DynamicResource PrimaryColorText}" />
+    <SolidColorBrush x:Key="HyperLinkButtonForegroundHover" Color="{DynamicResource PrimaryColorText}" Opacity="0.9" />
+    <SolidColorBrush x:Key="HyperLinkButtonForegroundPressed" Color="{DynamicResource PrimaryColorText}" Opacity="0.8" />
+    <SolidColorBrush x:Key="HyperLinkButtonForegroundDisabled" Color="#000000" />
 
-    <Brush x:Key="TextBoxBottomLine">#8b8b8b</Brush>
+    <SolidColorBrush x:Key="TextBoxBottomLine" Color="#8b8b8b" />
 </ResourceDictionary>
