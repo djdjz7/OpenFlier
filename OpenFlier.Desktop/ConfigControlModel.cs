@@ -18,7 +18,7 @@ namespace OpenFlier.Desktop
     public partial class ConfigControlModel : ObservableObject
     {
         private ServiceManager serviceManager;
-        private Action preReloadAction;
+        private Action<Config> preReloadAction;
         public ConfigControlModel()
         {
             this.currentConfig = new Config();
@@ -53,7 +53,7 @@ namespace OpenFlier.Desktop
             ApplyCommand = new RelayCommand(Apply);
         }
 
-        public ConfigControlModel(Config currentConfig, ServiceManager serviceManager, Action preReloadAction)
+        public ConfigControlModel(Config currentConfig, ServiceManager serviceManager, Action<Config> preReloadAction)
         {
             this.currentConfig = currentConfig;
             this.serviceManager = serviceManager;
@@ -91,6 +91,8 @@ namespace OpenFlier.Desktop
             ApplyConfirmCommand = new RelayCommand(ApplyConfirm);
             RemoveCommandInputUserCommand = new RelayCommand(RemoveCommandInputUser, () => SelectedCommandInputUser != null);
             AddCommandInputUserCommand = new RelayCommand(AddCommandInputUser);
+            RestoreDefaultConfigCommand = new RelayCommand(RestoreDefaultConfig);
+            OutputDefaultConfigCommand = new RelayCommand(OutputDefaultConfig);
         }
 
         private Config currentConfig;
@@ -169,6 +171,7 @@ namespace OpenFlier.Desktop
         public IRelayCommand AddCommandInputUserCommand { get; }
         public IRelayCommand RemoveCommandInputUserCommand { get; }
         public ICommand RestoreDefaultConfigCommand { get; }
+        public ICommand OutputDefaultConfigCommand { get; }
 
         private void Apply()
         {
@@ -219,7 +222,7 @@ namespace OpenFlier.Desktop
                 WriteIndented = true,
             }));
 
-            preReloadAction.Invoke();
+            preReloadAction.Invoke(newConfig);
             LocalStorage.Config = newConfig;
             serviceManager.RestartAllServices(newConfig);
         }
@@ -238,6 +241,11 @@ namespace OpenFlier.Desktop
         private void RestoreDefaultConfig()
         {
 
+        }
+
+        private void OutputDefaultConfig()
+        {
+            ConfigService.OutputDefaultConfig();
         }
     }
 }

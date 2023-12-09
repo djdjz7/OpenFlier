@@ -7,10 +7,13 @@ using OpenFlier.Plugin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Security.Principal;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,15 +26,15 @@ public partial class MainWindow : Window
 {
     private ServiceManager serviceManager = LocalStorage.ServiceManager;
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        ConfigService.OutputDefaultConfig();
-
         var config = ConfigService.ReadConfig();
         if (config.Appearances.EnableWindowEffects ?? true)
         {
             WindowEffects.EnableWindowEffects(this);
         }
+
+        await ValidatePluginPrivilege(config);
 
         List<IPAddress> ipAddresses = Dns.GetHostEntry(Dns.GetHostName())
                 .AddressList
@@ -50,8 +53,9 @@ public partial class MainWindow : Window
         LoadingScreen.Visibility = Visibility.Visible;
         MainScreen.Visibility = Visibility.Hidden;
 
-        ConfigTab.Content = new ConfigControl(config, serviceManager, () =>
+        ConfigTab.Content = new ConfigControl(config, serviceManager, async (newConfig) =>
         {
+            await ValidatePluginPrivilege(newConfig);
             this.LoadingTextBlock.Text = Localization.UI.ReloadingText;
             this.LoadingScreen.Visibility = Visibility.Visible;
             this.MainScreen.Visibility = Visibility.Hidden;
@@ -107,5 +111,57 @@ public partial class MainWindow : Window
     private void TestButton_Click(object sender, RoutedEventArgs e)
     {
         (new Video()).ShowDialog();
+    }
+
+    private static bool IsApplicationRunningAsAdmin()
+    {
+        WindowsIdentity windowsIdentity = WindowsIdentity.GetCurrent();
+        WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity);
+        return windowsPrincipal.IsInRole(WindowsBuiltInRole.Administrator);
+    }
+
+    private async Task ValidatePluginPrivilege(Config config)
+    {
+
+        bool isAdmin = IsApplicationRunningAsAdmin();
+        if (!isAdmin)
+        {
+            bool requireAdmin
+                = config.MqttServicePlugins.Where(x => x.PluginInfo.PluginNeedsAdminPrivilege == true && x.Enabled == true).Count()
+                + config.CommandInputPlugins.Where(x => x.PluginInfo.PluginNeedsAdminPrivilege == true && x.Enabled == true).Count() > 0;
+            if (requireAdmin)
+            {
+                var result = await new PrivilegeErrorWindow().ShowDialog();
+                switch (result)
+                {
+                    case PrivilegeErrorWindow.PrivilegeResult.DisableAndContinue:
+                        foreach (var plugin in config.MqttServicePlugins)
+                        {
+                            if (plugin.PluginInfo.PluginNeedsAdminPrivilege == true)
+                                plugin.Enabled = false;
+                        }
+                        foreach (var plugin in config.CommandInputPlugins)
+                        {
+                            if (plugin.PluginInfo.PluginNeedsAdminPrivilege == true)
+                                plugin.Enabled = false;
+                        }
+                        break;
+                    case PrivilegeErrorWindow.PrivilegeResult.RestartAsAdmin:
+
+                        var path = Process.GetCurrentProcess().MainModule?.FileName;
+                        var directory = Path.GetDirectoryName(path);
+                        ProcessStartInfo startInfo = new()
+                        {
+                            UseShellExecute = true,
+                            WorkingDirectory = directory,
+                            FileName = path,
+                            Verb = "runas"
+                        };
+                        Process.Start(startInfo);
+                        Application.Current.Shutdown();
+                        return;
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,31 @@
+﻿<Window
+    x:Class="OpenFlier.Desktop.PrivilegeErrorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
+    xmlns:local="clr-namespace:OpenFlier.Desktop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PrivilegeErrorWindow"
+    MinWidth="256"
+    SizeToContent="WidthAndHeight"
+    TextElement.FontFamily="{StaticResource Inter}"
+    TextElement.FontSize="14"
+    mc:Ignorable="d">
+    <StackPanel Margin="12">
+        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.AdminPrivilegeTitle}" />
+        <TextBlock Text="{x:Static i18n:UI.AdminPrivilegeDescription}" />
+        <Button
+            Name="DisableButton"
+            Margin="0,8,0,0"
+            Click="DisableButton_Click"
+            Content="{x:Static i18n:UI.DisableAndContinue}"
+            Style="{StaticResource AccentButton}" />
+        <Button
+            Name="RestartButton"
+            Grid.Column="1"
+            Margin="0,8,0,0"
+            Click="RestartButton_Click"
+            Content="{x:Static i18n:UI.RestartAsAdmin}" />
+    </StackPanel>
+</Window>

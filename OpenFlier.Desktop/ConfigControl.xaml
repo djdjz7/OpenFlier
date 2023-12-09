@@ -283,6 +283,13 @@
                                                 <TextBlock
                                                     Margin="4,0,0,0"
                                                     VerticalAlignment="Center"
+                                                    FontFamily="Segoe Fluent Icons"
+                                                    Foreground="#FFAC30"
+                                                    Text="&#xe83d;"
+                                                    Visibility="{Binding PluginInfo.PluginNeedsAdminPrivilege, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                                <TextBlock
+                                                    Margin="4,0,0,0"
+                                                    VerticalAlignment="Center"
                                                     Foreground="DarkGray"
                                                     Text="{Binding PluginInfo.MqttMessageType}" />
                                                 <TextBlock
@@ -418,10 +425,12 @@
                         <Button
                             Margin="0,8,0,0"
                             HorizontalAlignment="Left"
+                            Command="{Binding RestoreDefaultConfigCommand}"
                             Content="{x:Static i18n:UI.RestoreConfigButton}" />
                         <Button
                             Margin="0,8,0,0"
                             HorizontalAlignment="Left"
+                            Command="{Binding OutputDefaultConfigCommand}"
                             Content="Output Default Config" />
                     </StackPanel>
                 </ScrollViewer>

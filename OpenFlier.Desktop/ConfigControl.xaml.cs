@@ -28,7 +28,7 @@ namespace OpenFlier.Desktop
     /// </summary>
     public partial class ConfigControl : UserControl
     {
-        public ConfigControl(Config currentConfig, ServiceManager serviceManager, Action preReloadAction)
+        public ConfigControl(Config currentConfig, ServiceManager serviceManager, Action<Config> preReloadAction)
         {
             InitializeComponent();
             DataContext = new ConfigControlModel(currentConfig, serviceManager, preReloadAction);

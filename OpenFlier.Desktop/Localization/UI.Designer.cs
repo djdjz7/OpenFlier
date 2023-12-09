@@ -80,6 +80,24 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 One or more plugins requires admin privilege. 的本地化字符串。
+        /// </summary>
+        public static string AdminPrivilegeDescription {
+            get {
+                return ResourceManager.GetString("AdminPrivilegeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Admin Privilege Required 的本地化字符串。
+        /// </summary>
+        public static string AdminPrivilegeTitle {
+            get {
+                return ResourceManager.GetString("AdminPrivilegeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Appearances 的本地化字符串。
         /// </summary>
         public static string AppearancesTitle {
@@ -157,6 +175,15 @@ namespace OpenFlier.Desktop.Localization {
         public static string CopyrightString {
             get {
                 return ResourceManager.GetString("CopyrightString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable the plugins and continue 的本地化字符串。
+        /// </summary>
+        public static string DisableAndContinue {
+            get {
+                return ResourceManager.GetString("DisableAndContinue", resourceCulture);
             }
         }
         
@@ -330,6 +357,15 @@ namespace OpenFlier.Desktop.Localization {
         public static string ReloadingText {
             get {
                 return ResourceManager.GetString("ReloadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Restart OpenFlier as administrator 的本地化字符串。
+        /// </summary>
+        public static string RestartAsAdmin {
+            get {
+                return ResourceManager.GetString("RestartAsAdmin", resourceCulture);
             }
         }
         
