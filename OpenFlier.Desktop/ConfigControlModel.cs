@@ -168,6 +168,7 @@ namespace OpenFlier.Desktop
         public ICommand ApplyCancelCommand { get; }
         public IRelayCommand AddCommandInputUserCommand { get; }
         public IRelayCommand RemoveCommandInputUserCommand { get; }
+        public ICommand RestoreDefaultConfigCommand { get; }
 
         private void Apply()
         {
@@ -232,6 +233,11 @@ namespace OpenFlier.Desktop
         private void AddCommandInputUser()
         {
             CommandInputUsers.Add(new CommandInputUser());
+        }
+
+        private void RestoreDefaultConfig()
+        {
+
         }
     }
 }

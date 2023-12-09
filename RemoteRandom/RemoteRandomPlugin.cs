@@ -19,7 +19,7 @@ namespace RemoteRandom
             PluginIdentifier = "openflier.ext.remoterandom",
             PluginAuthor = "The OpenFlier Contributors",
             PluginName = "Remote Random",
-            PluginNeedConfigEntry = true,
+            PluginNeedsConfigEntry = true,
         };
         public CommandInputPluginInfo GetPluginInfo()
         {

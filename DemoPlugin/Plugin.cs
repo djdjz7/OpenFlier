@@ -16,7 +16,7 @@ namespace DemoPlugin
                 PluginAuthor = "The OpenFlier Authors",
                 PluginName = "DemoPlugin",
                 PluginIdentifier = "openflier.dev.demo",
-                PluginNeedConfigEntry = false,
+                PluginNeedsConfigEntry = false,
                 PluginVersion = "0.1",
                 PluginDescription = "Testing plugin functionality."
             };

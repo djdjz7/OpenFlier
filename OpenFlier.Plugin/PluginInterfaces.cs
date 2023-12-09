@@ -9,8 +9,9 @@ public class PluginInfoBase
     public string PluginIdentifier { get; init; }
     public string PluginAuthor { get; init; }
     public string PluginVersion { get; init; }
-    public bool PluginNeedConfigEntry { get; init; }
+    public bool PluginNeedsConfigEntry { get; init; }
     public string PluginDescription { get; init; }
+    public bool PluginNeedsAdminPrivilege { get; init; }
 }
 public class MqttServicePluginInfo : PluginInfoBase
 {

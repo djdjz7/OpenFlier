@@ -96,7 +96,7 @@ public partial class PackSummary : Page
             PluginTypeTextBlock.Text = "OpenFlier.Plugin.IMqttServicePlugin";
             PluginDescriptionTextBlock.Text = mqttServicePluginInfo.PluginDescription;
             PluginIdentifierTextBlock.Text = mqttServicePluginInfo.PluginIdentifier;
-            PluginNeedConfigEntryTextBlock.Text = mqttServicePluginInfo.PluginNeedConfigEntry.ToString();
+            PluginNeedConfigEntryTextBlock.Text = mqttServicePluginInfo.PluginNeedsConfigEntry.ToString();
             MqttMessageTypeTextBlock.Text = mqttServicePluginInfo.MqttMessageType.ToString();
             return;
         }
@@ -110,7 +110,7 @@ public partial class PackSummary : Page
             PluginTypeTextBlock.Text = "OpenFlier.Plugin.ICommandInputPlugin";
             PluginDescriptionTextBlock.Text = commandInputPluginInfo.PluginDescription;
             PluginIdentifierTextBlock.Text = commandInputPluginInfo.PluginIdentifier;
-            PluginNeedConfigEntryTextBlock.Text = commandInputPluginInfo.PluginNeedConfigEntry.ToString();
+            PluginNeedConfigEntryTextBlock.Text = commandInputPluginInfo.PluginNeedsConfigEntry.ToString();
             CommanInputCallerNamesTextBlock.Text = string.Join(", ", commandInputPluginInfo.InvokeCommands);
             return;
         }
@@ -128,7 +128,7 @@ public partial class PackSummary : Page
                 singlePluginPackage.PluginType = Plugin.PluginType.MqttServicePlugin;
                 singlePluginPackage.PluginDescription = mqttServicePluginInfo.PluginDescription;
                 singlePluginPackage.PluginIdentifier = mqttServicePluginInfo.PluginIdentifier;
-                singlePluginPackage.PluginNeedConfigEntry = mqttServicePluginInfo.PluginNeedConfigEntry;
+                singlePluginPackage.PluginNeedConfigEntry = mqttServicePluginInfo.PluginNeedsConfigEntry;
                 singlePluginPackage.MqttMessageType = (int)mqttServicePluginInfo.MqttMessageType;
                 foreach (var i in PluginFiles)
                 {
@@ -147,7 +147,7 @@ public partial class PackSummary : Page
                 singlePluginPackage.PluginType = Plugin.PluginType.CommandInputPlugin;
                 singlePluginPackage.PluginDescription = commandInputPluginInfo.PluginDescription;
                 singlePluginPackage.PluginIdentifier = commandInputPluginInfo.PluginIdentifier;
-                singlePluginPackage.PluginNeedConfigEntry = commandInputPluginInfo.PluginNeedConfigEntry;
+                singlePluginPackage.PluginNeedConfigEntry = commandInputPluginInfo.PluginNeedsConfigEntry;
                 singlePluginPackage.InvokeCommands.Add(commandInputPluginInfo.InvokeCommands);
                 foreach (var i in PluginFiles)
                 {

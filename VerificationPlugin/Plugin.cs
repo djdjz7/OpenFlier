@@ -19,7 +19,7 @@ public class Plugin : IMqttServicePlugin
             PluginDescription = "Emulating ZY ClassHelper's DeviceVerification Method.",
             PluginName = "VerificationPlugin",
             PluginIdentifier = "openflier.def.verification",
-            PluginNeedConfigEntry = true,
+            PluginNeedsConfigEntry = true,
             PluginVersion = "1.0",
         };
     }

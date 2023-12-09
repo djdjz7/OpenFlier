@@ -23,8 +23,9 @@ message SinglePluginPackage {
     string plugin_description = 6;
     int32 mqtt_message_type = 7;
     repeated string invoke_commands = 8;
-    bool plugin_need_config_entry = 9;
+    bool plugin_needs_config_entry = 9;
     repeated PluginFile files = 10;
+    bool plugin_needs_admin_privilege = 11;
 }
 
 message PluginCollection {

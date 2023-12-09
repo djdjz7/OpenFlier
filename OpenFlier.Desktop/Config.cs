@@ -46,7 +46,7 @@ public class ConfigService
                 PluginIdentifier = "openflier.ext.remoterandom",
                 PluginAuthor = "The OpenFlier Contributors",
                 PluginName = "Remote Random",
-                PluginNeedConfigEntry = true,
+                PluginNeedsConfigEntry = true,
             },
             LocalFilePath = "Plugins/openflier.ext.remoterandom/RemoteRandom.dll"
         });

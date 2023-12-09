@@ -26,23 +26,24 @@ namespace OpenFlier.Plugin {
           string.Concat(
             "ChFwbHVnaW5fcGFjay5wcm90byJJCgpQbHVnaW5GaWxlEhAKCGZpbGVuYW1l",
             "GAEgASgJEhEKCWZpbGVfZGF0YRgCIAEoDBIWCg5pc19wbHVnaW5fbWFpbhgD",
-            "IAEoCCKkAgoTU2luZ2xlUGx1Z2luUGFja2FnZRIgCgtwbHVnaW5fdHlwZRgB",
+            "IAEoCCLLAgoTU2luZ2xlUGx1Z2luUGFja2FnZRIgCgtwbHVnaW5fdHlwZRgB",
             "IAEoDjILLlBsdWdpblR5cGUSEwoLcGx1Z2luX25hbWUYAiABKAkSFQoNcGx1",
             "Z2luX2F1dGhvchgDIAEoCRIZChFwbHVnaW5faWRlbnRpZmllchgEIAEoCRIW",
             "Cg5wbHVnaW5fdmVyc2lvbhgFIAEoCRIaChJwbHVnaW5fZGVzY3JpcHRpb24Y",
             "BiABKAkSGQoRbXF0dF9tZXNzYWdlX3R5cGUYByABKAUSFwoPaW52b2tlX2Nv",
-            "bW1hbmRzGAggAygJEiAKGHBsdWdpbl9uZWVkX2NvbmZpZ19lbnRyeRgJIAEo",
-            "CBIaCgVmaWxlcxgKIAMoCzILLlBsdWdpbkZpbGUicgoQUGx1Z2luQ29sbGVj",
-            "dGlvbhIXCg9jb2xsZWN0aW9uX25hbWUYASABKAkSHgoWY29sbGVjdGlvbl9k",
-            "ZXNjcmlwdGlvbhgCIAEoCRIlCgdwbHVnaW5zGAMgAygLMhQuU2luZ2xlUGx1",
-            "Z2luUGFja2FnZSpVCgpQbHVnaW5UeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQ",
-            "ABIXChNNUVRUX1NFUlZJQ0VfUExVR0lOEAESGAoUQ09NTUFORF9JTlBVVF9Q",
-            "TFVHSU4QAkITqgIQT3BlbkZsaWVyLlBsdWdpbmIGcHJvdG8z"));
+            "bW1hbmRzGAggAygJEiEKGXBsdWdpbl9uZWVkc19jb25maWdfZW50cnkYCSAB",
+            "KAgSGgoFZmlsZXMYCiADKAsyCy5QbHVnaW5GaWxlEiQKHHBsdWdpbl9uZWVk",
+            "c19hZG1pbl9wcml2aWxlZ2UYCyABKAgicgoQUGx1Z2luQ29sbGVjdGlvbhIX",
+            "Cg9jb2xsZWN0aW9uX25hbWUYASABKAkSHgoWY29sbGVjdGlvbl9kZXNjcmlw",
+            "dGlvbhgCIAEoCRIlCgdwbHVnaW5zGAMgAygLMhQuU2luZ2xlUGx1Z2luUGFj",
+            "a2FnZSpVCgpQbHVnaW5UeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABIXChNN",
+            "UVRUX1NFUlZJQ0VfUExVR0lOEAESGAoUQ09NTUFORF9JTlBVVF9QTFVHSU4Q",
+            "AkITqgIQT3BlbkZsaWVyLlBsdWdpbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::OpenFlier.Plugin.PluginType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::OpenFlier.Plugin.PluginFile), global::OpenFlier.Plugin.PluginFile.Parser, new[]{ "Filename", "FileData", "IsPluginMain" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::OpenFlier.Plugin.SinglePluginPackage), global::OpenFlier.Plugin.SinglePluginPackage.Parser, new[]{ "PluginType", "PluginName", "PluginAuthor", "PluginIdentifier", "PluginVersion", "PluginDescription", "MqttMessageType", "InvokeCommands", "PluginNeedConfigEntry", "Files" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::OpenFlier.Plugin.SinglePluginPackage), global::OpenFlier.Plugin.SinglePluginPackage.Parser, new[]{ "PluginType", "PluginName", "PluginAuthor", "PluginIdentifier", "PluginVersion", "PluginDescription", "MqttMessageType", "InvokeCommands", "PluginNeedsConfigEntry", "Files", "PluginNeedsAdminPrivilege" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OpenFlier.Plugin.PluginCollection), global::OpenFlier.Plugin.PluginCollection.Parser, new[]{ "CollectionName", "CollectionDescription", "Plugins" }, null, null, null, null)
           }));
     }
@@ -364,8 +365,9 @@ namespace OpenFlier.Plugin {
       pluginDescription_ = other.pluginDescription_;
       mqttMessageType_ = other.mqttMessageType_;
       invokeCommands_ = other.invokeCommands_.Clone();
-      pluginNeedConfigEntry_ = other.pluginNeedConfigEntry_;
+      pluginNeedsConfigEntry_ = other.pluginNeedsConfigEntry_;
       files_ = other.files_.Clone();
+      pluginNeedsAdminPrivilege_ = other.pluginNeedsAdminPrivilege_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -470,15 +472,15 @@ namespace OpenFlier.Plugin {
       get { return invokeCommands_; }
     }
 
-    /// <summary>Field number for the "plugin_need_config_entry" field.</summary>
-    public const int PluginNeedConfigEntryFieldNumber = 9;
-    private bool pluginNeedConfigEntry_;
+    /// <summary>Field number for the "plugin_needs_config_entry" field.</summary>
+    public const int PluginNeedsConfigEntryFieldNumber = 9;
+    private bool pluginNeedsConfigEntry_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool PluginNeedConfigEntry {
-      get { return pluginNeedConfigEntry_; }
+    public bool PluginNeedsConfigEntry {
+      get { return pluginNeedsConfigEntry_; }
       set {
-        pluginNeedConfigEntry_ = value;
+        pluginNeedsConfigEntry_ = value;
       }
     }
 
@@ -491,6 +493,18 @@ namespace OpenFlier.Plugin {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<global::OpenFlier.Plugin.PluginFile> Files {
       get { return files_; }
+    }
+
+    /// <summary>Field number for the "plugin_needs_admin_privilege" field.</summary>
+    public const int PluginNeedsAdminPrivilegeFieldNumber = 11;
+    private bool pluginNeedsAdminPrivilege_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool PluginNeedsAdminPrivilege {
+      get { return pluginNeedsAdminPrivilege_; }
+      set {
+        pluginNeedsAdminPrivilege_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -516,8 +530,9 @@ namespace OpenFlier.Plugin {
       if (PluginDescription != other.PluginDescription) return false;
       if (MqttMessageType != other.MqttMessageType) return false;
       if(!invokeCommands_.Equals(other.invokeCommands_)) return false;
-      if (PluginNeedConfigEntry != other.PluginNeedConfigEntry) return false;
+      if (PluginNeedsConfigEntry != other.PluginNeedsConfigEntry) return false;
       if(!files_.Equals(other.files_)) return false;
+      if (PluginNeedsAdminPrivilege != other.PluginNeedsAdminPrivilege) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -533,8 +548,9 @@ namespace OpenFlier.Plugin {
       if (PluginDescription.Length != 0) hash ^= PluginDescription.GetHashCode();
       if (MqttMessageType != 0) hash ^= MqttMessageType.GetHashCode();
       hash ^= invokeCommands_.GetHashCode();
-      if (PluginNeedConfigEntry != false) hash ^= PluginNeedConfigEntry.GetHashCode();
+      if (PluginNeedsConfigEntry != false) hash ^= PluginNeedsConfigEntry.GetHashCode();
       hash ^= files_.GetHashCode();
+      if (PluginNeedsAdminPrivilege != false) hash ^= PluginNeedsAdminPrivilege.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -582,11 +598,15 @@ namespace OpenFlier.Plugin {
         output.WriteInt32(MqttMessageType);
       }
       invokeCommands_.WriteTo(output, _repeated_invokeCommands_codec);
-      if (PluginNeedConfigEntry != false) {
+      if (PluginNeedsConfigEntry != false) {
         output.WriteRawTag(72);
-        output.WriteBool(PluginNeedConfigEntry);
+        output.WriteBool(PluginNeedsConfigEntry);
       }
       files_.WriteTo(output, _repeated_files_codec);
+      if (PluginNeedsAdminPrivilege != false) {
+        output.WriteRawTag(88);
+        output.WriteBool(PluginNeedsAdminPrivilege);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -626,11 +646,15 @@ namespace OpenFlier.Plugin {
         output.WriteInt32(MqttMessageType);
       }
       invokeCommands_.WriteTo(ref output, _repeated_invokeCommands_codec);
-      if (PluginNeedConfigEntry != false) {
+      if (PluginNeedsConfigEntry != false) {
         output.WriteRawTag(72);
-        output.WriteBool(PluginNeedConfigEntry);
+        output.WriteBool(PluginNeedsConfigEntry);
       }
       files_.WriteTo(ref output, _repeated_files_codec);
+      if (PluginNeedsAdminPrivilege != false) {
+        output.WriteRawTag(88);
+        output.WriteBool(PluginNeedsAdminPrivilege);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -663,10 +687,13 @@ namespace OpenFlier.Plugin {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MqttMessageType);
       }
       size += invokeCommands_.CalculateSize(_repeated_invokeCommands_codec);
-      if (PluginNeedConfigEntry != false) {
+      if (PluginNeedsConfigEntry != false) {
         size += 1 + 1;
       }
       size += files_.CalculateSize(_repeated_files_codec);
+      if (PluginNeedsAdminPrivilege != false) {
+        size += 1 + 1;
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -701,10 +728,13 @@ namespace OpenFlier.Plugin {
         MqttMessageType = other.MqttMessageType;
       }
       invokeCommands_.Add(other.invokeCommands_);
-      if (other.PluginNeedConfigEntry != false) {
-        PluginNeedConfigEntry = other.PluginNeedConfigEntry;
+      if (other.PluginNeedsConfigEntry != false) {
+        PluginNeedsConfigEntry = other.PluginNeedsConfigEntry;
       }
       files_.Add(other.files_);
+      if (other.PluginNeedsAdminPrivilege != false) {
+        PluginNeedsAdminPrivilege = other.PluginNeedsAdminPrivilege;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -753,11 +783,15 @@ namespace OpenFlier.Plugin {
             break;
           }
           case 72: {
-            PluginNeedConfigEntry = input.ReadBool();
+            PluginNeedsConfigEntry = input.ReadBool();
             break;
           }
           case 82: {
             files_.AddEntriesFrom(input, _repeated_files_codec);
+            break;
+          }
+          case 88: {
+            PluginNeedsAdminPrivilege = input.ReadBool();
             break;
           }
         }
@@ -808,11 +842,15 @@ namespace OpenFlier.Plugin {
             break;
           }
           case 72: {
-            PluginNeedConfigEntry = input.ReadBool();
+            PluginNeedsConfigEntry = input.ReadBool();
             break;
           }
           case 82: {
             files_.AddEntriesFrom(ref input, _repeated_files_codec);
+            break;
+          }
+          case 88: {
+            PluginNeedsAdminPrivilege = input.ReadBool();
             break;
           }
         }

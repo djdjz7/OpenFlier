@@ -316,7 +316,7 @@
                                                     Click="ConfigureMqttServicePluginButton_Click"
                                                     Content="{x:Static i18n:UI.ConfigureButton}"
                                                     Style="{StaticResource SubtleButton}"
-                                                    Visibility="{Binding PluginInfo.PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                                    Visibility="{Binding PluginInfo.PluginNeedsConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
                                             </Grid>
                                         </StackPanel>
                                     </DataTemplate>
@@ -343,6 +343,13 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="{Binding PluginInfo.PluginName}" />
+                                            <TextBlock
+                                                Margin="4,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontFamily="Segoe Fluent Icons"
+                                                Foreground="#FFAC30"
+                                                Text="&#xe83d;"
+                                                Visibility="{Binding PluginInfo.PluginNeedsAdminPrivilege, Converter={StaticResource BoolToVisibilityConverter}}" />
                                             <TextBlock
                                                 Margin="4,0,0,0"
                                                 VerticalAlignment="Center"
@@ -379,7 +386,7 @@
                                                 Click="ConfigureCommandInputPluginButton_Click"
                                                 Content="{x:Static i18n:UI.ConfigureButton}"
                                                 Style="{StaticResource SubtleButton}"
-                                                Visibility="{Binding PluginInfo.PluginNeedConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                                Visibility="{Binding PluginInfo.PluginNeedsConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
                                         </Grid>
                                     </StackPanel>
                                 </DataTemplate>
@@ -408,8 +415,14 @@
                 <ScrollViewer>
                     <StackPanel Margin="8">
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.FileTitle}" />
-                        <Button Margin="0 8 0 0" Content="{x:Static i18n:UI.RestoreConfigButton}" HorizontalAlignment="Left" />
-                        <Button Margin="0 8 0 0" Content="Output Default Config" HorizontalAlignment="Left" />
+                        <Button
+                            Margin="0,8,0,0"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static i18n:UI.RestoreConfigButton}" />
+                        <Button
+                            Margin="0,8,0,0"
+                            HorizontalAlignment="Left"
+                            Content="Output Default Config" />
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
