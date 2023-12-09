@@ -20,13 +20,14 @@ using MQTTnet;
 using Newtonsoft.Json;
 using OpenFlier.Core.Services;
 using System.Text;
+using log4net;
 
 namespace OpenFlier.Desktop.MqttService
 {
     internal class ImageHandler
     {
         private HttpClient httpClient = new HttpClient();
-
+        private ILog imageHandlerLogger = LogManager.GetLogger(typeof(ImageHandler));
         public ImageHandler()
         {
             httpClient.BaseAddress = new System.Uri(
@@ -152,6 +153,7 @@ namespace OpenFlier.Desktop.MqttService
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
+                imageHandlerLogger.Error(e.Message, e);
             }
         }
 

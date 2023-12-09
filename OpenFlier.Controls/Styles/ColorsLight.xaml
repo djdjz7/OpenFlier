@@ -4,6 +4,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <Brush x:Key="PrimaryBrush">#38c2fd</Brush>
     <Color x:Key="PrimaryColor">#38c2fd</Color>
+    <SolidColorBrush x:Key="BackgroundDefault" Color="#FCFCFC" />
 
     <sys:Double x:Key="FillColorControlAltTransparent">0</sys:Double>
     <sys:Double x:Key="FillColorControlAltSecondary">0.0241</sys:Double>

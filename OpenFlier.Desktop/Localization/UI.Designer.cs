@@ -116,6 +116,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 CommandInput Source 的本地化字符串。
+        /// </summary>
+        public static string CommandInputSourceTitle {
+            get {
+                return ResourceManager.GetString("CommandInputSourceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 CommandInput Users 的本地化字符串。
         /// </summary>
         public static string CommandInputUserListTitle {
@@ -394,6 +403,15 @@ namespace OpenFlier.Desktop.Localization {
         public static string UsePngTitle {
             get {
                 return ResourceManager.GetString("UsePngTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 User Identifier 的本地化字符串。
+        /// </summary>
+        public static string UserIdentifierTitle {
+            get {
+                return ResourceManager.GetString("UserIdentifierTitle", resourceCulture);
             }
         }
         

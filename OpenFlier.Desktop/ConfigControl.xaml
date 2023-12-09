@@ -85,8 +85,30 @@
                             Name="SpecifiedConnectCodeTextBox"
                             Width="200"
                             Margin="0,4,0,0"
-                            HorizontalAlignment="Left"
-                            Text="{Binding SpecifiedConnectCode}" />
+                            HorizontalAlignment="Left">
+                            <TextBox.Text>
+                                <Binding
+                                    NotifyOnValidationError="True"
+                                    Path="SpecifiedConnectCode"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <local:ConnectCodeValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <AdornedElementPlaceholder x:Name="adornedElement" />
+                                        <TextBlock
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="Red"
+                                            Text="{Binding ElementName=adornedElement, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                         <TextBlock
                             Margin="0,8,0,0"
                             VerticalAlignment="Center"
@@ -161,18 +183,58 @@
                 <ScrollViewer>
                     <StackPanel Margin="8">
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.SpecialChannelsTitle}" />
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.CommandInputUserListTitle}" />
-                        <DataGrid
-                            AutoGenerateColumns="True"
-                            CanUserAddRows="True"
-                            CanUserDeleteRows="True"
-                            CanUserReorderColumns="False"
-                            CanUserSortColumns="False"
-                            ColumnWidth="*"
-                            ItemsSource="{Binding CommandInputUsers}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Margin="0,8,0,0"
+                                Style="{StaticResource SubTitle}"
+                                Text="{x:Static i18n:UI.CommandInputUserListTitle}" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Button
+                                    Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                                    Command="{Binding AddCommandInputUserCommand}"
+                                    Content="&#xe948;"
+                                    FontFamily="Segoe Fluent Icons"
+                                    Style="{DynamicResource SubtleButton}" />
+                                <Button
+                                    Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                                    Command="{Binding RemoveCommandInputUserCommand}"
+                                    Content="&#xe949;"
+                                    FontFamily="Segoe Fluent Icons"
+                                    Style="{DynamicResource SubtleButton}" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Margin="12,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="UserIdentifier" />
+                                <ColumnDefinition Width="2*" SharedSizeGroup="CommandInputSource" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontWeight="Bold" Text="{x:Static i18n:UI.UserIdentifierTitle}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                FontWeight="SemiBold"
+                                Text="{x:Static i18n:UI.CommandInputSourceTitle}" />
+                        </Grid>
+                        <ListBox ItemsSource="{Binding CommandInputUsers}" SelectedItem="{Binding SelectedCommandInputUser}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" SharedSizeGroup="UserIdentifier" />
+                                            <ColumnDefinition Width="2*" SharedSizeGroup="CommandInputSource" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Style="{StaticResource TransparentTextBox}" Text="{Binding UserIdentifier}" />
+                                        <TextBox
+                                            Grid.Column="1"
+                                            Style="{StaticResource TransparentTextBox}"
+                                            Text="{Binding CommandInputSource}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
@@ -354,13 +416,14 @@
                 Command="{Binding ApplyCommand}">
                 <StackPanel>
                     <TextBlock Text="{x:Static i18n:UI.ApplyButtonContent}" />
-                    <Popup StaysOpen="False" AllowsTransparency="True" IsOpen="{Binding ConfirmPopupOpened}">
+                    <Popup IsOpen="{Binding ConfirmPopupOpened}">
                         <Border
+                            Margin="32"
                             Padding="12"
-                            Background="White"
+                            Background="{DynamicResource BackgroundDefault}"
                             BorderBrush="{StaticResource ControlsStrokeSolid}"
                             BorderThickness="1"
-                            CornerRadius="8">
+                            CornerRadius="7">
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{x:Static i18n:UI.OverwriteConfigWarning}" />
                                 <Grid MinWidth="256" Margin="0,8,0,0">
@@ -376,6 +439,15 @@
                                         Content="{x:Static i18n:UI.OKText}" />
                                 </Grid>
                             </StackPanel>
+                            <Border.Effect>
+
+                                <DropShadowEffect
+                                    BlurRadius="16"
+                                    Direction="270"
+                                    Opacity=".14"
+                                    ShadowDepth="8"
+                                    Color="Black" />
+                            </Border.Effect>
                         </Border>
                     </Popup>
                 </StackPanel>

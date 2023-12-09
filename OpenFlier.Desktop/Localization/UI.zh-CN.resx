@@ -241,4 +241,10 @@
   <data name="OKText" xml:space="preserve">
     <value>好</value>
   </data>
+  <data name="UserIdentifierTitle" xml:space="preserve">
+    <value>用户识别码</value>
+  </data>
+  <data name="CommandInputSourceTitle" xml:space="preserve">
+    <value>CommandInput 来源</value>
+  </data>
 </root>

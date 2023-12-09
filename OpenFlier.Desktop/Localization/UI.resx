@@ -241,4 +241,10 @@ Continue?</value>
   <data name="OKText" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="UserIdentifierTitle" xml:space="preserve">
+    <value>User Identifier</value>
+  </data>
+  <data name="CommandInputSourceTitle" xml:space="preserve">
+    <value>CommandInput Source</value>
+  </data>
 </root>

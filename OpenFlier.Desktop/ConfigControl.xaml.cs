@@ -1,11 +1,14 @@
 ﻿using OpenFlier.Core;
+using OpenFlier.Desktop.Localization;
 using OpenFlier.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -92,6 +95,19 @@ namespace OpenFlier.Desktop
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
+        }
+    }
+
+    public class ConnectCodeValidationRule : ValidationRule
+    {
+        Regex regex = new("^\\d{4}$");
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (string.IsNullOrEmpty(value.ToString()) || regex.IsMatch(value.ToString()!.Trim()))
+            {
+                return new ValidationResult(true, null);
+            }
+            return new ValidationResult(false, Backend.ConnectCodeFormatError);
         }
     }
 }

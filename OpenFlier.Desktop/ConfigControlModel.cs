@@ -90,6 +90,8 @@ namespace OpenFlier.Desktop
             ApplyCommand = new RelayCommand(Apply, () => !ConfirmPopupOpened);
             ApplyCancelCommand = new RelayCommand(ApplyCancel);
             ApplyConfirmCommand = new RelayCommand(ApplyConfirm);
+            RemoveCommandInputUserCommand = new RelayCommand(RemoveCommandInputUser, () => SelectedCommandInputUser != null);
+            AddCommandInputUserCommand = new RelayCommand(AddCommandInputUser);
         }
 
         private Config currentConfig;
@@ -158,9 +160,15 @@ namespace OpenFlier.Desktop
         [NotifyCanExecuteChangedFor(nameof(ApplyCommand))]
         private bool confirmPopupOpened = false;
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RemoveCommandInputUserCommand))]
+        private CommandInputUser? selectedCommandInputUser;
+
         public IRelayCommand ApplyCommand { get; }
         public ICommand ApplyConfirmCommand { get; }
         public ICommand ApplyCancelCommand { get; }
+        public IRelayCommand AddCommandInputUserCommand { get; }
+        public IRelayCommand RemoveCommandInputUserCommand { get; }
 
         private void Apply()
         {
@@ -213,6 +221,17 @@ namespace OpenFlier.Desktop
             {
                 WriteIndented = true,
             }));
+        }
+
+        private void RemoveCommandInputUser()
+        {
+            if (SelectedCommandInputUser is null)
+                return;
+            CommandInputUsers.Remove(SelectedCommandInputUser);
+        }
+        private void AddCommandInputUser()
+        {
+            CommandInputUsers.Add(new CommandInputUser());
         }
     }
 }

@@ -162,4 +162,145 @@
 
         </Setter>
     </Style>
+
+    <Style TargetType="TextBox" x:Key="TransparentTextBox">
+        <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="ContextMenu" Value="{DynamicResource TextBoxContextMenu}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid MinHeight="30">
+                        <Rectangle
+                            Name="StrokeRect"
+                            Margin="-1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Fill="Transparent"
+                            RadiusX="4"
+                            RadiusY="4" />
+                        <Rectangle
+                            Name="BackgroundRect"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Fill="Transparent"
+                            RadiusX="3.5"
+                            RadiusY="3.5" />
+
+                        <ScrollViewer
+                            x:Name="PART_ContentHost"
+                            Margin="12,5,12,5"
+                            VerticalAlignment="Center"
+                            TextElement.Foreground="White">
+                            <ScrollViewer.Clip>
+                                <RectangleGeometry RadiusX="3.5" RadiusY="3.5">
+                                    <RectangleGeometry.Rect>
+                                        <MultiBinding Converter="{StaticResource WidthAndHeightToRectConverter}">
+                                            <Binding ElementName="PART_ContentHost" Path="ActualWidth" />
+                                            <Binding ElementName="PART_ContentHost" Path="ActualHeight" />
+                                        </MultiBinding>
+                                    </RectangleGeometry.Rect>
+                                </RectangleGeometry>
+                            </ScrollViewer.Clip>
+                        </ScrollViewer>
+                        <TextBlock
+                            Name="ToolTipTextBlock"
+                            Margin="12,5,12,5"
+                            VerticalAlignment="Center"
+                            FontSize="{TemplateBinding Property=FontSize}"
+                            FontWeight="{TemplateBinding Property=FontWeight}"
+                            Opacity="0.6063"
+                            Text="{TemplateBinding Property=ToolTip}"
+                            Visibility="Hidden" />
+
+                        <Grid
+                            Name="BottomLine"
+                            Margin="-1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                            <Rectangle
+                                Height="1"
+                                VerticalAlignment="Bottom"
+                                Fill="{DynamicResource TextBoxBottomLine}" />
+                            <Rectangle
+                                Name="FocusedBottomLineRect"
+                                Height="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                ofc:AttachedSimpleProperties.Double="0"
+                                Fill="{DynamicResource ControlsBackgroundAccent}">
+                                <Rectangle.Width>
+                                    <MultiBinding Converter="{StaticResource TagAndWidthToActualWidthConverter}">
+                                        <Binding ElementName="FocusedBottomLineRect" Path="(ofc:AttachedSimpleProperties.Double)" />
+                                        <Binding ElementName="BottomLine" Path="ActualWidth" />
+                                    </MultiBinding>
+                                </Rectangle.Width>
+                            </Rectangle>
+                            <Grid.Clip>
+                                <RectangleGeometry RadiusX="4" RadiusY="4">
+                                    <RectangleGeometry.Rect>
+                                        <MultiBinding Converter="{StaticResource WidthAndHeightToRectConverter}">
+                                            <Binding ElementName="BottomLine" Path="ActualWidth" />
+                                            <Binding ElementName="BottomLine" Path="ActualHeight" />
+                                        </MultiBinding>
+                                    </RectangleGeometry.Rect>
+                                </RectangleGeometry>
+                            </Grid.Clip>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FocusedBottomLineRect"
+                                            Storyboard.TargetProperty="(ofc:AttachedSimpleProperties.Double)"
+                                            To="1"
+                                            Duration="0:0:0.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <anim:CubicBezier
+                                                    X1="1"
+                                                    X2="1"
+                                                    Y1="0"
+                                                    Y2="1" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FocusedBottomLineRect"
+                                            Storyboard.TargetProperty="(ofc:AttachedSimpleProperties.Double)"
+                                            To="0"
+                                            Duration="0:0:0.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <anim:CubicBezier
+                                                    X1="1"
+                                                    X2="1"
+                                                    Y1="0"
+                                                    Y2="1" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="ToolTipTextBlock" Property="Visibility" Value="Visible" />
+                        </Trigger>
+
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="BackgroundRect" Property="Fill" Value="{DynamicResource ControlsBackgroundDisabled}" />
+                            <Setter TargetName="BottomLine" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
+    </Style>
 </ResourceDictionary>
