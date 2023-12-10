@@ -260,7 +260,7 @@ Continue?</value>
     <value>One or more plugins requires admin privilege.</value>
   </data>
   <data name="DisableAndContinue" xml:space="preserve">
-    <value>Disable the plugins and continue</value>
+    <value>Disable the plugins temporarily and continue</value>
   </data>
   <data name="RestartAsAdmin" xml:space="preserve">
     <value>Restart OpenFlier as administrator</value>

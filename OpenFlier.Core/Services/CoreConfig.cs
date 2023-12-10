@@ -1,6 +1,7 @@
 ﻿using log4net;
 using OpenFlier.Plugin;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace OpenFlier.Core;
 public class CoreConfig
@@ -20,4 +21,7 @@ public class LocalPluginInfo<T>
     public T PluginInfo { get; set; }
     public string? LocalFilePath { get; set; }
     public bool Enabled { get; set; }
+
+    [JsonIgnore]
+    public bool TempDisabled { get; set; }
 }

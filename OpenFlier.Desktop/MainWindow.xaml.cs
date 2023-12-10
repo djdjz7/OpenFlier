@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Security.Principal;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -67,6 +68,16 @@ public partial class MainWindow : Window
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
+            if (isReloaded)
+            {
+                ConfigTab.Content = new ConfigControl(LocalStorage.Config, serviceManager, async (newConfig) =>
+                {
+                    await ValidatePluginPrivilege(newConfig);
+                    this.LoadingTextBlock.Text = Localization.UI.ReloadingText;
+                    this.LoadingScreen.Visibility = Visibility.Visible;
+                    this.MainScreen.Visibility = Visibility.Hidden;
+                });
+            }
             if (!isReloaded)
             {
                 LocalStorage.DesktopMqttService = new()
@@ -124,6 +135,14 @@ public partial class MainWindow : Window
     {
 
         bool isAdmin = IsApplicationRunningAsAdmin();
+        foreach (var plugin in config.MqttServicePlugins)
+        {
+            plugin.TempDisabled = false;
+        }
+        foreach (var plugin in config.CommandInputPlugins)
+        {
+            plugin.TempDisabled = false;
+        }
         if (!isAdmin)
         {
             bool requireAdmin
@@ -137,13 +156,15 @@ public partial class MainWindow : Window
                     case PrivilegeErrorWindow.PrivilegeResult.DisableAndContinue:
                         foreach (var plugin in config.MqttServicePlugins)
                         {
-                            if (plugin.PluginInfo.PluginNeedsAdminPrivilege == true)
-                                plugin.Enabled = false;
+                            plugin.TempDisabled = false;
+                            if (plugin.PluginInfo.PluginNeedsAdminPrivilege && plugin.Enabled)
+                                plugin.TempDisabled = true;
                         }
                         foreach (var plugin in config.CommandInputPlugins)
                         {
-                            if (plugin.PluginInfo.PluginNeedsAdminPrivilege == true)
-                                plugin.Enabled = false;
+                            plugin.TempDisabled = false;
+                            if (plugin.PluginInfo.PluginNeedsAdminPrivilege && plugin.Enabled)
+                                plugin.TempDisabled = true;
                         }
                         break;
                     case PrivilegeErrorWindow.PrivilegeResult.RestartAsAdmin:

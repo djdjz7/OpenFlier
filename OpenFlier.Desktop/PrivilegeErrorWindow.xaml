@@ -11,6 +11,7 @@
     SizeToContent="WidthAndHeight"
     TextElement.FontFamily="{StaticResource Inter}"
     TextElement.FontSize="14"
+    Topmost="True"
     mc:Ignorable="d">
     <StackPanel Margin="12">
         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.AdminPrivilegeTitle}" />

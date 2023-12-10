@@ -101,7 +101,7 @@ namespace OpenFlier.Core.Services
                     {
                         if (pluginInfo.PluginInfo.MqttMessageType != (long)messageType)
                             continue;
-                        if (!pluginInfo.Enabled)
+                        if (!pluginInfo.Enabled || pluginInfo.TempDisabled)
                             continue;
                         if (!File.Exists(pluginInfo.LocalFilePath))
                         {

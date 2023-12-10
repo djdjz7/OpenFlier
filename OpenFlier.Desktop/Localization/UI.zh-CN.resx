@@ -260,7 +260,7 @@
     <value>一个或多个插件要求管理员权限。</value>
   </data>
   <data name="DisableAndContinue" xml:space="preserve">
-    <value>禁用该插件并继续</value>
+    <value>暂时禁用该插件并继续</value>
   </data>
   <data name="RestartAsAdmin" xml:space="preserve">
     <value>以管理员权限重新启动 OpenFlier</value>

@@ -16,6 +16,7 @@
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <local:ConfigControlModel x:Key="DesignModel" />
         <local:StringListToStringConverter x:Key="StringListToStringConverter" />
+        <local:FalseToStrikethroughConverter x:Key="FalseToStrikethroughConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -279,7 +280,8 @@
                                                     VerticalAlignment="Center"
                                                     FontSize="16"
                                                     FontWeight="Bold"
-                                                    Text="{Binding PluginInfo.PluginName}" />
+                                                    Text="{Binding PluginInfo.PluginName}"
+                                                    TextDecorations="{Binding TempDisabled, Converter={StaticResource FalseToStrikethroughConverter}}" />
                                                 <TextBlock
                                                     Margin="4,0,0,0"
                                                     VerticalAlignment="Center"
@@ -349,7 +351,8 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="16"
                                                 FontWeight="Bold"
-                                                Text="{Binding PluginInfo.PluginName}" />
+                                                Text="{Binding PluginInfo.PluginName}"
+                                                TextDecorations="{Binding TempDisabled, Converter={StaticResource FalseToStrikethroughConverter}}" />
                                             <TextBlock
                                                 Margin="4,0,0,0"
                                                 VerticalAlignment="Center"
@@ -374,11 +377,50 @@
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="EnabledCheckBox" />
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="ConfigEntry" />
                                             </Grid.ColumnDefinitions>
-                                            <StackPanel>
-                                                <TextBlock Text="{Binding PluginInfo.PluginAuthor}" />
-                                                <TextBlock Text="{Binding PluginInfo.PluginDescription}" />
-                                                <TextBlock Foreground="DarkGray" Text="{Binding LocalFilePath}" />
-                                            </StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontFamily="Segoe Fluent Icons"
+                                                    Text="&#xe716;" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="4,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding PluginInfo.PluginAuthor}" />
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    VerticalAlignment="Center"
+                                                    FontFamily="Segoe Fluent Icons"
+                                                    Text="&#xe8fd;" />
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Margin="4,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding PluginInfo.PluginDescription}" />
+                                                <TextBlock
+                                                    Grid.Row="2"
+                                                    VerticalAlignment="Center"
+                                                    FontFamily="Segoe Fluent Icons"
+                                                    Foreground="DarkGray"
+                                                    Text="&#xea86;" />
+                                                <TextBlock
+                                                    Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Margin="4,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="DarkGray"
+                                                    Text="{Binding LocalFilePath}" />
+                                            </Grid>
                                             <CheckBox
                                                 Grid.Column="1"
                                                 HorizontalAlignment="Center"
