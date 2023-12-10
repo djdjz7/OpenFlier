@@ -6,9 +6,12 @@
 
 OpenFlier is an open-source implementation of ZY ClassHelper/ZYFlier which aims to solve historic issues such as multi-IP support etc.
 
-OpenFlier is still under development, and contributions are welcome.
+We are close to final release! 🎉
 
-- [x] Implement Basic Features
-- [ ] Implement SpecialChannels
-- [ ] Implement Configurator
-- [ ] Implement Plugin Features
+Followings need to be down before final release:
+
+- [ ] Polish settings
+- [ ] Add updates (squirr)
+
+And then we will focus on:
+- [ ] Performance improvements
