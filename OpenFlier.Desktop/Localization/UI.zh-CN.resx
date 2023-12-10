@@ -265,4 +265,8 @@
   <data name="RestartAsAdmin" xml:space="preserve">
     <value>以管理员权限重新启动 OpenFlier</value>
   </data>
+  <data name="RestoreConfigDescription" xml:space="preserve">
+    <value>将所有选项恢复为默认值。
+需要重新安装插件。</value>
+  </data>
 </root>

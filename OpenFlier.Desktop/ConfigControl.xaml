@@ -6,6 +6,7 @@
     xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:local="clr-namespace:OpenFlier.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ofc="clr-namespace:OpenFlier.Controls;assembly=OpenFlier.Controls"
     d:DataContext="{DynamicResource DesignModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -306,11 +307,50 @@
                                                     <ColumnDefinition Width="Auto" SharedSizeGroup="EnabledCheckBox" />
                                                     <ColumnDefinition Width="Auto" SharedSizeGroup="ConfigEntry" />
                                                 </Grid.ColumnDefinitions>
-                                                <StackPanel>
-                                                    <TextBlock Text="{Binding PluginInfo.PluginAuthor}" />
-                                                    <TextBlock Text="{Binding PluginInfo.PluginDescription}" />
-                                                    <TextBlock Foreground="DarkGray" Text="{Binding LocalFilePath}" />
-                                                </StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        Text="&#xe716;" />
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Margin="4,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding PluginInfo.PluginAuthor}" />
+                                                    <TextBlock
+                                                        Grid.Row="1"
+                                                        VerticalAlignment="Center"
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        Text="&#xe8fd;" />
+                                                    <TextBlock
+                                                        Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        Margin="4,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding PluginInfo.PluginDescription}" />
+                                                    <TextBlock
+                                                        Grid.Row="2"
+                                                        VerticalAlignment="Center"
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        Foreground="DarkGray"
+                                                        Text="&#xea86;" />
+                                                    <TextBlock
+                                                        Grid.Row="2"
+                                                        Grid.Column="1"
+                                                        Margin="4,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="DarkGray"
+                                                        Text="{Binding LocalFilePath}" />
+                                                </Grid>
                                                 <CheckBox
                                                     Grid.Column="1"
                                                     HorizontalAlignment="Center"
@@ -318,11 +358,11 @@
                                                     IsChecked="{Binding Enabled}"
                                                     ToolTip="{x:Static i18n:UI.PluginEnabledCheckBox}" />
                                                 <Button
-                                                    Name="ConfigurePluginButton"
                                                     Grid.Column="2"
                                                     Margin="4"
                                                     VerticalAlignment="Center"
-                                                    Click="ConfigureMqttServicePluginButton_Click"
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.ConfigCommandInputPluginCommand}"
+                                                    CommandParameter="{Binding LocalFilePath}"
                                                     Content="{x:Static i18n:UI.ConfigureButton}"
                                                     Style="{StaticResource SubtleButton}"
                                                     Visibility="{Binding PluginInfo.PluginNeedsConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -428,11 +468,11 @@
                                                 IsChecked="{Binding Enabled}"
                                                 ToolTip="{x:Static i18n:UI.PluginEnabledCheckBox}" />
                                             <Button
-                                                Name="ConfigurePluginButton"
                                                 Grid.Column="2"
                                                 Margin="4"
                                                 VerticalAlignment="Center"
-                                                Click="ConfigureCommandInputPluginButton_Click"
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.ConfigCommandInputPluginCommand}"
+                                                CommandParameter="{Binding LocalFilePath}"
                                                 Content="{x:Static i18n:UI.ConfigureButton}"
                                                 Style="{StaticResource SubtleButton}"
                                                 Visibility="{Binding PluginInfo.PluginNeedsConfigEntry, Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -474,6 +514,17 @@
                             HorizontalAlignment="Left"
                             Command="{Binding OutputDefaultConfigCommand}"
                             Content="Output Default Config" />
+                        <ofc:SettingsCard
+                            Description="{x:Static i18n:UI.RestoreConfigDescription}"
+                            Header="{x:Static i18n:UI.RestoreConfigButton}"
+                            IsClickEnabled="True">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xe777;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                        </ofc:SettingsCard>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

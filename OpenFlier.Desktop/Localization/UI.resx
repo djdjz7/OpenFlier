@@ -265,4 +265,8 @@ Continue?</value>
   <data name="RestartAsAdmin" xml:space="preserve">
     <value>Restart OpenFlier as administrator</value>
   </data>
+  <data name="RestoreConfigDescription" xml:space="preserve">
+    <value>Restore all entries to default values.
+Plugins will need to be reinstalled.</value>
+  </data>
 </root>

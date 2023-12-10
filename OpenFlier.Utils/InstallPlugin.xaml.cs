@@ -122,7 +122,7 @@ namespace OpenFlier.Utils
                                 PluginDescription = singlePluginPackage.PluginDescription,
                                 PluginIdentifier = singlePluginPackage.PluginIdentifier,
                                 PluginName = singlePluginPackage.PluginName,
-                                PluginNeedsConfigEntry = singlePluginPackage.PluginNeedConfigEntry,
+                                PluginNeedsConfigEntry = singlePluginPackage.PluginNeedsConfigEntry,
                                 PluginVersion = singlePluginPackage.PluginVersion,
                             },
                             LocalFilePath =
@@ -154,7 +154,7 @@ namespace OpenFlier.Utils
                                 PluginDescription = singlePluginPackage.PluginDescription,
                                 PluginIdentifier = singlePluginPackage.PluginIdentifier,
                                 PluginName = singlePluginPackage.PluginName,
-                                PluginNeedsConfigEntry = singlePluginPackage.PluginNeedConfigEntry,
+                                PluginNeedsConfigEntry = singlePluginPackage.PluginNeedsConfigEntry,
                                 PluginVersion = singlePluginPackage.PluginVersion,
                             },
                             LocalFilePath =

@@ -379,6 +379,16 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Restore all entries to default values.
+        ///Plugins will need to be reinstalled. 的本地化字符串。
+        /// </summary>
+        public static string RestoreConfigDescription {
+            get {
+                return ResourceManager.GetString("RestoreConfigDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 SpecialChannels 的本地化字符串。
         /// </summary>
         public static string SpecialChannelsTitle {

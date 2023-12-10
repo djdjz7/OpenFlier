@@ -8,9 +8,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace OpenFlier.Desktop
@@ -93,6 +95,8 @@ namespace OpenFlier.Desktop
             AddCommandInputUserCommand = new RelayCommand(AddCommandInputUser);
             RestoreDefaultConfigCommand = new RelayCommand(RestoreDefaultConfig);
             OutputDefaultConfigCommand = new RelayCommand(OutputDefaultConfig);
+            ConfigMqttServicePluginCommand = new RelayCommand<string?>(ConfigMqttServicePlugin);
+            ConfigCommandInputPluginCommand = new RelayCommand<string?>(ConfigCommandInputPlugin);
         }
 
         private Config currentConfig;
@@ -172,6 +176,8 @@ namespace OpenFlier.Desktop
         public IRelayCommand RemoveCommandInputUserCommand { get; }
         public ICommand RestoreDefaultConfigCommand { get; }
         public ICommand OutputDefaultConfigCommand { get; }
+        public ICommand ConfigMqttServicePluginCommand { get; }
+        public ICommand ConfigCommandInputPluginCommand { get; }
 
         private void Apply()
         {
@@ -246,6 +252,64 @@ namespace OpenFlier.Desktop
         private void OutputDefaultConfig()
         {
             ConfigService.OutputDefaultConfig();
+        }
+
+        private void ConfigMqttServicePlugin(string? localFilePath)
+        {
+            if (localFilePath == null)
+                return;
+            try
+            {
+                FileInfo assemblyFileInfo = new FileInfo(localFilePath);
+                var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
+
+                Type[] types = assembly.GetTypes();
+                foreach (Type type in types)
+                {
+                    if (type.GetInterface("IMqttServicePlugin") == null)
+                        continue;
+                    if (type.FullName == null)
+                        continue;
+                    IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)
+                        assembly.CreateInstance(type.FullName);
+                    if (mqttServicePlugin == null)
+                        continue;
+                    mqttServicePlugin.PluginOpenConfig();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+            }
+        }
+
+        private void ConfigCommandInputPlugin(string? localFilePath)
+        {
+            if (localFilePath == null)
+                return;
+            try
+            {
+                FileInfo assemblyFileInfo = new FileInfo(localFilePath);
+                var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
+
+                Type[] types = assembly.GetTypes();
+                foreach (Type type in types)
+                {
+                    if (type.GetInterface("ICommandInputPlugin") == null)
+                        continue;
+                    if (type.FullName == null)
+                        continue;
+                    ICommandInputPlugin? commandInputPlugin = (ICommandInputPlugin?)
+                        assembly.CreateInstance(type.FullName);
+                    if (commandInputPlugin == null)
+                        continue;
+                    commandInputPlugin.PluginOpenConfig();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+            }
         }
     }
 }

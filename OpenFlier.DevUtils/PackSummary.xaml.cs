@@ -128,7 +128,7 @@ public partial class PackSummary : Page
                 singlePluginPackage.PluginType = Plugin.PluginType.MqttServicePlugin;
                 singlePluginPackage.PluginDescription = mqttServicePluginInfo.PluginDescription;
                 singlePluginPackage.PluginIdentifier = mqttServicePluginInfo.PluginIdentifier;
-                singlePluginPackage.PluginNeedConfigEntry = mqttServicePluginInfo.PluginNeedsConfigEntry;
+                singlePluginPackage.PluginNeedsConfigEntry = mqttServicePluginInfo.PluginNeedsConfigEntry;
                 singlePluginPackage.MqttMessageType = (int)mqttServicePluginInfo.MqttMessageType;
                 foreach (var i in PluginFiles)
                 {
@@ -147,7 +147,7 @@ public partial class PackSummary : Page
                 singlePluginPackage.PluginType = Plugin.PluginType.CommandInputPlugin;
                 singlePluginPackage.PluginDescription = commandInputPluginInfo.PluginDescription;
                 singlePluginPackage.PluginIdentifier = commandInputPluginInfo.PluginIdentifier;
-                singlePluginPackage.PluginNeedConfigEntry = commandInputPluginInfo.PluginNeedsConfigEntry;
+                singlePluginPackage.PluginNeedsConfigEntry = commandInputPluginInfo.PluginNeedsConfigEntry;
                 singlePluginPackage.InvokeCommands.Add(commandInputPluginInfo.InvokeCommands);
                 foreach (var i in PluginFiles)
                 {
