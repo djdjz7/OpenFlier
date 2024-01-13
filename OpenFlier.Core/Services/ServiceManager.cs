@@ -57,7 +57,7 @@ namespace OpenFlier.Core.Services
 
                 // These are absolutely unnecessary:
                 // MqttService.Initialize();
-                // FtpService.Initialize();
+                FtpService.Initialize();
 
                 OnLoadCompleted?.Invoke(true);
             });
