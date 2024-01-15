@@ -269,4 +269,10 @@ Continue?</value>
     <value>Restore all entries to default values.
 Plugins will need to be reinstalled.</value>
   </data>
+  <data name="ExportDefaultConfigButton" xml:space="preserve">
+    <value>Export Default Config</value>
+  </data>
+  <data name="ExportDefaultConfigDescription" xml:space="preserve">
+    <value>Export default config to a specified location for manual editing.</value>
+  </data>
 </root>

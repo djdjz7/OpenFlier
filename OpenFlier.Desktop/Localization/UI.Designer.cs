@@ -234,6 +234,24 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Export Default Config 的本地化字符串。
+        /// </summary>
+        public static string ExportDefaultConfigButton {
+            get {
+                return ResourceManager.GetString("ExportDefaultConfigButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Export default config to a specified location for manual editing. 的本地化字符串。
+        /// </summary>
+        public static string ExportDefaultConfigDescription {
+            get {
+                return ResourceManager.GetString("ExportDefaultConfigDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 File 的本地化字符串。
         /// </summary>
         public static string FileTitle {

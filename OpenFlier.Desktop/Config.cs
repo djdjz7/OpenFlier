@@ -33,24 +33,13 @@ public class ConfigService
         return new Config();
     }
 
-    public static void OutputDefaultConfig()
+    public static void OutputDefaultConfig(string path)
     {
         var config = new Config();
-        config.CommandInputPlugins.Add(new LocalPluginInfo<CommandInputPluginInfo>
-        {
-            PluginInfo = new CommandInputPluginInfo
-            {
-                InvokeCommands = new List<string>(new[] { "rr", "RemoteRandom" }),
-                PluginDescription = "Fetches a random image from a remote source.",
-                PluginVersion = "0.0.1",
-                PluginIdentifier = "openflier.ext.remoterandom",
-                PluginAuthor = "The OpenFlier Contributors",
-                PluginName = "Remote Random",
-                PluginNeedsConfigEntry = true,
-            },
-            LocalFilePath = "Plugins/openflier.ext.remoterandom/RemoteRandom.dll"
-        });
-        File.WriteAllText("defconfig.json", JsonSerializer.Serialize(config));
+        File.WriteAllText(
+            path,
+            JsonSerializer.Serialize(config, new JsonSerializerOptions() { WriteIndented = true })
+        );
     }
 }
 

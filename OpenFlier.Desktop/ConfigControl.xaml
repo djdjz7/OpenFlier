@@ -504,17 +504,8 @@
                 <ScrollViewer>
                     <StackPanel Margin="8">
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.FileTitle}" />
-                        <Button
-                            Margin="0,8,0,0"
-                            HorizontalAlignment="Left"
-                            Command="{Binding RestoreDefaultConfigCommand}"
-                            Content="{x:Static i18n:UI.RestoreConfigButton}" />
-                        <Button
-                            Margin="0,8,0,0"
-                            HorizontalAlignment="Left"
-                            Command="{Binding OutputDefaultConfigCommand}"
-                            Content="Output Default Config" />
                         <ofc:SettingsCard
+                            Command="{Binding RestoreDefaultConfigCommand}"
                             Description="{x:Static i18n:UI.RestoreConfigDescription}"
                             Header="{x:Static i18n:UI.RestoreConfigButton}"
                             IsClickEnabled="True">
@@ -523,6 +514,18 @@
                                     FontFamily="Segoe Fluent Icons"
                                     FontSize="18"
                                     Text="&#xe777;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                        </ofc:SettingsCard>
+                        <ofc:SettingsCard Margin="0 4 0 0"
+                            Command="{Binding ExportDefaultConfigCommand}"
+                            Description="{x:Static i18n:UI.ExportDefaultConfigDescription}"
+                            Header="{x:Static i18n:UI.ExportDefaultConfigButton}"
+                            IsClickEnabled="True">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xede1;" />
                             </ofc:SettingsCard.HeaderIcon>
                         </ofc:SettingsCard>
                     </StackPanel>

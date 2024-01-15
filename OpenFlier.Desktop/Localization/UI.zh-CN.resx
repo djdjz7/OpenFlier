@@ -269,4 +269,10 @@
     <value>将所有选项恢复为默认值。
 需要重新安装插件。</value>
   </data>
+  <data name="ExportDefaultConfigButton" xml:space="preserve">
+    <value>导出默认配置</value>
+  </data>
+  <data name="ExportDefaultConfigDescription" xml:space="preserve">
+    <value>导出默认配置到特定位置用于手动编辑。</value>
+  </data>
 </root>

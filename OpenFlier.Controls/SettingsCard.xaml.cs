@@ -87,5 +87,38 @@ namespace OpenFlier.Controls
             DependencyProperty.Register("HeaderIcon", typeof(UIElement), typeof(SettingsCard));
 
 
+
+        public ICommand? Command
+        {
+            get { return (ICommand?)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(SettingsCard), new PropertyMetadata(null));
+
+
+
+        public object? CommandParameter
+        {
+            get { return (object?)GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register("CommandParameter", typeof(object), typeof(SettingsCard), new PropertyMetadata(null));
+
+
+
+
+
+        private void UserControl_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (Command is null) return;
+            if(IsClickEnabled && Command.CanExecute(CommandParameter))
+                Command.Execute(CommandParameter);
+        }
     }
 }

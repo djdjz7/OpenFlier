@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 using OpenFlier.Core;
 using OpenFlier.Core.Services;
 using OpenFlier.Desktop.Localization;
@@ -94,7 +95,7 @@ namespace OpenFlier.Desktop
             RemoveCommandInputUserCommand = new RelayCommand(RemoveCommandInputUser, () => SelectedCommandInputUser != null);
             AddCommandInputUserCommand = new RelayCommand(AddCommandInputUser);
             RestoreDefaultConfigCommand = new RelayCommand(RestoreDefaultConfig);
-            OutputDefaultConfigCommand = new RelayCommand(OutputDefaultConfig);
+            ExportDefaultConfigCommand = new RelayCommand(ExportDefaultConfig);
             ConfigMqttServicePluginCommand = new RelayCommand<string?>(ConfigMqttServicePlugin);
             ConfigCommandInputPluginCommand = new RelayCommand<string?>(ConfigCommandInputPlugin);
         }
@@ -175,7 +176,7 @@ namespace OpenFlier.Desktop
         public IRelayCommand AddCommandInputUserCommand { get; }
         public IRelayCommand RemoveCommandInputUserCommand { get; }
         public ICommand RestoreDefaultConfigCommand { get; }
-        public ICommand OutputDefaultConfigCommand { get; }
+        public ICommand ExportDefaultConfigCommand { get; }
         public ICommand ConfigMqttServicePluginCommand { get; }
         public ICommand ConfigCommandInputPluginCommand { get; }
 
@@ -249,9 +250,16 @@ namespace OpenFlier.Desktop
 
         }
 
-        private void OutputDefaultConfig()
+        private void ExportDefaultConfig()
         {
-            ConfigService.OutputDefaultConfig();
+            var dialog = new SaveFileDialog()
+            {
+                Filter = Backend.ConfigFileFilter,
+                DefaultExt = ".json",
+            };
+            var result = dialog.ShowDialog();
+            if(result == true)
+                ConfigService.OutputDefaultConfig(dialog.FileName);
         }
 
         private void ConfigMqttServicePlugin(string? localFilePath)

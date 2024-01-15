@@ -79,6 +79,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Config File (*.json)|*.json 的本地化字符串。
+        /// </summary>
+        public static string ConfigFileFilter {
+            get {
+                return ResourceManager.GetString("ConfigFileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Specified connect code is not in the correct format. 的本地化字符串。
         /// </summary>
         public static string ConnectCodeFormatError {

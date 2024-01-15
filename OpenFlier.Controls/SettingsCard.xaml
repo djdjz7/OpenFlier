@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     MinHeight="82"
     d:DesignWidth="800"
-    TextElement.FontSize="14"
+    TextElement.FontSize="14" MouseUp="UserControl_MouseUp"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="local:SettingsCard">
