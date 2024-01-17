@@ -9,8 +9,8 @@ using OpenFlier.Desktop.MqttService;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +22,8 @@ namespace OpenFlier.Desktop.Services
         public List<User> Users { get; set; } = new List<User>();
         public ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(DesktopMqttService));
         private ImageHandler imageHandler = new();
+
+        public Dictionary<string, Assembly> LoadedMqttServicePlugins = new();
 
         public string MainTopic { get; } = Guid.NewGuid().ToString("N");
 
@@ -80,9 +82,7 @@ namespace OpenFlier.Desktop.Services
             });
         }
 
-        public async Task OnAppMessageReceivedAsync(
-            MqttApplicationMessageReceivedEventArgs arg
-        )
+        public async Task OnAppMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
         {
             bool usePng = LocalStorage.Config.General.UsePng;
             string Username = arg.ClientId.Split('_')[2];

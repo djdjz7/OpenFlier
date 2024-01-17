@@ -28,6 +28,9 @@ namespace OpenFlier.Desktop.MqttService
     {
         private HttpClient httpClient = new HttpClient();
         private ILog imageHandlerLogger = LogManager.GetLogger(typeof(ImageHandler));
+
+        public Dictionary<string, ICommandInputPlugin> LoadedCommandInputPlugins = new();
+
         public ImageHandler()
         {
             httpClient.BaseAddress = new System.Uri(
@@ -108,6 +111,8 @@ namespace OpenFlier.Desktop.MqttService
                 bool success = false;
                 foreach (var plugin in LocalStorage.Config.CommandInputPlugins)
                 {
+                    if (!File.Exists(plugin.LocalFilePath))
+                        continue;
                     if (!plugin.Enabled || plugin.TempDisabled)
                         continue;
                     if (
@@ -117,32 +122,44 @@ namespace OpenFlier.Desktop.MqttService
                         )
                     )
                     {
-                        FileInfo assemblyFileInfo = new FileInfo(plugin.LocalFilePath);
-                        var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
-                        Type[] types = assembly.GetTypes();
-                        foreach (Type type in types)
+                        ICommandInputPlugin? commandInputPlugin = null;
+                        if (
+                            !LoadedCommandInputPlugins.TryGetValue(
+                                plugin.PluginInfo.PluginIdentifier,
+                                out commandInputPlugin
+                            )
+                        )
                         {
-                            if (type.GetInterface("ICommandInputPlugin") == null)
-                                continue;
-                            if (type.FullName == null)
-                                continue;
-                            var commandInputPlugin = (ICommandInputPlugin?)
-                                assembly.CreateInstance(type.FullName);
-                            if (commandInputPlugin == null)
-                                continue;
-                            await commandInputPlugin.PluginMain(
-                                new CommandInputPluginArgs
-                                {
-                                    ClientID = user.CurrentClientId!,
-                                    InvokeCommand = invokeCommand,
-                                    FullCommand = fullCommand,
-                                    MqttServer = mqttServer,
-                                    UsePng = usePng,
-                                    MachineIdentifier = CoreStorage.MachineIdentifier,
-                                    Version = CoreStorage.Version,
-                                }
-                            );
-                            success = true;
+                            var fileInfo = new FileInfo(plugin.LocalFilePath);
+                            var loadContext = new PluginLoadContext(plugin.LocalFilePath);
+                            var assembly = loadContext.LoadFromAssemblyPath(fileInfo.FullName);
+                            var types = assembly.GetTypes();
+                            foreach (Type type in types)
+                            {
+                                if (type.GetInterface("ICommandInputPlugin") == null)
+                                    continue;
+                                if (type.FullName == null)
+                                    continue;
+                                commandInputPlugin = (ICommandInputPlugin?)
+                                    assembly.CreateInstance(type.FullName);
+                                if (commandInputPlugin == null)
+                                    continue;
+                                LoadedCommandInputPlugins.Add(plugin.PluginInfo.PluginIdentifier, commandInputPlugin);
+                                await commandInputPlugin.PluginMain(
+                                    new CommandInputPluginArgs
+                                    {
+                                        ClientID = user.CurrentClientId!,
+                                        InvokeCommand = invokeCommand,
+                                        FullCommand = fullCommand,
+                                        MqttServer = mqttServer,
+                                        UsePng = usePng,
+                                        MachineIdentifier = CoreStorage.MachineIdentifier,
+                                        Version = CoreStorage.Version,
+                                    }
+                                );
+                                success = true;
+                                break;
+                            }
                         }
                     }
                 }
