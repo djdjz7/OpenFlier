@@ -367,3 +367,4 @@ FodyWeavers.xsd
 dist/
 BuildArchive/build-time
 /OpenFlier.Plugin/protoc.exe
+/Installer.MSI/Files.wxs
