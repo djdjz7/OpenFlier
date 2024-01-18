@@ -115,6 +115,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 No compatible plugin for command {0}. 的本地化字符串。
+        /// </summary>
+        public static string NoCompatiblePlugin {
+            get {
+                return ResourceManager.GetString("NoCompatiblePlugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Will overwrite existing config file.
         ///Continue? 的本地化字符串。
         /// </summary>

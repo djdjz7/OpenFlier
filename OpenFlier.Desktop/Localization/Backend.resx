@@ -149,4 +149,7 @@ Continue?</value>
   <data name="ConfigFileFilter" xml:space="preserve">
     <value>Config File (*.json)|*.json</value>
   </data>
+  <data name="NoCompatiblePlugin" xml:space="preserve">
+    <value>No compatible plugin for command {0}.</value>
+  </data>
 </root>

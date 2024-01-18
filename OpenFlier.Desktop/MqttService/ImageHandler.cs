@@ -107,8 +107,8 @@ namespace OpenFlier.Desktop.MqttService
                 if (user.IsBusy && !forceFlag)
                     throw new Exception(Backend.UserBuzy);
 
+
                 user.IsBusy = true;
-                bool success = false;
                 foreach (var plugin in LocalStorage.Config.CommandInputPlugins)
                 {
                     if (!File.Exists(plugin.LocalFilePath))
@@ -145,32 +145,38 @@ namespace OpenFlier.Desktop.MqttService
                                 if (commandInputPlugin == null)
                                     continue;
                                 LoadedCommandInputPlugins.Add(plugin.PluginInfo.PluginIdentifier, commandInputPlugin);
-                                await commandInputPlugin.PluginMain(
-                                    new CommandInputPluginArgs
-                                    {
-                                        ClientID = user.CurrentClientId!,
-                                        InvokeCommand = invokeCommand,
-                                        FullCommand = fullCommand,
-                                        MqttServer = mqttServer,
-                                        UsePng = usePng,
-                                        MachineIdentifier = CoreStorage.MachineIdentifier,
-                                        Version = CoreStorage.Version,
-                                    }
-                                );
-                                success = true;
                                 break;
                             }
                         }
+
+                        if (commandInputPlugin is not null)
+                        {
+                            await commandInputPlugin.PluginMain(
+                                new CommandInputPluginArgs
+                                {
+                                    ClientID = user.CurrentClientId!,
+                                    InvokeCommand = invokeCommand,
+                                    FullCommand = fullCommand,
+                                    MqttServer = mqttServer,
+                                    UsePng = usePng,
+                                    MachineIdentifier = CoreStorage.MachineIdentifier,
+                                    Version = CoreStorage.Version,
+                                }
+                            );
+                        }
+                        else
+                            throw new Exception(string.Format(Backend.NoCompatiblePlugin, invokeCommand));
                     }
                 }
-                user.IsBusy = false;
-                if (!success)
-                    throw new Exception(Backend.UserCommandFailed);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
                 imageHandlerLogger.Error(e.Message, e);
+            }
+            finally
+            {
+                user.IsBusy = false;
             }
         }
 

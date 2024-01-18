@@ -149,4 +149,7 @@
   <data name="ConfigFileFilter" xml:space="preserve">
     <value>配置文件 (*.json)|*.json</value>
   </data>
+  <data name="NoCompatiblePlugin" xml:space="preserve">
+    <value>未找到与 {0} 兼容的插件。</value>
+  </data>
 </root>
