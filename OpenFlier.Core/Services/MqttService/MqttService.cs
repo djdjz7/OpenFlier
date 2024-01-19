@@ -29,6 +29,7 @@ namespace OpenFlier.Core.Services
             MqttApplicationMessageReceivedEventArgs arg
         );
         public event MqttApplicationMessageReceivedDelegate? OnScreenshotRequestReceived;
+        public event MqttApplicationMessageReceivedDelegate? OnTestRequestReceived;
 
         public delegate Task MqttServerClientDisconnectedDelegate(
             MqttServerClientDisconnectedEventArgs arg
@@ -109,6 +110,10 @@ namespace OpenFlier.Core.Services
                                 .ExactlyOnce,
                         }
                     );
+                    break;
+
+                case MqttMessageType.TestReq:
+                    OnTestRequestReceived?.Invoke(arg);
                     break;
 
                 default:

@@ -18,7 +18,7 @@ namespace OpenFlier.Desktop.Services
 {
     public class DesktopMqttService
     {
-        public IMqttServer? MqttServer { get; set; }
+        public IMqttServer MqttServer { get; set; }
         public List<User> Users { get; set; } = new List<User>();
         public ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(DesktopMqttService));
         private ImageHandler imageHandler = new();
@@ -26,6 +26,11 @@ namespace OpenFlier.Desktop.Services
         public Dictionary<string, Assembly> LoadedMqttServicePlugins = new();
 
         public string MainTopic { get; } = Guid.NewGuid().ToString("N");
+
+        public DesktopMqttService(IMqttServer mqttServer)
+        {
+            MqttServer = mqttServer;
+        }
 
         public Task OnClientDisConnectedAsync(MqttServerClientDisconnectedEventArgs arg)
         {
@@ -115,8 +120,20 @@ namespace OpenFlier.Desktop.Services
             }
             else
             {
-                await imageHandler.HandleSpecialChannels(user, usePng, MqttServer!);
+                await imageHandler.HandleSpecialChannels(user, usePng, MqttServer);
             }
+        }
+
+        public async Task OnTestMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+        {
+            bool usePng = LocalStorage.Config.General.UsePng;
+            string Username = arg.ClientId.Split('_')[2];
+            var user = Users.FirstOrDefault(x => x.Username == Username);
+            string message = Encoding.UTF8.GetString(arg.ApplicationMessage.Payload);
+            string? fullCommand = JsonConvert.DeserializeObject<MqttMessage<string>>(message)?.Data;
+            if (fullCommand is null)
+                return;
+            await imageHandler.HandleSpecialChannels(user, usePng, MqttServer, fullCommand);
         }
 
         private class UserEqualityComparer : IEqualityComparer<User>

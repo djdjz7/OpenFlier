@@ -23,7 +23,7 @@
         TeacherScreenCastError = 20010L,
         ScreenCastPortNotice = 20011L,
         StartScreenCastResp = 20012L,
-        StopScreenCastResp = 20013L
+        StopScreenCastResp = 20013L,
     }
 
     public class MqttMessage<T>

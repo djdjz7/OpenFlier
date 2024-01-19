@@ -38,9 +38,10 @@ public partial class MainWindow : Window
         await ValidatePluginPrivilege(config);
 
         List<IPAddress> ipAddresses = Dns.GetHostEntry(Dns.GetHostName())
-                .AddressList
-                .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                .ToList();
+            .AddressList.Where(
+                x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork
+            )
+            .ToList();
         if (ipAddresses.Count == 0)
         {
             MessageBox.Show("No available IP address.");
@@ -54,14 +55,17 @@ public partial class MainWindow : Window
         LoadingScreen.Visibility = Visibility.Visible;
         MainScreen.Visibility = Visibility.Hidden;
 
-        ConfigTab.Content = new ConfigControl(config, serviceManager, async (newConfig) =>
-        {
-            await ValidatePluginPrivilege(newConfig);
-            this.LoadingTextBlock.Text = Localization.UI.ReloadingText;
-            this.LoadingScreen.Visibility = Visibility.Visible;
-            this.MainScreen.Visibility = Visibility.Hidden;
-        });
-
+        ConfigTab.Content = new ConfigControl(
+            config,
+            serviceManager,
+            async (newConfig) =>
+            {
+                await ValidatePluginPrivilege(newConfig);
+                this.LoadingTextBlock.Text = Localization.UI.ReloadingText;
+                this.LoadingScreen.Visibility = Visibility.Visible;
+                this.MainScreen.Visibility = Visibility.Hidden;
+            }
+        );
     }
 
     private void ServiceManager_LoadCompleted(bool isReloaded)
@@ -70,29 +74,36 @@ public partial class MainWindow : Window
         {
             if (isReloaded)
             {
-                ConfigTab.Content = new ConfigControl(LocalStorage.Config, serviceManager, async (newConfig) =>
-                {
-                    await ValidatePluginPrivilege(newConfig);
-                    this.LoadingTextBlock.Text = Localization.UI.ReloadingText;
-                    this.LoadingScreen.Visibility = Visibility.Visible;
-                    this.MainScreen.Visibility = Visibility.Hidden;
-                });
+                ConfigTab.Content = new ConfigControl(
+                    LocalStorage.Config,
+                    serviceManager,
+                    async (newConfig) =>
+                    {
+                        await ValidatePluginPrivilege(newConfig);
+                        this.LoadingTextBlock.Text = Localization.UI.ReloadingText;
+                        this.LoadingScreen.Visibility = Visibility.Visible;
+                        this.MainScreen.Visibility = Visibility.Hidden;
+                    }
+                );
             }
             if (!isReloaded)
             {
-                LocalStorage.DesktopMqttService = new()
-                {
-                    MqttServer = serviceManager.MqttService.MqttServer
-                };
-                serviceManager.MqttService.OnClientConnected += LocalStorage.DesktopMqttService.OnClientConnectedAsync;
+                LocalStorage.DesktopMqttService = new(serviceManager.MqttService.MqttServer);
+
+                serviceManager.MqttService.OnClientConnected += LocalStorage
+                    .DesktopMqttService
+                    .OnClientConnectedAsync;
                 serviceManager.MqttService.OnClientDisconnected += LocalStorage
                     .DesktopMqttService
                     .OnClientDisConnectedAsync;
                 serviceManager.MqttService.OnScreenshotRequestReceived += LocalStorage
                     .DesktopMqttService
                     .OnScreenshotRequestReceivedAsync;
+                serviceManager.MqttService.OnTestRequestReceived += LocalStorage
+                    .DesktopMqttService
+                    .OnTestMessageReceivedAsync;
 
-                if (CoreStorage.IPAddresses.Count > 1)
+                if (CoreStorage.IPAddresses?.Count > 1)
                 {
                     IPAddress.Text = Backend.MultipleAddresses;
                     IPAddress.ToolTip = string.Join('\n', CoreStorage.IPAddresses);
@@ -133,7 +144,6 @@ public partial class MainWindow : Window
 
     private async Task ValidatePluginPrivilege(Config config)
     {
-
         bool isAdmin = IsApplicationRunningAsAdmin();
         foreach (var plugin in config.MqttServicePlugins)
         {
@@ -145,9 +155,16 @@ public partial class MainWindow : Window
         }
         if (!isAdmin)
         {
-            bool requireAdmin
-                = config.MqttServicePlugins.Where(x => x.PluginInfo.PluginNeedsAdminPrivilege == true && x.Enabled == true).Count()
-                + config.CommandInputPlugins.Where(x => x.PluginInfo.PluginNeedsAdminPrivilege == true && x.Enabled == true).Count() > 0;
+            bool requireAdmin =
+                config.MqttServicePlugins
+                    .Where(x => x.PluginInfo.PluginNeedsAdminPrivilege == true && x.Enabled == true)
+                    .Count()
+                    + config.CommandInputPlugins
+                        .Where(
+                            x => x.PluginInfo.PluginNeedsAdminPrivilege == true && x.Enabled == true
+                        )
+                        .Count()
+                > 0;
             if (requireAdmin)
             {
                 var result = await new PrivilegeErrorWindow().ShowDialog();
@@ -171,13 +188,14 @@ public partial class MainWindow : Window
 
                         var path = Process.GetCurrentProcess().MainModule?.FileName;
                         var directory = Path.GetDirectoryName(path);
-                        ProcessStartInfo startInfo = new()
-                        {
-                            UseShellExecute = true,
-                            WorkingDirectory = directory,
-                            FileName = path,
-                            Verb = "runas"
-                        };
+                        ProcessStartInfo startInfo =
+                            new()
+                            {
+                                UseShellExecute = true,
+                                WorkingDirectory = directory,
+                                FileName = path,
+                                Verb = "runas"
+                            };
                         Process.Start(startInfo);
                         Application.Current.Shutdown();
                         return;

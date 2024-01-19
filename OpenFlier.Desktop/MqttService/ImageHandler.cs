@@ -56,11 +56,10 @@ namespace OpenFlier.Desktop.MqttService
         {
             try
             {
-                if (string.IsNullOrEmpty(user.CommandInputSource))
-                    throw new ArgumentException(Backend.CommandInputSourceNotSpecified);
-
                 if (fullCommand is null)
                 {
+                    if (string.IsNullOrEmpty(user.CommandInputSource))
+                        throw new ArgumentException(Backend.CommandInputSourceNotSpecified);
                     var snapshotFile = await httpClient.GetByteArrayAsync(user.CommandInputSource);
                     var snapshot = PageSnapshot.Parser.ParseFrom(snapshotFile);
                     var stringList = GetAllStringFromSnapshot(snapshot.GraphSnapshot);
