@@ -504,19 +504,58 @@
                 <ScrollViewer>
                     <StackPanel Margin="8">
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.FileTitle}" />
+                        <Grid>
+                            <ofc:SettingsCard
+                                Command="{Binding RestoreDefaultConfigCommand}"
+                                Description="{x:Static i18n:UI.RestoreConfigDescription}"
+                                Header="{x:Static i18n:UI.RestoreConfigButton}"
+                                IsClickEnabled="True">
+                                <ofc:SettingsCard.HeaderIcon>
+                                    <TextBlock
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="18"
+                                        Text="&#xe777;" />
+                                </ofc:SettingsCard.HeaderIcon>
+                            </ofc:SettingsCard>
+                            <Popup IsOpen="{Binding ConfirmRestorePopupOpened}">
+                                <Border
+                                    Margin="32"
+                                    Padding="12"
+                                    Background="{DynamicResource BackgroundDefault}"
+                                    BorderBrush="{StaticResource ControlsStrokeSolid}"
+                                    BorderThickness="1"
+                                    CornerRadius="7">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{x:Static i18n:UI.RestoreConfigConfirmText}" />
+                                        <Grid MinWidth="256" Margin="0,8,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="8" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Button Command="{Binding RestoreDefaultCanceledCommand}" Content="{x:Static i18n:UI.CancelText}" />
+                                            <Button
+                                                Grid.Column="2"
+                                                Command="{Binding RestoreDefaultConfirmedCommand}"
+                                                Content="{x:Static i18n:UI.OKText}"
+                                                Style="{StaticResource AccentButton}" />
+                                        </Grid>
+                                    </StackPanel>
+                                    <Border.Effect>
+
+                                        <DropShadowEffect
+                                            BlurRadius="16"
+                                            Direction="270"
+                                            Opacity=".14"
+                                            ShadowDepth="8"
+                                            Color="Black" />
+                                    </Border.Effect>
+                                </Border>
+                            </Popup>
+                        </Grid>
+
                         <ofc:SettingsCard
-                            Command="{Binding RestoreDefaultConfigCommand}"
-                            Description="{x:Static i18n:UI.RestoreConfigDescription}"
-                            Header="{x:Static i18n:UI.RestoreConfigButton}"
-                            IsClickEnabled="True">
-                            <ofc:SettingsCard.HeaderIcon>
-                                <TextBlock
-                                    FontFamily="Segoe Fluent Icons"
-                                    FontSize="18"
-                                    Text="&#xe777;" />
-                            </ofc:SettingsCard.HeaderIcon>
-                        </ofc:SettingsCard>
-                        <ofc:SettingsCard Margin="0 4 0 0"
+                            Margin="0,4,0,0"
                             Command="{Binding ExportDefaultConfigCommand}"
                             Description="{x:Static i18n:UI.ExportDefaultConfigDescription}"
                             Header="{x:Static i18n:UI.ExportDefaultConfigButton}"
@@ -542,7 +581,7 @@
                 Command="{Binding ApplyCommand}">
                 <StackPanel>
                     <TextBlock Text="{x:Static i18n:UI.ApplyButtonContent}" />
-                    <Popup IsOpen="{Binding ConfirmPopupOpened}">
+                    <Popup IsOpen="{Binding ConfirmApplyPopupOpened}">
                         <Border
                             Margin="32"
                             Padding="12"

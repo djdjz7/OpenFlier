@@ -22,6 +22,7 @@ namespace OpenFlier.Desktop
     {
         private ServiceManager serviceManager;
         private Action<Config> preReloadAction;
+
         public ConfigControlModel()
         {
             this.currentConfig = new Config();
@@ -56,7 +57,11 @@ namespace OpenFlier.Desktop
             ApplyCommand = new RelayCommand(Apply);
         }
 
-        public ConfigControlModel(Config currentConfig, ServiceManager serviceManager, Action<Config> preReloadAction)
+        public ConfigControlModel(
+            Config currentConfig,
+            ServiceManager serviceManager,
+            Action<Config> preReloadAction
+        )
         {
             this.currentConfig = currentConfig;
             this.serviceManager = serviceManager;
@@ -87,14 +92,24 @@ namespace OpenFlier.Desktop
             MqttServicePlugins = new ObservableCollection<LocalPluginInfo<MqttServicePluginInfo>>(
                 currentConfig.MqttServicePlugins
             );
-            VerificationContent = string.IsNullOrEmpty(currentConfig.VerificationContent) ? "{\"type\":20007,\"data\":{\"topic\":\"Ec1xkK+uFtV/QO/8rduJ2A==\"}}" : currentConfig.VerificationContent;
+            VerificationContent = string.IsNullOrEmpty(currentConfig.VerificationContent)
+                ? "{\"type\":20007,\"data\":{\"topic\":\"Ec1xkK+uFtV/QO/8rduJ2A==\"}}"
+                : currentConfig.VerificationContent;
             FtpDirectory = currentConfig.FtpDirectory ?? "Screenshots";
-            ApplyCommand = new RelayCommand(Apply, () => !ConfirmPopupOpened);
+            ApplyCommand = new RelayCommand(Apply, () => !ConfirmApplyPopupOpened);
             ApplyCancelCommand = new RelayCommand(ApplyCancel);
             ApplyConfirmCommand = new RelayCommand(ApplyConfirm);
-            RemoveCommandInputUserCommand = new RelayCommand(RemoveCommandInputUser, () => SelectedCommandInputUser != null);
+            RemoveCommandInputUserCommand = new RelayCommand(
+                RemoveCommandInputUser,
+                () => SelectedCommandInputUser != null
+            );
             AddCommandInputUserCommand = new RelayCommand(AddCommandInputUser);
-            RestoreDefaultConfigCommand = new RelayCommand(RestoreDefaultConfig);
+            RestoreDefaultConfigCommand = new RelayCommand(
+                RestoreDefaultConfig,
+                () => !ConfirmRestorePopupOpened
+            );
+            RestoreDefaultCanceledCommand = new RelayCommand(CancelRestoreConfig);
+            RestoreDefaultConfirmedCommand = new RelayCommand(ConfirmRestoreConfig);
             ExportDefaultConfigCommand = new RelayCommand(ExportDefaultConfig);
             ConfigMqttServicePluginCommand = new RelayCommand<string?>(ConfigMqttServicePlugin);
             ConfigCommandInputPluginCommand = new RelayCommand<string?>(ConfigCommandInputPlugin);
@@ -164,18 +179,24 @@ namespace OpenFlier.Desktop
         #endregion
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(ApplyCommand))]
-        private bool confirmPopupOpened = false;
+        private bool confirmApplyPopupOpened = false;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(RemoveCommandInputUserCommand))]
         private CommandInputUser? selectedCommandInputUser;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RestoreDefaultConfigCommand))]
+        private bool confirmRestorePopupOpened = false;
 
         public IRelayCommand ApplyCommand { get; }
         public ICommand ApplyConfirmCommand { get; }
         public ICommand ApplyCancelCommand { get; }
         public IRelayCommand AddCommandInputUserCommand { get; }
         public IRelayCommand RemoveCommandInputUserCommand { get; }
-        public ICommand RestoreDefaultConfigCommand { get; }
+        public IRelayCommand RestoreDefaultConfigCommand { get; }
+        public ICommand RestoreDefaultConfirmedCommand { get; }
+        public ICommand RestoreDefaultCanceledCommand { get; }
         public ICommand ExportDefaultConfigCommand { get; }
         public ICommand ConfigMqttServicePluginCommand { get; }
         public ICommand ConfigCommandInputPluginCommand { get; }
@@ -183,20 +204,30 @@ namespace OpenFlier.Desktop
         private void Apply()
         {
             Regex regex = new("^\\d{4}$");
-            if (!regex.IsMatch(SpecifiedConnectCode.Trim()) && !string.IsNullOrEmpty(SpecifiedConnectCode.Trim()))
+            if (
+                !regex.IsMatch(SpecifiedConnectCode.Trim())
+                && !string.IsNullOrEmpty(SpecifiedConnectCode.Trim())
+            )
             {
-                MessageBox.Show(Backend.ConnectCodeFormatError, Backend.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    Backend.ConnectCodeFormatError,
+                    Backend.Error,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
-            ConfirmPopupOpened = true;
+            ConfirmApplyPopupOpened = true;
         }
+
         private void ApplyCancel()
         {
-            ConfirmPopupOpened = false;
+            ConfirmApplyPopupOpened = false;
         }
+
         private void ApplyConfirm()
         {
-            ConfirmPopupOpened = false;
+            ConfirmApplyPopupOpened = false;
             var newConfig = new Config
             {
                 Appearances = new Appearances
@@ -224,10 +255,13 @@ namespace OpenFlier.Desktop
                 UDPBroadcastPort = UdpBroadcastPort,
                 VerificationContent = VerificationContent,
             };
-            File.WriteAllText("config.json", JsonSerializer.Serialize(newConfig, new JsonSerializerOptions
-            {
-                WriteIndented = true,
-            }));
+            File.WriteAllText(
+                "config.json",
+                JsonSerializer.Serialize(
+                    newConfig,
+                    new JsonSerializerOptions { WriteIndented = true, }
+                )
+            );
 
             preReloadAction.Invoke(newConfig);
             LocalStorage.Config = newConfig;
@@ -240,6 +274,7 @@ namespace OpenFlier.Desktop
                 return;
             CommandInputUsers.Remove(SelectedCommandInputUser);
         }
+
         private void AddCommandInputUser()
         {
             CommandInputUsers.Add(new CommandInputUser());
@@ -247,7 +282,21 @@ namespace OpenFlier.Desktop
 
         private void RestoreDefaultConfig()
         {
-
+            ConfirmRestorePopupOpened = true;
+        }
+        private void ConfirmRestoreConfig()
+        {
+            if (File.Exists("config.json"))
+                File.Delete("config.json");
+            ConfirmRestorePopupOpened = false;
+            var newConfig = new Config();
+            preReloadAction.Invoke(newConfig);
+            LocalStorage.Config = newConfig;
+            serviceManager.RestartAllServices(newConfig);
+        }
+        private void CancelRestoreConfig()
+        {
+            ConfirmRestorePopupOpened = false;
         }
 
         private void ExportDefaultConfig()
@@ -258,7 +307,7 @@ namespace OpenFlier.Desktop
                 DefaultExt = ".json",
             };
             var result = dialog.ShowDialog();
-            if(result == true)
+            if (result == true)
                 ConfigService.OutputDefaultConfig(dialog.FileName);
         }
 

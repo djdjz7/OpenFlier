@@ -397,6 +397,16 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 This action is irreversible.
+        ///Are you sure to proceed? 的本地化字符串。
+        /// </summary>
+        public static string RestoreConfigConfirmText {
+            get {
+                return ResourceManager.GetString("RestoreConfigConfirmText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Restore all entries to default values.
         ///Plugins will need to be reinstalled. 的本地化字符串。
         /// </summary>

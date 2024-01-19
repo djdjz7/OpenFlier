@@ -275,4 +275,8 @@
   <data name="ExportDefaultConfigDescription" xml:space="preserve">
     <value>导出默认配置到特定位置用于手动编辑。</value>
   </data>
+  <data name="RestoreConfigConfirmText" xml:space="preserve">
+    <value>此操作不可逆！
+确定要继续吗？</value>
+  </data>
 </root>

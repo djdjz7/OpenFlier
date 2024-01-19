@@ -275,4 +275,8 @@ Plugins will need to be reinstalled.</value>
   <data name="ExportDefaultConfigDescription" xml:space="preserve">
     <value>Export default config to a specified location for manual editing.</value>
   </data>
+  <data name="RestoreConfigConfirmText" xml:space="preserve">
+    <value>This action is irreversible.
+Are you sure to proceed?</value>
+  </data>
 </root>
