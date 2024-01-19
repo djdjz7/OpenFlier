@@ -1,4 +1,4 @@
-﻿$cst = [System.TimeZoneInfo]::FindSystemTimeZoneById("China Standard Time")
+﻿$cst = [System.TimeZoneInfo]::FindSystemTimeZoneById('China Standard Time')
 $dateTime = [System.DateTime]::UtcNow
 $cstCurrentTime = [System.TimeZoneInfo]::ConvertTimeFromUtc($dateTime, $cst)
-$cstCurrentTime.ToString([System.Globalization.CultureInfo]::new('zh-CN')) > .\BuildArchive\build-time
+$cstCurrentTime.ToString('yyyy-MM-dd HH:mm:ss') > .\BuildArchive\build-time
