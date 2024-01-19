@@ -1,4 +1,5 @@
-﻿using OpenFlier.Core;
+﻿using Android.Net.Wifi;
+using OpenFlier.Core;
 using OpenFlier.Core.Services;
 using System.Diagnostics;
 using System.Linq;
@@ -37,19 +38,10 @@ namespace OpenFlier.Mobile
             }*/
 
 
-            foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
-                {
-                    foreach (var ip in ni.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            IP.Text = ip.Address.ToString();
-                        }
-                    }
-                }
-            }
+            WifiManager wifiManager = (WifiManager)Android.App.Application.Context.GetSystemService(Android.App.Service.WifiService);
+            int ipaddress = wifiManager.ConnectionInfo.IpAddress;
+            IPAddress ipAddr = new IPAddress(ipaddress);
+            IP.Text = ipAddr.ToString();
 
             ServiceManager serviceManager = new ServiceManager(new CoreConfig
             {

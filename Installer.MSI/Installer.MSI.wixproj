@@ -1,6 +1,0 @@
-﻿<Project Sdk="WixToolset.Sdk/4.0.3">
-  <ItemGroup>
-    <ProjectReference Include="..\OpenFlier.Desktop\OpenFlier.Desktop.csproj" />
-    <ProjectReference Include="..\OpenFlier.Utils\OpenFlier.Utils.csproj" />
-  </ItemGroup>
-</Project>

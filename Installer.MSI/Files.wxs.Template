@@ -1,7 +1,0 @@
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-	<Fragment>
-		<ComponentGroup Id="AllFiles" Directory="INSTALLFOLDER">
-%FILES_REPLACE_SECTION%
-		</ComponentGroup>
-	</Fragment>
-</Wix>

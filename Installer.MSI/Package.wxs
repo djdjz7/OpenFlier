@@ -1,9 +1,0 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <Package Name="OpenFlier" Manufacturer="The OpenFlier Contributors" Version="1.0.0.0" UpgradeCode="cb8f5214-845c-4155-9c3a-ed4521942f50">
-    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
-
-    <Feature Id="Main">
-      <ComponentGroupRef Id="AllFiles" />
-    </Feature>
-  </Package>
-</Wix>
