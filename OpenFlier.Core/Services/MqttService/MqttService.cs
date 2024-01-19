@@ -64,6 +64,8 @@ namespace OpenFlier.Core.Services
 
             switch (messageType)
             {
+                case MqttMessageType.ScreenCaptureResp:
+                    break;
                 case MqttMessageType.StudentTopic:
                     string s3 = JsonConvert.SerializeObject(new
                     {
