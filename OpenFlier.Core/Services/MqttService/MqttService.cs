@@ -1,4 +1,5 @@
 ﻿using log4net;
+using log4net.Plugin;
 using MQTTnet;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
@@ -14,31 +15,36 @@ namespace OpenFlier.Core.Services
 {
     public class MqttService
     {
-        public IMqttServer? MqttServer
-        {
-            get; set;
-        }
+        public Dictionary<string, IMqttServicePlugin> LoadedMqttServicePlugins = new();
+        public IMqttServer? MqttServer { get; set; }
         public ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(MqttService));
         public string MainTopic { get; } = Guid.NewGuid().ToString("N");
 
-        public delegate Task MqttServerClientConnectedDelegate(MqttServerClientConnectedEventArgs arg);
+        public delegate Task MqttServerClientConnectedDelegate(
+            MqttServerClientConnectedEventArgs arg
+        );
         public event MqttServerClientConnectedDelegate? OnClientConnected;
 
-        public delegate Task MqttApplicationMessageReceivedDelegate(MqttApplicationMessageReceivedEventArgs arg);
+        public delegate Task MqttApplicationMessageReceivedDelegate(
+            MqttApplicationMessageReceivedEventArgs arg
+        );
         public event MqttApplicationMessageReceivedDelegate? OnScreenshotRequestReceived;
 
-        public delegate Task MqttServerClientDisconnectedDelegate(MqttServerClientDisconnectedEventArgs arg);
+        public delegate Task MqttServerClientDisconnectedDelegate(
+            MqttServerClientDisconnectedEventArgs arg
+        );
         public event MqttServerClientDisconnectedDelegate? OnClientDisconnected;
 
         public async void Initialize()
         {
-            MqttServerOptionsBuilder optionsBuilder = new MqttServerOptionsBuilder().WithConnectionBacklog(2000).WithDefaultEndpointPort(CoreStorage.CoreConfig.MqttServerPort ?? 61136);
+            MqttServerOptionsBuilder optionsBuilder = new MqttServerOptionsBuilder()
+                .WithConnectionBacklog(2000)
+                .WithDefaultEndpointPort(CoreStorage.CoreConfig.MqttServerPort ?? 61136);
             MqttServer = new MqttFactory().CreateMqttServer();
             MqttServer.UseApplicationMessageReceivedHandler(OnAppMessageReceivedAsync);
             MqttServer.UseClientConnectedHandler(OnClientConnectedAsync);
             MqttServer.UseClientDisconnectedHandler(OnClientDisConnectedAsync);
             await Task.Run(() => MqttServer.StartAsync(optionsBuilder.Build()));
-
         }
 
         private async Task OnClientDisConnectedAsync(MqttServerClientDisconnectedEventArgs arg)
@@ -57,7 +63,9 @@ namespace OpenFlier.Core.Services
             byte[] payload = arg.ApplicationMessage.Payload;
             if (payload.Length == 0)
                 return;
-            MqttMessage<object>? message = JsonConvert.DeserializeObject<MqttMessage<object>>(Encoding.Default.GetString(payload));
+            MqttMessage<object>? message = JsonConvert.DeserializeObject<MqttMessage<object>>(
+                Encoding.Default.GetString(payload)
+            );
             if (message == null)
                 return;
             MqttMessageType messageType = message.Type;
@@ -67,20 +75,21 @@ namespace OpenFlier.Core.Services
                 case MqttMessageType.ScreenCaptureResp:
                     break;
                 case MqttMessageType.StudentTopic:
-                    string s3 = JsonConvert.SerializeObject(new
-                    {
-                        type = MqttMessageType.TeacherScreenCastResp,
-                        data = new
+                    string s3 = JsonConvert.SerializeObject(
+                        new
                         {
-                            topic = MainTopic
+                            type = MqttMessageType.TeacherScreenCastResp,
+                            data = new { topic = MainTopic }
                         }
-                    });
-                    await MqttServer.PublishAsync(new MqttApplicationMessage
-                    {
-                        Topic = arg.ClientId,
-                        Payload = Encoding.Default.GetBytes(s3),
-                        QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
-                    });
+                    );
+                    await MqttServer.PublishAsync(
+                        new MqttApplicationMessage
+                        {
+                            Topic = arg.ClientId,
+                            Payload = Encoding.Default.GetBytes(s3),
+                            QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
+                        }
+                    );
                     break;
 
                 case MqttMessageType.ScreenCaptureReq:
@@ -89,55 +98,78 @@ namespace OpenFlier.Core.Services
 
                 case MqttMessageType.DeviceVerificationReq:
                     string s4 = CoreStorage.CoreConfig.VerificationContent;
-                    await MqttServer.PublishAsync(new MqttApplicationMessage
-                    {
-                        Topic = clientID,
-                        Payload = Encoding.Default.GetBytes(s4),
-                        QualityOfServiceLevel = MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce,
-                    });
+                    await MqttServer.PublishAsync(
+                        new MqttApplicationMessage
+                        {
+                            Topic = clientID,
+                            Payload = Encoding.Default.GetBytes(s4),
+                            QualityOfServiceLevel = MQTTnet
+                                .Protocol
+                                .MqttQualityOfServiceLevel
+                                .ExactlyOnce,
+                        }
+                    );
                     break;
 
                 default:
-                    bool flag = false;
-                    foreach (var pluginInfo in CoreStorage.CoreConfig.MqttServicePlugins)
+                    IMqttServicePlugin? mqttServicePlugin = null;
+                    foreach (var plugin in CoreStorage.CoreConfig.MqttServicePlugins)
                     {
-                        if (pluginInfo.PluginInfo.MqttMessageType != (long)messageType)
+                        if (plugin.PluginInfo.MqttMessageType != (long)messageType)
                             continue;
-                        if (!pluginInfo.Enabled || pluginInfo.TempDisabled)
+                        if (!plugin.Enabled || plugin.TempDisabled)
                             continue;
-                        if (!File.Exists(pluginInfo.LocalFilePath))
+                        if (!File.Exists(plugin.LocalFilePath))
                         {
-                            MqttLogger.Warn($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.LocalFilePath} failed: File not found.");
+                            MqttLogger.Warn(
+                                $"Got message {messageType}, attempt to load pluginInfo {plugin.LocalFilePath} failed: File not found."
+                            );
                             continue;
                         }
                         try
                         {
-                            FileInfo assemblyFileInfo = new FileInfo(pluginInfo.LocalFilePath);
-                            var assembly = Assembly.LoadFrom(assemblyFileInfo.FullName);
-                            Type[] types = assembly.GetTypes();
-                            foreach (Type type in types)
+                            if (
+                                !LoadedMqttServicePlugins.TryGetValue(
+                                    plugin.PluginInfo.PluginIdentifier,
+                                    out mqttServicePlugin
+                                )
+                            )
                             {
-                                if (type.GetInterface("IMqttServicePlugin") == null)
-                                    continue;
-                                if (type.FullName == null)
-                                    continue;
-                                IMqttServicePlugin? mqttServicePlugin = (IMqttServicePlugin?)assembly.CreateInstance(type.FullName);
-                                if (mqttServicePlugin == null)
-                                    continue;
-                                await mqttServicePlugin.PluginMain(arg.ClientId, MqttServer!);
-                                MqttLogger.Info($"Loaded plugin {pluginInfo.LocalFilePath}");
-                                flag = true;
+                                var loadContext = new PluginLoadContext(plugin.LocalFilePath);
+                                var assemblyFileInfo = new FileInfo(plugin.LocalFilePath);
+                                var assembly = loadContext.LoadFromAssemblyPath(assemblyFileInfo.FullName);
+                                var types = assembly.GetTypes();
+                                foreach (Type type in types)
+                                {
+                                    if (type.GetInterface("IMqttServicePlugin") == null)
+                                        continue;
+                                    if (type.FullName == null)
+                                        continue;
+                                    mqttServicePlugin = (IMqttServicePlugin?)
+                                        assembly.CreateInstance(type.FullName);
+                                    if (mqttServicePlugin == null)
+                                        continue;
+
+                                    LoadedMqttServicePlugins.Add(plugin.PluginInfo.PluginIdentifier, mqttServicePlugin);
+                                    MqttLogger.Info($"Loaded plugin {plugin.LocalFilePath}");
+                                    goto endOfPluginSearch;
+                                }
                             }
                         }
                         catch (Exception e)
                         {
-                            MqttLogger.Error($"Got message {messageType}, attempt to load pluginInfo {pluginInfo.LocalFilePath} failed.", e);
+                            MqttLogger.Error(
+                                $"Got message {messageType}, attempt to load pluginInfo {plugin.LocalFilePath} failed.",
+                                e
+                            );
                         }
                     }
-                    if (!flag)
+                endOfPluginSearch:
+                    if (mqttServicePlugin is not null)
+                        await mqttServicePlugin.PluginMain(arg.ClientId, MqttServer!);
+                    else
                         MqttLogger.Info($"No compatible plugin for message {messageType}");
                     break;
-
             }
         }
     }

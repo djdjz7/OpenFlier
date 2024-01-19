@@ -52,16 +52,21 @@ namespace OpenFlier.Desktop.MqttService
             );
         }
 
-        public async Task HandleSpecialChannels(User user, bool usePng, IMqttServer mqttServer)
+        public async Task HandleSpecialChannels(User user, bool usePng, IMqttServer mqttServer, string? fullCommand = null)
         {
             try
             {
                 if (string.IsNullOrEmpty(user.CommandInputSource))
                     throw new ArgumentException(Backend.CommandInputSourceNotSpecified);
-                var snapshotFile = await httpClient.GetByteArrayAsync(user.CommandInputSource);
-                var snapshot = PageSnapshot.Parser.ParseFrom(snapshotFile);
-                var stringList = GetAllStringFromSnapshot(snapshot.GraphSnapshot);
-                string fullCommand = string.Join(' ', stringList).Trim();
+
+                if (fullCommand is null)
+                {
+                    var snapshotFile = await httpClient.GetByteArrayAsync(user.CommandInputSource);
+                    var snapshot = PageSnapshot.Parser.ParseFrom(snapshotFile);
+                    var stringList = GetAllStringFromSnapshot(snapshot.GraphSnapshot);
+                    fullCommand = string.Join(' ', stringList).Trim();
+                }
+
                 var commands = new List<string>(fullCommand.Split(" "));
                 if (commands.Count == 0)
                     throw new ArgumentException(Backend.CommandEmpty);
@@ -109,6 +114,7 @@ namespace OpenFlier.Desktop.MqttService
 
 
                 user.IsBusy = true;
+                ICommandInputPlugin? commandInputPlugin = null;
                 foreach (var plugin in LocalStorage.Config.CommandInputPlugins)
                 {
                     if (!File.Exists(plugin.LocalFilePath))
@@ -122,7 +128,6 @@ namespace OpenFlier.Desktop.MqttService
                         )
                     )
                     {
-                        ICommandInputPlugin? commandInputPlugin = null;
                         if (
                             !LoadedCommandInputPlugins.TryGetValue(
                                 plugin.PluginInfo.PluginIdentifier,
@@ -145,29 +150,30 @@ namespace OpenFlier.Desktop.MqttService
                                 if (commandInputPlugin == null)
                                     continue;
                                 LoadedCommandInputPlugins.Add(plugin.PluginInfo.PluginIdentifier, commandInputPlugin);
-                                break;
+                                goto endOfPluginSearch;
                             }
                         }
 
-                        if (commandInputPlugin is not null)
-                        {
-                            await commandInputPlugin.PluginMain(
-                                new CommandInputPluginArgs
-                                {
-                                    ClientID = user.CurrentClientId!,
-                                    InvokeCommand = invokeCommand,
-                                    FullCommand = fullCommand,
-                                    MqttServer = mqttServer,
-                                    UsePng = usePng,
-                                    MachineIdentifier = CoreStorage.MachineIdentifier,
-                                    Version = CoreStorage.Version,
-                                }
-                            );
-                        }
-                        else
-                            throw new Exception(string.Format(Backend.NoCompatiblePlugin, invokeCommand));
                     }
                 }
+            endOfPluginSearch:
+                if (commandInputPlugin is not null)
+                {
+                    await commandInputPlugin.PluginMain(
+                        new CommandInputPluginArgs
+                        {
+                            ClientID = user.CurrentClientId!,
+                            InvokeCommand = invokeCommand,
+                            FullCommand = fullCommand,
+                            MqttServer = mqttServer,
+                            UsePng = usePng,
+                            MachineIdentifier = CoreStorage.MachineIdentifier,
+                            Version = CoreStorage.Version,
+                        }
+                    );
+                }
+                else
+                    throw new Exception(string.Format(Backend.NoCompatiblePlugin, invokeCommand));
             }
             catch (Exception e)
             {

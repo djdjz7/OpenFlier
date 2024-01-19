@@ -90,7 +90,7 @@ public partial class MainWindow : Window
                     .OnClientDisConnectedAsync;
                 serviceManager.MqttService.OnScreenshotRequestReceived += LocalStorage
                     .DesktopMqttService
-                    .OnAppMessageReceivedAsync;
+                    .OnScreenshotRequestReceivedAsync;
 
                 if (CoreStorage.IPAddresses.Count > 1)
                 {

@@ -82,11 +82,12 @@ namespace OpenFlier.Desktop.Services
             });
         }
 
-        public async Task OnAppMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+        public async Task OnScreenshotRequestReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
         {
             bool usePng = LocalStorage.Config.General.UsePng;
             string Username = arg.ClientId.Split('_')[2];
             var user = Users.FirstOrDefault(x => x.Username == Username);
+            
             if (!user!.AllowCommandInput)
             {
                 string filename = Guid.NewGuid().ToString("N");
