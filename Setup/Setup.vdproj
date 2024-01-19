@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_26155DFAABE44D3DAA75073014C5437F"
+        "MsmKey" = "8:_57F0839A5AA841F0B125F39759D85499"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -141,7 +141,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OpenFlier"
         "ProductCode" = "8:{64B69BDA-A764-4D7F-A9CA-503B6B3168A4}"
-        "PackageCode" = "8:{BF45C983-7603-410C-92B1-533CB42BC2B8}"
+        "PackageCode" = "8:{64184D83-FBED-44B0-A6E0-BBE8C2BE7E63}"
         "UpgradeCode" = "8:{2DBF2741-2410-4234-9629-6FB014F0E3B8}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -660,9 +660,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_26155DFAABE44D3DAA75073014C5437F"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_57F0839A5AA841F0B125F39759D85499"
             {
-            "SourcePath" = "8:..\\OpenFlier.Desktop\\obj\\Debug\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\OpenFlier.Utils\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6BFFBE815EC64907B522593E5FD86CB3"
@@ -682,7 +682,7 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{CE5D2DAA-6B5A-4152-AEC6-DF7F1062341E}"
+            "OutputProjectGuid" = "8:{CF75BF7E-7200-432E-9CC6-7966D41DA865}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

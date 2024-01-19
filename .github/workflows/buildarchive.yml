@@ -32,7 +32,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Publish
-      run:  dotnet publish OpenFlier.Desktop -p:PublishProfile=FolderProfile; Get-Date -Format "yyyy-MM-dd HH:mm K" > .\BuildArchive\build-time
+      run:  dotnet publish OpenFlier.Desktop -p:PublishProfile=FolderProfile
+    - name: Timestamp
+      run: .\printTime.ps1
     - name: Package
       run: 7z a OpenFlier.7z dist/* -r && Copy-Item "OpenFlier.7z" -Destination ".\BuildArchive\OpenFlier.7z"
     - name: Setup Pages
