@@ -73,14 +73,50 @@
                                     VerticalAlignment="Center"
                                     Source="Assets/icon.png" />
                                 <StackPanel Margin="4,0,0,0" VerticalAlignment="Center">
-                                    <TextBlock Style="{StaticResource Title}" Text="OpenFlier Alpha" />
+                                    <TextBlock Style="{StaticResource Title}" Text="">
+                                        OpenFlier Alpha&#32;<Run
+                                            Name="AdminText"
+                                            FontSize="14"
+                                            FontWeight="Regular" />
+                                    </TextBlock>
                                     <TextBlock Text="Stage 3" />
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel>
 
-                                <!--<TextBlock Style="{StaticResource SubTitle}" Text="{x:Static i18:UI.UpdatesTitle}" />
-                                <TextBlock Text="{x:Static i18:UI.UpdatesDescription}" />-->
+                                <TextBlock Style="{StaticResource SubTitle}" Text="{x:Static i18n:UI.UpdatesTitle}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <ProgressBar
+                                        Name="UpdateProgressBar"
+                                        Width="128"
+                                        Margin="0,0,4,0"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        Foreground="{DynamicResource PrimaryBrush}"
+                                        IsIndeterminate="True"
+                                        Value="100" />
+                                    <TextBlock Name="UpdateStatus" />
+                                    <Button
+                                        Name="RestartForUpdateButton"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource HyperlinkButton}"
+                                        Visibility="Collapsed">
+                                        <Grid>
+                                            <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xf83e;" />
+                                            <TextBlock
+                                                FontFamily="Segoe Fluent Icons"
+                                                Foreground="#FFFFBA21"
+                                                Text="&#xf83f;" />
+                                        </Grid>
+                                    </Button>
+                                    <Button
+                                        Name="CancelUpdateButton"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource HyperlinkButton}"
+                                        Visibility="Collapsed">
+                                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xf78a;" />
+                                    </Button>
+                                </StackPanel>
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     Style="{StaticResource SubTitle}"
@@ -99,8 +135,10 @@
                                     Click="TestButton_Click"
                                     Content="{x:Static i18n:UI.VideoPlayOpenButton}" />
                                 <Button
+                                    Name="RepositoryHyperLink"
                                     Margin="0,12,0,0"
                                     HorizontalAlignment="Left"
+                                    Click="RepositoryHyperLink_Click"
                                     Content="{x:Static i18n:UI.GithubHyperLink}"
                                     Style="{StaticResource HyperlinkButton}" />
                                 <TextBlock
@@ -120,7 +158,10 @@
             Grid.RowSpan="2"
             Visibility="Visible">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Name="LoadingTextBlock" Margin="12,0,12,0" Text="{x:Static i18n:UI.LoadingServiceString}" />
+                <TextBlock
+                    Name="LoadingTextBlock"
+                    Margin="12,0,12,0"
+                    Text="{x:Static i18n:UI.LoadingServiceString}" />
                 <ProgressBar
                     Height="14"
                     HorizontalAlignment="Stretch"

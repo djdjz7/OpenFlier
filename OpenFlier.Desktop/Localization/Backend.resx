@@ -152,4 +152,25 @@ Continue?</value>
   <data name="NoCompatiblePlugin" xml:space="preserve">
     <value>No compatible plugin for command {0}.</value>
   </data>
+  <data name="WithAdminPrivilege" xml:space="preserve">
+    <value>With Admin Privilege</value>
+  </data>
+  <data name="CheckingForUpdates" xml:space="preserve">
+    <value>Checking for updates...</value>
+  </data>
+  <data name="ErrorCheckingForUpdates" xml:space="preserve">
+    <value>Error occurred while checking for updates.</value>
+  </data>
+  <data name="UpToDate" xml:space="preserve">
+    <value>OpenFlier is up-to-date.</value>
+  </data>
+  <data name="DownloadingUpdate" xml:space="preserve">
+    <value>Downloading update to {0} ...</value>
+  </data>
+  <data name="ErrorDownloadingUpdate" xml:space="preserve">
+    <value>Error while downloading update to {0}.</value>
+  </data>
+  <data name="ReadyToRestart" xml:space="preserve">
+    <value>Restart to install update to {0}.</value>
+  </data>
 </root>

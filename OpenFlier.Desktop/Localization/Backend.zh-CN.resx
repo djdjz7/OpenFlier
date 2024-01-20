@@ -152,4 +152,25 @@
   <data name="NoCompatiblePlugin" xml:space="preserve">
     <value>未找到与 {0} 兼容的插件。</value>
   </data>
+  <data name="WithAdminPrivilege" xml:space="preserve">
+    <value>以管理员权限运行</value>
+  </data>
+  <data name="CheckingForUpdates" xml:space="preserve">
+    <value>正在检查更新...</value>
+  </data>
+  <data name="ErrorCheckingForUpdates" xml:space="preserve">
+    <value>检查更新时出错。</value>
+  </data>
+  <data name="UpToDate" xml:space="preserve">
+    <value>OpenFlier 已是最新。</value>
+  </data>
+  <data name="DownloadingUpdate" xml:space="preserve">
+    <value>正在下载 {0} 的更新...</value>
+  </data>
+  <data name="ErrorDownloadingUpdate" xml:space="preserve">
+    <value>下载 {0} 的更新时出错。</value>
+  </data>
+  <data name="ReadyToRestart" xml:space="preserve">
+    <value>重启以安装 {0} 的更新。</value>
+  </data>
 </root>

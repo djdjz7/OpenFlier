@@ -61,6 +61,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Checking for updates... 的本地化字符串。
+        /// </summary>
+        public static string CheckingForUpdates {
+            get {
+                return ResourceManager.GetString("CheckingForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Command is empty. 的本地化字符串。
         /// </summary>
         public static string CommandEmpty {
@@ -97,11 +106,38 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Downloading update to {0} ... 的本地化字符串。
+        /// </summary>
+        public static string DownloadingUpdate {
+            get {
+                return ResourceManager.GetString("DownloadingUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Error 的本地化字符串。
         /// </summary>
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error occurred while checking for updates. 的本地化字符串。
+        /// </summary>
+        public static string ErrorCheckingForUpdates {
+            get {
+                return ResourceManager.GetString("ErrorCheckingForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error while downloading update to {0}. 的本地化字符串。
+        /// </summary>
+        public static string ErrorDownloadingUpdate {
+            get {
+                return ResourceManager.GetString("ErrorDownloadingUpdate", resourceCulture);
             }
         }
         
@@ -134,6 +170,24 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Restart to install update to {0}. 的本地化字符串。
+        /// </summary>
+        public static string ReadyToRestart {
+            get {
+                return ResourceManager.GetString("ReadyToRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OpenFlier is up-to-date. 的本地化字符串。
+        /// </summary>
+        public static string UpToDate {
+            get {
+                return ResourceManager.GetString("UpToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Current user has task waiting to finish.
         ///Try again later or use the &quot;force&quot; command. 的本地化字符串。
         /// </summary>
@@ -158,6 +212,15 @@ namespace OpenFlier.Desktop.Localization {
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 With Admin Privilege 的本地化字符串。
+        /// </summary>
+        public static string WithAdminPrivilege {
+            get {
+                return ResourceManager.GetString("WithAdminPrivilege", resourceCulture);
             }
         }
     }

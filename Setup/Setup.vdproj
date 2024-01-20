@@ -37,6 +37,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -53,12 +69,34 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_E73D2687264C489C8C8A6708317FE479"
+            {
+            "Name" = "8:发布项 from OpenFlier.Utils (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_57F0839A5AA841F0B125F39759D85499"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:post-install"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_72431951_397B_4F85_8338_35ADC9249601"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -140,19 +178,19 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OpenFlier"
-        "ProductCode" = "8:{64B69BDA-A764-4D7F-A9CA-503B6B3168A4}"
-        "PackageCode" = "8:{64184D83-FBED-44B0-A6E0-BBE8C2BE7E63}"
-        "UpgradeCode" = "8:{2DBF2741-2410-4234-9629-6FB014F0E3B8}"
+        "ProductCode" = "8:{0460249C-58F9-44CB-BDA6-A5D056A6A2A7}"
+        "PackageCode" = "8:{22C6C292-6E12-4E89-BA07-62B362D97B83}"
+        "UpgradeCode" = "8:{9DBE18BB-9954-4CC9-A243-E748C0A079DC}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
-        "DetectNewerInstalledVersion" = "11:TRUE"
+        "RemovePreviousVersions" = "11:TRUE"
+        "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:The OpenFlier Contributors"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Setup"
+        "Title" = "8:OpenFlier Setup"
         "Subject" = "8:"
         "ARPCONTACT" = "8:The OpenFlier Contributors"
         "Keywords" = "8:"
@@ -261,6 +299,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5E1289865D4846A6AA7762610DBF47FF"
+            {
+            "Name" = "8:OpenFlier"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_57F0839A5AA841F0B125F39759D85499"
+            "Folder" = "8:_ED5AB25C29CA462B933F9E4978B17317"
+            "WorkingFolder" = "8:_6BFFBE815EC64907B522593E5FD86CB3"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

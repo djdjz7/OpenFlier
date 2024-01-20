@@ -3,6 +3,7 @@
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Converters.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/ColorsLight.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Brushes.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Popup.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/ContextMenu.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Focus.xaml" />

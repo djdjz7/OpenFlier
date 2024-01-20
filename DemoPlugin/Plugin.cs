@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Windows;
 using MQTTnet;
 using MQTTnet.Server;
@@ -18,7 +19,8 @@ namespace DemoPlugin
                 PluginIdentifier = "openflier.dev.demo",
                 PluginNeedsConfigEntry = false,
                 PluginVersion = "0.1",
-                PluginDescription = "Testing plugin functionality."
+                PluginDescription = "Testing plugin functionality.",
+                PluginNeedsAdminPrivilege = false,
             };
         }
 
@@ -26,6 +28,7 @@ namespace DemoPlugin
         public async Task PluginMain(string clientID, IMqttServer mqttServer)
         {
             MessageBox.Show("A message from DemoPlugin");
+            MessageBox.Show((StaticTest.SomeValue++).ToString());
             string payloadString = "{\"data\":null,\"type\":30001}";
             await mqttServer.PublishAsync(new MqttApplicationMessage
             {

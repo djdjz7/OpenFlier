@@ -1,22 +1,23 @@
-﻿using Microsoft.Win32;
+﻿using log4net;
+using log4net.Core;
+using log4net.Repository.Hierarchy;
 using OpenFlier.Controls;
 using OpenFlier.Core;
 using OpenFlier.Core.Services;
 using OpenFlier.Desktop.Localization;
-using OpenFlier.Plugin;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Security.Principal;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace OpenFlier.Desktop;
 
@@ -26,7 +27,7 @@ namespace OpenFlier.Desktop;
 public partial class MainWindow : Window
 {
     private ServiceManager serviceManager = LocalStorage.ServiceManager;
-
+    private ILog _logger = LogManager.GetLogger(nameof(MainWindow));
     private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         var config = ConfigService.ReadConfig();
@@ -70,7 +71,7 @@ public partial class MainWindow : Window
 
     private void ServiceManager_LoadCompleted(bool isReloaded)
     {
-        Application.Current.Dispatcher.Invoke(() =>
+        Application.Current.Dispatcher.Invoke(async () =>
         {
             if (isReloaded)
             {
@@ -119,6 +120,7 @@ public partial class MainWindow : Window
                 scale = presentationSource.CompositionTarget.TransformToDevice.M11;
             LocalStorage.ScreenSize.Width = (int)(SystemParameters.PrimaryScreenWidth * scale);
             LocalStorage.ScreenSize.Height = (int)(SystemParameters.PrimaryScreenHeight * scale);
+            CheckForUpdates();
         });
     }
 
@@ -153,6 +155,8 @@ public partial class MainWindow : Window
         {
             plugin.TempDisabled = false;
         }
+        if (isAdmin)
+            AdminText.Text = Backend.WithAdminPrivilege;
         if (!isAdmin)
         {
             bool requireAdmin =
@@ -202,5 +206,116 @@ public partial class MainWindow : Window
                 }
             }
         }
+    }
+
+    private void RepositoryHyperLink_Click(object sender, RoutedEventArgs e)
+    {
+        Process.Start("explorer.exe", "https://github.com/djdjz7/OpenFlier");
+    }
+
+    private async void CheckForUpdates()
+    {
+        var needsUpdate = false;
+        var newVersionString = "";
+        try
+        {
+            var httpClient = new HttpClient();
+            newVersionString = await httpClient.GetStringAsync("https://openflier.top/update/latest-version");
+            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            var newVersion = Version.Parse(newVersionString);
+            var compareResult = currentVersion?.CompareTo(newVersion);
+            if (compareResult < 0)
+                needsUpdate = true;
+            else
+            {
+                UpdateStatus.Text = Backend.UpToDate;
+                UpdateProgressBar.Visibility = Visibility.Collapsed;
+            }
+        }
+        catch (Exception e)
+        {
+            UpdateProgressBar.Value = 100;
+            UpdateProgressBar.IsIndeterminate = false;
+            UpdateProgressBar.Foreground = FindResource("SystemCriticalBrush") as SolidColorBrush;
+            UpdateStatus.Text = Backend.ErrorCheckingForUpdates;
+            _logger.Error("Error checking for update: ", e);
+        }
+        if (!needsUpdate)
+            return;
+        try
+        {
+            UpdateStatus.Text = string.Format(Backend.DownloadingUpdate, newVersionString);
+            var data = await DownloadWithProgress("https://openflier.top/update/latest-package", UpdateProgressBar);
+            File.WriteAllBytes("latest-package", data);
+            UpdateStatus.Text = string.Format(Backend.ReadyToRestart, newVersionString);
+        }
+        catch (Exception e)
+        {
+            UpdateProgressBar.Value = 100;
+            UpdateProgressBar.IsIndeterminate = false;
+            UpdateProgressBar.Foreground = FindResource("SystemCriticalBrush") as SolidColorBrush;
+            UpdateStatus.Text = string.Format(Backend.ErrorDownloadingUpdate, newVersionString);
+            _logger.Error("Error downloading update: ", e);
+        }
+    }
+    private bool _canceled = false;
+    private async Task<byte[]> DownloadWithProgress(string url, ProgressBar progressBar)
+    {
+        byte[] finalResult;
+        var client = new HttpClient();
+        using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+        {
+            var contentLenght = response.Content.Headers.ContentLength;
+            var bufferSize = 8192;
+            if (contentLenght is not null)
+            {
+                progressBar.IsIndeterminate = false;
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                {
+                    var buffer = new byte[bufferSize];
+                    finalResult = new byte[(int)contentLenght];
+                    var pointer = 0;
+                    var reachedEnd = false;
+                    do
+                    {
+                        var i = await stream.ReadAsync(buffer.AsMemory(0, bufferSize));
+                        Array.Copy(buffer, 0, finalResult, pointer, i);
+                        pointer += i;
+                        if (i == 0)
+                            reachedEnd = true;
+                        if (contentLenght is not null)
+                            progressBar.Value = (double)(pointer * 1.0 / contentLenght * 100);
+                    }
+                    while (!reachedEnd && !_canceled);
+                }
+            }
+            else
+            {
+                progressBar.IsIndeterminate = true;
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                {
+                    var buffer = new byte[bufferSize];
+                    byte[] result = Array.Empty<byte>();
+                    var pointer = 0;
+                    var reachedEnd = false;
+                    do
+                    {
+                        var i = await stream.ReadAsync(buffer.AsMemory(0, bufferSize));
+                        pointer += i;
+                        var resultBuffer = (byte[])result.Clone();
+                        result = new byte[pointer];
+                        resultBuffer.CopyTo(result, 0);
+                        Array.Copy(buffer, 0, result, resultBuffer.Length, i);
+                        if (i == 0)
+                            reachedEnd = true;
+                    }
+                    while (!reachedEnd && !_canceled);
+                    finalResult = result;
+                    progressBar.Value = 100;
+                    progressBar.IsIndeterminate = false;
+                }
+            }
+        }
+        return finalResult;
     }
 }
