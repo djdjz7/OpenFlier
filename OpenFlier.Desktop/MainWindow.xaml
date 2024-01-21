@@ -79,7 +79,7 @@
                                             FontSize="14"
                                             FontWeight="Regular" />
                                     </TextBlock>
-                                    <TextBlock Text="Stage 3" />
+                                    <TextBlock x:Name="VersionText" />
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel>
@@ -117,6 +117,21 @@
                                         Style="{StaticResource HyperlinkButton}"
                                         Visibility="Collapsed">
                                         <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xf78a;" />
+                                    </Button>
+                                    <Button
+                                        Name="RetryUpdateButton"
+                                        VerticalAlignment="Center"
+                                        Click="RetryUpdateButton_Click"
+                                        Style="{StaticResource HyperlinkButton}"
+                                        Visibility="Collapsed">
+                                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe72c;" />
+                                    </Button>
+                                    <Button
+                                        Name="HoldForTheHeight"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource HyperlinkButton}"
+                                        Visibility="Hidden">
+                                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe72c;" />
                                     </Button>
                                 </StackPanel>
                                 <TextBlock

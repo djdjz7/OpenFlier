@@ -6,8 +6,9 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-    <AssemblyVersion>0.0.0.9</AssemblyVersion>
+    <AssemblyVersion>0.0.9</AssemblyVersion>
     <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

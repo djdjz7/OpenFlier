@@ -31,6 +31,7 @@ public partial class MainWindow : Window
 {
     private ServiceManager serviceManager = LocalStorage.ServiceManager;
     private ILog _logger = LogManager.GetLogger(nameof(MainWindow));
+
     private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         var config = ConfigService.ReadConfig();
@@ -218,16 +219,22 @@ public partial class MainWindow : Window
 
     private async void CheckForUpdates()
     {
+        UpdateProgressBar.Foreground = FindResource("PrimaryBrush") as SolidColorBrush;
+        UpdateProgressBar.IsIndeterminate = true;
+        UpdateProgressBar.Value = 0;
+        RetryUpdateButton.Visibility = Visibility.Collapsed;
         UpdateStatus.Text = Backend.CheckingForUpdates;
         var needsUpdate = false;
         var newVersionString = "";
         var newMD5 = "";
-        var downloadedMD5 = "";
         var httpClient = new HttpClient();
         try
         {
-            newVersionString = await httpClient.GetStringAsync("https://openflier.top/update/latest-version");
+            newVersionString = await httpClient.GetStringAsync(
+                "https://openflier.top/update/latest-version"
+            );
             var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            VersionText.Text = currentVersion?.ToString(3) ?? "Unknown Version";
             var newVersion = Version.Parse(newVersionString);
             var compareResult = currentVersion?.CompareTo(newVersion);
             if (compareResult < 0)
@@ -245,6 +252,7 @@ public partial class MainWindow : Window
             UpdateProgressBar.Foreground = FindResource("SystemCriticalBrush") as SolidColorBrush;
             UpdateStatus.Text = Backend.ErrorCheckingForUpdates;
             _logger.Error("Error checking for update: ", e);
+            RetryUpdateButton.Visibility = Visibility.Visible;
         }
         if (!needsUpdate)
             return;
@@ -264,11 +272,19 @@ public partial class MainWindow : Window
             }
             if (needsDownload)
             {
-                data = await DownloadWithProgress("https://openflier.top/update/latest-package", UpdateProgressBar);
+                data = await DownloadWithProgress(
+                    "https://openflier.top/update/latest-package",
+                    UpdateProgressBar
+                );
                 var localMD5 = ComputeMD5(data);
                 if (string.Compare(localMD5, newMD5, true) == 0)
                     throw new Exception("MD5 mismatch.");
                 File.WriteAllBytes("latest-package", data);
+            }
+            else
+            {
+                UpdateProgressBar.IsIndeterminate = false;
+                UpdateProgressBar.Value = 100;
             }
             UpdateStatus.Text = string.Format(Backend.ReadyToRestart, newVersionString);
             CancelUpdateButton.Visibility = Visibility.Collapsed;
@@ -282,13 +298,16 @@ public partial class MainWindow : Window
             UpdateProgressBar.Foreground = FindResource("SystemCriticalBrush") as SolidColorBrush;
             UpdateStatus.Text = string.Format(Backend.ErrorDownloadingUpdate, newVersionString);
             _logger.Error("Error downloading update: ", e);
+            RetryUpdateButton.Visibility = Visibility.Visible;
         }
         finally
         {
             httpClient.Dispose();
         }
     }
+
     private bool _canceled = false;
+
     private async Task<byte[]> DownloadWithProgress(string url, ProgressBar progressBar)
     {
         byte[] finalResult;
@@ -315,8 +334,7 @@ public partial class MainWindow : Window
                             reachedEnd = true;
                         if (contentLenght is not null)
                             progressBar.Value = (double)(pointer * 1.0 / contentLenght * 100);
-                    }
-                    while (!reachedEnd && !_canceled);
+                    } while (!reachedEnd && !_canceled);
                 }
             }
             else
@@ -338,8 +356,7 @@ public partial class MainWindow : Window
                         Array.Copy(buffer, 0, result, resultBuffer.Length, i);
                         if (i == 0)
                             reachedEnd = true;
-                    }
-                    while (!reachedEnd && !_canceled);
+                    } while (!reachedEnd && !_canceled);
                     finalResult = result;
                     progressBar.Value = 100;
                     progressBar.IsIndeterminate = false;
@@ -348,6 +365,7 @@ public partial class MainWindow : Window
         }
         return finalResult;
     }
+
     private string ComputeMD5(byte[] data)
     {
         MD5 md5 = MD5.Create();
@@ -371,5 +389,10 @@ public partial class MainWindow : Window
         _canceled = true;
         UpdateStatus.Text = Backend.UpdateCancelled;
         UpdateProgressBar.Foreground = FindResource("SystemCautionBrush") as SolidColorBrush;
+    }
+
+    private void RetryUpdateButton_Click(object sender, RoutedEventArgs e)
+    {
+        CheckForUpdates();
     }
 }
