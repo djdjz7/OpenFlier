@@ -37,12 +37,14 @@ public partial class App : Application
                 installPlugin.Show();
                 break;
             case "register":
-                EnsureAdminPrivilege();
+                if (!EnsureAdminPrivilege(args))
+                    return;
                 LinkFileExtensions();
                 Application.Current.Shutdown();
                 break;
             case "post-install":
-                EnsureAdminPrivilege();
+                if (!EnsureAdminPrivilege(args))
+                    return;
                 LinkFileExtensions();
                 SetWritePermission();
                 Application.Current.Shutdown();
@@ -68,7 +70,7 @@ public partial class App : Application
         IntPtr dwItem2
     );
 
-    public void EnsureAdminPrivilege()
+    public bool EnsureAdminPrivilege(string[] args)
     {
         if (!IsAdmin())
         {
@@ -76,10 +78,12 @@ public partial class App : Application
             startInfo.UseShellExecute = true;
             startInfo.WorkingDirectory = Environment.CurrentDirectory;
             startInfo.Verb = "runas";
+            startInfo.Arguments = string.Join(' ', args);
             Process.Start(startInfo);
             Application.Current.Shutdown();
-            return;
+            return false;
         }
+        return true;
     }
 
     public void LinkFileExtensions()

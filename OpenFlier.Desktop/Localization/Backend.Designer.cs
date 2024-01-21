@@ -179,6 +179,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Update has been cancelled. 的本地化字符串。
+        /// </summary>
+        public static string UpdateCancelled {
+            get {
+                return ResourceManager.GetString("UpdateCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 OpenFlier is up-to-date. 的本地化字符串。
         /// </summary>
         public static string UpToDate {

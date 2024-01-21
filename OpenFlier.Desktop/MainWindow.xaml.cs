@@ -215,6 +215,7 @@ public partial class MainWindow : Window
 
     private async void CheckForUpdates()
     {
+        UpdateStatus.Text = Backend.CheckingForUpdates;
         var needsUpdate = false;
         var newVersionString = "";
         try
@@ -244,13 +245,17 @@ public partial class MainWindow : Window
             return;
         try
         {
+            CancelUpdateButton.Visibility = Visibility.Visible;
             UpdateStatus.Text = string.Format(Backend.DownloadingUpdate, newVersionString);
             var data = await DownloadWithProgress("https://openflier.top/update/latest-package", UpdateProgressBar);
             File.WriteAllBytes("latest-package", data);
             UpdateStatus.Text = string.Format(Backend.ReadyToRestart, newVersionString);
+            CancelUpdateButton.Visibility = Visibility.Collapsed;
+            RestartForUpdateButton.Visibility = Visibility.Visible;
         }
         catch (Exception e)
         {
+            CancelUpdateButton.Visibility= Visibility.Collapsed;
             UpdateProgressBar.Value = 100;
             UpdateProgressBar.IsIndeterminate = false;
             UpdateProgressBar.Foreground = FindResource("SystemCriticalBrush") as SolidColorBrush;
@@ -317,5 +322,18 @@ public partial class MainWindow : Window
             }
         }
         return finalResult;
+    }
+
+    private void RestartForUpdateButton_Click(object sender, RoutedEventArgs e)
+    {
+        Process.Start("OpenFlier.Updater.exe", "latest-package");
+        Application.Current.Shutdown();
+    }
+
+    private void CancelUpdateButton_Click(object sender, RoutedEventArgs e)
+    {
+        _canceled = true;
+        UpdateStatus.Text = Backend.UpdateCancelled;
+        UpdateProgressBar.Foreground = FindResource("SystemCautionBrush") as SolidColorBrush;
     }
 }

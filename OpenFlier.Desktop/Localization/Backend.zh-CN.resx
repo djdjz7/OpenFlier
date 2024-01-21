@@ -173,4 +173,7 @@
   <data name="ReadyToRestart" xml:space="preserve">
     <value>重启以安装 {0} 的更新。</value>
   </data>
+  <data name="UpdateCancelled" xml:space="preserve">
+    <value>更新已取消。</value>
+  </data>
 </root>

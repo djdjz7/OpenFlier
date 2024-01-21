@@ -95,10 +95,11 @@
                                         Foreground="{DynamicResource PrimaryBrush}"
                                         IsIndeterminate="True"
                                         Value="100" />
-                                    <TextBlock Name="UpdateStatus" />
+                                    <TextBlock Name="UpdateStatus" VerticalAlignment="Center" />
                                     <Button
                                         Name="RestartForUpdateButton"
                                         VerticalAlignment="Center"
+                                        Click="RestartForUpdateButton_Click"
                                         Style="{StaticResource HyperlinkButton}"
                                         Visibility="Collapsed">
                                         <Grid>
@@ -112,6 +113,7 @@
                                     <Button
                                         Name="CancelUpdateButton"
                                         VerticalAlignment="Center"
+                                        Click="CancelUpdateButton_Click"
                                         Style="{StaticResource HyperlinkButton}"
                                         Visibility="Collapsed">
                                         <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xf78a;" />

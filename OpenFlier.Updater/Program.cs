@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using System.IO.Compression;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace OpenFlier.Updater
 {
@@ -43,6 +45,10 @@ namespace OpenFlier.Updater
             }
             try
             {
+                foreach(var i in Process.GetProcessesByName("OpenFlier.Desktop"))
+                    i.Kill();
+                foreach (var i in Process.GetProcessesByName("OpenFlier.Utils"))
+                    i.Kill();
                 Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 if (!File.Exists("full-package"))
                     return;
@@ -60,6 +66,8 @@ namespace OpenFlier.Updater
                 RecursiveCopy("full-package-extracted", targetDir);
                 Directory.Delete("full-package-extracted", true);
                 File.Delete("full-package");
+                SetWritePermission(targetDir);
+                Process.Start("explorer", Path.Combine(targetDir, "OpenFlier.Desktop.exe"));
             }
             catch (Exception e)
             {
@@ -79,6 +87,22 @@ namespace OpenFlier.Updater
             {
                 File.Copy(file.FullName, Path.Combine(target, file.Name), true);
             }
+        }
+        static void SetWritePermission(string path)
+        {
+            var rootDirectoryInfo = new DirectoryInfo(path);
+            var accessControl = rootDirectoryInfo.GetAccessControl();
+            var everyone = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+            accessControl.AddAccessRule(
+                new FileSystemAccessRule(
+                    everyone,
+                    FileSystemRights.FullControl,
+                    InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
+                    PropagationFlags.None,
+                    AccessControlType.Allow
+                )
+            );
+            rootDirectoryInfo.SetAccessControl(accessControl);
         }
     }
 }

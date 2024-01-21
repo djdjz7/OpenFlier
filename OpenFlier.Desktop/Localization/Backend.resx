@@ -173,4 +173,7 @@ Continue?</value>
   <data name="ReadyToRestart" xml:space="preserve">
     <value>Restart to install update to {0}.</value>
   </data>
+  <data name="UpdateCancelled" xml:space="preserve">
+    <value>Update has been cancelled.</value>
+  </data>
 </root>
