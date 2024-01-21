@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Google.Protobuf;
+using log4net;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
 using OpenFlier.Controls;
@@ -13,7 +14,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Security.Principal;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -218,9 +221,11 @@ public partial class MainWindow : Window
         UpdateStatus.Text = Backend.CheckingForUpdates;
         var needsUpdate = false;
         var newVersionString = "";
+        var newMD5 = "";
+        var downloadedMD5 = "";
+        var httpClient = new HttpClient();
         try
         {
-            var httpClient = new HttpClient();
             newVersionString = await httpClient.GetStringAsync("https://openflier.top/update/latest-version");
             var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
             var newVersion = Version.Parse(newVersionString);
@@ -245,22 +250,42 @@ public partial class MainWindow : Window
             return;
         try
         {
+            newMD5 = await httpClient.GetStringAsync("https://openflier.top/update/latest-md5");
             CancelUpdateButton.Visibility = Visibility.Visible;
             UpdateStatus.Text = string.Format(Backend.DownloadingUpdate, newVersionString);
-            var data = await DownloadWithProgress("https://openflier.top/update/latest-package", UpdateProgressBar);
-            File.WriteAllBytes("latest-package", data);
+            var needsDownload = true;
+            byte[] data;
+            if (File.Exists("latest-package"))
+            {
+                data = File.ReadAllBytes("latest-package");
+                var localMD5 = ComputeMD5(data);
+                if (string.Compare(localMD5, newMD5, true) == 0)
+                    needsDownload = false;
+            }
+            if (needsDownload)
+            {
+                data = await DownloadWithProgress("https://openflier.top/update/latest-package", UpdateProgressBar);
+                var localMD5 = ComputeMD5(data);
+                if (string.Compare(localMD5, newMD5, true) == 0)
+                    throw new Exception("MD5 mismatch.");
+                File.WriteAllBytes("latest-package", data);
+            }
             UpdateStatus.Text = string.Format(Backend.ReadyToRestart, newVersionString);
             CancelUpdateButton.Visibility = Visibility.Collapsed;
             RestartForUpdateButton.Visibility = Visibility.Visible;
         }
         catch (Exception e)
         {
-            CancelUpdateButton.Visibility= Visibility.Collapsed;
+            CancelUpdateButton.Visibility = Visibility.Collapsed;
             UpdateProgressBar.Value = 100;
             UpdateProgressBar.IsIndeterminate = false;
             UpdateProgressBar.Foreground = FindResource("SystemCriticalBrush") as SolidColorBrush;
             UpdateStatus.Text = string.Format(Backend.ErrorDownloadingUpdate, newVersionString);
             _logger.Error("Error downloading update: ", e);
+        }
+        finally
+        {
+            httpClient.Dispose();
         }
     }
     private bool _canceled = false;
@@ -322,6 +347,17 @@ public partial class MainWindow : Window
             }
         }
         return finalResult;
+    }
+    private string ComputeMD5(byte[] data)
+    {
+        MD5 md5 = MD5.Create();
+        var md5Data = md5.ComputeHash(data);
+        StringBuilder sb = new StringBuilder();
+        foreach (byte b in md5Data)
+        {
+            sb.Append(b.ToString("X2"));
+        }
+        return sb.ToString();
     }
 
     private void RestartForUpdateButton_Click(object sender, RoutedEventArgs e)

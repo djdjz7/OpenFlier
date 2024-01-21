@@ -11,6 +11,7 @@ namespace RemoteRandom
 {
     public class RemoteRandomPlugin : ICommandInputPlugin
     {
+        public static HttpClient? client = null;
         private CommandInputPluginInfo pluginInfo = new()
         {
             InvokeCommands = new List<string>(new[] { "rr", "RemoteRandom" }),
@@ -28,9 +29,10 @@ namespace RemoteRandom
 
         public async Task PluginMain(CommandInputPluginArgs args)
         {
+            if(client is null)
+                client = new HttpClient();
             var filename = Guid.NewGuid().ToString("N");
             var usePng = args.UsePng;
-            HttpClient client = new HttpClient();
             var imageStream = await client.GetStreamAsync("https://api.aixiaowai.cn/api/api.php");
             Image bitmap = Bitmap.FromStream(imageStream);
             bitmap.Save(

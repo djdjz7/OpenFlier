@@ -366,5 +366,6 @@ FodyWeavers.xsd
 # Published Files
 dist/
 BuildArchive/build-time
+BuildArchive/OpenFlier.7z
 /OpenFlier.Plugin/protoc.exe
 /Installer.MSI/Files.wxs
