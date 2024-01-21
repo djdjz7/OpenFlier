@@ -11,6 +11,7 @@
     Height="450"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     ResizeMode="CanMinimize"
+    TextElement.FontFamily="{StaticResource Inter}"
     TextElement.FontSize="14"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -71,8 +72,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock
-            VerticalAlignment="Center"
             Margin="12"
+            VerticalAlignment="Center"
             Style="{StaticResource Title}"
             Text="{x:Static local:Resources.InstallPluginTitle}" />
         <Button

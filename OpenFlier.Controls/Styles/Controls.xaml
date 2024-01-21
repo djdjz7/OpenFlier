@@ -7,6 +7,7 @@
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Popup.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/ContextMenu.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Focus.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Fonts.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/TextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/TextBlock.xaml" />
         <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/ToggleButton.xaml" />

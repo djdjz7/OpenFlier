@@ -23,9 +23,6 @@
                 -->
                 <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <FontFamily x:Key="Inter">Assets/#Inter, Microsoft Yahei</FontFamily>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

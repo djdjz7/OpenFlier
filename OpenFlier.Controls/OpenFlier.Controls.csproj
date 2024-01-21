@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Inter-Bold.otf" />
+    <None Remove="Assets\Inter-Regular.otf" />
+    <None Remove="Assets\Inter-Thin.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="Styles\Button.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -43,6 +49,12 @@
     <Page Update="Styles\ToolTip.xaml">
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Inter-Bold.otf" />
+    <Resource Include="Assets\Inter-Regular.otf" />
+    <Resource Include="Assets\Inter-Thin.otf" />
   </ItemGroup>
 
 </Project>

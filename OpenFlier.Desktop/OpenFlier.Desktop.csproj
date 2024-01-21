@@ -12,9 +12,6 @@
 
   <ItemGroup>
     <None Remove="Assets\icon.png" />
-    <None Remove="Assets\Inter-Bold.otf" />
-    <None Remove="Assets\Inter-Regular.otf" />
-    <None Remove="Assets\Inter-Thin.otf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,9 +36,6 @@
 
   <ItemGroup>
     <Resource Include="Assets\icon.png" />
-    <Resource Include="Assets\Inter-Bold.otf" />
-    <Resource Include="Assets\Inter-Regular.otf" />
-    <Resource Include="Assets\Inter-Thin.otf" />
   </ItemGroup>
 
   <ItemGroup>

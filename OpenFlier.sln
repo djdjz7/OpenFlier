@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteRandom", "RemoteRando
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{1CA82320-06BF-4350-9382-433823B90C71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticTest", "StaticTest\StaticTest.csproj", "{850B8BE9-978A-466B-887E-B6C114E53D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticTest", "StaticTest\StaticTest.csproj", "{850B8BE9-978A-466B-887E-B6C114E53D98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenFlier.Updater", "OpenFlier.Updater\OpenFlier.Updater.csproj", "{EAFB5941-920A-47CE-9756-89C3432C840B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -215,6 +217,22 @@ Global
 		{850B8BE9-978A-466B-887E-B6C114E53D98}.Release|x64.Build.0 = Release|Any CPU
 		{850B8BE9-978A-466B-887E-B6C114E53D98}.Release|x86.ActiveCfg = Release|Any CPU
 		{850B8BE9-978A-466B-887E-B6C114E53D98}.Release|x86.Build.0 = Release|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Debug|x64.Build.0 = Debug|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Debug|x86.Build.0 = Debug|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Release|ARM64.Build.0 = Release|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Release|x64.ActiveCfg = Release|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Release|x64.Build.0 = Release|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Release|x86.ActiveCfg = Release|Any CPU
+		{EAFB5941-920A-47CE-9756-89C3432C840B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -225,7 +243,7 @@ Global
 		{850B8BE9-978A-466B-887E-B6C114E53D98} = {59621935-9F0D-4BFB-BC92-3BFF225C43F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_PrefixTranslations = False
 		SolutionGuid = {C7B6471B-BD17-4920-A4EB-02E4D6DCFC79}
+		RESX_PrefixTranslations = False
 	EndGlobalSection
 EndGlobal

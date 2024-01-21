@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenFlier.Updater": {
+      "commandName": "Project",
+      "commandLineArgs": "main-pack"
+    }
+  }
+}
