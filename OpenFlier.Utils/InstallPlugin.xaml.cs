@@ -2,6 +2,7 @@
 using OpenFlier.Desktop;
 using OpenFlier.Plugin;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text.Json;
 using System.Windows;
@@ -76,15 +77,7 @@ namespace OpenFlier.Utils
         private void InstallButton_Click(object sender, RoutedEventArgs e)
         {
             Config? currentConfig = null;
-            var mainFileName = "";
-            foreach (var file in singlePluginPackage.Files)
-            {
-                if (file.IsPluginMain)
-                {
-                    mainFileName = file.Filename;
-                    break;
-                }
-            }
+            var pluginEntry = singlePluginPackage.PluginEntry;
             if (File.Exists("config.json"))
             {
                 var configContent = File.ReadAllText("config.json");
@@ -126,7 +119,7 @@ namespace OpenFlier.Utils
                                 PluginVersion = singlePluginPackage.PluginVersion,
                             },
                             LocalFilePath =
-                                $"Plugins\\{singlePluginPackage.PluginIdentifier}\\{mainFileName}",
+                                $"Plugins\\{singlePluginPackage.PluginIdentifier}\\{pluginEntry}",
                             Enabled = true,
                         }
                     );
@@ -158,7 +151,7 @@ namespace OpenFlier.Utils
                                 PluginVersion = singlePluginPackage.PluginVersion,
                             },
                             LocalFilePath =
-                                $"Plugins\\{singlePluginPackage.PluginIdentifier}\\{mainFileName}",
+                                $"Plugins\\{singlePluginPackage.PluginIdentifier}\\{pluginEntry}",
                             Enabled = true,
                         }
                     );
@@ -172,12 +165,12 @@ namespace OpenFlier.Utils
             if (Directory.Exists(currentPluginDirectory))
                 Directory.Delete(currentPluginDirectory, true);
             Directory.CreateDirectory(currentPluginDirectory);
-            foreach (var pluginFile in singlePluginPackage.Files)
+            using(var stream = new MemoryStream(singlePluginPackage.ZipArchive.ToArray()))
             {
-                System.IO.File.WriteAllBytes(
-                    $"{currentPluginDirectory}\\{pluginFile.Filename}",
-                    pluginFile.FileData.ToArray()
-                );
+                using(var zip = new ZipArchive(stream))
+                {
+                    zip.ExtractToDirectory(currentPluginDirectory);
+                }
             }
             Buttons.Visibility = Visibility.Hidden;
             DoneText.Visibility = Visibility.Visible;
@@ -187,6 +180,20 @@ namespace OpenFlier.Utils
         {
             this.Close();
             Application.Current.Shutdown();
+        }
+
+        static void RecursiveCopy(string source, string target)
+        {
+            Directory.CreateDirectory(target);
+            var directoryInfo = new DirectoryInfo(source);
+            foreach (var subdirectory in directoryInfo.GetDirectories())
+            {
+                RecursiveCopy(subdirectory.FullName, Path.Combine(target, subdirectory.Name));
+            }
+            foreach (var file in directoryInfo.GetFiles())
+            {
+                File.Copy(file.FullName, Path.Combine(target, file.Name), true);
+            }
         }
     }
 }

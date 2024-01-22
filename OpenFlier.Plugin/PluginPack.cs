@@ -24,26 +24,24 @@ namespace OpenFlier.Plugin {
     static PluginPackReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFwbHVnaW5fcGFjay5wcm90byJJCgpQbHVnaW5GaWxlEhAKCGZpbGVuYW1l",
-            "GAEgASgJEhEKCWZpbGVfZGF0YRgCIAEoDBIWCg5pc19wbHVnaW5fbWFpbhgD",
-            "IAEoCCLLAgoTU2luZ2xlUGx1Z2luUGFja2FnZRIgCgtwbHVnaW5fdHlwZRgB",
-            "IAEoDjILLlBsdWdpblR5cGUSEwoLcGx1Z2luX25hbWUYAiABKAkSFQoNcGx1",
-            "Z2luX2F1dGhvchgDIAEoCRIZChFwbHVnaW5faWRlbnRpZmllchgEIAEoCRIW",
-            "Cg5wbHVnaW5fdmVyc2lvbhgFIAEoCRIaChJwbHVnaW5fZGVzY3JpcHRpb24Y",
-            "BiABKAkSGQoRbXF0dF9tZXNzYWdlX3R5cGUYByABKAUSFwoPaW52b2tlX2Nv",
-            "bW1hbmRzGAggAygJEiEKGXBsdWdpbl9uZWVkc19jb25maWdfZW50cnkYCSAB",
-            "KAgSGgoFZmlsZXMYCiADKAsyCy5QbHVnaW5GaWxlEiQKHHBsdWdpbl9uZWVk",
-            "c19hZG1pbl9wcml2aWxlZ2UYCyABKAgicgoQUGx1Z2luQ29sbGVjdGlvbhIX",
-            "Cg9jb2xsZWN0aW9uX25hbWUYASABKAkSHgoWY29sbGVjdGlvbl9kZXNjcmlw",
-            "dGlvbhgCIAEoCRIlCgdwbHVnaW5zGAMgAygLMhQuU2luZ2xlUGx1Z2luUGFj",
-            "a2FnZSpVCgpQbHVnaW5UeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABIXChNN",
-            "UVRUX1NFUlZJQ0VfUExVR0lOEAESGAoUQ09NTUFORF9JTlBVVF9QTFVHSU4Q",
-            "AkITqgIQT3BlbkZsaWVyLlBsdWdpbmIGcHJvdG8z"));
+            "ChFwbHVnaW5fcGFjay5wcm90byLaAgoTU2luZ2xlUGx1Z2luUGFja2FnZRIg",
+            "CgtwbHVnaW5fdHlwZRgBIAEoDjILLlBsdWdpblR5cGUSEwoLcGx1Z2luX25h",
+            "bWUYAiABKAkSFQoNcGx1Z2luX2F1dGhvchgDIAEoCRIZChFwbHVnaW5faWRl",
+            "bnRpZmllchgEIAEoCRIWCg5wbHVnaW5fdmVyc2lvbhgFIAEoCRIaChJwbHVn",
+            "aW5fZGVzY3JpcHRpb24YBiABKAkSGQoRbXF0dF9tZXNzYWdlX3R5cGUYByAB",
+            "KAUSFwoPaW52b2tlX2NvbW1hbmRzGAggAygJEiEKGXBsdWdpbl9uZWVkc19j",
+            "b25maWdfZW50cnkYCSABKAgSJAoccGx1Z2luX25lZWRzX2FkbWluX3ByaXZp",
+            "bGVnZRgKIAEoCBIUCgxwbHVnaW5fZW50cnkYCyABKAkSEwoLemlwX2FyY2hp",
+            "dmUYDCABKAwicgoQUGx1Z2luQ29sbGVjdGlvbhIXCg9jb2xsZWN0aW9uX25h",
+            "bWUYASABKAkSHgoWY29sbGVjdGlvbl9kZXNjcmlwdGlvbhgCIAEoCRIlCgdw",
+            "bHVnaW5zGAMgAygLMhQuU2luZ2xlUGx1Z2luUGFja2FnZSpVCgpQbHVnaW5U",
+            "eXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABIXChNNUVRUX1NFUlZJQ0VfUExV",
+            "R0lOEAESGAoUQ09NTUFORF9JTlBVVF9QTFVHSU4QAkITqgIQT3BlbkZsaWVy",
+            "LlBsdWdpbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::OpenFlier.Plugin.PluginType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::OpenFlier.Plugin.PluginFile), global::OpenFlier.Plugin.PluginFile.Parser, new[]{ "Filename", "FileData", "IsPluginMain" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::OpenFlier.Plugin.SinglePluginPackage), global::OpenFlier.Plugin.SinglePluginPackage.Parser, new[]{ "PluginType", "PluginName", "PluginAuthor", "PluginIdentifier", "PluginVersion", "PluginDescription", "MqttMessageType", "InvokeCommands", "PluginNeedsConfigEntry", "Files", "PluginNeedsAdminPrivilege" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::OpenFlier.Plugin.SinglePluginPackage), global::OpenFlier.Plugin.SinglePluginPackage.Parser, new[]{ "PluginType", "PluginName", "PluginAuthor", "PluginIdentifier", "PluginVersion", "PluginDescription", "MqttMessageType", "InvokeCommands", "PluginNeedsConfigEntry", "PluginNeedsAdminPrivilege", "PluginEntry", "ZipArchive" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OpenFlier.Plugin.PluginCollection), global::OpenFlier.Plugin.PluginCollection.Parser, new[]{ "CollectionName", "CollectionDescription", "Plugins" }, null, null, null, null)
           }));
     }
@@ -60,269 +58,6 @@ namespace OpenFlier.Plugin {
   #endregion
 
   #region Messages
-  public sealed partial class PluginFile : pb::IMessage<PluginFile>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<PluginFile> _parser = new pb::MessageParser<PluginFile>(() => new PluginFile());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<PluginFile> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenFlier.Plugin.PluginPackReflection.Descriptor.MessageTypes[0]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public PluginFile() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public PluginFile(PluginFile other) : this() {
-      filename_ = other.filename_;
-      fileData_ = other.fileData_;
-      isPluginMain_ = other.isPluginMain_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public PluginFile Clone() {
-      return new PluginFile(this);
-    }
-
-    /// <summary>Field number for the "filename" field.</summary>
-    public const int FilenameFieldNumber = 1;
-    private string filename_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Filename {
-      get { return filename_; }
-      set {
-        filename_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "file_data" field.</summary>
-    public const int FileDataFieldNumber = 2;
-    private pb::ByteString fileData_ = pb::ByteString.Empty;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pb::ByteString FileData {
-      get { return fileData_; }
-      set {
-        fileData_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "is_plugin_main" field.</summary>
-    public const int IsPluginMainFieldNumber = 3;
-    private bool isPluginMain_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsPluginMain {
-      get { return isPluginMain_; }
-      set {
-        isPluginMain_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as PluginFile);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(PluginFile other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Filename != other.Filename) return false;
-      if (FileData != other.FileData) return false;
-      if (IsPluginMain != other.IsPluginMain) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Filename.Length != 0) hash ^= Filename.GetHashCode();
-      if (FileData.Length != 0) hash ^= FileData.GetHashCode();
-      if (IsPluginMain != false) hash ^= IsPluginMain.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (Filename.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Filename);
-      }
-      if (FileData.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteBytes(FileData);
-      }
-      if (IsPluginMain != false) {
-        output.WriteRawTag(24);
-        output.WriteBool(IsPluginMain);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Filename.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Filename);
-      }
-      if (FileData.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteBytes(FileData);
-      }
-      if (IsPluginMain != false) {
-        output.WriteRawTag(24);
-        output.WriteBool(IsPluginMain);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (Filename.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Filename);
-      }
-      if (FileData.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(FileData);
-      }
-      if (IsPluginMain != false) {
-        size += 1 + 1;
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(PluginFile other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Filename.Length != 0) {
-        Filename = other.Filename;
-      }
-      if (other.FileData.Length != 0) {
-        FileData = other.FileData;
-      }
-      if (other.IsPluginMain != false) {
-        IsPluginMain = other.IsPluginMain;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            Filename = input.ReadString();
-            break;
-          }
-          case 18: {
-            FileData = input.ReadBytes();
-            break;
-          }
-          case 24: {
-            IsPluginMain = input.ReadBool();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            Filename = input.ReadString();
-            break;
-          }
-          case 18: {
-            FileData = input.ReadBytes();
-            break;
-          }
-          case 24: {
-            IsPluginMain = input.ReadBool();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
   public sealed partial class SinglePluginPackage : pb::IMessage<SinglePluginPackage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -337,7 +72,7 @@ namespace OpenFlier.Plugin {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenFlier.Plugin.PluginPackReflection.Descriptor.MessageTypes[1]; }
+      get { return global::OpenFlier.Plugin.PluginPackReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -366,8 +101,9 @@ namespace OpenFlier.Plugin {
       mqttMessageType_ = other.mqttMessageType_;
       invokeCommands_ = other.invokeCommands_.Clone();
       pluginNeedsConfigEntry_ = other.pluginNeedsConfigEntry_;
-      files_ = other.files_.Clone();
       pluginNeedsAdminPrivilege_ = other.pluginNeedsAdminPrivilege_;
+      pluginEntry_ = other.pluginEntry_;
+      zipArchive_ = other.zipArchive_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -484,19 +220,8 @@ namespace OpenFlier.Plugin {
       }
     }
 
-    /// <summary>Field number for the "files" field.</summary>
-    public const int FilesFieldNumber = 10;
-    private static readonly pb::FieldCodec<global::OpenFlier.Plugin.PluginFile> _repeated_files_codec
-        = pb::FieldCodec.ForMessage(82, global::OpenFlier.Plugin.PluginFile.Parser);
-    private readonly pbc::RepeatedField<global::OpenFlier.Plugin.PluginFile> files_ = new pbc::RepeatedField<global::OpenFlier.Plugin.PluginFile>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::OpenFlier.Plugin.PluginFile> Files {
-      get { return files_; }
-    }
-
     /// <summary>Field number for the "plugin_needs_admin_privilege" field.</summary>
-    public const int PluginNeedsAdminPrivilegeFieldNumber = 11;
+    public const int PluginNeedsAdminPrivilegeFieldNumber = 10;
     private bool pluginNeedsAdminPrivilege_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -504,6 +229,30 @@ namespace OpenFlier.Plugin {
       get { return pluginNeedsAdminPrivilege_; }
       set {
         pluginNeedsAdminPrivilege_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "plugin_entry" field.</summary>
+    public const int PluginEntryFieldNumber = 11;
+    private string pluginEntry_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string PluginEntry {
+      get { return pluginEntry_; }
+      set {
+        pluginEntry_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "zip_archive" field.</summary>
+    public const int ZipArchiveFieldNumber = 12;
+    private pb::ByteString zipArchive_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString ZipArchive {
+      get { return zipArchive_; }
+      set {
+        zipArchive_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -531,8 +280,9 @@ namespace OpenFlier.Plugin {
       if (MqttMessageType != other.MqttMessageType) return false;
       if(!invokeCommands_.Equals(other.invokeCommands_)) return false;
       if (PluginNeedsConfigEntry != other.PluginNeedsConfigEntry) return false;
-      if(!files_.Equals(other.files_)) return false;
       if (PluginNeedsAdminPrivilege != other.PluginNeedsAdminPrivilege) return false;
+      if (PluginEntry != other.PluginEntry) return false;
+      if (ZipArchive != other.ZipArchive) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -549,8 +299,9 @@ namespace OpenFlier.Plugin {
       if (MqttMessageType != 0) hash ^= MqttMessageType.GetHashCode();
       hash ^= invokeCommands_.GetHashCode();
       if (PluginNeedsConfigEntry != false) hash ^= PluginNeedsConfigEntry.GetHashCode();
-      hash ^= files_.GetHashCode();
       if (PluginNeedsAdminPrivilege != false) hash ^= PluginNeedsAdminPrivilege.GetHashCode();
+      if (PluginEntry.Length != 0) hash ^= PluginEntry.GetHashCode();
+      if (ZipArchive.Length != 0) hash ^= ZipArchive.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -602,10 +353,17 @@ namespace OpenFlier.Plugin {
         output.WriteRawTag(72);
         output.WriteBool(PluginNeedsConfigEntry);
       }
-      files_.WriteTo(output, _repeated_files_codec);
       if (PluginNeedsAdminPrivilege != false) {
-        output.WriteRawTag(88);
+        output.WriteRawTag(80);
         output.WriteBool(PluginNeedsAdminPrivilege);
+      }
+      if (PluginEntry.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(PluginEntry);
+      }
+      if (ZipArchive.Length != 0) {
+        output.WriteRawTag(98);
+        output.WriteBytes(ZipArchive);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -650,10 +408,17 @@ namespace OpenFlier.Plugin {
         output.WriteRawTag(72);
         output.WriteBool(PluginNeedsConfigEntry);
       }
-      files_.WriteTo(ref output, _repeated_files_codec);
       if (PluginNeedsAdminPrivilege != false) {
-        output.WriteRawTag(88);
+        output.WriteRawTag(80);
         output.WriteBool(PluginNeedsAdminPrivilege);
+      }
+      if (PluginEntry.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(PluginEntry);
+      }
+      if (ZipArchive.Length != 0) {
+        output.WriteRawTag(98);
+        output.WriteBytes(ZipArchive);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -690,9 +455,14 @@ namespace OpenFlier.Plugin {
       if (PluginNeedsConfigEntry != false) {
         size += 1 + 1;
       }
-      size += files_.CalculateSize(_repeated_files_codec);
       if (PluginNeedsAdminPrivilege != false) {
         size += 1 + 1;
+      }
+      if (PluginEntry.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(PluginEntry);
+      }
+      if (ZipArchive.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(ZipArchive);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -731,9 +501,14 @@ namespace OpenFlier.Plugin {
       if (other.PluginNeedsConfigEntry != false) {
         PluginNeedsConfigEntry = other.PluginNeedsConfigEntry;
       }
-      files_.Add(other.files_);
       if (other.PluginNeedsAdminPrivilege != false) {
         PluginNeedsAdminPrivilege = other.PluginNeedsAdminPrivilege;
+      }
+      if (other.PluginEntry.Length != 0) {
+        PluginEntry = other.PluginEntry;
+      }
+      if (other.ZipArchive.Length != 0) {
+        ZipArchive = other.ZipArchive;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -786,12 +561,16 @@ namespace OpenFlier.Plugin {
             PluginNeedsConfigEntry = input.ReadBool();
             break;
           }
-          case 82: {
-            files_.AddEntriesFrom(input, _repeated_files_codec);
+          case 80: {
+            PluginNeedsAdminPrivilege = input.ReadBool();
             break;
           }
-          case 88: {
-            PluginNeedsAdminPrivilege = input.ReadBool();
+          case 90: {
+            PluginEntry = input.ReadString();
+            break;
+          }
+          case 98: {
+            ZipArchive = input.ReadBytes();
             break;
           }
         }
@@ -845,12 +624,16 @@ namespace OpenFlier.Plugin {
             PluginNeedsConfigEntry = input.ReadBool();
             break;
           }
-          case 82: {
-            files_.AddEntriesFrom(ref input, _repeated_files_codec);
+          case 80: {
+            PluginNeedsAdminPrivilege = input.ReadBool();
             break;
           }
-          case 88: {
-            PluginNeedsAdminPrivilege = input.ReadBool();
+          case 90: {
+            PluginEntry = input.ReadString();
+            break;
+          }
+          case 98: {
+            ZipArchive = input.ReadBytes();
             break;
           }
         }
@@ -874,7 +657,7 @@ namespace OpenFlier.Plugin {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenFlier.Plugin.PluginPackReflection.Descriptor.MessageTypes[2]; }
+      get { return global::OpenFlier.Plugin.PluginPackReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

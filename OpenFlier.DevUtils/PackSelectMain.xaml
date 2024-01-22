@@ -2,15 +2,128 @@
     x:Class="OpenFlier.DevUtils.PackSelectMain"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:anim="clr-namespace:OpenFlier.Animation;assembly=OpenFlier.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:OpenFlier.DevUtils"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ofc="clr-namespace:OpenFlier.Controls;assembly=OpenFlier.Controls"
     Title="PackSelectMain"
     d:DesignHeight="450"
     d:DesignWidth="800"
     TextElement.FontSize="14"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:ReversedBooleanToVisibilityConverter x:Key="ReversedBooleanToVisibilityConverter" />
+        <Style TargetType="ListBoxItem">
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid
+                            Name="BackgroundGrid"
+                            MinWidth="268"
+                            Background="Transparent"
+                            SnapsToDevicePixels="True">
+                            <Rectangle
+                                Name="BackgroundRect"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Fill="Black"
+                                Opacity="0"
+                                RadiusX="4"
+                                RadiusY="4" />
+                            <Rectangle
+                                Name="SelectionIndicator"
+                                Width="4"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                ofc:AttachedSimpleProperties.Double="0"
+                                Fill="{DynamicResource PrimaryBrush}"
+                                RadiusX="2"
+                                RadiusY="2">
+                                <Rectangle.Height>
+                                    <MultiBinding Converter="{StaticResource TagAndWidthToActualWidthConverter}">
+                                        <MultiBinding.Bindings>
+                                            <Binding ElementName="SelectionIndicator" Path="(ofc:AttachedSimpleProperties.Double)" />
+                                            <Binding ElementName="BackgroundRect" Path="ActualHeight" />
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Rectangle.Height>
+                            </Rectangle>
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="BackgroundRect"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="0.0373"
+                                                Duration="0:0:0.083" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="BackgroundRect"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="0."
+                                                Duration="0:0:0.083" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="SelectionIndicator"
+                                                Storyboard.TargetProperty="(ofc:AttachedSimpleProperties.Double)"
+                                                To="0.6"
+                                                Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <anim:CubicBezier
+                                                        X1="1"
+                                                        X2="1"
+                                                        Y1="0"
+                                                        Y2="1" />
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="SelectionIndicator"
+                                                Storyboard.TargetProperty="(ofc:AttachedSimpleProperties.Double)"
+                                                To="0"
+                                                Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <anim:CubicBezier
+                                                        X1="1"
+                                                        X2="1"
+                                                        Y1="0"
+                                                        Y2="1" />
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -19,16 +132,39 @@
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource SubTitle}" Text="Then&#10;Specify your plugin .dll file" />
         <Grid Grid.Row="1">
-            <ListBox x:Name="PluginFilesList" Background="Transparent">
+            <ListBox x:Name="DisplayingFileList" Background="Transparent">
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="2">
+                    <DataTemplate DataType="local:FileSystemEntry">
+                        <Grid
+                            Background="#01FFFFFF"
+                            Name="EntryPanel"
+                            Height="34"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            MouseUp="EntryPanel_MouseUp">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
                             <TextBlock
+                                Margin="12,0,0,0"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe Fluent Icons"
+                                Text="&#xe8b7;"
+                                Visibility="{Binding IsDirectory, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock
+                                Margin="12,0,0,0"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe Fluent Icons"
+                                Text="&#xe8a5;"
+                                Visibility="{Binding IsDirectory, Converter={StaticResource ReversedBooleanToVisibilityConverter}}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="4,0,0,0"
+                                VerticalAlignment="Center"
                                 FontSize="16"
-                                FontWeight="Bold"
-                                Text="{Binding FileName}" />
-                            <TextBlock Margin="0,4,0,0" Text="{Binding FilePath}" />
-                        </StackPanel>
+                                Text="{Binding Name}" />
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

@@ -43,23 +43,6 @@
                     <TextBlock Style="{StaticResource H3}" Text="CommandInput Caller Names" />
                     <TextBlock x:Name="CommanInputCallerNamesTextBlock" />
                 </StackPanel>
-                <TextBlock Style="{StaticResource H3}" Text="File List" />
-                <ListBox
-                    x:Name="PluginFilesList"
-                    Background="Transparent"
-                    IsEnabled="False">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="2">
-                                <TextBlock
-                                    FontSize="16"
-                                    FontWeight="Bold"
-                                    Text="{Binding FileName}" />
-                                <TextBlock Margin="0,4,0,0" Text="{Binding FilePath}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
             </StackPanel>
         </ScrollViewer>
 

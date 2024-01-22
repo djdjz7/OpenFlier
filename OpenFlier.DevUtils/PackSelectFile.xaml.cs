@@ -1,79 +1,43 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Win32;
 
 namespace OpenFlier.DevUtils;
+
 /// <summary>
 /// PackSelectFile.xaml 的交互逻辑
 /// </summary>
 public partial class PackSelectFile : Page
 {
-    public ObservableCollection<PluginFileModel> PluginFiles
-    {
-        get; set;
-    } = new ObservableCollection<PluginFileModel>();
     public PackSelectFile()
     {
         InitializeComponent();
-        PluginFilesList.ItemsSource = PluginFiles;
-    }
-    public PackSelectFile(ObservableCollection<PluginFileModel> pluginFiles)
-    {
-        InitializeComponent();
-        PluginFiles = pluginFiles;
-        PluginFilesList.ItemsSource = PluginFiles;
-    }
-
-    private void RemoveFileButton_Click(object sender, RoutedEventArgs e)
-    {
-        PluginFiles.Remove(PluginFilesList.SelectedItem as PluginFileModel ?? new PluginFileModel());
-
-    }
-
-    private void AddFileButton_Click(object sender, RoutedEventArgs e)
-    {
-        OpenFileDialog ofd = new OpenFileDialog
-        {
-            Multiselect = true,
-            Title = "Select plugin files"
-        };
-
-        if (ofd.ShowDialog() == true)
-        {
-            foreach (var file in ofd.FileNames)
-            {
-                var fileInfo = new FileInfo(file);
-                PluginFiles.Add(new PluginFileModel
-                {
-                    FileName = fileInfo.Name,
-                    FilePath = fileInfo.FullName,
-                });
-            }
-        }
-
     }
 
     private void Next_Click(object sender, RoutedEventArgs e)
     {
-        if (PluginFiles.Count <= 0)
+        var filePath = FilePathTextBox.Text;
+        if (!File.Exists(filePath))
         {
-            MessageBox.Show("No files selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("No such file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
-        bool flag = false;
-        foreach (var file in PluginFiles)
-        {
-            if (file.FilePath?.EndsWith(".dll") == true)
-                flag = true;
-        }
-        if (!flag)
-        {
-            MessageBox.Show("No .dll files selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-        PackSelectMain packSelectMain = new(PluginFiles);
+        PackSelectMain packSelectMain = new(filePath);
         NavigationService.Navigate(packSelectMain);
+    }
+
+    private void BrowseButton_Click(object sender, RoutedEventArgs e)
+    {
+        OpenFileDialog ofd = new OpenFileDialog()
+        {
+            Filter = "Zip archive (*.zip)|*.zip",
+            CheckFileExists = true,
+        };
+        var result = ofd.ShowDialog();
+        if (result == true)
+        {
+            FilePathTextBox.Text = ofd.FileName;
+        }
     }
 }

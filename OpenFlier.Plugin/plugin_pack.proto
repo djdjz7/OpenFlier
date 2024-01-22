@@ -8,12 +8,6 @@ enum PluginType {
     COMMAND_INPUT_PLUGIN = 2;
 }
 
-message PluginFile {
-    string filename = 1;
-    bytes file_data = 2;
-    bool is_plugin_main = 3;
-}
-
 message SinglePluginPackage {
     PluginType plugin_type = 1;
     string plugin_name = 2;
@@ -24,8 +18,9 @@ message SinglePluginPackage {
     int32 mqtt_message_type = 7;
     repeated string invoke_commands = 8;
     bool plugin_needs_config_entry = 9;
-    repeated PluginFile files = 10;
-    bool plugin_needs_admin_privilege = 11;
+    bool plugin_needs_admin_privilege = 10;
+    string plugin_entry = 11;
+    bytes zip_archive = 12;
 }
 
 message PluginCollection {

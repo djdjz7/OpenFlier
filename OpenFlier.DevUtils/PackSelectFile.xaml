@@ -14,46 +14,22 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource SubTitle}" Text="First&#10;Select all your files" />
-        <StackPanel
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Button
-                Name="AddFileButton"
-                Click="AddFileButton_Click"
-                Content="&#xe710;"
-                FontFamily="Segoe Fluent Icons"
-                Style="{StaticResource SubtleButton}" />
-            <Button
-                Name="RemoveFileButton"
-                Margin="4,0,0,0"
-                Click="RemoveFileButton_Click"
-                Content="&#xe738;"
-                FontFamily="Segoe Fluent Icons"
-                Style="{StaticResource SubtleButton}" />
-        </StackPanel>
+        <TextBlock Style="{StaticResource SubTitle}" Text="First&#10;Select the zip archive that contains all your files." />
         <Grid Grid.Row="1">
-            <ListBox x:Name="PluginFilesList" Background="Transparent">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="2">
-                            <TextBlock
-                                FontSize="16"
-                                FontWeight="Bold"
-                                Text="{Binding FileName}" />
-                            <TextBlock Text="{Binding FilePath}" Margin="0 4 0 0"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="FilePathTextBox"/>
+            <Button Margin="4 0 0 0" Grid.Column="1" Name="BrowseButton" Click="BrowseButton_Click" Content="Browse..."/>
         </Grid>
         <Button
             Name="Next"
-            Grid.Row="2"
+            Grid.Row="3"
             HorizontalAlignment="Right"
             Content="Next" Click="Next_Click"/>
     </Grid>
