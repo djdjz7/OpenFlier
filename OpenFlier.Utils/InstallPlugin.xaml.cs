@@ -169,7 +169,7 @@ namespace OpenFlier.Utils
             {
                 using(var zip = new ZipArchive(stream))
                 {
-                    zip.ExtractToDirectory(currentPluginDirectory);
+                    zip.ExtractToDirectory(currentPluginDirectory, true);
                 }
             }
             Buttons.Visibility = Visibility.Hidden;
