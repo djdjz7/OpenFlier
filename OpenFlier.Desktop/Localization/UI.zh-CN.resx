@@ -279,4 +279,10 @@
     <value>此操作不可逆！
 确定要继续吗？</value>
   </data>
+  <data name="ShowWindow" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="Quit" xml:space="preserve">
+    <value>退出</value>
+  </data>
 </root>

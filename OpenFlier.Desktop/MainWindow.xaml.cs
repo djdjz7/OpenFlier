@@ -1,4 +1,5 @@
-﻿using Google.Protobuf;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Google.Protobuf;
 using log4net;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
@@ -8,6 +9,7 @@ using OpenFlier.Core.Services;
 using OpenFlier.Desktop.Localization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -115,6 +117,7 @@ public partial class MainWindow : Window
                 }
             }
             ConnectCode.Text = CoreStorage.ConnectCode;
+            WeakReferenceMessenger.Default.Send<ConnectionCodeUpdatedMessage>(new(CoreStorage.ConnectCode));
             MachineIdentifier.Text = CoreStorage.MachineIdentifier;
             LoadingScreen.Visibility = Visibility.Hidden;
             MainScreen.Visibility = Visibility.Visible;
@@ -394,5 +397,11 @@ public partial class MainWindow : Window
     private void RetryUpdateButton_Click(object sender, RoutedEventArgs e)
     {
         CheckForUpdates();
+    }
+
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        this.Hide();
+        e.Cancel = true;
     }
 }

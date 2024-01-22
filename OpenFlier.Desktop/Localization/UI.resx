@@ -279,4 +279,10 @@ Plugins will need to be reinstalled.</value>
     <value>This action is irreversible.
 Are you sure to proceed?</value>
   </data>
+  <data name="ShowWindow" xml:space="preserve">
+    <value>Show Window</value>
+  </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
 </root>

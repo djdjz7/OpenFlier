@@ -370,6 +370,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Quit 的本地化字符串。
+        /// </summary>
+        public static string Quit {
+            get {
+                return ResourceManager.GetString("Quit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Reloading Services... 的本地化字符串。
         /// </summary>
         public static string ReloadingText {
@@ -413,6 +422,15 @@ namespace OpenFlier.Desktop.Localization {
         public static string RestoreConfigDescription {
             get {
                 return ResourceManager.GetString("RestoreConfigDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Show Window 的本地化字符串。
+        /// </summary>
+        public static string ShowWindow {
+            get {
+                return ResourceManager.GetString("ShowWindow", resourceCulture);
             }
         }
         

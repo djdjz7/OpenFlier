@@ -2,17 +2,57 @@
     x:Class="OpenFlier.Desktop.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:tb="http://www.hardcodet.net/taskbar"
+    xmlns:local="clr-namespace:OpenFlier.Desktop"
+    ShutdownMode="OnExplicitShutdown"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <tb:TaskbarIcon x:Key="TrayMenu">
+            <tb:TaskbarIcon x:Key="TrayMenu" IconSource="Assets/icon.ico">
+                <tb:TaskbarIcon.DataContext>
+                    <local:TrayMenuViewModel />
+                </tb:TaskbarIcon.DataContext>
                 <tb:TaskbarIcon.TrayPopup>
-                    <Grid Height="12" Width="12" Background="AliceBlue"></Grid>
+                    <Border
+                        Background="{StaticResource ControlsBackground}"
+                        BorderBrush="{StaticResource ControlsStrokeGradient}"
+                        BorderThickness="2"
+                        CornerRadius="8">
+                        <Grid Margin="8" TextElement.FontFamily="{StaticResource Inter}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.RowSpan="2" Orientation="Horizontal">
+                                <Image Height="48" Source="Assets/icon.png" />
+                                <TextBlock
+                                    Margin="8,0,8,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="32"
+                                    FontWeight="Bold"
+                                    Text="{Binding ConnectCode}" />
+                            </StackPanel>
+                            <Button
+                                Grid.Column="1"
+                                Margin="0,0,0,3"
+                                Content="{x:Static i18n:UI.ShowWindow}"
+                                Style="{StaticResource AccentButton}" Command="{Binding ShowWindowCommand}"/>
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0,3,0,0"
+                                Content="{x:Static i18n:UI.Quit}" Command="{Binding QuitCommand}"/>
+                        </Grid>
+                    </Border>
+
                 </tb:TaskbarIcon.TrayPopup>
             </tb:TaskbarIcon>
         </ResourceDictionary>
