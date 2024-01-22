@@ -1,8 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Google.Protobuf;
 using log4net;
-using log4net.Core;
-using log4net.Repository.Hierarchy;
 using OpenFlier.Controls;
 using OpenFlier.Core;
 using OpenFlier.Core.Services;

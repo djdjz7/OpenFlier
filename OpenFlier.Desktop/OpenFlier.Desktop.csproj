@@ -7,8 +7,21 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <AssemblyVersion>0.0.9</AssemblyVersion>
+	<AssemblyTitle>OpenFlier Desktop</AssemblyTitle>
     <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
     <FileVersion>$(AssemblyVersion)</FileVersion>
+    <Product>OpenFlier Desktop</Product>
+    <Company>The OpenFlier Contributors</Company>
+    <Authors>The OpenFlier Contributors</Authors>
+    <Description>OpenFlier Desktop</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
