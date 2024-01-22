@@ -1,4 +1,5 @@
-﻿using log4net.Config;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using log4net.Config;
 using System;
 using System.Windows;
 
@@ -13,5 +14,10 @@ public partial class App : Application
     {
         XmlConfigurator.Configure();
         Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    }
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+        var taskbarIcon = (TaskbarIcon)FindResource("TrayMenu");
     }
 }
