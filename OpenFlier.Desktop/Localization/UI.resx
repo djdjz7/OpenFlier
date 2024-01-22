@@ -223,7 +223,7 @@ Check the following check box to use PNG format as the screenshot format, which 
     <value>Play A Video!</value>
   </data>
   <data name="GithubHyperLink" xml:space="preserve">
-    <value>Github</value>
+    <value>Github Repository</value>
   </data>
   <data name="PluginEnabledCheckBox" xml:space="preserve">
     <value>Whether to Enable</value>
@@ -284,5 +284,8 @@ Are you sure to proceed?</value>
   </data>
   <data name="Quit" xml:space="preserve">
     <value>Quit</value>
+  </data>
+  <data name="Acknowledgements" xml:space="preserve">
+    <value>Acknowledgements</value>
   </data>
 </root>

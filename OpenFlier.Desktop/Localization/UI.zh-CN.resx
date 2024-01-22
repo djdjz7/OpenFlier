@@ -211,7 +211,7 @@
     <value>放个视频！</value>
   </data>
   <data name="GithubHyperLink" xml:space="preserve">
-    <value>Github</value>
+    <value>Github 仓库</value>
   </data>
   <data name="EnableWindowEffectsDescription" xml:space="preserve">
     <value>启用窗口特效，即 Windows 11 下的 Mica 效果，或 Windows 7 下的 Aero 效果。</value>
@@ -284,5 +284,8 @@
   </data>
   <data name="Quit" xml:space="preserve">
     <value>退出</value>
+  </data>
+  <data name="Acknowledgements" xml:space="preserve">
+    <value>致谢</value>
   </data>
 </root>

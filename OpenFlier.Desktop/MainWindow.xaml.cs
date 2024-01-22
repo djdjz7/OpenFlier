@@ -401,4 +401,9 @@ public partial class MainWindow : Window
         this.Hide();
         e.Cancel = true;
     }
+
+    private void AcknowledgementsHyperLink_Click(object sender, RoutedEventArgs e)
+    {
+        Process.Start("explorer.exe", "https://openflier.top/acknowledgements/");
+    }
 }

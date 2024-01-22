@@ -80,6 +80,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Acknowledgements 的本地化字符串。
+        /// </summary>
+        public static string Acknowledgements {
+            get {
+                return ResourceManager.GetString("Acknowledgements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 One or more plugins requires admin privilege. 的本地化字符串。
         /// </summary>
         public static string AdminPrivilegeDescription {
@@ -288,7 +297,7 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Github 的本地化字符串。
+        ///   查找类似 Github Repository 的本地化字符串。
         /// </summary>
         public static string GithubHyperLink {
             get {
