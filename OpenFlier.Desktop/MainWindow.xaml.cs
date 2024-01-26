@@ -75,7 +75,7 @@ public partial class MainWindow : Window
 
     private void ServiceManager_LoadCompleted(bool isReloaded)
     {
-        Application.Current.Dispatcher.Invoke(async () =>
+        Application.Current.Dispatcher.Invoke(() =>
         {
             if (isReloaded)
             {

@@ -12,7 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/OpenFlier.Controls;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <tb:TaskbarIcon x:Key="TrayMenu" IconSource="Assets/icon.ico">
+            <tb:TaskbarIcon x:Key="TrayMenu" IconSource="Assets/icon.ico" DoubleClickCommand="{Binding ShowWindowCommand}">
                 <tb:TaskbarIcon.DataContext>
                     <local:TrayMenuViewModel />
                 </tb:TaskbarIcon.DataContext>
