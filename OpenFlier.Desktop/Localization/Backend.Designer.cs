@@ -142,6 +142,19 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 An exception occurred.
+        ///Type: {0}.
+        ///Message: {1}.
+        ///StackTrace:
+        ///{2}. 的本地化字符串。
+        /// </summary>
+        public static string ExceptionCaught {
+            get {
+                return ResourceManager.GetString("ExceptionCaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Multiple IP Addresses 的本地化字符串。
         /// </summary>
         public static string MultipleAddresses {
@@ -200,9 +213,9 @@ namespace OpenFlier.Desktop.Localization {
         ///   查找类似 Current user has task waiting to finish.
         ///Try again later or use the &quot;force&quot; command. 的本地化字符串。
         /// </summary>
-        public static string UserBuzy {
+        public static string UserBusy {
             get {
-                return ResourceManager.GetString("UserBuzy", resourceCulture);
+                return ResourceManager.GetString("UserBusy", resourceCulture);
             }
         }
         

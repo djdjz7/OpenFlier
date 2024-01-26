@@ -129,7 +129,7 @@
   <data name="UserCommandFailed" xml:space="preserve">
     <value>命令未执行。</value>
   </data>
-  <data name="UserBuzy" xml:space="preserve">
+  <data name="UserBusy" xml:space="preserve">
     <value>当前用户存在未完成的任务，
 稍后重试，或使用 “force” 关键字。</value>
   </data>
@@ -175,5 +175,12 @@
   </data>
   <data name="UpdateCancelled" xml:space="preserve">
     <value>更新已取消。</value>
+  </data>
+  <data name="ExceptionCaught" xml:space="preserve">
+    <value>发生了异常。
+异常类型：{0}.
+异常消息：{1}.
+堆栈跟踪:
+{2}.</value>
   </data>
 </root>

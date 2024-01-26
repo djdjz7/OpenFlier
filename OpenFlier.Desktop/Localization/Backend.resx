@@ -126,7 +126,7 @@
   <data name="MultipleAddresses" xml:space="preserve">
     <value>Multiple IP Addresses</value>
   </data>
-  <data name="UserBuzy" xml:space="preserve">
+  <data name="UserBusy" xml:space="preserve">
     <value>Current user has task waiting to finish.
 Try again later or use the "force" command.</value>
   </data>
@@ -175,5 +175,12 @@ Continue?</value>
   </data>
   <data name="UpdateCancelled" xml:space="preserve">
     <value>Update has been cancelled.</value>
+  </data>
+  <data name="ExceptionCaught" xml:space="preserve">
+    <value>An exception occurred.
+Type: {0}.
+Message: {1}.
+StackTrace:
+{2}.</value>
   </data>
 </root>

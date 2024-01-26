@@ -1,41 +1,38 @@
-﻿using MQTTnet.Server;
-using OpenFlier.Desktop.Services;
-using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using log4net;
+using MQTTnet;
+using MQTTnet.Protocol;
+using MQTTnet.Server;
+using Newtonsoft.Json;
+using OpenFlier.Core;
+using OpenFlier.Core.Services;
 using OpenFlier.Desktop.Localization;
-using static PageSnapshot.Types;
+using OpenFlier.Desktop.Services;
+using OpenFlier.Plugin;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Diagnostics.CodeAnalysis;
-using OpenFlier.Plugin;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Reflection;
-using OpenFlier.Core;
-using MQTTnet.Protocol;
-using MQTTnet;
-using Newtonsoft.Json;
-using OpenFlier.Core.Services;
+using System.Linq;
+using System.Net.Http;
 using System.Text;
-using log4net;
+using System.Threading.Tasks;
+using static PageSnapshot.Types;
 
 namespace OpenFlier.Desktop.MqttService
 {
     internal class ImageHandler
     {
-        private HttpClient httpClient = new HttpClient();
-        private ILog imageHandlerLogger = LogManager.GetLogger(typeof(ImageHandler));
+        private readonly HttpClient httpClient = new HttpClient();
+        private readonly ILog imageHandlerLogger = LogManager.GetLogger(typeof(ImageHandler));
+        private readonly Font _msyh = new Font("Microsoft Yahei", 20);
 
         public Dictionary<string, ICommandInputPlugin> LoadedCommandInputPlugins = new();
 
         public ImageHandler()
         {
-            httpClient.BaseAddress = new System.Uri(
-                "http://friday-note.oss-cn-hangzhou.aliyuncs.com/"
-            );
+            httpClient.BaseAddress = new Uri("http://friday-note.oss-cn-hangzhou.aliyuncs.com/");
         }
 
         public void FetchScreenshot(string filename, bool usePng)
@@ -50,9 +47,15 @@ namespace OpenFlier.Desktop.MqttService
                 $"Screenshots\\{filename}.{(usePng ? "png" : "jpeg")}",
                 usePng ? ImageFormat.Png : ImageFormat.Jpeg
             );
+            src.Dispose();
         }
 
-        public async Task HandleSpecialChannels(User user, bool usePng, IMqttServer mqttServer, string? fullCommand = null)
+        public async Task HandleSpecialChannels(
+            User user,
+            bool usePng,
+            IMqttServer mqttServer,
+            string? fullCommand = null
+        )
         {
             try
             {
@@ -85,7 +88,7 @@ namespace OpenFlier.Desktop.MqttService
                 {
                     string filename = Guid.NewGuid().ToString("N");
                     FetchScreenshot(filename, usePng);
-                    string s5 = JsonConvert.SerializeObject(
+                    string payload = JsonConvert.SerializeObject(
                         new
                         {
                             type = MqttMessageType.ScreenCaptureResp,
@@ -101,7 +104,7 @@ namespace OpenFlier.Desktop.MqttService
                         new MqttApplicationMessage
                         {
                             Topic = user.CurrentClientId + "/REQUEST_SCREEN_CAPTURE",
-                            Payload = Encoding.Default.GetBytes(s5),
+                            Payload = Encoding.Default.GetBytes(payload),
                             QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
                         }
                     );
@@ -109,8 +112,7 @@ namespace OpenFlier.Desktop.MqttService
                 }
 
                 if (user.IsBusy && !forceFlag)
-                    throw new Exception(Backend.UserBuzy);
-
+                    throw new UserBusyException(Backend.UserBusy);
 
                 user.IsBusy = true;
                 ICommandInputPlugin? commandInputPlugin = null;
@@ -148,14 +150,16 @@ namespace OpenFlier.Desktop.MqttService
                                     assembly.CreateInstance(type.FullName);
                                 if (commandInputPlugin == null)
                                     continue;
-                                LoadedCommandInputPlugins.Add(plugin.PluginInfo.PluginIdentifier, commandInputPlugin);
+                                LoadedCommandInputPlugins.Add(
+                                    plugin.PluginInfo.PluginIdentifier,
+                                    commandInputPlugin
+                                );
                                 goto endOfPluginSearch;
                             }
                         }
-
                     }
                 }
-            endOfPluginSearch:
+                endOfPluginSearch:
                 if (commandInputPlugin is not null)
                 {
                     await commandInputPlugin.PluginMain(
@@ -170,22 +174,27 @@ namespace OpenFlier.Desktop.MqttService
                             Version = CoreStorage.Version,
                         }
                     );
+                    user.IsBusy = false;
                 }
                 else
-                    throw new Exception(string.Format(Backend.NoCompatiblePlugin, invokeCommand));
+                    throw new NoCompatiblePluginException(
+                        string.Format(Backend.NoCompatiblePlugin, invokeCommand)
+                    );
+            }
+            catch (UserBusyException e)
+            {
+                ThrowExceptionToUser(e, mqttServer, usePng, user.CurrentClientId!);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
                 imageHandlerLogger.Error(e.Message, e);
-            }
-            finally
-            {
+                ThrowExceptionToUser(e, mqttServer, usePng, user.CurrentClientId!);
                 user.IsBusy = false;
             }
         }
 
-        private List<string> GetAllStringFromSnapshot(GraphSnapshot graphSnapshot)
+        private static List<string> GetAllStringFromSnapshot(GraphSnapshot graphSnapshot)
         {
             var list = new List<string> { graphSnapshot.Content };
             foreach (var childGraph in graphSnapshot.ChildGraph)
@@ -198,21 +207,78 @@ namespace OpenFlier.Desktop.MqttService
             return list;
         }
 
-        private class InvokeCommandEqualityComparer : IEqualityComparer<string>
+        public static void PrintImage(
+            string filename,
+            string content,
+            bool usePng,
+            Brush foreground,
+            Brush background,
+            Font font
+        )
         {
-            public bool Equals(string? x, string? y)
+            Bitmap bitmap = new Bitmap(1920, 1080);
+            Graphics graphics = Graphics.FromImage(bitmap);
+            SizeF sf = graphics.MeasureString(content, font, 1920);
+            if (sf.Height >= 1080)
             {
-                if (x == y)
-                    return true;
-                if (x?.ToLower() == y?.ToLower())
-                    return true;
-                return false;
+                graphics.Dispose();
+                bitmap.Dispose();
+                bitmap = new Bitmap(1920, (int)Math.Ceiling(sf.Height));
+                graphics = Graphics.FromImage(bitmap);
             }
+            graphics.FillRectangle(background, 0, 0, 1920, bitmap.Height);
+            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            graphics.DrawString(
+                content,
+                font,
+                foreground,
+                new RectangleF(0, 0, sf.Width, sf.Height)
+            );
+            graphics.Save();
+            bitmap.Save(
+                $"Screenshots\\{filename}.{(usePng ? "png" : "jpeg")}",
+                usePng ? ImageFormat.Png : ImageFormat.Jpeg
+            );
+            graphics.Dispose();
+            bitmap.Dispose();
+        }
 
-            public int GetHashCode([DisallowNull] string obj)
-            {
-                return obj.ToLower().GetHashCode();
-            }
+        public async void ThrowExceptionToUser(
+            Exception exception,
+            IMqttServer mqttServer,
+            bool usePng,
+            string clientID
+        )
+        {
+            var filename = Guid.NewGuid().ToString();
+            var content = string.Format(
+                Backend.ExceptionCaught,
+                exception.GetType().FullName,
+                exception.Message,
+                exception.StackTrace
+            );
+            PrintImage(filename, content, usePng, Brushes.OrangeRed, Brushes.White, _msyh);
+            string payload = JsonConvert.SerializeObject(
+                new
+                {
+                    type = MqttMessageType.ScreenCaptureResp,
+                    data = new
+                    {
+                        name = $"{filename}.{(usePng ? "png" : "jpeg")}",
+                        deviceCode = CoreStorage.MachineIdentifier,
+                        versionCode = CoreStorage.Version
+                    }
+                }
+            );
+            await mqttServer.PublishAsync(
+                new MqttApplicationMessage
+                {
+                    Topic = clientID + "/REQUEST_SCREEN_CAPTURE",
+                    Payload = Encoding.Default.GetBytes(payload),
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce
+                }
+            );
+            return;
         }
     }
 }
