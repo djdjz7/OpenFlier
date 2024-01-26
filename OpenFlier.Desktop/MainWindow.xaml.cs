@@ -54,6 +54,7 @@ public partial class MainWindow : Window
         }
 
         serviceManager = new ServiceManager(config);
+        LocalStorage.ServiceManager = serviceManager;
         serviceManager.OnLoadCompleted += ServiceManager_LoadCompleted;
         serviceManager.BeginLoad();
         LoadingScreen.Visibility = Visibility.Visible;

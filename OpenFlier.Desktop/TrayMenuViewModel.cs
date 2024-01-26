@@ -26,8 +26,9 @@ namespace OpenFlier.Desktop
             {
                 Application.Current.MainWindow.Show();
             });
-            QuitCommand = new RelayCommand(() =>
+            QuitCommand = new RelayCommand(async () =>
             {
+                await LocalStorage.ServiceManager?.MqttService.MqttServer?.StopAsync();
                 Application.Current.Shutdown();
             });
         }
