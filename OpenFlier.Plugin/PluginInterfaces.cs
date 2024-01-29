@@ -27,7 +27,7 @@ public interface IMqttServicePlugin
 
 public class CommandInputPluginInfo: PluginInfoBase
 {
-    public List<string> InvokeCommands { get; init; }
+    public IEnumerable<string> InvokeCommands { get; init; }
 }
 
 public class CommandInputPluginArgs
