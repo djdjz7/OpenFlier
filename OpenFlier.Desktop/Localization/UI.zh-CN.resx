@@ -288,4 +288,11 @@
   <data name="Acknowledgements" xml:space="preserve">
     <value>致谢</value>
   </data>
+  <data name="ProcessConflictTitle" xml:space="preserve">
+    <value>进程冲突</value>
+  </data>
+  <data name="ProcessConflictDescription" xml:space="preserve">
+    <value>OpenFlier 或中育课堂助手已在运行。
+这导致了冲突。继续前，请停止其它进程。</value>
+  </data>
 </root>

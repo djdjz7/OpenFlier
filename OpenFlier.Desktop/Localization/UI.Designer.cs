@@ -379,6 +379,25 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 One or more OpenFlier or ZY ClassHelper instance are already running.
+        ///This causes conflict. Stop other instances before continue 的本地化字符串。
+        /// </summary>
+        public static string ProcessConflictDescription {
+            get {
+                return ResourceManager.GetString("ProcessConflictDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Process Conflict 的本地化字符串。
+        /// </summary>
+        public static string ProcessConflictTitle {
+            get {
+                return ResourceManager.GetString("ProcessConflictTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Quit 的本地化字符串。
         /// </summary>
         public static string Quit {

@@ -21,7 +21,8 @@ namespace OpenFlier.Desktop.Services
         public IMqttServer MqttServer { get; set; }
         public List<User> Users { get; set; } = new List<User>();
         public ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(DesktopMqttService));
-        private ImageHandler imageHandler = new();
+        private readonly ImageHandler _imageHandler = new();
+        private readonly UserEqualityComparer _userEqualityComparer = new();
 
         public Dictionary<string, Assembly> LoadedMqttServicePlugins = new();
 
@@ -62,7 +63,7 @@ namespace OpenFlier.Desktop.Services
                         commandInputSource = cmdUser.CommandInputSource;
                     }
 
-                if (!Users.Contains(new User { Username = Username }, new UserEqualityComparer()))
+                if (!Users.Contains(new User { Username = Username }, _userEqualityComparer))
                 {
                     Users.Add(
                         new User
@@ -92,11 +93,11 @@ namespace OpenFlier.Desktop.Services
             bool usePng = LocalStorage.Config.General.UsePng;
             string Username = arg.ClientId.Split('_')[2];
             var user = Users.FirstOrDefault(x => x.Username == Username);
-            
+
             if (!user!.AllowCommandInput)
             {
                 string filename = Guid.NewGuid().ToString("N");
-                imageHandler.FetchScreenshot(filename, usePng);
+                _imageHandler.FetchScreenshot(filename, usePng);
                 string s5 = JsonConvert.SerializeObject(
                     new
                     {
@@ -120,7 +121,7 @@ namespace OpenFlier.Desktop.Services
             }
             else
             {
-                await imageHandler.HandleSpecialChannels(user, usePng, MqttServer);
+                await _imageHandler.HandleSpecialChannels(user, usePng, MqttServer);
             }
         }
 
@@ -133,7 +134,7 @@ namespace OpenFlier.Desktop.Services
             string? fullCommand = JsonConvert.DeserializeObject<MqttMessage<string>>(message)?.Data;
             if (fullCommand is null)
                 return;
-            await imageHandler.HandleSpecialChannels(user, usePng, MqttServer, fullCommand);
+            await _imageHandler.HandleSpecialChannels(user, usePng, MqttServer, fullCommand);
         }
 
         private class UserEqualityComparer : IEqualityComparer<User>

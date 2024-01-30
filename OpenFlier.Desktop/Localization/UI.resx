@@ -288,4 +288,11 @@ Are you sure to proceed?</value>
   <data name="Acknowledgements" xml:space="preserve">
     <value>Acknowledgements</value>
   </data>
+  <data name="ProcessConflictTitle" xml:space="preserve">
+    <value>Process Conflict</value>
+  </data>
+  <data name="ProcessConflictDescription" xml:space="preserve">
+    <value>One or more OpenFlier or ZY ClassHelper instance are already running.
+This causes conflict. Stop other instances before continue</value>
+  </data>
 </root>

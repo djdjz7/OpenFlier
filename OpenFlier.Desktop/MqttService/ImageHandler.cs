@@ -24,15 +24,16 @@ namespace OpenFlier.Desktop.MqttService
 {
     internal class ImageHandler
     {
-        private readonly HttpClient httpClient = new HttpClient();
-        private readonly ILog imageHandlerLogger = LogManager.GetLogger(typeof(ImageHandler));
+        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly ILog _imageHandlerLogger = LogManager.GetLogger(typeof(ImageHandler));
         private readonly Font _msyh = new Font("Microsoft Yahei", 20);
+        private readonly InvokeCommandEqualityComparer _invokeCommandEqualityComparer = new();
 
         public Dictionary<string, ICommandInputPlugin> LoadedCommandInputPlugins = new();
 
         public ImageHandler()
         {
-            httpClient.BaseAddress = new Uri("http://friday-note.oss-cn-hangzhou.aliyuncs.com/");
+            _httpClient.BaseAddress = new Uri("http://friday-note.oss-cn-hangzhou.aliyuncs.com/");
         }
 
         public void FetchScreenshot(string filename, bool usePng)
@@ -63,7 +64,7 @@ namespace OpenFlier.Desktop.MqttService
                 {
                     if (string.IsNullOrEmpty(user.CommandInputSource))
                         throw new ArgumentException(Backend.CommandInputSourceNotSpecified);
-                    var snapshotFile = await httpClient.GetByteArrayAsync(user.CommandInputSource);
+                    var snapshotFile = await _httpClient.GetByteArrayAsync(user.CommandInputSource);
                     var snapshot = PageSnapshot.Parser.ParseFrom(snapshotFile);
                     var stringList = GetAllStringFromSnapshot(snapshot.GraphSnapshot);
                     fullCommand = string.Join(' ', stringList).Trim();
@@ -125,7 +126,7 @@ namespace OpenFlier.Desktop.MqttService
                     if (
                         plugin.PluginInfo.InvokeCommands.Contains(
                             invokeCommand.ToLower(),
-                            new InvokeCommandEqualityComparer()
+                            _invokeCommandEqualityComparer
                         )
                     )
                     {
@@ -188,7 +189,7 @@ namespace OpenFlier.Desktop.MqttService
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                imageHandlerLogger.Error(e.Message, e);
+                _imageHandlerLogger.Error(e.Message, e);
                 ThrowExceptionToUser(e, mqttServer, usePng, user.CurrentClientId!);
                 user.IsBusy = false;
             }
