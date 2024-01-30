@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -119,173 +119,45 @@
   </resheader>
   <data name="AboutDescription" xml:space="preserve">
     <value>OpenFlier Insider
-Subject to change.</value>
+ソロゾネ・ヲリ・ウパヨハ。</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>About</value>
+    <value>バペブ</value>
   </data>
   <data name="AppearancesTitle" xml:space="preserve">
-    <value>Appearances</value>
+    <value>外観</value>
   </data>
   <data name="ApplyButtonContent" xml:space="preserve">
-    <value>Apply</value>
+    <value>応用</value>
   </data>
   <data name="CommandInputPluginsTitle" xml:space="preserve">
-    <value>CommandInput Plugins</value>
-  </data>
-  <data name="ConfigureButton" xml:space="preserve">
-    <value>Configure</value>
-  </data>
-  <data name="ContinueText" xml:space="preserve">
-    <value>Continue</value>
+    <value>CommandInput プラグイン</value>
   </data>
   <data name="CopyrightString" xml:space="preserve">
-    <value>Copyright © 2023, OpenFlier Contributors. All rights reserved.</value>
+    <value>Copyright © 2023, OpenFlier Contributors. 無断複写・転載を禁じます。</value>
   </data>
-  <data name="EmulatedVersionDescription" xml:space="preserve">
-    <value>ZY ClassHelper sends its version code to your pad while transmitting image.
-Specified the latest version code here.</value>
+  <data name="ContinueText" xml:space="preserve">
+    <value>続ける</value>
   </data>
-  <data name="EmulatedVersionTitle" xml:space="preserve">
-    <value>Emulated Version</value>
-  </data>
-  <data name="EnableWindowEffectsCheckBoxContent" xml:space="preserve">
-    <value>Enable Window Effects</value>
-  </data>
-  <data name="EnableWindowEffectsDescription" xml:space="preserve">
-    <value>Enable window effects, which means Mica on Windows 11, and Aero on Windows 7.</value>
-  </data>
-  <data name="EnableWindowEffectsTitle" xml:space="preserve">
-    <value>Window Effects</value>
-  </data>
-  <data name="FileTitle" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="FunZoneDescription" xml:space="preserve">
-    <value>Some experimental features, just for fun!</value>
-  </data>
-  <data name="FunZoneTitle" xml:space="preserve">
-    <value>Fun Zone</value>
-  </data>
-  <data name="GeneralTitle" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="LoadingServiceString" xml:space="preserve">
-    <value>Loading Services...</value>
-  </data>
-  <data name="MachineIdentifierTitle" xml:space="preserve">
-    <value>Machine Identifier</value>
-  </data>
-  <data name="MqttServerPortTitle" xml:space="preserve">
-    <value>MQTT Server Port</value>
-  </data>
-  <data name="MqttServicePluginsTitle" xml:space="preserve">
-    <value>MQTT Service Plugins</value>
+  <data name="ConfigureButton" xml:space="preserve">
+    <value>設定</value>
   </data>
   <data name="PluginsTitle" xml:space="preserve">
-    <value>Plugins</value>
+    <value>プラグイン</value>
   </data>
-  <data name="SpecialChannelsTitle" xml:space="preserve">
-    <value>SpecialChannels</value>
+  <data name="MqttServerPortTitle" xml:space="preserve">
+    <value>MQTT サーバーポート</value>
   </data>
-  <data name="SpecifiedConnectCodeTitle" xml:space="preserve">
-    <value>Specified Connect Code</value>
+  <data name="MqttServicePluginsTitle" xml:space="preserve">
+    <value>MQTT サービスプラグイン</value>
   </data>
-  <data name="SpecifiedMachineIdentifierTitle" xml:space="preserve">
-    <value>Specified Machine Identifier</value>
+  <data name="EnableWindowEffectsTitle" xml:space="preserve">
+    <value>ウィンドウエフェクト</value>
   </data>
-  <data name="UdpPortTitle" xml:space="preserve">
-    <value>UDP Broadcast Port</value>
+  <data name="EnableWindowEffectsCheckBoxContent" xml:space="preserve">
+    <value>ウィンドウエフェクトを有効にします</value>
   </data>
-  <data name="UpdatesDescription" xml:space="preserve">
-    <value>Online updates are not supported on this version of OpenFlier.</value>
-  </data>
-  <data name="UpdatesTitle" xml:space="preserve">
-    <value>Updates</value>
-  </data>
-  <data name="UsePngCheckBoxContent" xml:space="preserve">
-    <value>Use PNG Format</value>
-  </data>
-  <data name="UsePngDescription" xml:space="preserve">
-    <value>OpenFlier uses JPEG format as its default screenshot format.
-Check the following check box to use PNG format as the screenshot format, which can improve image quality, but increase latency.</value>
-  </data>
-  <data name="UsePngTitle" xml:space="preserve">
-    <value>Screenshot Format</value>
-  </data>
-  <data name="VideoPlayDescription" xml:space="preserve">
-    <value>Select all frames of a video, set timing intervals, and play! (10~20 fps recommanded. May use ffmpeg to extract frames manually.)</value>
-  </data>
-  <data name="VideoPlayOpenButton" xml:space="preserve">
-    <value>Select All Frames</value>
-  </data>
-  <data name="VideoPlayTitle" xml:space="preserve">
-    <value>Play A Video!</value>
-  </data>
-  <data name="GithubHyperLink" xml:space="preserve">
-    <value>Github Repository</value>
-  </data>
-  <data name="PluginEnabledCheckBox" xml:space="preserve">
-    <value>Whether to Enable</value>
-  </data>
-  <data name="CommandInputUserListTitle" xml:space="preserve">
-    <value>CommandInput Users</value>
-  </data>
-  <data name="OverwriteConfigWarning" xml:space="preserve">
-    <value>Will overwrite existing config file.
-Continue?</value>
-  </data>
-  <data name="CancelText" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="OKText" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="UserIdentifierTitle" xml:space="preserve">
-    <value>User Identifier</value>
-  </data>
-  <data name="CommandInputSourceTitle" xml:space="preserve">
-    <value>CommandInput Source</value>
-  </data>
-  <data name="RestoreConfigButton" xml:space="preserve">
-    <value>Restore Default Config</value>
-  </data>
-  <data name="ReloadingText" xml:space="preserve">
-    <value>Reloading Services...</value>
-  </data>
-  <data name="AdminPrivilegeTitle" xml:space="preserve">
-    <value>Admin Privilege Required</value>
-  </data>
-  <data name="AdminPrivilegeDescription" xml:space="preserve">
-    <value>One or more plugins requires admin privilege.</value>
-  </data>
-  <data name="DisableAndContinue" xml:space="preserve">
-    <value>Disable the plugins temporarily and continue</value>
-  </data>
-  <data name="RestartAsAdmin" xml:space="preserve">
-    <value>Restart OpenFlier as administrator</value>
-  </data>
-  <data name="RestoreConfigDescription" xml:space="preserve">
-    <value>Restore all entries to default values.
-Plugins will need to be reinstalled.</value>
-  </data>
-  <data name="ExportDefaultConfigButton" xml:space="preserve">
-    <value>Export Default Config</value>
-  </data>
-  <data name="ExportDefaultConfigDescription" xml:space="preserve">
-    <value>Export default config to a specified location for manual editing.</value>
-  </data>
-  <data name="RestoreConfigConfirmText" xml:space="preserve">
-    <value>This action is irreversible.
-Are you sure to proceed?</value>
-  </data>
-  <data name="ShowWindow" xml:space="preserve">
-    <value>Show Window</value>
-  </data>
-  <data name="Quit" xml:space="preserve">
-    <value>Quit</value>
-  </data>
-  <data name="Acknowledgements" xml:space="preserve">
-    <value>Acknowledgements</value>
+  <data name="GeneralTitle" xml:space="preserve">
+    <value>一般</value>
   </data>
 </root>

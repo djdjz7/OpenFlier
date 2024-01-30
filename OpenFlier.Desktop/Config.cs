@@ -66,6 +66,7 @@ public class General
 {
     public string? DefaultUpdateCheckURL { get; set; }
     public bool UsePng { get; set; } = false;
+    public string? Locale {  get; set; }
 }
 
 public class CommandInputUser

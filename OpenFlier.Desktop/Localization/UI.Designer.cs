@@ -62,7 +62,7 @@ namespace OpenFlier.Desktop.Localization {
         
         /// <summary>
         ///   查找类似 OpenFlier Insider
-        ///Subject to changed. 的本地化字符串。
+        ///Subject to change. 的本地化字符串。
         /// </summary>
         public static string AboutDescription {
             get {
