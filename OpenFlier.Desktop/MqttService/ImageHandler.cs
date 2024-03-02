@@ -160,7 +160,7 @@ namespace OpenFlier.Desktop.MqttService
                         }
                     }
                 }
-                endOfPluginSearch:
+            endOfPluginSearch:
                 if (commandInputPlugin is not null)
                 {
                     await commandInputPlugin.PluginMain(
@@ -168,7 +168,7 @@ namespace OpenFlier.Desktop.MqttService
                         {
                             ClientID = user.CurrentClientId!,
                             InvokeCommand = invokeCommand,
-                            FullCommand = fullCommand,
+                            FullCommand = string.Join(' ', commands),
                             MqttServer = mqttServer,
                             UsePng = usePng,
                             MachineIdentifier = CoreStorage.MachineIdentifier,
