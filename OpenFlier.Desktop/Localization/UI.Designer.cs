@@ -179,7 +179,7 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Copyright © 2023, OpenFlier Contributors. All rights reserved. 的本地化字符串。
+        ///   查找类似 Copyright © 2023-2024, OpenFlier Contributors. All rights reserved. 的本地化字符串。
         /// </summary>
         public static string CopyrightString {
             get {
@@ -380,7 +380,7 @@ namespace OpenFlier.Desktop.Localization {
         
         /// <summary>
         ///   查找类似 One or more OpenFlier or ZY ClassHelper instance are already running.
-        ///This causes conflict. Stop other instances before continue 的本地化字符串。
+        ///This causes conflict. Stop other instances before continue. 的本地化字符串。
         /// </summary>
         public static string ProcessConflictDescription {
             get {

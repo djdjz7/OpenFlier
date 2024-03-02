@@ -21,10 +21,8 @@ namespace OpenFlier.Desktop.Services
         public IMqttServer MqttServer { get; set; }
         public List<User> Users { get; set; } = new List<User>();
         public ILog MqttLogger { get; set; } = LogManager.GetLogger(typeof(DesktopMqttService));
-        private readonly ImageHandler _imageHandler = new();
+        public ImageHandler ImageHandler = new();
         private readonly UserEqualityComparer _userEqualityComparer = new();
-
-        public Dictionary<string, Assembly> LoadedMqttServicePlugins = new();
 
         public string MainTopic { get; } = Guid.NewGuid().ToString("N");
 
@@ -97,7 +95,7 @@ namespace OpenFlier.Desktop.Services
             if (!user!.AllowCommandInput)
             {
                 string filename = Guid.NewGuid().ToString("N");
-                _imageHandler.FetchScreenshot(filename, usePng);
+                ImageHandler.FetchScreenshot(filename, usePng);
                 string s5 = JsonConvert.SerializeObject(
                     new
                     {
@@ -121,7 +119,7 @@ namespace OpenFlier.Desktop.Services
             }
             else
             {
-                await _imageHandler.HandleSpecialChannels(user, usePng, MqttServer);
+                await ImageHandler.HandleSpecialChannels(user, usePng, MqttServer);
             }
         }
 
@@ -134,7 +132,7 @@ namespace OpenFlier.Desktop.Services
             string? fullCommand = JsonConvert.DeserializeObject<MqttMessage<string>>(message)?.Data;
             if (fullCommand is null)
                 return;
-            await _imageHandler.HandleSpecialChannels(user, usePng, MqttServer, fullCommand);
+            await ImageHandler.HandleSpecialChannels(user, usePng, MqttServer, fullCommand);
         }
 
         private class UserEqualityComparer : IEqualityComparer<User>

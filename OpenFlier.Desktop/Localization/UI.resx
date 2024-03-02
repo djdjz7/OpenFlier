@@ -140,7 +140,7 @@ Subject to change.</value>
     <value>Continue</value>
   </data>
   <data name="CopyrightString" xml:space="preserve">
-    <value>Copyright © 2023, OpenFlier Contributors. All rights reserved.</value>
+    <value>Copyright © 2023-2024, OpenFlier Contributors. All rights reserved.</value>
   </data>
   <data name="EmulatedVersionDescription" xml:space="preserve">
     <value>ZY ClassHelper sends its version code to your pad while transmitting image.
@@ -293,6 +293,6 @@ Are you sure to proceed?</value>
   </data>
   <data name="ProcessConflictDescription" xml:space="preserve">
     <value>One or more OpenFlier or ZY ClassHelper instance are already running.
-This causes conflict. Stop other instances before continue</value>
+This causes conflict. Stop other instances before continue.</value>
   </data>
 </root>

@@ -22,7 +22,7 @@ using static PageSnapshot.Types;
 
 namespace OpenFlier.Desktop.MqttService
 {
-    internal class ImageHandler
+    public class ImageHandler
     {
         private readonly HttpClient _httpClient = new HttpClient();
         private readonly ILog _imageHandlerLogger = LogManager.GetLogger(typeof(ImageHandler));

@@ -23,6 +23,7 @@ public interface IMqttServicePlugin
     public MqttServicePluginInfo GetPluginInfo();
     public Task PluginMain(string clientID, IMqttServer mqttServer);
     public void PluginOpenConfig();
+    public Task BeforeExit();
 }
 
 public class CommandInputPluginInfo: PluginInfoBase
@@ -47,4 +48,5 @@ public interface ICommandInputPlugin
     public CommandInputPluginInfo GetPluginInfo();
     public Task PluginMain(CommandInputPluginArgs args);
     public void PluginOpenConfig();
+    public Task BeforeExit();
 }

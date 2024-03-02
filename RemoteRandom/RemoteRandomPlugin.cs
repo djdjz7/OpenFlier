@@ -22,14 +22,20 @@ namespace RemoteRandom
             PluginName = "Remote Random",
             PluginNeedsConfigEntry = true,
         };
+
+        public async Task BeforeExit()
+        {
+            return;
+        }
+
         public CommandInputPluginInfo GetPluginInfo()
         {
-            return pluginInfo; 
+            return pluginInfo;
         }
 
         public async Task PluginMain(CommandInputPluginArgs args)
         {
-            if(client is null)
+            if (client is null)
                 client = new HttpClient();
             var filename = Guid.NewGuid().ToString("N");
             var usePng = args.UsePng;

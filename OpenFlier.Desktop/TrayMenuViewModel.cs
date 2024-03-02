@@ -29,6 +29,15 @@ namespace OpenFlier.Desktop
             QuitCommand = new RelayCommand(async () =>
             {
                 await LocalStorage.ServiceManager?.MqttService.MqttServer?.StopAsync();
+                foreach (var plugin in LocalStorage.ServiceManager.MqttService.LoadedMqttServicePlugins)
+                {
+                    await plugin.Value.BeforeExit();
+                }
+                if (LocalStorage.DesktopMqttService is not null)
+                    foreach (var plugin in LocalStorage.DesktopMqttService.ImageHandler.LoadedCommandInputPlugins)
+                    {
+                        await plugin.Value.BeforeExit();
+                    }
                 Application.Current.Shutdown();
             });
         }
