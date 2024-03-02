@@ -12,11 +12,12 @@
         <div class="text-wrapper">
             <span>Build Archive</span>
             <h1>OpenFlier</h1>
-            <a href="./OpenFlier.7z">Download Archive</a>
-            <div style="color: #777; font-size: smaller;">
-                <span>Last builded at: </span>
-                <span id="build-time"></span>
+            <div class="button-wrapper" style="color: #777; font-size: smaller;">
+                <a href="./OpenFlier.7z">Download Archive</a>
+                <a class="subtle" href="./DevUtils.7z">Download DevUtils</a>
             </div>
+            <span>Last builded at: </span>
+            <span id="build-time"></span>
         </div>
         <img src="icon.svg" alt="OpenFlier Icon" style="margin-left: 64px;">
 
@@ -28,7 +29,7 @@
     }).then((x) => {
         var td = new TextDecoder();
         x.text().then(xx => {
-        document.getElementById("build-time").textContent = xx;
+            document.getElementById("build-time").textContent = xx;
         })
     });
 </script>
@@ -65,6 +66,10 @@
         justify-content: center;
     }
 
+    .button-wrapper {
+        display: flex;
+    }
+
     a {
         text-decoration: none;
         color: white;
@@ -80,6 +85,19 @@
 
     a:hover {
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .subtle {
+        font-size: small;
+        background: transparent;
+        color: black;
+        box-shadow: none;
+        margin-left: 4px;
+    }
+
+    .subtle:hover {
+        background: rgba(0, 0, 0, 0.1);
+        box-shadow: none;
     }
 </style>
 

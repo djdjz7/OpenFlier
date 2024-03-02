@@ -20,4 +20,8 @@
     <Resource Include="Assets\banner.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>
