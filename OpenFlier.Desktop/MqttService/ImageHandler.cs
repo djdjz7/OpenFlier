@@ -251,7 +251,7 @@ namespace OpenFlier.Desktop.MqttService
             string clientID
         )
         {
-            var filename = Guid.NewGuid().ToString();
+            var filename = Guid.NewGuid().ToString("N");
             var content = string.Format(
                 Backend.ExceptionCaught,
                 exception.GetType().FullName,
