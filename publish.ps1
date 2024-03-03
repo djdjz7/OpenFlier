@@ -10,7 +10,7 @@ dotnet publish OpenFlier.DevUtils -p:PublishProfile=FolderProfile;
 # }
 # Move-Item -Path "OpenFlier.7z" -Destination ".\BuildArchive\OpenFlier.7z";
 
-.\iscc.exe .\setup-script.iss 
+iscc.exe .\setup-script.iss 
 
 7z a DevUtils.7z devutils-dist/* -r -ssw
 $Exist = Test-Path ".\BuildArchive\DevUtils.7z";
