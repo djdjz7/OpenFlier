@@ -366,6 +366,7 @@ FodyWeavers.xsd
 # Published Files
 dist/
 devutils-dist/
+Output/
 BuildArchive/build-time
 BuildArchive/OpenFlier.7z
 BuildArchive/DevUtils.7z
