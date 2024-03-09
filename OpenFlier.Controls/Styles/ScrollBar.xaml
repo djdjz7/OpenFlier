@@ -113,10 +113,7 @@
                 <ColumnDefinition Width="0.00001*" />
                 <ColumnDefinition MaxWidth="12" />
             </Grid.ColumnDefinitions>
-            <Border
-                Grid.ColumnSpan="3"
-                Background="#F0F0F0"
-                CornerRadius="2" />
+            <Border Grid.ColumnSpan="3" CornerRadius="2" />
             <RepeatButton
                 Grid.Column="0"
                 Width="12"
@@ -135,7 +132,7 @@
             <Track
                 x:Name="PART_Track"
                 Grid.Column="1"
-                IsDirectionReversed="True">
+                IsDirectionReversed="False">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource ScrollBarPageButton}" />
                 </Track.DecreaseRepeatButton>
