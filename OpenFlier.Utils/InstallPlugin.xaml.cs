@@ -1,6 +1,7 @@
 ﻿using OpenFlier.Core;
 using OpenFlier.Desktop;
 using OpenFlier.Plugin;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -76,6 +77,12 @@ namespace OpenFlier.Utils
 
         private void InstallButton_Click(object sender, RoutedEventArgs e)
         {
+            var processes = Process.GetProcesses();
+            foreach ( var process in processes )
+            {
+                if (process.ProcessName == "OpenFlier.Desktop")
+                    process.Kill();
+            }
             Config? currentConfig = null;
             var pluginEntry = singlePluginPackage.PluginEntry;
             if (File.Exists("config.json"))
