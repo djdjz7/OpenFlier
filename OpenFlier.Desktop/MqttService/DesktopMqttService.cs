@@ -149,5 +149,23 @@ namespace OpenFlier.Desktop.Services
                 return obj.Username.GetHashCode();
             }
         }
+
+        public void RefreshCommandInputUserStatus()
+        {
+            foreach (var user in Users)
+            {
+                if (user.CurrentClientId is null)
+                    continue;
+                foreach (var cmdUser in LocalStorage.Config.CommandInputUsers)
+                    if (
+                        !string.IsNullOrWhiteSpace(cmdUser.UserIdentifier)
+                        && user.CurrentClientId.Contains(cmdUser.UserIdentifier)
+                    )
+                    {
+                        user.AllowCommandInput = true;
+                        user.CommandInputSource = cmdUser.CommandInputSource;
+                    }
+            }
+        }
     }
 }

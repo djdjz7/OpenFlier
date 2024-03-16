@@ -273,6 +273,7 @@ namespace OpenFlier.Desktop
             preReloadAction.Invoke(newConfig);
             LocalStorage.Config = newConfig;
             serviceManager.RestartAllServices(newConfig);
+            LocalStorage.DesktopMqttService?.RefreshCommandInputUserStatus();
         }
 
         private void RemoveCommandInputUser()
