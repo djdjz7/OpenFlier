@@ -15,7 +15,6 @@ public class ScrollBarMaximumToVisibilityConverter : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        Debug.WriteLine(value as double?);
         if (value as double? == 0)
             return Visibility.Collapsed;
         else
