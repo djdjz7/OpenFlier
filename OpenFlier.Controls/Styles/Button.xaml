@@ -8,7 +8,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid MinHeight="30" MinWidth="72">
+                    <Grid MinWidth="72" MinHeight="30">
                         <Rectangle
                             Name="StrokeRect"
                             Margin="-1"
@@ -80,8 +80,7 @@
                                 Margin="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                TextElement.Foreground="{DynamicResource ForegroundOnAccentBrush}">
-                            </ContentPresenter>
+                                TextElement.Foreground="{DynamicResource ForegroundOnAccentBrush}" />
 
                             <Grid.Clip>
                                 <RectangleGeometry RadiusX="3.5" RadiusY="3.5">
@@ -130,7 +129,7 @@
                             RadiusX="4"
                             RadiusY="4">
                             <Rectangle.Fill>
-                                <SolidColorBrush Color="{DynamicResource Foreground}"/>
+                                <SolidColorBrush Color="{DynamicResource Foreground}" />
                             </Rectangle.Fill>
                         </Rectangle>
                         <ContentPresenter
