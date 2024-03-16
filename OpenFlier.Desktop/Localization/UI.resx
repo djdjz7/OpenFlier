@@ -295,4 +295,7 @@ Are you sure to proceed?</value>
     <value>One or more OpenFlier or ZY ClassHelper instance are already running.
 This causes conflict. Stop other instances before continue.</value>
   </data>
+  <data name="Locale" xml:space="preserve">
+    <value>Locale</value>
+  </data>
 </root>

@@ -30,16 +30,22 @@ public partial class MainWindow : Window
 {
     private ServiceManager serviceManager = LocalStorage.ServiceManager;
     private ILog _logger = LogManager.GetLogger(nameof(MainWindow));
+    private Config _config;
+
+    public MainWindow(Config config)
+    {
+        InitializeComponent();
+        _config = config;
+    }
 
     private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        var config = ConfigService.ReadConfig();
-        if (config.Appearances.EnableWindowEffects ?? true)
+        if (_config.Appearances.EnableWindowEffects ?? true)
         {
             WindowEffects.EnableWindowEffects(this);
         }
 
-        await ValidatePluginPrivilege(config);
+        await ValidatePluginPrivilege(_config);
 
         List<IPAddress> ipAddresses = Dns.GetHostEntry(Dns.GetHostName())
             .AddressList.Where(
@@ -53,7 +59,7 @@ public partial class MainWindow : Window
             return;
         }
 
-        serviceManager = new ServiceManager(config);
+        serviceManager = new ServiceManager(_config);
         LocalStorage.ServiceManager = serviceManager;
         serviceManager.OnLoadCompleted += ServiceManager_LoadCompleted;
         serviceManager.BeginLoad();
@@ -61,7 +67,7 @@ public partial class MainWindow : Window
         MainScreen.Visibility = Visibility.Hidden;
 
         ConfigTab.Content = new ConfigControl(
-            config,
+            _config,
             serviceManager,
             async (newConfig) =>
             {

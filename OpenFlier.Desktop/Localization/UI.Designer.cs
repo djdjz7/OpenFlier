@@ -315,6 +315,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Locale 的本地化字符串。
+        /// </summary>
+        public static string Locale {
+            get {
+                return ResourceManager.GetString("Locale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Machine Identifier 的本地化字符串。
         /// </summary>
         public static string MachineIdentifierTitle {

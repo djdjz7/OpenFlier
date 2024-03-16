@@ -2,6 +2,7 @@
 using log4net.Config;
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 
 namespace OpenFlier.Desktop;
@@ -20,7 +21,6 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-
         var processes = Process.GetProcesses();
         var count = 0;
         foreach (var process in processes)
@@ -31,12 +31,25 @@ public partial class App : Application
             )
                 count++;
         }
-        if(count > 1)
+        if (count > 1)
         {
             new ProcessConflictWindow().ShowDialog();
             Application.Current.Shutdown();
             return;
         }
         var taskbarIcon = (TaskbarIcon)FindResource("TrayMenu");
+        var config = ConfigService.ReadConfig();
+        if (!string.IsNullOrEmpty(config.General.Locale))
+        {
+            try
+            {
+
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(config.General.Locale);
+            }
+            catch (Exception)
+            {
+            }
+        }
+        new MainWindow(config).Show();
     }
 }

@@ -295,4 +295,7 @@
     <value>OpenFlier 或中育课堂助手已在运行。
 这导致了冲突。继续前，请停止其它进程。</value>
   </data>
+  <data name="Locale" xml:space="preserve">
+    <value>语言</value>
+  </data>
 </root>

@@ -160,4 +160,7 @@
   <data name="GeneralTitle" xml:space="preserve">
     <value>一般</value>
   </data>
+  <data name="Locale" xml:space="preserve">
+    <value>言語</value>
+  </data>
 </root>

@@ -5,8 +5,7 @@
     xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:tb="http://www.hardcodet.net/taskbar"
     xmlns:local="clr-namespace:OpenFlier.Desktop"
-    ShutdownMode="OnExplicitShutdown"
-    StartupUri="MainWindow.xaml">
+    ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -83,6 +84,7 @@ namespace OpenFlier.Desktop
 
             DefaultUpdateCheckURL = currentConfig.General.DefaultUpdateCheckURL;
             UsePng = currentConfig.General.UsePng;
+            Locale = currentConfig.General.Locale ?? Thread.CurrentThread.CurrentUICulture.ToString();
 
             UdpBroadcastPort = currentConfig.UDPBroadcastPort ?? 33338;
             MqttServerPort = currentConfig.MqttServerPort ?? 61136;
@@ -151,6 +153,10 @@ namespace OpenFlier.Desktop
 
         [ObservableProperty]
         private bool usePng;
+
+        [ObservableProperty]
+        private string locale;
+
         #endregion
         #region CoreConfig
         [ObservableProperty]
@@ -246,6 +252,7 @@ namespace OpenFlier.Desktop
                 {
                     DefaultUpdateCheckURL = DefaultUpdateCheckURL,
                     UsePng = UsePng,
+                    Locale = Locale,
                 },
                 MqttServerPort = MqttServerPort,
                 MqttServicePlugins = MqttServicePlugins.ToList(),
