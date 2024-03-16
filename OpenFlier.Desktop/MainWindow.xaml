@@ -39,6 +39,7 @@
                             VerticalAlignment="Top">
                             <TextBlock Name="IPAddress" HorizontalAlignment="Center" />
                             <TextBlock
+                                Typography.StylisticSet1="True"
                                 Name="ConnectCode"
                                 HorizontalAlignment="Center"
                                 FontSize="40"
