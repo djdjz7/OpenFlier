@@ -17,6 +17,14 @@ if ($Exist -eq "True") {
 }
 Move-Item -Path "DevUtils.7z" -Destination ".\BuildArchive\DevUtils.7z";
 
+
+7z a -tzip OpenFlier.zip dist/* -r -ssw
+$Exist = Test-Path ".\BuildArchive\OpenFlier.zip";
+if ($Exist -eq "True") {
+    Remove-Item ".\BuildArchive\OpenFlier.zip";
+}
+Move-Item -Path "OpenFlier.zip" -Destination ".\BuildArchive\OpenFlier.zip";
+
 $cst = [System.TimeZoneInfo]::FindSystemTimeZoneById('China Standard Time')
 $dateTime = [System.DateTime]::UtcNow
 $cstCurrentTime = [System.TimeZoneInfo]::ConvertTimeFromUtc($dateTime, $cst)
