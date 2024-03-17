@@ -284,7 +284,7 @@ public partial class MainWindow : Window
                     UpdateProgressBar
                 );
                 var localMD5 = ComputeMD5(data);
-                if (string.Compare(localMD5, newMD5, true) == 0)
+                if (string.Compare(localMD5, newMD5, true) != 0)
                     throw new Exception("MD5 mismatch.");
                 File.WriteAllBytes("latest-package", data);
             }
