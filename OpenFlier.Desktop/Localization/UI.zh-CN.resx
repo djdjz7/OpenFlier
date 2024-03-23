@@ -298,4 +298,7 @@
   <data name="Locale" xml:space="preserve">
     <value>语言</value>
   </data>
+  <data name="KillAndContinue" xml:space="preserve">
+    <value>结束其他进程并继续</value>
+  </data>
 </root>

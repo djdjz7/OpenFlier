@@ -15,6 +15,11 @@
         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.ProcessConflictTitle}" />
         <TextBlock Text="{x:Static i18n:UI.ProcessConflictDescription}" />
         <Button
+            Name="KillAndContinue"
+            Margin="0,8,0,0"
+            Click="KillAndContinue_Click"
+            Content="{x:Static i18n:UI.KillAndContinue}" />
+        <Button
             Name="QuitApplicationButton"
             Margin="0,8,0,0"
             Click="QuitApplicationButton_Click"

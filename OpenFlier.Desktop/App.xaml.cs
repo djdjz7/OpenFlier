@@ -1,9 +1,11 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
 using log4net.Config;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace OpenFlier.Desktop;
 
@@ -18,24 +20,36 @@ public partial class App : Application
         Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
     }
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
         var processes = Process.GetProcesses();
-        var count = 0;
+        var currentId = Process.GetCurrentProcess().Id;
+        var conflicts = new List<Process>();
         foreach (var process in processes)
         {
             if (
-                process.ProcessName == "OpenFlier.Desktop"
-                || process.ProcessName == "CloudRoom.Main"
+                process.ProcessName == "CloudRoom.Main"
+                || (process.ProcessName == "OpenFlier.Desktop" && process.Id != currentId)
             )
-                count++;
+                conflicts.Add(process);
         }
-        if (count > 1)
+        if (conflicts.Count >= 1)
         {
-            new ProcessConflictWindow().ShowDialog();
-            Application.Current.Shutdown();
-            return;
+            var result = await new ProcessConflictWindow().ShowDialog();
+            switch (result)
+            {
+                case ProcessConflictWindow.ProcessConflictResolution.KillAndContinue:
+                    foreach (var process in conflicts)
+                    {
+                        process.Kill();
+                    }
+                    break;
+                case ProcessConflictWindow.ProcessConflictResolution.QuitCurrent:
+                default:
+                    Application.Current.Shutdown();
+                    return;
+            }
         }
         var taskbarIcon = (TaskbarIcon)FindResource("TrayMenu");
         var config = ConfigService.ReadConfig();
@@ -43,12 +57,11 @@ public partial class App : Application
         {
             try
             {
-
-                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(config.General.Locale);
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(
+                    config.General.Locale
+                );
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
         new MainWindow(config).Show();
     }

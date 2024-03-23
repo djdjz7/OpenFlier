@@ -306,6 +306,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Kill Other Instances And Continue 的本地化字符串。
+        /// </summary>
+        public static string KillAndContinue {
+            get {
+                return ResourceManager.GetString("KillAndContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Loading Services... 的本地化字符串。
         /// </summary>
         public static string LoadingServiceString {

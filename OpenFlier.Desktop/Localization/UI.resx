@@ -298,4 +298,7 @@ This causes conflict. Stop other instances before continue.</value>
   <data name="Locale" xml:space="preserve">
     <value>Locale</value>
   </data>
+  <data name="KillAndContinue" xml:space="preserve">
+    <value>Kill Other Instances And Continue</value>
+  </data>
 </root>
