@@ -208,7 +208,7 @@ Specified the latest version code here.</value>
   </data>
   <data name="UsePngDescription" xml:space="preserve">
     <value>OpenFlier uses JPEG format as its default screenshot format.
-Check the following check box to use PNG format as the screenshot format, which can improve image quality, but increase latency.</value>
+Check this check box to use PNG format as the screenshot format, which can improve image quality, but increase latency.</value>
   </data>
   <data name="UsePngTitle" xml:space="preserve">
     <value>Screenshot Format</value>
@@ -300,5 +300,12 @@ This causes conflict. Stop other instances before continue.</value>
   </data>
   <data name="KillAndContinue" xml:space="preserve">
     <value>Kill Other Instances And Continue</value>
+  </data>
+  <data name="SpecifyConnectCodeDescription" xml:space="preserve">
+    <value>Specify Connect Code to be used during connection.</value>
+  </data>
+  <data name="LocaleDescription" xml:space="preserve">
+    <value>Specify the language of the application.
+A restart is required for changes to take effect.</value>
   </data>
 </root>

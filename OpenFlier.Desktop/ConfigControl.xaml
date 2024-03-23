@@ -46,17 +46,22 @@
                 <ScrollViewer>
                     <StackPanel Margin="8">
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.AppearancesTitle}" />
-                        <TextBlock
+
+                        <ofc:SettingsCard
                             Margin="0,8,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.EnableWindowEffectsTitle}" />
-                        <TextBlock Text="{x:Static i18n:UI.EnableWindowEffectsDescription}" TextWrapping="Wrap" />
-                        <CheckBox
-                            Name="EnableWindowEffectsCheckBox"
-                            Margin="0,4,0,0"
-                            Content="{x:Static i18n:UI.EnableWindowEffectsCheckBoxContent}"
-                            IsChecked="{Binding EnableWindowEffects}" />
+                            Description="{x:Static i18n:UI.EnableWindowEffectsDescription}"
+                            Header="{x:Static i18n:UI.EnableWindowEffectsTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xf4a5;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <CheckBox IsChecked="{Binding EnableWindowEffects}" />
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
@@ -84,105 +89,168 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource SubTitle}"
                             Text="{x:Static i18n:UI.SpecifiedConnectCodeTitle}" />
-                        <TextBox
-                            Name="SpecifiedConnectCodeTextBox"
-                            Width="200"
-                            Margin="0,4,0,0"
-                            HorizontalAlignment="Left">
-                            <TextBox.Text>
-                                <Binding
-                                    NotifyOnValidationError="True"
-                                    Path="SpecifiedConnectCode"
-                                    UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <local:ConnectCodeValidationRule />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                            <Validation.ErrorTemplate>
-                                <ControlTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <AdornedElementPlaceholder x:Name="adornedElement" />
-                                        <TextBlock
-                                            Margin="8,0,0,0"
-                                            VerticalAlignment="Center"
-                                            Foreground="Red"
-                                            Text="{Binding ElementName=adornedElement, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
-                                    </StackPanel>
-                                </ControlTemplate>
-                            </Validation.ErrorTemplate>
-                        </TextBox>
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.Locale}" />
-                        <ComboBox
-                            Width="200"
-                            Margin="0,4,0,0"
-                            HorizontalAlignment="Left"
-                            SelectedValue="{Binding Locale}">
-                            <ComboBox.ItemsSource>
-                                <x:Array Type="sys:String">
-                                    <sys:String>en</sys:String>
-                                    <sys:String>zh-CN</sys:String>
-                                    <sys:String>ja</sys:String>
-                                </x:Array>
-                            </ComboBox.ItemsSource>
-                        </ComboBox>
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.SpecifiedMachineIdentifierTitle}" />
-                        <TextBox
-                            Name="SpecifiedMachineIdentifierTextBox"
-                            Margin="0,4,0,0"
-                            Text="{Binding SpecifiedMachineIdentifier}" />
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.UsePngTitle}" />
-                        <TextBlock Text="{x:Static i18n:UI.UsePngDescription}" TextWrapping="Wrap" />
-                        <CheckBox
-                            Name="UsePngCheckBox"
-                            Margin="0,4,0,0"
-                            Content="{x:Static i18n:UI.UsePngCheckBoxContent}"
-                            IsChecked="{Binding UsePng}" />
 
-                        <TextBlock
+                        <ofc:SettingsCard
                             Margin="0,8,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.MqttServerPortTitle}" />
-                        <TextBox
-                            Name="MqttPortTextBox"
-                            Width="200"
+                            Description="{x:Static i18n:UI.SpecifyConnectCodeDescription}"
+                            Header="{x:Static i18n:UI.SpecifiedConnectCodeTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xe703;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <TextBox
+                                    Width="200"
+                                    Margin="0,4,0,0"
+                                    HorizontalAlignment="Left">
+                                    <TextBox.Text>
+                                        <Binding
+                                            NotifyOnValidationError="True"
+                                            Path="SpecifiedConnectCode"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:ConnectCodeValidationRule />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                    <!--<Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel Orientation="Vertical">
+                                                <AdornedElementPlaceholder />
+                                                <TextBlock
+                                                    FontSize="12"
+                                                    Margin="0,4,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="Red"
+                                                    Text="{Binding ElementName=adornedElement, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>-->
+                                </TextBox>
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
+                        <ofc:SettingsCard
                             Margin="0,4,0,0"
-                            HorizontalAlignment="Left"
-                            Text="{Binding MqttServerPort}" />
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.UdpPortTitle}" />
-                        <TextBox
-                            Name="UdpPortTextBox"
-                            Width="200"
+                            Description="{x:Static i18n:UI.LocaleDescription}"
+                            Header="{x:Static i18n:UI.Locale}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xf2b7;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <ComboBox
+                                    Width="200"
+                                    Margin="0,4,0,0"
+                                    HorizontalAlignment="Left"
+                                    SelectedValue="{Binding Locale}">
+                                    <ComboBox.ItemsSource>
+                                        <x:Array Type="sys:String">
+                                            <sys:String>en</sys:String>
+                                            <sys:String>zh-CN</sys:String>
+                                            <sys:String>ja</sys:String>
+                                        </x:Array>
+                                    </ComboBox.ItemsSource>
+                                </ComboBox>
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
+
+                        <ofc:SettingsCard
                             Margin="0,4,0,0"
-                            HorizontalAlignment="Left"
-                            Text="{Binding UdpBroadcastPort}" />
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.EmulatedVersionTitle}" />
-                        <TextBlock Text="{x:Static i18n:UI.EmulatedVersionDescription}" />
-                        <TextBox
-                            Name="EmulatedVersionTextBox"
-                            Width="200"
+                            Description="{x:Static i18n:UI.SpecifiedMachineIdentifierTitle}"
+                            Header="{x:Static i18n:UI.SpecifiedMachineIdentifierTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xf552;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding SpecifiedMachineIdentifier}" />
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
+
+                        <ofc:SettingsCard
                             Margin="0,4,0,0"
-                            HorizontalAlignment="Left"
-                            Text="{Binding SpecifiedEmulatedVersion}" />
+                            Description="{x:Static i18n:UI.UsePngDescription}"
+                            Header="{x:Static i18n:UI.UsePngTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xe8b9;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <CheckBox IsChecked="{Binding UsePng}" />
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
+
+                        <ofc:SettingsCard
+                            Margin="0,4,0,0"
+                            Description="{x:Static i18n:UI.MqttServerPortTitle}"
+                            Header="{x:Static i18n:UI.MqttServerPortTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xe71b;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding MqttServerPort}" />
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
+
+                        <ofc:SettingsCard
+                            Margin="0,4,0,0"
+                            Description="{x:Static i18n:UI.UdpPortTitle}"
+                            Header="{x:Static i18n:UI.UdpPortTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xe71b;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding UdpBroadcastPort}" />
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
+
+                        <ofc:SettingsCard
+                            Margin="0,4,0,0"
+                            Description="{x:Static i18n:UI.EmulatedVersionDescription}"
+                            Header="{x:Static i18n:UI.EmulatedVersionTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xed35;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding SpecifiedEmulatedVersion}" />
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

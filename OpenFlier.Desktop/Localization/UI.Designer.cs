@@ -333,6 +333,16 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Specify the language of the application.
+        ///A restart is required for changes to take effect. 的本地化字符串。
+        /// </summary>
+        public static string LocaleDescription {
+            get {
+                return ResourceManager.GetString("LocaleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Machine Identifier 的本地化字符串。
         /// </summary>
         public static string MachineIdentifierTitle {
@@ -508,6 +518,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Specify Connect Code to be used during connection. 的本地化字符串。
+        /// </summary>
+        public static string SpecifyConnectCodeDescription {
+            get {
+                return ResourceManager.GetString("SpecifyConnectCodeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 UDP Broadcast Port 的本地化字符串。
         /// </summary>
         public static string UdpPortTitle {
@@ -545,7 +564,7 @@ namespace OpenFlier.Desktop.Localization {
         
         /// <summary>
         ///   查找类似 OpenFlier uses JPEG format as its default screenshot format.
-        ///Check the following check box to use PNG format as the screenshot format, which can improve image quality, but increase latency. 的本地化字符串。
+        ///Check this check box to use PNG format as the screenshot format, which can improve image quality, but increase latency. 的本地化字符串。
         /// </summary>
         public static string UsePngDescription {
             get {

@@ -202,7 +202,7 @@
   </data>
   <data name="UsePngDescription" xml:space="preserve">
     <value>OpenFlier 默认使用 JPEG 作为截图格式。
-勾选以下复选框以使用 PNG 格式。</value>
+勾选此复选框以使用 PNG 格式。</value>
   </data>
   <data name="UsePngTitle" xml:space="preserve">
     <value>截图格式</value>
@@ -300,5 +300,12 @@
   </data>
   <data name="KillAndContinue" xml:space="preserve">
     <value>结束其他进程并继续</value>
+  </data>
+  <data name="SpecifyConnectCodeDescription" xml:space="preserve">
+    <value>指定连接过程中使用的连接密码。</value>
+  </data>
+  <data name="LocaleDescription" xml:space="preserve">
+    <value>指定应用程序语言。
+为使更改生效，需要重新启动应用程序。</value>
   </data>
 </root>
