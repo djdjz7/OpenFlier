@@ -593,6 +593,7 @@
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.FileTitle}" />
                         <Grid>
                             <ofc:SettingsCard
+                                Margin="0,8,0,0"
                                 Command="{Binding RestoreDefaultConfigCommand}"
                                 Description="{x:Static i18n:UI.RestoreConfigDescription}"
                                 Header="{x:Static i18n:UI.RestoreConfigButton}"
