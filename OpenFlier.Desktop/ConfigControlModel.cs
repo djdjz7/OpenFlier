@@ -16,6 +16,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace OpenFlier.Desktop
 {
@@ -85,6 +86,7 @@ namespace OpenFlier.Desktop
             DefaultUpdateCheckURL = currentConfig.General.DefaultUpdateCheckURL;
             UsePng = currentConfig.General.UsePng;
             Locale = currentConfig.General.Locale ?? Thread.CurrentThread.CurrentUICulture.ToString();
+            RevertTextColor = currentConfig.Appearances.RevertTextColor;
 
             UdpBroadcastPort = currentConfig.UDPBroadcastPort ?? 33338;
             MqttServerPort = currentConfig.MqttServerPort ?? 61136;
@@ -145,6 +147,9 @@ namespace OpenFlier.Desktop
 
         [ObservableProperty]
         private bool syncColorWithSystem;
+
+        [ObservableProperty]
+        private bool revertTextColor;
 
         #endregion
         #region General
@@ -244,6 +249,7 @@ namespace OpenFlier.Desktop
                     SecondaryColor = SecondaryColor,
                     SyncColorWithSystem = SyncColorWithSystem,
                     WindowTitle = WindowTitle,
+                    RevertTextColor = RevertTextColor,
                 },
                 CommandInputPlugins = CommandInputPlugins.ToList(),
                 CommandInputUsers = CommandInputUsers.ToList(),
@@ -272,6 +278,10 @@ namespace OpenFlier.Desktop
 
             preReloadAction.Invoke(newConfig);
             LocalStorage.Config = newConfig;
+            if(newConfig.Appearances.RevertTextColor)
+                Application.Current.Resources["TextColorOnBase"] = new SolidColorBrush(Colors.White);
+            else
+                Application.Current.Resources["TextColorOnBase"] = new SolidColorBrush(Colors.Black);
             serviceManager.RestartAllServices(newConfig);
             LocalStorage.DesktopMqttService?.RefreshCommandInputUserStatus();
         }

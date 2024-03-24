@@ -25,7 +25,10 @@
             <TabControl TabStripPlacement="Left">
                 <TabItem>
                     <TabItem.Header>
-                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe80f;" />
+                        <TextBlock
+                            FontFamily="Segoe Fluent Icons"
+                            Foreground="{DynamicResource TextColorOnBase}"
+                            Text="&#xe80f;" />
                     </TabItem.Header>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -37,13 +40,17 @@
                             Margin="0,82,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top">
-                            <TextBlock Name="IPAddress" HorizontalAlignment="Center" />
                             <TextBlock
-                                Typography.StylisticSet1="True"
+                                Name="IPAddress"
+                                HorizontalAlignment="Center"
+                                Foreground="{DynamicResource TextColorOnBase}" />
+                            <TextBlock
                                 Name="ConnectCode"
                                 HorizontalAlignment="Center"
                                 FontSize="40"
-                                FontWeight="Bold" />
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource TextColorOnBase}"
+                                Typography.StylisticSet1="True" />
                         </StackPanel>
                         <TextBlock
                             Name="MachineIdentifier"
@@ -51,6 +58,7 @@
                             Margin="8"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
+                            Foreground="{DynamicResource TextColorOnBase}"
                             ToolTip="{x:Static i18n:UI.MachineIdentifierTitle}" />
 
                     </Grid>
@@ -58,13 +66,19 @@
                 <TabItem x:Name="ConfigTab">
 
                     <TabItem.Header>
-                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe713;" />
+                        <TextBlock
+                            FontFamily="Segoe Fluent Icons"
+                            Foreground="{DynamicResource TextColorOnBase}"
+                            Text="&#xe713;" />
                     </TabItem.Header>
                 </TabItem>
 
                 <TabItem>
                     <TabItem.Header>
-                        <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xe946;" />
+                        <TextBlock
+                            FontFamily="Segoe Fluent Icons"
+                            Foreground="{DynamicResource TextColorOnBase}"
+                            Text="&#xe946;" />
                     </TabItem.Header>
                     <Grid>
                         <StackPanel Margin="8">
@@ -73,7 +87,10 @@
                                     Height="64"
                                     VerticalAlignment="Center"
                                     Source="Assets/icon.png" />
-                                <StackPanel Margin="4,0,0,0" VerticalAlignment="Center">
+                                <StackPanel
+                                    Margin="4,0,0,0"
+                                    VerticalAlignment="Center"
+                                    TextElement.Foreground="{DynamicResource TextColorOnBase}">
                                     <TextBlock Style="{StaticResource Title}" Text="">
                                         OpenFlier Alpha&#32;<Run
                                             Name="AdminText"
@@ -83,7 +100,7 @@
                                     <TextBlock x:Name="VersionText" />
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel>
+                            <StackPanel TextElement.Foreground="{DynamicResource TextColorOnBase}">
 
                                 <TextBlock Style="{StaticResource SubTitle}" Text="{x:Static i18n:UI.UpdatesTitle}" />
                                 <StackPanel Orientation="Horizontal">
@@ -182,6 +199,7 @@
                 <TextBlock
                     Name="LoadingTextBlock"
                     Margin="12,0,12,0"
+                    Foreground="{DynamicResource TextColorOnBase}"
                     Text="{x:Static i18n:UI.LoadingServiceString}" />
                 <ProgressBar
                     Height="14"

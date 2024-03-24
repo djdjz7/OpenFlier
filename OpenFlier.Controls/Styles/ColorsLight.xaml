@@ -6,6 +6,7 @@
     <Color x:Key="PrimaryColor">#38c2fd</Color>
     <Color x:Key="PrimaryColorText">#38a8ff</Color>
     <SolidColorBrush x:Key="BackgroundDefault" Color="#FCFCFC" />
+    <SolidColorBrush x:Key="TextColorOnBase" Color="Black" />
     <SolidColorBrush
         x:Key="CardBackgroundFillColorOnThinAcrylicDefaultBrush"
         Opacity="0.7"

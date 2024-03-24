@@ -30,7 +30,7 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" TextElement.Foreground="{DynamicResource TextColorOnBase}">
                         <TextBlock
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
@@ -45,7 +45,7 @@
                 </TabItem.Header>
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.AppearancesTitle}" />
+                        <TextBlock TextElement.Foreground="{DynamicResource TextColorOnBase}" Style="{StaticResource Title}" Text="{x:Static i18n:UI.AppearancesTitle}" />
 
                         <ofc:SettingsCard
                             Margin="0,8,0,0"
@@ -62,12 +62,28 @@
                                 <CheckBox IsChecked="{Binding EnableWindowEffects}" />
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
+
+                        <ofc:SettingsCard
+                            Margin="0,4,0,0"
+                            Description="{x:Static i18n:UI.RevertTextColorDescription}"
+                            Header="{x:Static i18n:UI.RevertTextColorTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xe776;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <CheckBox IsChecked="{Binding RevertTextColor}" />
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" TextElement.Foreground="{DynamicResource TextColorOnBase}">
                         <TextBlock
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
@@ -83,12 +99,7 @@
 
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.GeneralTitle}" />
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource SubTitle}"
-                            Text="{x:Static i18n:UI.SpecifiedConnectCodeTitle}" />
+                        <TextBlock TextElement.Foreground="{DynamicResource TextColorOnBase}" Style="{StaticResource Title}" Text="{x:Static i18n:UI.GeneralTitle}" />
 
                         <ofc:SettingsCard
                             Margin="0,8,0,0"
@@ -132,6 +143,23 @@
                                 </TextBox>
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
+
+                        <ofc:SettingsCard
+                            Margin="0,4,0,0"
+                            Description="{x:Static i18n:UI.UsePngDescription}"
+                            Header="{x:Static i18n:UI.UsePngTitle}"
+                            IsClickEnabled="False">
+                            <ofc:SettingsCard.HeaderIcon>
+                                <TextBlock
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="18"
+                                    Text="&#xe8b9;" />
+                            </ofc:SettingsCard.HeaderIcon>
+                            <ofc:SettingsCard.Content>
+                                <CheckBox IsChecked="{Binding UsePng}" />
+                            </ofc:SettingsCard.Content>
+                        </ofc:SettingsCard>
+
                         <ofc:SettingsCard
                             Margin="0,4,0,0"
                             Description="{x:Static i18n:UI.LocaleDescription}"
@@ -179,21 +207,7 @@
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
 
-                        <ofc:SettingsCard
-                            Margin="0,4,0,0"
-                            Description="{x:Static i18n:UI.UsePngDescription}"
-                            Header="{x:Static i18n:UI.UsePngTitle}"
-                            IsClickEnabled="False">
-                            <ofc:SettingsCard.HeaderIcon>
-                                <TextBlock
-                                    FontFamily="Segoe Fluent Icons"
-                                    FontSize="18"
-                                    Text="&#xe8b9;" />
-                            </ofc:SettingsCard.HeaderIcon>
-                            <ofc:SettingsCard.Content>
-                                <CheckBox IsChecked="{Binding UsePng}" />
-                            </ofc:SettingsCard.Content>
-                        </ofc:SettingsCard>
+
 
                         <ofc:SettingsCard
                             Margin="0,4,0,0"
@@ -256,7 +270,7 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" TextElement.Foreground="{DynamicResource TextColorOnBase}">
                         <TextBlock
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
@@ -270,7 +284,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <StackPanel Margin="8">
+                    <StackPanel TextElement.Foreground="{DynamicResource TextColorOnBase}" Margin="8">
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.SpecialChannelsTitle}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -329,7 +343,7 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" TextElement.Foreground="{DynamicResource TextColorOnBase}">
                         <TextBlock
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
@@ -342,7 +356,7 @@
                             Text="{x:Static i18n:UI.PluginsTitle}" />
                     </StackPanel>
                 </TabItem.Header>
-                <ScrollViewer>
+                <ScrollViewer TextElement.Foreground="{DynamicResource TextColorOnBase}">
                     <StackPanel Margin="8">
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.PluginsTitle}" />
                         <Grid Margin="0,8,0,0">
@@ -574,7 +588,7 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" TextElement.Foreground="{DynamicResource TextColorOnBase}">
                         <TextBlock
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
@@ -590,7 +604,7 @@
 
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.FileTitle}" />
+                        <TextBlock TextElement.Foreground="{DynamicResource TextColorOnBase}" Style="{StaticResource Title}" Text="{x:Static i18n:UI.FileTitle}" />
                         <Grid>
                             <ofc:SettingsCard
                                 Margin="0,8,0,0"

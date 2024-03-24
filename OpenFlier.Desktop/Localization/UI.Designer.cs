@@ -482,6 +482,25 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Revert text color on transparent controls.
+        ///This may increase readability of text on Areo matrials. 的本地化字符串。
+        /// </summary>
+        public static string RevertTextColorDescription {
+            get {
+                return ResourceManager.GetString("RevertTextColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Revert Text Color 的本地化字符串。
+        /// </summary>
+        public static string RevertTextColorTitle {
+            get {
+                return ResourceManager.GetString("RevertTextColorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Show Window 的本地化字符串。
         /// </summary>
         public static string ShowWindow {

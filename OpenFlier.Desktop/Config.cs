@@ -60,6 +60,7 @@ public class Appearances
     public string? BackgroundImage { get; set; }
     public bool? EnableWindowEffects { get; set; }
     public bool? SyncColorWithSystem { get; set; }
+    public bool RevertTextColor { get; set; } = false;
 }
 
 public class General

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace OpenFlier.Desktop;
 
@@ -63,6 +64,8 @@ public partial class App : Application
             }
             catch (Exception) { }
         }
+        if(config.Appearances.RevertTextColor)
+            Resources["TextColorOnBase"] = new SolidColorBrush(Colors.White);
         new MainWindow(config).Show();
     }
 }

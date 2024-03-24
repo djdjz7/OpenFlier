@@ -308,4 +308,11 @@ This causes conflict. Stop other instances before continue.</value>
     <value>Specify the language of the application.
 A restart is required for changes to take effect.</value>
   </data>
+  <data name="RevertTextColorTitle" xml:space="preserve">
+    <value>Revert Text Color</value>
+  </data>
+  <data name="RevertTextColorDescription" xml:space="preserve">
+    <value>Revert text color on transparent controls.
+This may increase readability of text on Areo matrials.</value>
+  </data>
 </root>

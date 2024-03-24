@@ -308,4 +308,11 @@
     <value>指定应用程序语言。
 为使更改生效，需要重新启动应用程序。</value>
   </data>
+  <data name="RevertTextColorDescription" xml:space="preserve">
+    <value>反转透明组件上的颜色。
+这可能可以增强 Aero 材质上文字的可读性。</value>
+  </data>
+  <data name="RevertTextColorTitle" xml:space="preserve">
+    <value>反转字体颜色</value>
+  </data>
 </root>
