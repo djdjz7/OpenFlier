@@ -18,7 +18,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace OpenFlier.Desktop
+namespace OpenFlier.Desktop.ViewModel
 {
     public partial class ConfigControlModel : ObservableObject
     {

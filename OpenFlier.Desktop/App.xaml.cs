@@ -1,5 +1,6 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
 using log4net.Config;
+using OpenFlier.Desktop.View;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

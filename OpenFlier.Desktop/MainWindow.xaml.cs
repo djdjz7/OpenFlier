@@ -4,6 +4,8 @@ using OpenFlier.Controls;
 using OpenFlier.Core;
 using OpenFlier.Core.Services;
 using OpenFlier.Desktop.Localization;
+using OpenFlier.Desktop.Model;
+using OpenFlier.Desktop.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,9 +75,9 @@ public partial class MainWindow : Window
             async (newConfig) =>
             {
                 await ValidatePluginPrivilege(newConfig);
-                this.LoadingTextBlock.Text = Localization.UI.ReloadingText;
-                this.LoadingScreen.Visibility = Visibility.Visible;
-                this.MainScreen.Visibility = Visibility.Hidden;
+                LoadingTextBlock.Text = UI.ReloadingText;
+                LoadingScreen.Visibility = Visibility.Visible;
+                MainScreen.Visibility = Visibility.Hidden;
             }
         );
     }
@@ -92,9 +94,9 @@ public partial class MainWindow : Window
                     async (newConfig) =>
                     {
                         await ValidatePluginPrivilege(newConfig);
-                        this.LoadingTextBlock.Text = Localization.UI.ReloadingText;
-                        this.LoadingScreen.Visibility = Visibility.Visible;
-                        this.MainScreen.Visibility = Visibility.Hidden;
+                        LoadingTextBlock.Text = UI.ReloadingText;
+                        LoadingScreen.Visibility = Visibility.Visible;
+                        MainScreen.Visibility = Visibility.Hidden;
                     }
                 );
             }
@@ -141,12 +143,12 @@ public partial class MainWindow : Window
         System.Windows.Input.MouseButtonEventArgs e
     )
     {
-        this.DragMove();
+        DragMove();
     }
 
     private void TestButton_Click(object sender, RoutedEventArgs e)
     {
-        (new Video()).ShowDialog();
+        new Video().ShowDialog();
     }
 
     private static bool IsApplicationRunningAsAdmin()
@@ -406,7 +408,7 @@ public partial class MainWindow : Window
 
     protected override void OnClosing(CancelEventArgs e)
     {
-        this.Hide();
+        Hide();
         e.Cancel = true;
     }
 

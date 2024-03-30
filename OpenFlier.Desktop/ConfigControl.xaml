@@ -4,21 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
-    xmlns:local="clr-namespace:OpenFlier.Desktop"
+    xmlns:converters="clr-namespace:OpenFlier.Desktop.Converters"
+    xmlns:vm="clr-namespace:OpenFlier.Desktop.ViewModel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ofc="clr-namespace:OpenFlier.Controls;assembly=OpenFlier.Controls"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    d:DataContext="{d:DesignInstance Type=local:ConfigControlModel}"
+    d:DataContext="{d:DesignInstance Type=vm:ConfigControlModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     TextElement.FontFamily="{StaticResource Inter}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <local:ConfigControlModel x:Key="DesignModel" />
-        <local:StringListToStringConverter x:Key="StringListToStringConverter" />
-        <local:FalseToStrikethroughConverter x:Key="FalseToStrikethroughConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <vm:ConfigControlModel x:Key="DesignModel" />
+        <converters:StringListToStringConverter x:Key="StringListToStringConverter" />
+        <converters:FalseToStrikethroughConverter x:Key="FalseToStrikethroughConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -123,7 +124,7 @@
                                             Path="SpecifiedConnectCode"
                                             UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <local:ConnectCodeValidationRule />
+                                                <vm:ConnectCodeValidationRule />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
