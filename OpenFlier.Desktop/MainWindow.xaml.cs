@@ -15,7 +15,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
@@ -117,15 +116,20 @@ public partial class MainWindow : Window
                     .DesktopMqttService
                     .OnTestMessageReceivedAsync;
 
-                if (CoreStorage.IPAddresses?.Count > 1)
-                {
-                    IPAddress.Text = Backend.MultipleAddresses;
-                    IPAddress.ToolTip = string.Join('\n', CoreStorage.IPAddresses);
-                }
+                //if (CoreStorage.IPAddresses?.Count > 1)
+                //{
+                //    IPAddress.Text = Backend.MultipleAddresses;
+                //    IPAddress.ToolTip = string.Join('\n', CoreStorage.IPAddresses);
+                //}
             }
-            ConnectCode.Text = CoreStorage.ConnectCode;
-            WeakReferenceMessenger.Default.Send<ConnectionCodeUpdatedMessage>(new(CoreStorage.ConnectCode));
-            MachineIdentifier.Text = CoreStorage.MachineIdentifier;
+            //ConnectCode.Text = CoreStorage.ConnectCode;
+            WeakReferenceMessenger.Default.Send<ServiceReset>(new ServiceReset
+            {
+                ConnectCode = CoreStorage.ConnectCode,
+                IPAddresses = CoreStorage.IPAddresses?.ToArray(),
+                MachineIdentifier = CoreStorage.MachineIdentifier
+            });
+            //MachineIdentifier.Text = CoreStorage.MachineIdentifier;
             LoadingScreen.Visibility = Visibility.Hidden;
             MainScreen.Visibility = Visibility.Visible;
             var presentationSource = PresentationSource.FromVisual(this);

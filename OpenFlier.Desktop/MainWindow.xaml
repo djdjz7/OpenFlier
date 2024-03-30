@@ -6,6 +6,7 @@
     xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
     xmlns:converters="clr-namespace:OpenFlier.Desktop.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:OpenFlier.Desktop.View"
     Title="OpenFlier"
     Width="800"
     Height="450"
@@ -30,38 +31,7 @@
                             Foreground="{DynamicResource TextColorOnBase}"
                             Text="&#xe80f;" />
                     </TabItem.Header>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*" />
-                            <RowDefinition Height="11*" />
-                        </Grid.RowDefinitions>
-                        <StackPanel
-                            Grid.Row="1"
-                            Margin="0,82,0,0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top">
-                            <TextBlock
-                                Name="IPAddress"
-                                HorizontalAlignment="Center"
-                                Foreground="{DynamicResource TextColorOnBase}" />
-                            <TextBlock
-                                Name="ConnectCode"
-                                HorizontalAlignment="Center"
-                                FontSize="40"
-                                FontWeight="Bold"
-                                Foreground="{DynamicResource TextColorOnBase}"
-                                Typography.StylisticSet1="True" />
-                        </StackPanel>
-                        <TextBlock
-                            Name="MachineIdentifier"
-                            Grid.Row="1"
-                            Margin="8"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom"
-                            Foreground="{DynamicResource TextColorOnBase}"
-                            ToolTip="{x:Static i18n:UI.MachineIdentifierTitle}" />
-
-                    </Grid>
+                    <view:MainView />
                 </TabItem>
                 <TabItem x:Name="ConfigTab">
 

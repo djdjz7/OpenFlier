@@ -19,9 +19,9 @@ namespace OpenFlier.Desktop.ViewModel
         private string _connectCode = "";
         public TrayMenuViewModel()
         {
-            WeakReferenceMessenger.Default.Register<ConnectionCodeUpdatedMessage>(this, (obj, message) =>
+            WeakReferenceMessenger.Default.Register<ServiceReset>(this, (obj, message) =>
             {
-                ConnectCode = message.NewConnectCode;
+                ConnectCode = message.ConnectCode;
             });
             ShowWindowCommand = new RelayCommand(() =>
             {
