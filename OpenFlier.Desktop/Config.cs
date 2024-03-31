@@ -49,7 +49,7 @@ public class Config : CoreConfig
     public General General { get; set; } = new General();
 
     public List<LocalPluginInfo<CommandInputPluginInfo>> CommandInputPlugins { get; set; } = new();
-    public List<CommandInputUser> CommandInputUsers { get; set; } = new();
+    public ObservableCollection<CommandInputUser> CommandInputUsers { get; set; } = new();
 }
 
 public class Appearances

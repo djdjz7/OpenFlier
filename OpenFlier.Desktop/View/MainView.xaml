@@ -21,10 +21,28 @@
             Margin="0,82,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top">
-            <TextBlock
-                HorizontalAlignment="Center"
-                Foreground="{DynamicResource TextColorOnBase}"
-                Text="{Binding IpAddress}" />
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource TextColorOnBase}"
+                    Text="{Binding IpAddress}"
+                    ToolTip="{Binding AllIpAddress}" />
+                <TextBlock
+                    Margin="4,0,0,0"
+                    VerticalAlignment="Center"
+                    FontFamily="Segoe Fluent Icons"
+                    Foreground="{DynamicResource PrimaryBrush}"
+                    Text="&#xe946;">
+                    <TextBlock.ToolTip>
+                        <TextBlock
+                            FontFamily="{StaticResource Inter}"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextColorOnBase}"
+                            Text="{Binding AllIpAddress}" />
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </StackPanel>
             <TextBlock
                 HorizontalAlignment="Center"
                 FontSize="40"

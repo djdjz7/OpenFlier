@@ -1,28 +1,14 @@
 ﻿using OpenFlier.Core;
 using OpenFlier.Core.Services;
-using OpenFlier.Desktop.Localization;
 using OpenFlier.Desktop.ViewModel;
 using OpenFlier.Plugin;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace OpenFlier.Desktop
+namespace OpenFlier.Desktop.View
 {
     /// <summary>
     /// ConfigControl.xaml 的交互逻辑
@@ -32,7 +18,7 @@ namespace OpenFlier.Desktop
         public ConfigControl(Config currentConfig, ServiceManager serviceManager, Action<Config> preReloadAction)
         {
             InitializeComponent();
-            DataContext = new ConfigControlModel(currentConfig, serviceManager, preReloadAction);
+            DataContext = new ConfigViewModel(currentConfig, serviceManager, preReloadAction);
         }
 
 

@@ -1,23 +1,23 @@
 <UserControl
-    x:Class="OpenFlier.Desktop.ConfigControl"
+    x:Class="OpenFlier.Desktop.View.ConfigControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:OpenFlier.Desktop.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i18n="clr-namespace:OpenFlier.Desktop.Localization"
-    xmlns:converters="clr-namespace:OpenFlier.Desktop.Converters"
-    xmlns:vm="clr-namespace:OpenFlier.Desktop.ViewModel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ofc="clr-namespace:OpenFlier.Controls;assembly=OpenFlier.Controls"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    d:DataContext="{d:DesignInstance Type=vm:ConfigControlModel}"
+    xmlns:vm="clr-namespace:OpenFlier.Desktop.ViewModel"
+    d:DataContext="{d:DesignInstance Type=vm:ConfigViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     TextElement.FontFamily="{StaticResource Inter}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
+        <vm:ConfigViewModel x:Key="DesignModel" />
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <vm:ConfigControlModel x:Key="DesignModel" />
         <converters:StringListToStringConverter x:Key="StringListToStringConverter" />
         <converters:FalseToStrikethroughConverter x:Key="FalseToStrikethroughConverter" />
     </UserControl.Resources>
@@ -46,7 +46,10 @@
                 </TabItem.Header>
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock TextElement.Foreground="{DynamicResource TextColorOnBase}" Style="{StaticResource Title}" Text="{x:Static i18n:UI.AppearancesTitle}" />
+                        <TextBlock
+                            Style="{StaticResource Title}"
+                            Text="{x:Static i18n:UI.AppearancesTitle}"
+                            TextElement.Foreground="{DynamicResource TextColorOnBase}" />
 
                         <ofc:SettingsCard
                             Margin="0,8,0,0"
@@ -60,7 +63,7 @@
                                     Text="&#xf4a5;" />
                             </ofc:SettingsCard.HeaderIcon>
                             <ofc:SettingsCard.Content>
-                                <CheckBox IsChecked="{Binding EnableWindowEffects}" />
+                                <CheckBox IsChecked="{Binding ModifiedConfig.Appearances.EnableWindowEffects}" />
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
 
@@ -76,7 +79,7 @@
                                     Text="&#xe776;" />
                             </ofc:SettingsCard.HeaderIcon>
                             <ofc:SettingsCard.Content>
-                                <CheckBox IsChecked="{Binding RevertTextColor}" />
+                                <CheckBox IsChecked="{Binding ModifiedConfig.Appearances.RevertTextColor}" />
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
                     </StackPanel>
@@ -100,7 +103,10 @@
 
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock TextElement.Foreground="{DynamicResource TextColorOnBase}" Style="{StaticResource Title}" Text="{x:Static i18n:UI.GeneralTitle}" />
+                        <TextBlock
+                            Style="{StaticResource Title}"
+                            Text="{x:Static i18n:UI.GeneralTitle}"
+                            TextElement.Foreground="{DynamicResource TextColorOnBase}" />
 
                         <ofc:SettingsCard
                             Margin="0,8,0,0"
@@ -121,7 +127,7 @@
                                     <TextBox.Text>
                                         <Binding
                                             NotifyOnValidationError="True"
-                                            Path="SpecifiedConnectCode"
+                                            Path="ModifiedConfig.SpecifiedConnectCode"
                                             UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
                                                 <vm:ConnectCodeValidationRule />
@@ -157,7 +163,7 @@
                                     Text="&#xe8b9;" />
                             </ofc:SettingsCard.HeaderIcon>
                             <ofc:SettingsCard.Content>
-                                <CheckBox IsChecked="{Binding UsePng}" />
+                                <CheckBox IsChecked="{Binding ModifiedConfig.General.UsePng}" />
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
 
@@ -177,7 +183,7 @@
                                     Width="200"
                                     Margin="0,4,0,0"
                                     HorizontalAlignment="Left"
-                                    SelectedValue="{Binding Locale}">
+                                    SelectedValue="{Binding ModifiedConfig.General.Locale}">
                                     <ComboBox.ItemsSource>
                                         <x:Array Type="sys:String">
                                             <sys:String>en</sys:String>
@@ -204,7 +210,7 @@
                                 <TextBox
                                     Width="200"
                                     HorizontalAlignment="Left"
-                                    Text="{Binding SpecifiedMachineIdentifier}" />
+                                    Text="{Binding ModifiedConfig.SpecifiedMachineIdentifier}" />
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
 
@@ -225,7 +231,7 @@
                                 <TextBox
                                     Width="200"
                                     HorizontalAlignment="Left"
-                                    Text="{Binding MqttServerPort}" />
+                                    Text="{Binding ModifiedConfig.MqttServerPort}" />
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
 
@@ -244,7 +250,7 @@
                                 <TextBox
                                     Width="200"
                                     HorizontalAlignment="Left"
-                                    Text="{Binding UdpBroadcastPort}" />
+                                    Text="{Binding ModifiedConfig.UDPBroadcastPort}" />
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
 
@@ -263,7 +269,7 @@
                                 <TextBox
                                     Width="200"
                                     HorizontalAlignment="Left"
-                                    Text="{Binding SpecifiedEmulatedVersion}" />
+                                    Text="{Binding ModifiedConfig.SpecifiedEmulatedVersion}" />
                             </ofc:SettingsCard.Content>
                         </ofc:SettingsCard>
                     </StackPanel>
@@ -285,7 +291,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <StackPanel TextElement.Foreground="{DynamicResource TextColorOnBase}" Margin="8">
+                    <StackPanel Margin="8" TextElement.Foreground="{DynamicResource TextColorOnBase}">
                         <TextBlock Style="{StaticResource Title}" Text="{x:Static i18n:UI.SpecialChannelsTitle}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -322,7 +328,7 @@
                                 FontWeight="SemiBold"
                                 Text="{x:Static i18n:UI.CommandInputSourceTitle}" />
                         </Grid>
-                        <ListBox ItemsSource="{Binding CommandInputUsers}" SelectedItem="{Binding SelectedCommandInputUser}">
+                        <ListBox ItemsSource="{Binding ModifiedConfig.CommandInputUsers}" SelectedItem="{Binding SelectedCommandInputUser}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -374,7 +380,7 @@
                                 Grid.Row="2"
                                 Background="Transparent"
                                 BorderBrush="Transparent"
-                                ItemsSource="{Binding MqttServicePlugins}">
+                                ItemsSource="{Binding ModifiedConfig.MqttServicePlugins}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="0,2,0,2">
@@ -484,7 +490,7 @@
                             Grid.Row="2"
                             Background="Transparent"
                             BorderBrush="Transparent"
-                            ItemsSource="{Binding CommandInputPlugins}">
+                            ItemsSource="{Binding ModifiedConfig.CommandInputPlugins}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0,2,0,2">
@@ -605,7 +611,10 @@
 
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock TextElement.Foreground="{DynamicResource TextColorOnBase}" Style="{StaticResource Title}" Text="{x:Static i18n:UI.FileTitle}" />
+                        <TextBlock
+                            Style="{StaticResource Title}"
+                            Text="{x:Static i18n:UI.FileTitle}"
+                            TextElement.Foreground="{DynamicResource TextColorOnBase}" />
                         <Grid>
                             <ofc:SettingsCard
                                 Margin="0,8,0,0"
@@ -636,10 +645,10 @@
                                                 <ColumnDefinition Width="8" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <Button Command="{Binding RestoreDefaultCanceledCommand}" Content="{x:Static i18n:UI.CancelText}" />
+                                            <Button Command="{Binding RestoreDefaultConfigCommand}" Content="{x:Static i18n:UI.CancelText}" />
                                             <Button
                                                 Grid.Column="2"
-                                                Command="{Binding RestoreDefaultConfirmedCommand}"
+                                                Command="{Binding ConfirmRestoreConfigCommand}"
                                                 Content="{x:Static i18n:UI.OKText}"
                                                 Style="{StaticResource AccentButton}" />
                                         </Grid>
@@ -674,12 +683,11 @@
                 </ScrollViewer>
             </TabItem>
         </TabControl>
-        <Grid
+        <StackPanel Orientation="Horizontal" Margin="12" HorizontalAlignment="Right"
             Grid.Row="1"
-            HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom">
             <Button
-                Margin="12"
+                Margin="8 0 0 0"
                 HorizontalAlignment="Right"
                 Command="{Binding ApplyCommand}">
                 <StackPanel>
@@ -721,7 +729,7 @@
                     </Popup>
                 </StackPanel>
             </Button>
-        </Grid>
+        </StackPanel>
     </Grid>
 
 </UserControl>

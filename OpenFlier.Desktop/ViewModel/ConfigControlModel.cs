@@ -20,204 +20,53 @@ using System.Windows.Media;
 
 namespace OpenFlier.Desktop.ViewModel
 {
-    public partial class ConfigControlModel : ObservableObject
+    public partial class ConfigViewModel : ObservableObject
     {
-        private ServiceManager serviceManager;
-        private Action<Config> preReloadAction;
+        private readonly ServiceManager? serviceManager;
+        private readonly Action<Config>? preReloadAction;
 
-        public ConfigControlModel()
+        public ConfigViewModel()
         {
-            this.currentConfig = new Config();
-            CommandInputPlugins = new ObservableCollection<LocalPluginInfo<CommandInputPluginInfo>>(
-                currentConfig.CommandInputPlugins
-            );
-            CommandInputUsers = new ObservableCollection<CommandInputUser>(
-                currentConfig.CommandInputUsers
-            );
-            WindowTitle = currentConfig.Appearances.WindowTitle ?? "OpenFlier";
-            PrimaryColor = currentConfig.Appearances.PrimaryColor ?? "";
-            SecondaryColor = currentConfig.Appearances.SecondaryColor ?? "";
-            BackgroundImage = currentConfig.Appearances.BackgroundImage ?? "";
-            EnableWindowEffects = currentConfig.Appearances.EnableWindowEffects ?? true;
-            SyncColorWithSystem = currentConfig.Appearances.SyncColorWithSystem ?? false;
-            SpecifiedConnectCode = currentConfig.SpecifiedConnectCode ?? "";
-            SpecifiedEmulatedVersion = currentConfig.SpecifiedEmulatedVersion ?? "";
-
-            DefaultUpdateCheckURL = currentConfig.General.DefaultUpdateCheckURL;
-            UsePng = currentConfig.General.UsePng;
-
-            UdpBroadcastPort = currentConfig.UDPBroadcastPort ?? 33338;
-            MqttServerPort = currentConfig.MqttServerPort ?? 61136;
-            SpecifiedMachineIdentifier = currentConfig.SpecifiedMachineIdentifier ?? "";
-            SpecifiedConnectCode = currentConfig.SpecifiedConnectCode ?? "";
-            SpecifiedEmulatedVersion = currentConfig.SpecifiedEmulatedVersion ?? "2.1.1";
-            MqttServicePlugins = new ObservableCollection<LocalPluginInfo<MqttServicePluginInfo>>(
-                currentConfig.MqttServicePlugins
-            );
-            VerificationContent = currentConfig.VerificationContent;
-            FtpDirectory = currentConfig.FtpDirectory ?? "Screenshots";
-            ApplyCommand = new RelayCommand(Apply);
+            this._currentConfig = new Config();
+            ModifiedConfig = _currentConfig;
         }
 
-        public ConfigControlModel(
+        public ConfigViewModel(
             Config currentConfig,
             ServiceManager serviceManager,
             Action<Config> preReloadAction
         )
         {
-            this.currentConfig = currentConfig;
+            this._currentConfig = currentConfig;
             this.serviceManager = serviceManager;
             this.preReloadAction = preReloadAction;
-            CommandInputPlugins = new ObservableCollection<LocalPluginInfo<CommandInputPluginInfo>>(
-                currentConfig.CommandInputPlugins
-            );
-            CommandInputUsers = new ObservableCollection<CommandInputUser>(
-                currentConfig.CommandInputUsers
-            );
-            WindowTitle = currentConfig.Appearances.WindowTitle ?? "OpenFlier";
-            PrimaryColor = currentConfig.Appearances.PrimaryColor ?? "";
-            SecondaryColor = currentConfig.Appearances.SecondaryColor ?? "";
-            BackgroundImage = currentConfig.Appearances.BackgroundImage ?? "";
-            EnableWindowEffects = currentConfig.Appearances.EnableWindowEffects ?? true;
-            SyncColorWithSystem = currentConfig.Appearances.SyncColorWithSystem ?? false;
-            SpecifiedConnectCode = currentConfig.SpecifiedConnectCode ?? "";
-            SpecifiedEmulatedVersion = currentConfig.SpecifiedEmulatedVersion ?? "";
-
-            DefaultUpdateCheckURL = currentConfig.General.DefaultUpdateCheckURL;
-            UsePng = currentConfig.General.UsePng;
-            Locale = currentConfig.General.Locale ?? Thread.CurrentThread.CurrentUICulture.ToString();
-            RevertTextColor = currentConfig.Appearances.RevertTextColor;
-
-            UdpBroadcastPort = currentConfig.UDPBroadcastPort ?? 33338;
-            MqttServerPort = currentConfig.MqttServerPort ?? 61136;
-            SpecifiedMachineIdentifier = currentConfig.SpecifiedMachineIdentifier ?? "";
-            SpecifiedConnectCode = currentConfig.SpecifiedConnectCode ?? "";
-            SpecifiedEmulatedVersion = currentConfig.SpecifiedEmulatedVersion ?? "2.1.1";
-            MqttServicePlugins = new ObservableCollection<LocalPluginInfo<MqttServicePluginInfo>>(
-                currentConfig.MqttServicePlugins
-            );
-            VerificationContent = string.IsNullOrEmpty(currentConfig.VerificationContent)
-                ? "{\"type\":20007,\"data\":{\"topic\":\"Ec1xkK+uFtV/QO/8rduJ2A==\"}}"
-                : currentConfig.VerificationContent;
-            FtpDirectory = currentConfig.FtpDirectory ?? "Screenshots";
-            ApplyCommand = new RelayCommand(Apply, () => !ConfirmApplyPopupOpened);
-            ApplyCancelCommand = new RelayCommand(ApplyCancel);
-            ApplyConfirmCommand = new RelayCommand(ApplyConfirm);
-            RemoveCommandInputUserCommand = new RelayCommand(
-                RemoveCommandInputUser,
-                () => SelectedCommandInputUser != null
-            );
-            AddCommandInputUserCommand = new RelayCommand(AddCommandInputUser);
-            RestoreDefaultConfigCommand = new RelayCommand(
-                RestoreDefaultConfig,
-                () => !ConfirmRestorePopupOpened
-            );
-            RestoreDefaultCanceledCommand = new RelayCommand(CancelRestoreConfig);
-            RestoreDefaultConfirmedCommand = new RelayCommand(ConfirmRestoreConfig);
-            ExportDefaultConfigCommand = new RelayCommand(ExportDefaultConfig);
-            ConfigMqttServicePluginCommand = new RelayCommand<string?>(ConfigMqttServicePlugin);
-            ConfigCommandInputPluginCommand = new RelayCommand<string?>(ConfigCommandInputPlugin);
+            ModifiedConfig = currentConfig;
         }
 
-        private Config currentConfig;
-
-        #region CommandInput
-        [ObservableProperty]
-        private ObservableCollection<LocalPluginInfo<CommandInputPluginInfo>> commandInputPlugins;
+        private Config _currentConfig;
 
         [ObservableProperty]
-        private ObservableCollection<CommandInputUser> commandInputUsers;
+        private Config _modifiedConfig;
 
-        #endregion
-        #region Appereances
-        [ObservableProperty]
-        private string windowTitle;
-
-        [ObservableProperty]
-        private string primaryColor;
-
-        [ObservableProperty]
-        private string secondaryColor;
-
-        [ObservableProperty]
-        private string backgroundImage;
-
-        [ObservableProperty]
-        private bool enableWindowEffects;
-
-        [ObservableProperty]
-        private bool syncColorWithSystem;
-
-        [ObservableProperty]
-        private bool revertTextColor;
-
-        #endregion
-        #region General
-        [ObservableProperty]
-        private string? defaultUpdateCheckURL;
-
-        [ObservableProperty]
-        private bool usePng;
-
-        [ObservableProperty]
-        private string locale;
-
-        #endregion
-        #region CoreConfig
-        [ObservableProperty]
-        private int udpBroadcastPort;
-
-        [ObservableProperty]
-        private int mqttServerPort;
-
-        [ObservableProperty]
-        private string specifiedMachineIdentifier;
-
-        [ObservableProperty]
-        private string specifiedConnectCode;
-
-        [ObservableProperty]
-        private string specifiedEmulatedVersion;
-
-        [ObservableProperty]
-        private ObservableCollection<LocalPluginInfo<MqttServicePluginInfo>> mqttServicePlugins;
-
-        [ObservableProperty]
-        private string verificationContent;
-
-        [ObservableProperty]
-        private string ftpDirectory;
-        #endregion
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(ApplyCommand))]
-        private bool confirmApplyPopupOpened = false;
+        private bool _confirmApplyPopupOpened = false;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(RemoveCommandInputUserCommand))]
-        private CommandInputUser? selectedCommandInputUser;
+        private CommandInputUser? _selectedCommandInputUser;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(RestoreDefaultConfigCommand))]
-        private bool confirmRestorePopupOpened = false;
+        private bool _confirmRestorePopupOpened = false;
 
-        public IRelayCommand ApplyCommand { get; }
-        public ICommand ApplyConfirmCommand { get; }
-        public ICommand ApplyCancelCommand { get; }
-        public IRelayCommand AddCommandInputUserCommand { get; }
-        public IRelayCommand RemoveCommandInputUserCommand { get; }
-        public IRelayCommand RestoreDefaultConfigCommand { get; }
-        public ICommand RestoreDefaultConfirmedCommand { get; }
-        public ICommand RestoreDefaultCanceledCommand { get; }
-        public ICommand ExportDefaultConfigCommand { get; }
-        public ICommand ConfigMqttServicePluginCommand { get; }
-        public ICommand ConfigCommandInputPluginCommand { get; }
-
+        [RelayCommand(CanExecute = nameof(CanExecuteApply))]
         private void Apply()
         {
             Regex regex = new("^\\d{4}$");
             if (
-                !regex.IsMatch(SpecifiedConnectCode.Trim())
-                && !string.IsNullOrEmpty(SpecifiedConnectCode.Trim())
+                !string.IsNullOrEmpty(ModifiedConfig.SpecifiedConnectCode?.Trim())
+                && !regex.IsMatch(ModifiedConfig.SpecifiedConnectCode.Trim())
             )
             {
                 MessageBox.Show(
@@ -231,92 +80,87 @@ namespace OpenFlier.Desktop.ViewModel
             ConfirmApplyPopupOpened = true;
         }
 
+        private bool CanExecuteApply() => !ConfirmApplyPopupOpened;
+
+        [RelayCommand]
         private void ApplyCancel()
         {
             ConfirmApplyPopupOpened = false;
         }
 
+        [RelayCommand]
         private void ApplyConfirm()
         {
             ConfirmApplyPopupOpened = false;
-            var newConfig = new Config
-            {
-                Appearances = new Appearances
-                {
-                    BackgroundImage = BackgroundImage,
-                    EnableWindowEffects = EnableWindowEffects,
-                    PrimaryColor = PrimaryColor,
-                    SecondaryColor = SecondaryColor,
-                    SyncColorWithSystem = SyncColorWithSystem,
-                    WindowTitle = WindowTitle,
-                    RevertTextColor = RevertTextColor,
-                },
-                CommandInputPlugins = CommandInputPlugins.ToList(),
-                CommandInputUsers = CommandInputUsers.ToList(),
-                FtpDirectory = FtpDirectory,
-                General = new General
-                {
-                    DefaultUpdateCheckURL = DefaultUpdateCheckURL,
-                    UsePng = UsePng,
-                    Locale = Locale,
-                },
-                MqttServerPort = MqttServerPort,
-                MqttServicePlugins = MqttServicePlugins.ToList(),
-                SpecifiedConnectCode = SpecifiedConnectCode.Trim(),
-                SpecifiedEmulatedVersion = SpecifiedEmulatedVersion,
-                SpecifiedMachineIdentifier = SpecifiedMachineIdentifier,
-                UDPBroadcastPort = UdpBroadcastPort,
-                VerificationContent = VerificationContent,
-            };
             File.WriteAllText(
                 "config.json",
                 JsonSerializer.Serialize(
-                    newConfig,
+                    ModifiedConfig,
                     new JsonSerializerOptions { WriteIndented = true, }
                 )
             );
 
-            preReloadAction.Invoke(newConfig);
-            LocalStorage.Config = newConfig;
-            if(newConfig.Appearances.RevertTextColor)
-                Application.Current.Resources["TextColorOnBase"] = new SolidColorBrush(Colors.White);
+            preReloadAction?.Invoke(ModifiedConfig);
+            LocalStorage.Config = ModifiedConfig;
+            if (ModifiedConfig.Appearances.RevertTextColor)
+                Application.Current.Resources["TextColorOnBase"] = new SolidColorBrush(
+                    Colors.White
+                );
             else
-                Application.Current.Resources["TextColorOnBase"] = new SolidColorBrush(Colors.Black);
-            serviceManager.RestartAllServices(newConfig);
+                Application.Current.Resources["TextColorOnBase"] = new SolidColorBrush(
+                    Colors.Black
+                );
+            serviceManager?.RestartAllServices(ModifiedConfig);
             LocalStorage.DesktopMqttService?.RefreshCommandInputUserStatus();
+            _currentConfig = ModifiedConfig;
         }
 
+        [RelayCommand(CanExecute = nameof(CanExecuteRemoveCommandInputUser))]
         private void RemoveCommandInputUser()
         {
             if (SelectedCommandInputUser is null)
                 return;
-            CommandInputUsers.Remove(SelectedCommandInputUser);
+            ModifiedConfig.CommandInputUsers.Remove(SelectedCommandInputUser);
         }
 
+        private bool CanExecuteRemoveCommandInputUser() => SelectedCommandInputUser != null;
+
+        [RelayCommand]
         private void AddCommandInputUser()
         {
-            CommandInputUsers.Add(new CommandInputUser());
+            ModifiedConfig.CommandInputUsers.Add(new CommandInputUser());
         }
 
+        [RelayCommand(CanExecute = nameof(CanExecuteRestoreDefaultConfig))]
         private void RestoreDefaultConfig()
         {
             ConfirmRestorePopupOpened = true;
         }
+
+        private bool CanExecuteRestoreDefaultConfig() => !ConfirmRestorePopupOpened;
+
+        [RelayCommand]
         private void ConfirmRestoreConfig()
         {
             if (File.Exists("config.json"))
                 File.Delete("config.json");
             ConfirmRestorePopupOpened = false;
             var newConfig = new Config();
-            preReloadAction.Invoke(newConfig);
+            preReloadAction?.Invoke(newConfig);
             LocalStorage.Config = newConfig;
-            serviceManager.RestartAllServices(newConfig);
+            Application.Current.Resources["TextColorOnBase"] = new SolidColorBrush(Colors.Black);
+            serviceManager?.RestartAllServices(newConfig);
+            _currentConfig = new Config();
+            ModifiedConfig = _currentConfig;
         }
+
+        [RelayCommand]
         private void CancelRestoreConfig()
         {
             ConfirmRestorePopupOpened = false;
         }
 
+        [RelayCommand]
         private void ExportDefaultConfig()
         {
             var dialog = new SaveFileDialog()
@@ -329,6 +173,7 @@ namespace OpenFlier.Desktop.ViewModel
                 ConfigService.OutputDefaultConfig(dialog.FileName);
         }
 
+        [RelayCommand]
         private void ConfigMqttServicePlugin(string? localFilePath)
         {
             if (localFilePath == null)
@@ -358,6 +203,7 @@ namespace OpenFlier.Desktop.ViewModel
             }
         }
 
+        [RelayCommand]
         private void ConfigCommandInputPlugin(string? localFilePath)
         {
             if (localFilePath == null)
@@ -385,6 +231,12 @@ namespace OpenFlier.Desktop.ViewModel
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
+        }
+
+        [RelayCommand]
+        private void DiscardChanges()
+        {
+            ModifiedConfig = _currentConfig;
         }
     }
 }

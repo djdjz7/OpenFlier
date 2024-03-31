@@ -315,4 +315,7 @@ A restart is required for changes to take effect.</value>
     <value>Revert text color on transparent controls.
 This may increase readability of text on Areo matrials.</value>
   </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>Discard Changes</value>
+  </data>
 </root>

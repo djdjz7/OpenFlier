@@ -197,6 +197,15 @@ namespace OpenFlier.Desktop.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Discard Changes 的本地化字符串。
+        /// </summary>
+        public static string DiscardChanges {
+            get {
+                return ResourceManager.GetString("DiscardChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ZY ClassHelper sends its version code to your pad while transmitting image.
         ///Specified the latest version code here. 的本地化字符串。
         /// </summary>
