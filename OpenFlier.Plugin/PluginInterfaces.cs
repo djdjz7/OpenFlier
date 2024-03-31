@@ -1,5 +1,4 @@
-﻿using MQTTnet;
-using MQTTnet.Server;
+﻿using MQTTnet.Server;
 
 namespace OpenFlier.Plugin;
 
@@ -26,7 +25,7 @@ public interface IMqttServicePlugin
     public Task BeforeExit();
 }
 
-public class CommandInputPluginInfo: PluginInfoBase
+public class CommandInputPluginInfo : PluginInfoBase
 {
     public IEnumerable<string> InvokeCommands { get; init; }
 }

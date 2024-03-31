@@ -1,5 +1,4 @@
 ﻿using log4net;
-using log4net.Plugin;
 using OpenFlier.Core;
 using OpenFlier.Plugin;
 using System;
@@ -67,7 +66,7 @@ public class General
 {
     public string? DefaultUpdateCheckURL { get; set; }
     public bool UsePng { get; set; } = false;
-    public string? Locale {  get; set; }
+    public string? Locale { get; set; }
 }
 
 public class CommandInputUser

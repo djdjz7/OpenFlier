@@ -1,21 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
-using OpenFlier.Core;
 using OpenFlier.Core.Services;
 using OpenFlier.Desktop.Localization;
 using OpenFlier.Plugin;
 using System;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace OpenFlier.Desktop.ViewModel

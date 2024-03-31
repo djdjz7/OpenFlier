@@ -9,7 +9,7 @@ namespace StaticTest
         {
             return new CommandInputPluginInfo()
             {
-                InvokeCommands = new List<string>{ "st" },
+                InvokeCommands = new List<string> { "st" },
                 PluginAuthor = "",
                 PluginDescription = "",
                 PluginIdentifier = "openflier.dev.statictest",

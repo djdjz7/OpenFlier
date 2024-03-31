@@ -45,7 +45,7 @@ namespace OpenFlier.Updater
             }
             try
             {
-                foreach(var i in Process.GetProcessesByName("OpenFlier.Desktop"))
+                foreach (var i in Process.GetProcessesByName("OpenFlier.Desktop"))
                     i.Kill();
                 foreach (var i in Process.GetProcessesByName("OpenFlier.Utils"))
                     i.Kill();

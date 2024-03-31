@@ -1,15 +1,15 @@
-﻿using System;
+﻿using MQTTnet.Protocol;
+using MQTTnet.Server;
+using Newtonsoft.Json;
+using OpenFlier.Core;
+using OpenFlier.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Threading;
-using MQTTnet.Protocol;
-using MQTTnet.Server;
-using Newtonsoft.Json;
-using OpenFlier.Core;
-using OpenFlier.Core.Services;
 
 namespace OpenFlier.Desktop;
 /// <summary>
@@ -63,7 +63,8 @@ public partial class Video : Window, INotifyPropertyChanged
 
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
-        if (UserSelector.SelectedItem == null) return;
+        if (UserSelector.SelectedItem == null)
+            return;
         timer.Stop();
         timer = new();
         timer.Interval = TimeSpan.FromMilliseconds(Convert.ToInt32(Interval.Text));

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace OpenFlier.Mobile
+﻿namespace OpenFlier.Mobile
 {
     public static class MauiProgram
     {

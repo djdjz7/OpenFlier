@@ -1,14 +1,9 @@
 ﻿using log4net;
-using log4net.Plugin;
 using MQTTnet;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
 using Newtonsoft.Json;
-using OpenFlier.Core.Services;
 using OpenFlier.Plugin;
-using System.Diagnostics;
-using System.Drawing;
-using System.Reflection;
 using System.Text;
 
 namespace OpenFlier.Core.Services

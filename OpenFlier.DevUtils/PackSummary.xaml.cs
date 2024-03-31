@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using Google.Protobuf;
+using OpenFlier.Plugin;
+using System;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Google.Protobuf;
-using OpenFlier.Plugin;
 
 namespace OpenFlier.DevUtils;
 
@@ -80,7 +78,7 @@ public partial class PackSummary : Page
             MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
         }
 
-        typeJudgeDone:
+    typeJudgeDone:
         loadContext.Unload();
         if (_pluginType == null)
         {

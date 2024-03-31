@@ -1,11 +1,7 @@
 ﻿using Android.Net.Wifi;
 using OpenFlier.Core;
 using OpenFlier.Core.Services;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
 
 namespace OpenFlier.Mobile
 {
@@ -50,7 +46,7 @@ namespace OpenFlier.Mobile
             }, null);
             serviceManager.OnLoadCompleted += ServiceManager_OnLoadCompleted;
             serviceManager.BeginLoad();
-            
+
         }
 
         private void ServiceManager_OnLoadCompleted(bool isReloaded)

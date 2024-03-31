@@ -78,7 +78,7 @@ namespace OpenFlier.Utils
         private void InstallButton_Click(object sender, RoutedEventArgs e)
         {
             var processes = Process.GetProcesses();
-            foreach ( var process in processes )
+            foreach (var process in processes)
             {
                 if (process.ProcessName == "OpenFlier.Desktop")
                     process.Kill();
@@ -172,9 +172,9 @@ namespace OpenFlier.Utils
             if (Directory.Exists(currentPluginDirectory))
                 Directory.Delete(currentPluginDirectory, true);
             Directory.CreateDirectory(currentPluginDirectory);
-            using(var stream = new MemoryStream(singlePluginPackage.ZipArchive.ToArray()))
+            using (var stream = new MemoryStream(singlePluginPackage.ZipArchive.ToArray()))
             {
-                using(var zip = new ZipArchive(stream))
+                using (var zip = new ZipArchive(stream))
                 {
                     zip.ExtractToDirectory(currentPluginDirectory, true);
                 }

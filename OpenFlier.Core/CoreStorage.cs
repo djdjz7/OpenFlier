@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using OpenFlier.Core.Services;
-using System.Net;
+﻿using System.Net;
 
 namespace OpenFlier.Core
 {
