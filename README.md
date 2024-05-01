@@ -4,14 +4,23 @@
 <img src="icon.svg"/>
 </div>
 
-OpenFlier is an open-source implementation of ZY ClassHelper/ZYFlier which aims to solve historic issues such as multi-IP support etc.
+OpenFlier is an open-source implementation of ZY
+ClassHelper/ZYFlier which aims to solve historic
+issues such as multi-IP support etc.
 
-We are close to final release! 🎉
+> [!NOTE]
+> I'm graduating!
+>
+> Looking forward to someone who can take over this project (and any
+other related projects).
 
-Followings need to be down before final release:
+## CommandInputPlugin List
+### [OpenFlierWebshot](https://github.com/djdjz7/OpenFlierWebshot)
+OpenFlierWebshot allows you to capture a snapshot
+of a webpage.
 
-- [ ] Polish settings
-- [ ] Add updates (squirr)
+### RemoteRandom
+Sample plugin. Fetches an image from a remote source.
 
-And then we will focus on:
-- [ ] Performance improvements
+## Contributing
+Contributions welcome.
